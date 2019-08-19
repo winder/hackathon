@@ -195,7 +195,18 @@ Purestake (see Option 2).
 **Option 2**
 
 PureStake is offering up a token for this hackathon. You do not need to
-register. This is free for use during the hackathon.
+register. This is free for use during the hackathon. 
+
+PureStake's token declaration works with the Algorand JavaScript SDK with a minor update to client instantiation in return for many benefits. 
+
+Additional SDK support is in progress. 
+
+***Examples of a PureStake GET and POST***
+
+* [GET versions](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_versions.js)
+* [POST transaction](https://github.com/PureStake/api-examples/blob/master/javascript-examples/submit_tx.js)
+* [GET Transaction By Id](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_tx.js)
+
 
 > After the Hackathon is over, you can register to receive a new token
 > here:  
@@ -206,7 +217,7 @@ register. This is free for use during the hackathon.
 > 
 > <https://www.purestake.com/technology/algorand-services/>
 
-***API-Key token for both TestNet and MainNet:  
+***API-Key token for both TestNet and MainNet:   
 ***
 
 > B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
@@ -231,6 +242,11 @@ Pro and Enterprise levels:
 > Secure and Reliable Infrastructure
 
   - Automated Highly Available Infrastructure, Managed 24x7x365
+
+> Secure communications
+
+  - All API traffic over https only
+  
 
 <span id="_Toc16786816" class="anchor"></span>**Verify your data
 directory**  
