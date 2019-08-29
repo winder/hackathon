@@ -4,113 +4,110 @@
 
 [Getting Started for Hackathon 2](#getting-started-for-hackathon)
 
-[Install Algorand node 2](#_Toc16786815)
+[Install Algorand node 2](#_Toc17979065)
 
-[Verify your data directory 4](#_Toc16786816)
+[Verify your data directory 6](#_Toc17979066)
 
-[Apply current updates 5](#apply-current-updates)
-
-[Private network tutorials (optional)
-5](#private-network-tutorials-optional)
+[Apply current updates 6](#apply-current-updates)
 
 [Download/Clone Algorand SDKs in your language of choice.
-5](#_Toc16786819)
+7](#_Toc17979068)
 
 [Install VS Code or alternate IDE (optional)
-7](#install-vs-code-or-alternate-ide-optional)
+8](#install-vs-code-or-alternate-ide-optional)
 
-[Unzip the hackathon samples 8](#_Toc16786821)
-
-[Replace tokens and addresses in the sample code.
-11](#replace-tokens-and-addresses-in-the-sample-code.)
+[Unzip the hackathon samples 10](#_Toc17979070)
 
 [Start two terminal sessions 12](#start-two-terminal-sessions)
 
-[Install Postman or your favorite code-agnostic tool for REST API
-testing (Paw… etc) (Optional) 13](#_Toc16786824)
+[Replace tokens and addresses in the sample code.
+12](#replace-tokens-and-addresses-in-the-sample-code.)
 
-[Getting started with Private Network (optional)
-14](#getting-started-with-private-network-optional)
+[Install Postman or your favorite code-agnostic tool for REST API
+testing (Paw… etc) (Optional) 14](#_Toc17979073)
 
 [Goal Command Line tools / AlgoExplorer.io
-18](#goal-command-line-tools-algoexplorer.io)
+17](#goal-command-line-tools-algoexplorer.io)
 
-[Goal 18](#goal)
+[Goal 17](#goal)
 
 [AlgoExplorer.io 20](#algoexplorer.io)
 
-[SDKs 22](#sdks)
+[Getting started with Private Network (optional)
+22](#getting-started-with-private-network-optional)
 
-[JavaScript SDK 22](#bookmark=id.111kx3o)
+[SDKs 26](#sdks)
 
-[JavaScript SDK Sample webapp 23](#javascript-sdk-sample-webapp)
+[JavaScript SDK 26](#bookmark=id.111kx3o)
 
-[Encode/Decode Note Field 29](#encodedecode-note-field)
+[JavaScript SDK Sample webapp 27](#javascript-sdk-sample-webapp)
+
+[Encode/Decode Note Field 33](#encodedecode-note-field)
 
 [Node Example: Retrieving Latest Block Information
-30](#node-example-retrieving-latest-block-information)
+34](#node-example-retrieving-latest-block-information)
 
-[More Examples 31](#more-examples)
+[More Examples 35](#more-examples)
 
-[Go SDK 31](#bookmark=id.3ygebqi)
+[Go SDK 35](#bookmark=id.3ygebqi)
 
-[kmdclient.go - kmd client go 35](#kmdclient.go---kmd-client-go)
+[kmdclient.go - kmd client go 39](#kmdclient.go---kmd-client-go)
 
 [backupwallet.go - Backing up a Wallet
-36](#backupwallet.go---backing-up-a-wallet)
+40](#backupwallet.go---backing-up-a-wallet)
 
 [signsubmit.go - Signing and submitting a transaction
-36](#signsubmit.go---signing-and-submitting-a-transaction)
+40](#signsubmit.go---signing-and-submitting-a-transaction)
 
 [signoffline.go - Sign a transaction offline
-36](#signoffline.go---sign-a-transaction-offline)
+40](#signoffline.go---sign-a-transaction-offline)
 
 [submittransfilefrom.go - Submit the transaction from a file
-36](#submittransfilefrom.go---submit-the-transaction-from-a-file)
+40](#submittransfilefrom.go---submit-the-transaction-from-a-file)
 
 [manipulatemultisig.go - Manipulating multisig transactions
-36](#manipulatemultisig.go---manipulating-multisig-transactions)
+40](#manipulatemultisig.go---manipulating-multisig-transactions)
 
-[Java SDK 36](#java-sdk)
+[Java SDK 40](#java-sdk)
 
 [GetBlock.java – gets the status and lastround
-37](#getblock.java-gets-the-status-and-lastround)
+41](#getblock.java-gets-the-status-and-lastround)
 
 [AccountTest.java - Generate account and backup phrase
-38](#accounttest.java---generate-account-and-backup-phrase)
+42](#accounttest.java---generate-account-and-backup-phrase)
 
-[NewWallet.java - kmd client 38](#newwallet.java---kmd-client)
+[NewWallet.java - kmd client 42](#newwallet.java---kmd-client)
 
 [BackupWallet.java and RestoreWallet.java - Backing up and restoring a
 Wallet
-38](#backupwallet.java-and-restorewallet.java---backing-up-and-restoring-a-wallet)
+42](#backupwallet.java-and-restorewallet.java---backing-up-and-restoring-a-wallet)
 
 [SignAndSubmit.java - Signing and submitting a transaction
-39](#signandsubmit.java---signing-and-submitting-a-transaction)
+43](#signandsubmit.java---signing-and-submitting-a-transaction)
 
 [SignOffline.java - Sign a transaction offline
-39](#signoffline.java---sign-a-transaction-offline)
+43](#signoffline.java---sign-a-transaction-offline)
 
 [SubmitFromFile.java - Submit the transaction from a file
-39](#submitfromfile.java---submit-the-transaction-from-a-file)
+43](#submitfromfile.java---submit-the-transaction-from-a-file)
 
 [GetAccountTransactions.java - Get account transactions
-39](#getaccounttransactions.java---get-account-transactions)
+43](#getaccounttransactions.java---get-account-transactions)
 
 [Multisig.Java - Manipulating multisig transactions
-39](#multisig.java---manipulating-multisig-transactions)
+43](#multisig.java---manipulating-multisig-transactions)
 
 [EncodeDecode.Java - Encode/decode Note Field This sample shows how to
 encode and decode the Note Field to build Layer 2 solutions.
-39](#encodedecode.java---encodedecode-note-field-this-sample-shows-how-to-encode-and-decode-the-note-field-to-build-layer-2-solutions.)
+43](#encodedecode.java---encodedecode-note-field-this-sample-shows-how-to-encode-and-decode-the-note-field-to-build-layer-2-solutions.)
 
-[Python SDK 39](#python-sdk)
+[Python SDK 43](#python-sdk)
 
-[example.py 39](#example.py)
+[example.py 43](#example.py)
 
-[Working with the Note Field: 43](#working-with-the-note-field)
+[Working with the Note Field: 47](#working-with-the-note-field)
 
-[Resources 44](#resources)
+[Resources 48](#resources)
 
 # **Getting Started for Hackathon**
 
@@ -121,13 +118,17 @@ This section provides guidance on installing an Algorand node and the
 tools that will be useful in your hackathon efforts. Happy coding\!
 Download algorandsamples.zip at
 <http://github.com/algorand-devrel/hackathon> and unzip into a folder
-off of your $HOME folder. In terminal type in echo $HOME to get your
-Home folder location.
+off of your $HOME folder. To get your Home folder location, in terminal
+type in:  
+  
+echo $HOME
 
-<span id="_Toc16786815" class="anchor"></span>**Install Algorand node  
-**Time Estimate 10 minutes
+<span id="_Toc17979065" class="anchor"></span>**Install Algorand node  
+**
 
-In this section will install an Algorand node.
+Time Estimate 10 minutes
+
+In this section, we will install an Algorand node.
 
 A synchronized node will be provided for this hackathon, however, you
 need to install your own node, so you can do this lab exercise and
@@ -153,18 +154,34 @@ command from terminal:
 
 > goal node status -d \~/node/data
 
+The data directory is the data directory for the node. It may be simpler
+to set ALGORAND\_DATA env variable rather than specifying each time. In
+that case, the -d should be removed above.
+
+export ALGORAND\_DATA=\~/node/data
+
+If your solution will need to search transactions and blocks, such as
+the sample Chess Game here:
+<https://github.com/algorand-devrel/chessexample>, then you will need to
+change a couple of settings in the config.json file in the data folder,
+setting Archival to true, and IsIndexerArchive to true as shown below.
+Rename config.json.example to config.json if needed.
+
+![A screenshot of a social media post Description automatically
+generated](images/media/image1.png)
+
 Note: When installing with DEB or RPM packages the binaries will be
 installed in the /usr/bin and the data directory will be set to
 /var/lib/algorand. It is advisable in these installs that you add the
 following export to your shell config files.
 
-> export ALGORAND\_DATA=/var/lib/algorand
-> 
+export ALGORAND\_DATA=/var/lib/algorand
+
 > When the Sync Time is zero consistently, it will be close to, if not
 > all the way, synced.  
 >   
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image1.png)
+> generated](images/media/image2.png)
 
 **Alternatives**
 
@@ -174,9 +191,7 @@ Algod token and a Server URL. These values will be needed in your
 solution code as well as the sample hackathon lab exercises.  
   
   
-**Algorand Berlin Hackathon**  
-  
-**Option 1**
+**Option 1 -Algorand Hackathon**
 
 The API Token and Server address can be used in the Hackathon. Once the
 hackathon is over, you will need to use your own node or one from
@@ -188,67 +203,70 @@ Purestake (see Option 2).
 >   
 > Server Address
 
-<http://berlinhack.algodev.network:9100>
+<http://hackathon.algodev.network:9100/>
 
-**Purestake Token**
+The above service is set to Full Archival Indexer Nodes.
 
-**Option 2**
+**Option 2 - Purestake Token**
 
 PureStake is offering up a token for this hackathon. You do not need to
-register. This is free for use during the hackathon. 
+register. This is free for use during the hackathon.
 
-PureStake's token declaration works with the Algorand JavaScript SDK with a minor update to client instantiation in return for many benefits. 
+PureStake's token declaration works with the Algorand JavaScript SDK
+with a minor update to client instantiation in return for many benefits.
 
-Additional SDK support is in progress. 
+Additional SDK support is in progress.
 
 ***Examples of a PureStake GET and POST***
 
-* [GET versions](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_versions.js)
-* [POST transaction](https://github.com/PureStake/api-examples/blob/master/javascript-examples/submit_tx.js)
-* [GET Transaction By Id](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_tx.js)
+  - [GET
+    versions](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_versions.js)
 
+  - [POST
+    transaction](https://github.com/PureStake/api-examples/blob/master/javascript-examples/submit_tx.js)
 
-> After the Hackathon is over, you can register to receive a new token
-> here:  
->   
-> <https://www.purestake.com/algorand-api>
-> 
-> More details here:
-> 
-> <https://www.purestake.com/technology/algorand-services/>
+  - [GET Transaction By
+    Id](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_tx.js)
 
-***API-Key token for both TestNet and MainNet:   
-***
+After the Hackathon is over, you can register to receive a new token
+here:
 
-> B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
-> 
-> TestNet Server URL address:
-> https://testnet-algorand.api.purestake.io/ps1
-> 
-> MainNet Server URL address:
-> <https://mainnet-algorand.api.purestake.io/ps1>
+<https://www.purestake.com/algorand-api>
+
+More details here:
+
+<https://www.purestake.com/technology/algorand-services/>
+
+\*\*\*API-Key token for both TestNet and MainNet:
+
+B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+
+TestNet Server URL
+address: <https://testnet-algorand.api.purestake.io/ps1>
+
+MainNet Server URL
+address: <https://mainnet-algorand.api.purestake.io/ps1>
 
 Purestake offers many benefits including a Basic free tier as well as
 Pro and Enterprise levels:
 
-> Instant Access to Algorand API in Testnet and Mainnet
+Instant Access to Algorand API in Testnet and Mainnet
 
   - No wait for downloads and blockchain sync times
 
-> API is backed by Full Archival Transaction Indexer Nodes
+API is backed by Full Archival Transaction Indexer Nodes
 
   - Full algod API with performant transaction queries
 
-> Secure and Reliable Infrastructure
+Secure and Reliable Infrastructure
 
   - Automated Highly Available Infrastructure, Managed 24x7x365
 
-> Secure communications
+Secure communications
 
   - All API traffic over https only
-  
 
-<span id="_Toc16786816" class="anchor"></span>**Verify your data
+<span id="_Toc17979066" class="anchor"></span>**Verify your data
 directory**  
   
 To verify where your data directory is and that you are running TestNet,
@@ -257,36 +275,25 @@ use these two commands:
 1.  ps aux | grep algod
 
 > ![A close up of a mans face Description automatically
-> generated](images/media/image2.png)
+> generated](images/media/image3.png)
 
 2.  goal node status -d \~/node/data
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image3.png)
+> generated](images/media/image4.png)
 
 ## Apply current updates
 
+> To manually update use these commands  
+>   
 > cd \~/node
 > 
 > ./update.sh -d \~/node/data
-
-## Private network tutorials (optional)
-
-> Time Estimate - 5 minutes **  
-> **  
-> If are new to Algorand, it may be useful to spend some time doing the
-> Private Network tutorials.
 > 
-> These tutorials will get you familiar with many of the Goal commands
-> in a Private Network that you would be using to develop you solution.
-> The purpose of the Private Network is to facilitate developers with a
-> testing/learning environment without having to use TestNet or MainNet.
-> 
-> To get started in creating a Private network, in this document, see
-> [<span class="underline">Getting started with the Private
-> Network</span>](#section-1), (Estimated time 5 minutes)
+> To configure Auto-Update see:  
+> <https://developer.algorand.org/docs/configure-auto-update>
 
-<span id="_Toc16786819" class="anchor"></span>**Download/Clone Algorand
+<span id="_Toc17979068" class="anchor"></span>**Download/Clone Algorand
 SDKs in your language of choice.  
   
 These are the SDKs available to date. More are on the way. \*\***  
@@ -322,8 +329,16 @@ Time Estimate - 10 minutes
 > files that you can load in at
 > [<span class="underline">https://app.swaggerhub.com</span>](https://app.swaggerhub.com/)
 > to generate your own client. The swagger definition json files are for
-> Algod and kmd. These swagger.json files can also be loaded into code
-> agnostic tools such as
+> Algod and kmd.
+> 
+> KMD handles all interaction with spending keys, including signing
+> transactions. Signing can be stand alone as well.
+> 
+> Algod is responsible for processing the protocol and interacting with
+> SQLite to record the ledger. Implements REST API for read only APIs.
+> 
+> These swagger.json files can also be loaded into code agnostic tools
+> such as
 > [<span class="underline">Postman</span>](https://www.getpostman.com/downloads/)
 > or [<span class="underline">Paw</span>](https://paw.cloud/) for REST
 > API testing. To generate the latest swagger definitions, use the
@@ -338,6 +353,11 @@ Time Estimate - 10 minutes
 > swagger.json  
 > (this will appear in your node folder)
 > 
+> If ALGORAND\_DATA is used, then replace with
+> 
+> curl http://$(cat $ALGORAND\_DATA/algod.net)/swagger.json \>
+> swagger.json
+> 
 > For **kmd** use:
 > 
 > [<span class="underline">http://localhost:7833/swagger.json</span>](http://localhost:7833/swagger.json)
@@ -349,12 +369,17 @@ Time Estimate - 10 minutes
 > 
 > (this will appear in your node folder)
 > 
+> If ALGORAND\_DATA is used, then replace with
+> 
+> curl http://$(cat $ALGORAND\_DATA/kmd-v0.5/kmd.net)/swagger.json \>
+> swaggerkmd.json
+> 
 > Then import at
 > [<span class="underline">https://app.swaggerhub.com</span>](https://app.swaggerhub.com/)
 > and select CodeGen Options for the Client SDK in the desired language
 > 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image4.png)
+> generated](images/media/image5.png)
 
 ## Install VS Code or alternate IDE (optional)  
 
@@ -372,7 +397,8 @@ Time Estimate - 10 minutes
 
   - > Debugging
 
-  - > Intellisense
+  - > Intellisense: tool for facilitating code editing such as code
+    > completion, parameter info, quick info, and member lists
 
   - > Workspace support to easily load and run each demo
 
@@ -391,54 +417,27 @@ Should you decide to use VS Code, your extensions list should look
 something like this:
 
 > ![A screenshot of a computer Description automatically
-> generated](images/media/image5.png)
+> generated](images/media/image6.png)
 
-<span id="_Toc16786821" class="anchor"></span>**Unzip the hackathon
+<span id="_Toc17979070" class="anchor"></span>**Unzip the hackathon
 samples**  
   
   
 Time Estimate - 5 minutes  
   
-From <http://github.com/algoand-devrel/hackathon> Download/Clone the
+From <http://github.com/algorand-devrel/hackathon> Download/Clone the
 Hackathon repository which has the algorandsamples.zip file and this
 document in the readme.md, Unzip into a folder off of your $HOME folder
 
-In terminal type in echo $HOME to get your Home folder location. The
-contents should look similar to this:
+To get your Home folder location, in terminal type in
+
+echo $HOME
+
+The contents should look similar to this:
 
 ![A screenshot of text Description automatically
-generated](images/media/image6.png)**  
+generated](images/media/image7.png)**  
 **
-
-## Replace tokens and addresses in the sample code. 
-
-Time Estimate - 10 minutes
-
-Follow the SDK install directions for each in the readme files. In all
-of the examples, at some point, you will need to replace the code
-placeholders with the Algod and Kmd tokens and network addresses in
-each. For the node you created, these can be found here…
-
-> From your node directory copy off values in /data for:
-
-  - > algod.token
-
-  - > algod.net
-
-> From your node directory copy off values in /data/kmd-v0.5 for:
-
-  - > kmd.token
-
-  - > kmd.net
-
-> ![A screenshot of a cell phone Description automatically
-> generated](images/media/image7.png)
-
-For example, in the JavaScript SDK sample webapp test.js file update the
-constants with these values:
-
-> ![A screenshot of a cell phone Description automatically
-> generated](images/media/image8.png)
 
 ## Start two terminal sessions 
 
@@ -456,10 +455,47 @@ constants with these values:
 > goal node start -d \~/node/data
 > 
 > goal kmd start -d \~/node/data
+> 
+> If $ALGORAND\_DATA has been set, simply use
+> 
+> goal node start
+> 
+> goal kmd start
 
-# 
+## Replace tokens and addresses in the sample code. 
 
-<span id="_Toc16786824" class="anchor"></span>**Install Postman or your
+Time Estimate - 10 minutes
+
+Follow the SDK install directions for each in the readme files. In all
+of the examples, at some point, you will need to replace the code
+placeholders with the Algod and Kmd tokens and network addresses in
+each. The files below will only appear if the KMD and Node have been
+started above. For the node you created, these can be found here…
+
+> From your node directory copy off values from your data directory or
+> $ALGORAND\_DATA
+
+  - > algod.token
+
+  - > algod.net
+
+> From your node directory copy off from your data directory or
+> $ALGORAND\_DATA
+
+  - > kmd.token
+
+  - > kmd.net
+
+> ![A screenshot of a cell phone Description automatically
+> generated](images/media/image8.png)
+
+For example, in the JavaScript SDK sample webapp test.js file update the
+constants with these values:
+
+> ![A screenshot of a cell phone Description automatically
+> generated](images/media/image9.png)
+
+<span id="_Toc17979073" class="anchor"></span>**Install Postman or your
 favorite code-agnostic tool for REST API testing (Paw… etc) (Optional)  
   
 **Time Estimate - 10 minutes
@@ -473,22 +509,34 @@ different programming skill sets.
 2.  To get the latest Algorand swagger.json files use these commands
     from terminal:
 
-> goal node start -d \~/node/data  
->   
-> goal kmd start -d \~/node/data  
->   
->   
-> curl http://$(cat \~/node/data/algod.net)/swagger.json \> swagger.json
-> 
+> goal node start -d \~/node/data
+
+goal kmd start -d \~/node/data
+
+curl http://$(cat \~/node/data/algod.net)/swagger.json \> swagger.json
+
 > curl http://$(cat \~/node/data/kmd-v0.5/kmd.net)/swagger.json \>
 > swaggerkmd.json
 
-3.  Import these Json swagger files into Postman
+3.  If you are using the standup instance for the hackathon use this
+    command:
+
+> curl http://$(cat
+> <http://hackathon.algodev.network:9100/swagger.json>)/swagger.json \>
+> swagger.json
+
+4.  If you are using the Purestake service you must supply the API token
+    in the header and this can be done in Postman  
+      
+    ![A screenshot of a social media post Description automatically
+    generated](images/media/image10.png)
+
+5.  Import these Json swagger files into Postman
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image9.png)
+> generated](images/media/image11.png)
 
-4.  Make these changes to the request:
+6.  Make these changes to the request:
 
 <!-- end list -->
 
@@ -496,9 +544,20 @@ different programming skill sets.
 
 2.  Change http://localhost to
     [<span class="underline">http://127.0.0.1:8080</span>](http://127.0.0.1:8080)
-    for algod or
+    for algod  
+    and
     [<span class="underline">http://127.0.0.1:7833</span>](http://127.0.0.1:7833)
-    for kmd
+    for kmd  
+      
+    If using the hackathon instance change http://localhost to:
+    <http://hackathon.algodev.network:9100/>  
+      
+    If using Purestake change http://localhost to:  
+    <https://testnet.algo-api.purestake.io/ps1>  
+    and add the header  
+    Key name and token value provided:  
+    ![A screenshot of a cell phone Description automatically
+    generated](images/media/image12.png)
 
 3.  Add header key and value ([<span class="underline">info
     here</span>](https://developer.algorand.org/docs/using-sdks-and-rest-apis))  
@@ -510,9 +569,128 @@ different programming skill sets.
 5.  See the response
 
 > ![A screenshot of a social media post Description automatically
-> generated](images/media/image10.png)
+> generated](images/media/image13.png)
+
+6.  It might be more convenient to set the variable baseUrl in an
+    environment of PostMan rather than changing each request
+    individually.
+
+7.  There is a trick to use a pre-request script: right click on the
+    collection Algod REST API, edit, then pre-request script, and
+    write:  
+    pm.request.headers.upsert({key: 'X-Algo-API-Token', value:
+    'e5c941507a5ae016a47a59a76b492dded26dbf0462283f2a227dae340f11b6ed'
+    })  
+      
+    This removes the need of adding the header in all requests.  
+      
+    ![A screenshot of a cell phone Description automatically
+    generated](images/media/image14.png)
 
 # 
+
+# 
+
+# **Goal Command Line tools / AlgoExplorer.io**  
+
+Time Estimate - 10 minutes
+
+In this section we will show how to use the goal command line tool as
+well as the AlgoExplorer.io.
+
+## Goal
+
+The goal command line tool provides access to these objects, methods and
+properties.
+
+> ![A screenshot of a computer Description automatically
+> generated](images/media/image15.png)
+
+The data directory is the data directory for the node. It may be simpler
+to set ALGORAND\_DATA env variable rather than specifying each time. In
+that case, the -d should be removed above.
+
+export ALGORAND\_DATA=\~/node/data
+
+Note: When installing with DEB or RPM packages the binaries will be
+installed in the /usr/bin and the data directory will be set to
+/var/lib/algorand. It is advisable in these installs that you add the
+following export to your shell config files.
+
+export ALGORAND\_DATA=/var/lib/algorand
+
+Also, if you have not set the PATH variable to include the node install
+folder, do so with this:
+
+export PATH=$PATH:\~/node
+
+Restart the terminal session after defining the environment variable
+
+1.  To start a node use this command:  
+      
+    goal node start
+
+2.  To start kmd use this command:  
+      
+    goal kmd start
+
+3.  To get help with goal use this command:  
+      
+    goal -h  
+      
+    ![A screenshot of a social media post Description automatically
+    generated](images/media/image16.png)
+
+4.  To get help with and command
+
+> goal \[command\] -h  
+>   
+> For example, us this command to get help with node
+> 
+> goal node -h
+> 
+> ![A screenshot of a cell phone Description automatically
+> generated](images/media/image17.png)
+
+5.  Run this to get a status. We will copy off the block number, for
+    subsequent use in AlgoExplorer:
+
+> goal node status
+
+6.  Copy last committed block
+
+![A screenshot of a cell phone Description automatically
+generated](images/media/image18.png)
+
+## AlgoExplorer.io
+
+The AlgoExplorer can be used to search on blocks, transactions and
+account addresses in either MainNet or TestNet.
+
+1.  Browse to <span class="underline">[
+    https://algoexplorer.io/](https://algoexplorer.io/)</span>
+
+2.  Click on TestNet in the dropdown
+
+![A screenshot of a cell phone Description automatically
+generated](images/media/image19.png)
+
+3.  Paste in block, press search, click on transactions. If you do not
+    see any transactions, use this block: 868921
+
+![A screenshot of a cell phone Description automatically
+generated](images/media/image20.png)
+
+4.  Click on TxID
+
+> ![A screenshot of a cell phone Description automatically
+> generated](images/media/image21.png)
+
+5.  Drill into a transaction and notice Sender / receiver / note /
+    status / amount / fees and other fields.
+
+> ![A screenshot of a cell phone Description automatically
+> generated](images/media/image22.png)
 
 # **Getting started with Private Network (optional)**
 
@@ -537,7 +715,7 @@ Network.
     and Node Nodes that will be created.
 
 > ![A close up of a map Description automatically
-> generated](images/media/image11.png)
+> generated](images/media/image23.png)
 
 3)  In Finder, navigate to your root directory and show the directory
     structure does not have folders for Node and Primary.
@@ -548,27 +726,27 @@ Network.
 > **goal network create -r \~/net1 -n private -t networktemplate.json**
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image12.png)
+generated](images/media/image24.png)
 
 > **goal network start -r \~/net1**
 > 
 > **goal network status -r \~/net1**
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image13.png)
+generated](images/media/image25.png)
 
 5)  Open Finder and look at the directory structure for /net1/Node and
     /net1/Primary  
       
     ![A screenshot of a cell phone Description automatically
-    generated](images/media/image14.png)
+    generated](images/media/image26.png)
 
 6)  (Optional) The full set of Private Network tutorials are here:
     [<span class="underline">https://developer.algorand.org/docs/tutorials</span>](https://developer.algorand.org/docs/tutorials).
     This is a great learning resource.
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image15.png)
+> generated](images/media/image27.png)
 
 Go to
 <span class="underline"><https://developer.algorand.org/docs/creating-new-account-and-participation-key></span>
@@ -583,99 +761,13 @@ to complete all the rest of the tasks in this tutorial including:
   - Creating a multisig account
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image16.png)
+> generated](images/media/image28.png)
 
 7)  Once finished you can delete the private network as this is for
     learning only and cannot be used for further development, other than
     testing with SDK code. Delete the Private Network
 
 > **goal network delete -r \~/net1**
-
-# **Goal Command Line tools / AlgoExplorer.io**  
-
-Time Estimate - 10 minutes
-
-In this section we will show how to use the goal command line tool as
-well as the AlgoExplorer.io.
-
-## Goal
-
-The goal command line tool provides access to these objects, methods and
-properties.
-
-> ![A screenshot of a computer Description automatically
-> generated](images/media/image17.png)
-
-1.  To start a node use this command:
-
-> goal node start -d \~/node/data  
->   
-> You may need to use this command depending on your path environment
-> variable.
-> 
-> ./goal node start -d \~/node/data
-
-2.  To start kmd use this command:  
-      
-    goal kmd start -d \~/node/data
-
-3.  To get help with goal use this command:  
-      
-    goal -h  
-      
-    ![A screenshot of a social media post Description automatically
-    generated](images/media/image18.png)
-
-4.  To get help with and command
-
-> goal \[command\] -h  
->   
-> For example, us this command to get help with node
-> 
-> goal node -h
-> 
-> ![A screenshot of a cell phone Description automatically
-> generated](images/media/image19.png)
-
-5.  Run this to get a status. We will copy off the block number, for
-    subsequent use in AlgoExplorer:
-
-> goal node status -d \~/node/data
-
-6.  Copy last committed block
-
-![A screenshot of a cell phone Description automatically
-generated](images/media/image20.png)
-
-## AlgoExplorer.io
-
-The AlgoExplorer can be used to search on blocks, transactions and
-account addresses in either MainNet or TestNet.
-
-1.  Browse to <span class="underline">[
-    https://algoexplorer.io/](https://algoexplorer.io/)</span>
-
-2.  Click on TestNet in the dropdown
-
-![A screenshot of a cell phone Description automatically
-generated](images/media/image21.png)
-
-3.  Paste in block, press search, click on transactions. If you do not
-    see any transactions, use this block: 868921
-
-![A screenshot of a cell phone Description automatically
-generated](images/media/image22.png)
-
-4.  Click on TxID
-
-> ![A screenshot of a cell phone Description automatically
-> generated](images/media/image23.png)
-
-5.  Drill into a transaction and notice Sender / receiver / note /
-    status / amount / fees and other fields.
-
-> ![A screenshot of a cell phone Description automatically
-> generated](images/media/image24.png)
 
 # **SDKs**
 
@@ -709,7 +801,7 @@ generated](images/media/image22.png)
 2)  The JavaScript launch.json file should be similar to this
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image25.png)
+generated](images/media/image29.png)
 
 ### JavaScript SDK Sample webapp
 
@@ -722,7 +814,7 @@ generated](images/media/image25.png)
 [<span class="underline">https://github.com/algorand/js-algorand-sdk</span>](https://github.com/algorand/js-algorand-sdk)
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image26.png)
+generated](images/media/image30.png)
 
 4)  Install the JavaScript SDK using the instructions on the readme
     file.
@@ -732,7 +824,7 @@ generated](images/media/image26.png)
     sample code on GitHub to stay in sync.
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image27.png)
+> generated](images/media/image31.png)
 
 6)  Run thru debugger with localhost (launch.json file below) or just
     bring up Finder and double click on Test.html.
@@ -741,7 +833,7 @@ generated](images/media/image26.png)
     localhost:
 
 > ![A screenshot of a social media post Description automatically
-> generated](images/media/image25.png)
+> generated](images/media/image29.png)
 
 8)  **Run sample by navigating to the test.html page and click on
     buttons in this order:**
@@ -772,22 +864,22 @@ Screen shots:
 1.  Get Latest Block
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image28.png)
+> generated](images/media/image32.png)
 
 2.  Generate Account
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image29.png)
+> generated](images/media/image33.png)
 
 3.  Get Account Details
 
 > ![A screenshot of a social media post Description automatically
-> generated](images/media/image30.png)
+> generated](images/media/image34.png)
 
 4.  Algorand TestNet Dispenser
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image31.png)
+> generated](images/media/image35.png)
 
 5.  Recover Account from Account Mnemonic
 
@@ -795,17 +887,17 @@ Screen shots:
     seconds
 
 > ![A screenshot of a social media post Description automatically
-> generated](images/media/image32.png)
+> generated](images/media/image36.png)
 
 7.  Submit Transaction
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image33.png)
+> generated](images/media/image37.png)
 
 8.  Get Tx From Account
 
 > ![A screenshot of a cell phone Description automatically
-> generated](images/media/image34.png)
+> generated](images/media/image38.png)
 
 9)  **Walk thru code in code in** **test.js** and **see each function we
     just used**.  
@@ -825,7 +917,7 @@ Screen shots:
     code, this should be the same as seen when running the demo.
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image35.png)
+generated](images/media/image39.png)
 
 ### Encode/Decode Note Field
 
@@ -843,7 +935,7 @@ generated](images/media/image35.png)
 3)  Look for the encodeObj method
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image36.png)
+generated](images/media/image40.png)
 
 1)  Open test.js
 
@@ -852,7 +944,7 @@ generated](images/media/image36.png)
 3)  Look for the decodeObj method
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image37.png)
+generated](images/media/image41.png)
 
 ### Node Example: Retrieving Latest Block Information  
 
@@ -940,10 +1032,10 @@ GOPATH=\~/go:\~/algorandsamples/mygodemo/
 export GOPATH
 
 2)  To edit the .bash\_profile to add the above statements, quit
-    and restart terminal and Visual Studio Code. This file is located
-    in your home directory and you may need to type in command + shift +
-    . to see it in Finder or opening the file in your editor, as it is
-    hidden. 
+    and restart terminal and Visual Studio Code. Adapt accordingly if
+    you are not using bash as a shell. This file is located in your home
+    directory and you may need to type in command + shift + . to see it
+    in Finder or opening the file in your editor, as it is hidden. 
 
 3)  **For the Go samples, open folder for mygodemo into VS Code or you
     favorite IDE  
@@ -955,7 +1047,7 @@ export GOPATH
 4)  The Go **launch.json** file should be similar to this:
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image38.png)
+generated](images/media/image42.png)
 
 5)  In this step we will create an algodclient using the Go SDK. We will
     create the algod client and fetch node status information, and then
@@ -971,17 +1063,17 @@ If you have not already done so, Download/clone the Go SDK from:
 7)  **Review the readme file:**
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image39.png)
+generated](images/media/image43.png)
 
 8)  **In VS Code, open algodclient.go in the VS Code Explorer**
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image40.png)
+generated](images/media/image44.png)
 
 9)  Your launch.json file should look similar to this:
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image41.png)
+generated](images/media/image45.png)
 
 1.  Select the debugger
 
@@ -997,7 +1089,7 @@ generated](images/media/image41.png)
 6.  Note status info in the debug console
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image42.png)
+generated](images/media/image46.png)
 
 10) The debug console should show results for creating an algod client,
     algod status and block information.
@@ -1063,7 +1155,7 @@ Time estimate: 20 minutes
 2)  The Java **launch.json** file should be similar to this:
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image43.png)
+generated](images/media/image47.png)
 
 3)  In this section we will get a block and display the info using the
     Java SDK. We will create the algod client and fetch node status
@@ -1087,7 +1179,7 @@ generated](images/media/image43.png)
 5.  Note the Output Console Display of the latest block
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image44.png)
+generated](images/media/image48.png)
 
 5)  Run as many of the following scripts as desired, in this order
     (there is a file for each in a folder):
@@ -1172,7 +1264,7 @@ example.py
 2)  The Python **launch.json** file should be similar to this:
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image45.png)
+generated](images/media/image49.png)
 
 3)  If not already done, clone or download the Python SDK at:
 
@@ -1205,7 +1297,7 @@ goal account new -d \[data directory\] -w \[wallet name\]
     3\) Add your data directory path
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image46.png)
+generated](images/media/image50.png)
 
 9)  Edit example.py  
       
@@ -1215,7 +1307,7 @@ generated](images/media/image46.png)
     4\) Run the code and see the results in the Output console
 
 ![A screenshot of a cell phone Description automatically
-generated](images/media/image47.png)
+generated](images/media/image51.png)
 
 10) The example code performs the following functions:  
       
@@ -1244,14 +1336,14 @@ goal wallet list -w \[wallet name\] -d data
 You should see something like this:
 
 ![A close up of a device Description automatically
-generated](images/media/image48.png)
+generated](images/media/image52.png)
 
 goal account list -w \[wallet name\] -d data
 
 You should see something like this:
 
 ![A close up of a device Description automatically
-generated](images/media/image49.png)
+generated](images/media/image53.png)
 
 Other examples – (optional)
 
@@ -1340,7 +1432,7 @@ Required for a New Borderless Economy
   - [<span class="underline">https://www.coindesk.com/events/consensus-2019/videos</span>](https://www.coindesk.com/events/consensus-2019/videos)
 
 ![A screenshot of a social media post Description automatically
-generated](images/media/image50.png)
+generated](images/media/image54.png)
 
 More resources here:
 
