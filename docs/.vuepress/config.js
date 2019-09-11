@@ -8,6 +8,6 @@ module.exports = {
       { text: "Algorand Explorer", link: "https://algoexplorer.io" }
     ],
     // sidebar: ["/"]
-    sidebar: ["/", ["/getting-started/", "Example Link"]]
+    sidebar: ["/"]
   }
 };
