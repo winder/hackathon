@@ -1,0 +1,24 @@
+{
+  "name": "hackathon",
+  "version": "1.0.0",
+  "description": "**LAB Exercise - Algorand Hackathon Developer**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/algorand-devrel/hackathon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/algorand-devrel/hackathon/issues"
+  },
+  "homepage": "https://github.com/algorand-devrel/hackathon#readme",
+  "devDependencies": {
+    "vuepress": "^1.0.4"
+  }
+}
