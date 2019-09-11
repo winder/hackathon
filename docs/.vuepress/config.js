@@ -7,7 +7,7 @@ module.exports = {
       { text: "Developer Docs", link: "https://developer.algorand.org" },
       { text: "Algorand Explorer", link: "https://algoexplorer.io" }
     ],
-    sidebar: ["/"]
-    // sidebar: ["/", ["/getting-started/", "Example Link"]]
+    // sidebar: ["/"]
+    sidebar: ["/", ["/getting-started/", "Example Link"]]
   }
 };
