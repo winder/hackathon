@@ -9,6 +9,6 @@ module.exports = {
       { text: "Algorand Explorer", link: "https://algoexplorer.io" }
     ],
     sidebarDepth: 2,
-    sidebar: ["/"]
+    sidebar: [["/", "LAB Exercise - Algorand Hackathon Developer"]]
   }
 };
