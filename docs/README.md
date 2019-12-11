@@ -1,125 +1,22 @@
-**LAB Exercise - Algorand Hackathon Developer**
+LAB Exercise - Algorand Hackathon Developer
+===========================================
 
-**Table of Contents**
+Getting Started for Hackathon
+-----------------------------
 
-[Getting Started for Hackathon 2](#getting-started-for-hackathon)
-
-[Install Algorand node 2](#_Toc17979065)
-
-[Verify your data directory 6](#_Toc17979066)
-
-[Apply current updates 6](#apply-current-updates)
-
-[Download/Clone Algorand SDKs in your language of choice. 7](#_Toc17979068)
-
-[Install VS Code or alternate IDE (optional)
-8](#install-vs-code-or-alternate-ide-optional)
-
-[Unzip the hackathon samples 10](#_Toc17979070)
-
-[Start two terminal sessions 12](#start-two-terminal-sessions)
-
-[Replace tokens and addresses in the sample code.
-12](#replace-tokens-and-addresses-in-the-sample-code.)
-
-[Install Postman or your favorite code-agnostic tool for REST API testing (Paw…
-etc) (Optional) 14](#_Toc17979073)
-
-[Goal Command Line tools / AlgoExplorer.io
-17](#goal-command-line-tools-algoexplorer.io)
-
-[Goal 17](#goal)
-
-[AlgoExplorer.io 20](#algoexplorer.io)
-
-[Getting started with Private Network (optional)
-22](#getting-started-with-private-network-optional)
-
-[SDKs 26](#sdks)
-
-[JavaScript SDK 26](#_Toc17979079)
-
-[JavaScript SDK Sample webapp 27](#javascript-sdk-sample-webapp)
-
-[Encode/Decode Note Field 33](#encodedecode-note-field)
-
-[Node Example: Retrieving Latest Block Information
-34](#node-example-retrieving-latest-block-information)
-
-[More Examples 35](#more-examples)
-
-[Go SDK 35](#_Toc17979084)
-
-[kmdclient.go - kmd client go 39](#kmdclient.go---kmd-client-go)
-
-[backupwallet.go - Backing up a Wallet
-40](#backupwallet.go---backing-up-a-wallet)
-
-[signsubmit.go - Signing and submitting a transaction
-40](#signsubmit.go---signing-and-submitting-a-transaction)
-
-[signoffline.go - Sign a transaction offline
-40](#signoffline.go---sign-a-transaction-offline)
-
-[submittransfilefrom.go - Submit the transaction from a file
-40](#submittransfilefrom.go---submit-the-transaction-from-a-file)
-
-[manipulatemultisig.go - Manipulating multisig transactions
-40](#manipulatemultisig.go---manipulating-multisig-transactions)
-
-[Java SDK 40](#java-sdk)
-
-[GetBlock.java – gets the status and lastround
-41](#getblock.java-gets-the-status-and-lastround)
-
-[AccountTest.java - Generate account and backup phrase
-42](#accounttest.java---generate-account-and-backup-phrase)
-
-[NewWallet.java - kmd client 42](#newwallet.java---kmd-client)
-
-[BackupWallet.java and RestoreWallet.java - Backing up and restoring a Wallet
-42](#backupwallet.java-and-restorewallet.java---backing-up-and-restoring-a-wallet)
-
-[SignAndSubmit.java - Signing and submitting a transaction
-43](#signandsubmit.java---signing-and-submitting-a-transaction)
-
-[SignOffline.java - Sign a transaction offline
-43](#signoffline.java---sign-a-transaction-offline)
-
-[SubmitFromFile.java - Submit the transaction from a file
-43](#submitfromfile.java---submit-the-transaction-from-a-file)
-
-[GetAccountTransactions.java - Get account transactions
-43](#getaccounttransactions.java---get-account-transactions)
-
-[Multisig.Java - Manipulating multisig transactions
-43](#multisig.java---manipulating-multisig-transactions)
-
-[EncodeDecode.Java - Encode/decode Note Field This sample shows how to encode
-and decode the Note Field to build Layer 2 solutions.
-43](#encodedecode.java---encodedecode-note-field-this-sample-shows-how-to-encode-and-decode-the-note-field-to-build-layer-2-solutions.)
-
-[Python SDK 43](#python-sdk)
-
-[example.py 43](#example.py)
-
-[Working with the Note Field: 47](#working-with-the-note-field)
-
-[Resources 48](#resources)
-
-# **Getting Started for Hackathon**
-
+  
 **Time Estimate: 1 hour**
 
 This section provides guidance on installing an Algorand node and the tools that
 will be useful in your hackathon efforts. Happy coding! Download
 algorandsamples.zip at <http://github.com/algorand-devrel/hackathon> and unzip
 into a folder off of your \$HOME folder. To get your Home folder location, in
-terminal type in:
-
+terminal type in:  
+  
 echo \$HOME
 
-**Install Algorand node**
+**Install Algorand node**  
+
 
 Time Estimate 10 minutes
 
@@ -130,7 +27,8 @@ install your own node, so you can do this lab exercise and continue to work on
 the solution after the hackathon is over, as well as build other solutions.
 Follow the instructions on how to install your node are here:
 
-<https://developer.algorand.org/docs/introduction-installing-node>
+<https://developer.algorand.org/docs/introduction-installing-node>  
+
 
 By default, an Algorand installation is configured to run on MainNet. For most
 users, this is the desired outcome.  Developers, however, need access to our
@@ -143,7 +41,7 @@ following steps in the meantime, noting if the goal command does not seem to be
 working, like transferring funds for example, it may be because the node is not
 synced yet. To see if it is synced use this command from terminal:
 
-> goal node status -d \~/node/data
+>   goal node status -d \~/node/data
 
 The data directory is the data directory for the node. It may be simpler to set
 ALGORAND_DATA env variable rather than specifying each time. In that case, the
@@ -166,37 +64,40 @@ config files.
 
 export ALGORAND_DATA=/var/lib/algorand
 
-> When the Sync Time is zero consistently, it will be close to, if not all the
-> way, synced.
+>   When the Sync Time is zero consistently, it will be close to, if not all the
+>   way, synced.  
+>     
+>   
 
 ![](media/f069f5ed68dca75813a8e56c25bfd4d0.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
-**Alternatives**
+### Alternatives
 
 The above process will take several hours to sync, so there are two alternatives
 that can be used in the meantime. Each option provides an Algod token and a
 Server URL. These values will be needed in your solution code as well as the
-sample hackathon lab exercises.
-
-**Option 1 -Algorand Hackathon**
+sample hackathon lab exercises.  
+  
+  
+Option 1 -Algorand Hackathon
 
 The API Token and Server address can be used in the Hackathon. Once the
 hackathon is over, you will need to use your own node or one from Purestake (see
 Option 2).
 
-> API Token
+>   API Token
 
-> ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1
->
-> Server Address
+>   ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1  
+>     
+>   Server Address
 
 <http://hackathon.algodev.network:9100/>
 
 The above service is set to Full Archival Indexer Nodes.
 
-**Option 2 - Purestake Token**
+### Option 2 – Purestake Token
 
 PureStake is offering up a token for this hackathon. You do not need to
 register. This is free for use during the hackathon.
@@ -206,16 +107,16 @@ minor update to client instantiation in return for many benefits.
 
 Additional SDK support is in progress.
 
-_Examples of a PureStake GET and POST_
+#### Examples of a PureStake GET and POST
 
-- [GET
-  versions](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_versions.js)
+-   [GET
+    versions](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_versions.js)
 
-- [POST
-  transaction](https://github.com/PureStake/api-examples/blob/master/javascript-examples/submit_tx.js)
+-   [POST
+    transaction](https://github.com/PureStake/api-examples/blob/master/javascript-examples/submit_tx.js)
 
-- [GET Transaction By
-  Id](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_tx.js)
+-   [GET Transaction By
+    Id](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_tx.js)
 
 After the Hackathon is over, you can register to receive a new token here:
 
@@ -238,22 +139,22 @@ Enterprise levels:
 
 Instant Access to Algorand API in Testnet and Mainnet
 
-- No wait for downloads and blockchain sync times
+-   No wait for downloads and blockchain sync times
 
 API is backed by Full Archival Transaction Indexer Nodes
 
-- Full algod API with performant transaction queries
+-   Full algod API with performant transaction queries
 
 Secure and Reliable Infrastructure
 
-- Automated Highly Available Infrastructure, Managed 24x7x365
+-   Automated Highly Available Infrastructure, Managed 24x7x365
 
 Secure communications
 
-- All API traffic over https only
+-   All API traffic over https only
 
-**Verify your data directory**
-
+**Verify your data directory**  
+  
 To verify where your data directory is and that you are running TestNet, use
 these two commands:
 
@@ -261,143 +162,147 @@ these two commands:
 
 ![](media/aaf48b01d07ea34bee41b5b8c027b869.png)
 
-> A close up of a mans face Description automatically generated
+>   A close up of a mans face Description automatically generated
 
 1.  goal node status -d \~/node/data
 
 ![](media/95d8ea93272f20775b4a1796deed51bb.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
-## Apply current updates
+Apply current updates
+---------------------
 
-> To manually update use these commands
->
-> cd \~/node
+>   To manually update use these commands  
+>     
+>   cd \~/node
 
-> ./update.sh -d \~/node/data
+>   ./update.sh -d \~/node/data
 
-> To configure Auto-Update see:
-> <https://developer.algorand.org/docs/configure-auto-update>
+>   To configure Auto-Update see:  
+>   <https://developer.algorand.org/docs/configure-auto-update>
 
-**Download/Clone Algorand SDKs in your language of choice.**
-
-**These are the SDKs available to date. More are on the way. \*\***
+**Download/Clone Algorand SDKs in your language of choice.**  
+  
+**These are the SDKs available to date. More are on the way. \*\***  
 Time Estimate - 10 minutes
 
-- Go, see install notes here <https://github.com/algorand/go-algorand-sdk>
+-   Go, see install notes here <https://github.com/algorand/go-algorand-sdk>
 
-  - See Go SDK documentation here:
-    <https://godoc.org/github.com/algorand/go-algorand-sdk>
+    -   See Go SDK documentation here:
+        <https://godoc.org/github.com/algorand/go-algorand-sdk>
 
-- Python, see install notes here <https://github.com/algorand/py-algorand-sdk>
+-   Python, see install notes here <https://github.com/algorand/py-algorand-sdk>
 
-  - See Python SDK documentation here:
-    <https://py-algorand-sdk.readthedocs.io/en/latest/>
+    -   See Python SDK documentation here:
+        <https://py-algorand-sdk.readthedocs.io/en/latest/>
 
-- Java, see install notes here <https://github.com/algorand/java-algorand-sdk>
+-   Java, see install notes here <https://github.com/algorand/java-algorand-sdk>
 
-  - See Java documentation here
-    <https://algorand.github.io/java-algorand-sdk/>\* \*
+    -   See Java documentation here
+        <https://algorand.github.io/java-algorand-sdk/>* *
 
-- JavaScript, see install notes here
-  <https://github.com/algorand/js-algorand-sdk>
+-   JavaScript, see install notes here
+    <https://github.com/algorand/js-algorand-sdk>
 
-  - See JavaScript SDK documentation
-    visit [https://developer.algorand.org](https://developer.algorand.org/)
+    -   See JavaScript SDK documentation
+        visit [https://developer.algorand.org](https://developer.algorand.org/)
 
-> \*\* If you do not see your language of choice, we have two swagger files
-> that you can load in at
-> [https://app.swaggerhub.com](https://app.swaggerhub.com/) to generate your
-> own client. The swagger definition json files are for Algod and kmd.
+>   \*\* If you do not see your language of choice, we have two swagger files
+>   that you can load in at
+>   [https://app.swaggerhub.com](https://app.swaggerhub.com/) to generate your
+>   own client. The swagger definition json files are for Algod and kmd.
 
-> KMD handles all interaction with spending keys, including signing
-> transactions. Signing can be stand alone as well.
+>   KMD handles all interaction with spending keys, including signing
+>   transactions. Signing can be stand alone as well.
 
-> Algod is responsible for processing the protocol and interacting with SQLite
-> to record the ledger. Implements REST API for read only APIs.
+>   Algod is responsible for processing the protocol and interacting with SQLite
+>   to record the ledger. Implements REST API for read only APIs.
 
-> These swagger.json files can also be loaded into code agnostic tools such as
-> [Postman](https://www.getpostman.com/downloads/) or
-> [Paw](https://paw.cloud/) for REST API testing. To generate the latest
-> swagger definitions, use the following commands…
+>   These swagger.json files can also be loaded into code agnostic tools such as
+>   [Postman](https://www.getpostman.com/downloads/) or
+>   [Paw](https://paw.cloud/) for REST API testing. To generate the latest
+>   swagger definitions, use the following commands…
 
-> For **Alogd** use:
+>   For **Alogd** use:
 
-> <http://localhost:8080/swagger.json>
-> or
+>   <http://localhost:8080/swagger.json>  
+>   or
 
-> curl http://\$(cat \~/node/data/algod.net)/swagger.json \> swagger.json
-> (this will appear in your node folder)
+>   curl http://\$(cat \~/node/data/algod.net)/swagger.json \> swagger.json  
+>   (this will appear in your node folder)
 
-> If ALGORAND_DATA is used, then replace with
+>   If ALGORAND_DATA is used, then replace with
 
-> curl http://\$(cat \$ALGORAND_DATA/algod.net)/swagger.json \> swagger.json
+>   curl http://\$(cat \$ALGORAND_DATA/algod.net)/swagger.json \> swagger.json
 
-> For **kmd** use:
+>   For **kmd** use:
 
-> <http://localhost:7833/swagger.json>
+>   <http://localhost:7833/swagger.json>
 
-> or
+>   or
 
-> curl http://\$(cat \~/node/data/kmd-v0.5/kmd.net)/swagger.json \>
-> swaggerkmd.json
+>   curl http://\$(cat \~/node/data/kmd-v0.5/kmd.net)/swagger.json \>
+>   swaggerkmd.json
 
-> (this will appear in your node folder)
+>   (this will appear in your node folder)
 
-> If ALGORAND_DATA is used, then replace with
+>   If ALGORAND_DATA is used, then replace with
 
-> curl http://\$(cat \$ALGORAND_DATA/kmd-v0.5/kmd.net)/swagger.json \>
-> swaggerkmd.json
+>   curl http://\$(cat \$ALGORAND_DATA/kmd-v0.5/kmd.net)/swagger.json \>
+>   swaggerkmd.json
 
-> Then import at [https://app.swaggerhub.com](https://app.swaggerhub.com/) and
-> select CodeGen Options for the Client SDK in the desired language
+>   Then import at [https://app.swaggerhub.com](https://app.swaggerhub.com/) and
+>   select CodeGen Options for the Client SDK in the desired language
 
 ![](media/1505cc7aca00a190a4aee10c98bc88d8.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
-## Install VS Code or alternate IDE (optional)<br>
+Install VS Code or alternate IDE (optional)<br>
+-----------------------------------------------
 
 **Install an Integrated Development Environment for coding and debugging
 JavaScript, Java, Go and/or Python solutions (optional)**
 
 Time Estimate - 10 minutes
 
-> There are many IDEs to debug many languages. This lab exercise uses [Visual
-> Studio Code on the
-> Mac](https://docs.microsoft.com/en-us/visualstudio/mac/?view=vsmac-2019) > _(and many other platforms)_. If you are familiar with Visual Studio, many
-> of the keyboard shortcuts also work in VS Code too. Install the extensions
-> for each language and VS Code facilitates:
+>   There are many IDEs to debug many languages. This lab exercise uses [Visual
+>   Studio Code on the
+>   Mac](https://docs.microsoft.com/en-us/visualstudio/mac/?view=vsmac-2019)
+>   *(and many other platforms)*. If you are familiar with Visual Studio, many
+>   of the keyboard shortcuts also work in VS Code too. Install the extensions
+>   for each language and VS Code facilitates:
 
-- Debugging
+-   Debugging
 
-- Intellisense: tool for facilitating code editing such as code completion,
-  parameter info, quick info, and member lists
+-   Intellisense: tool for facilitating code editing such as code completion,
+    parameter info, quick info, and member lists
 
-- Workspace support to easily load and run each demo
+-   Workspace support to easily load and run each demo
 
-> Search on each language extension one at a time and install in VS Code .
+>   Search on each language extension one at a time and install in VS Code .
 
-- Go
+-   Go
 
-- Python
+-   Python
 
-- Java
+-   Java
 
-- JavaScript
+-   JavaScript
 
 Should you decide to use VS Code, your extensions list should look something
 like this:
 
 ![](media/7dc1ca459305e52d093007d28b28412c.png)
 
-> A screenshot of a computer Description automatically generated
+>   A screenshot of a computer Description automatically generated
 
-**Unzip the hackathon samples**
-
-Time Estimate - 5 minutes
-
+**Unzip the hackathon samples**  
+  
+  
+Time Estimate - 5 minutes  
+  
 From <http://github.com/algorand-devrel/hackathon> Download/Clone the Hackathon
 repository which has the algorandsamples.zip file and this document in the
 readme.md, Unzip into a folder off of your \$HOME folder
@@ -410,29 +315,31 @@ The contents should look similar to this:
 
 ![A screenshot of text Description automatically generated](media/6bd344124383e44192dc7b593da7be6e.png)
 
-## Start two terminal sessions
+Start two terminal sessions 
+----------------------------
 
-- In the first one, start localhost using
-  [http-server](https://www.npmjs.com/package/http-server): Navigate to
-  algorandsamples folder with finder and right click to start terminal session
-  in that folder. Then enter:
+-   In the first one, start localhost using
+    [http-server](https://www.npmjs.com/package/http-server): Navigate to
+    algorandsamples folder with finder and right click to start terminal session
+    in that folder. Then enter:
 
-> http-server
+>   http-server
 
-- In the other terminal session, navigate to \~/node and start up kmd and node
-  (kmd may time out after a while, so don’t just assume it is running.)
+-   In the other terminal session, navigate to \~/node and start up kmd and node
+    (kmd may time out after a while, so don’t just assume it is running.)
 
-> goal node start -d \~/node/data
+>   goal node start -d \~/node/data
 
-> goal kmd start -d \~/node/data
+>   goal kmd start -d \~/node/data
 
-> If \$ALGORAND_DATA has been set, simply use
+>   If \$ALGORAND_DATA has been set, simply use
 
-> goal node start
+>   goal node start
 
-> goal kmd start
+>   goal kmd start
 
-## Replace tokens and addresses in the sample code.
+Replace tokens and addresses in the sample code. 
+-------------------------------------------------
 
 Time Estimate - 10 minutes
 
@@ -442,34 +349,34 @@ Algod and Kmd tokens and network addresses in each. The files below will only
 appear if the KMD and Node have been started above. For the node you created,
 these can be found here…
 
-> From your node directory copy off values from your data directory or
-> \$ALGORAND_DATA
+>   From your node directory copy off values from your data directory or
+>   \$ALGORAND_DATA
 
-- algod.token
+-   algod.token
 
-- algod.net
+-   algod.net
 
-> From your node directory copy off from your data directory or
-> \$ALGORAND_DATA
+>   From your node directory copy off from your data directory or
+>   \$ALGORAND_DATA
 
-- kmd.token
+-   kmd.token
 
-- kmd.net
+-   kmd.net
 
 ![](media/750726004faef8ea4e0171522637adb0.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 For example, in the JavaScript SDK sample webapp test.js file update the
 constants with these values:
 
 ![](media/af2396b732eb0e0eed11b52a799203d0.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 **Install Postman or your favorite code-agnostic tool for REST API testing (Paw…
-etc) (Optional)**
-
+etc) (Optional)**  
+  
 Time Estimate - 10 minutes
 
 When having a team of hackers, it might be useful to communicate API discussions
@@ -481,23 +388,25 @@ sets.
 2.  To get the latest Algorand swagger.json files use these commands from
     terminal:
 
-> goal node start -d \~/node/data
+>   goal node start -d \~/node/data
 
 goal kmd start -d \~/node/data
 
 curl http://\$(cat \~/node/data/algod.net)/swagger.json \> swagger.json
 
-> curl http://\$(cat \~/node/data/kmd-v0.5/kmd.net)/swagger.json \>
-> swaggerkmd.json
+>   curl http://\$(cat \~/node/data/kmd-v0.5/kmd.net)/swagger.json \>
+>   swaggerkmd.json
 
 1.  If you are using the standup instance for the hackathon use this command:
 
-> curl http://\$(cat > <http://hackathon.algodev.network:9100/swagger.json>)/swagger.json \>
-> swagger.json
+>   curl http://\$(cat
+>   <http://hackathon.algodev.network:9100/swagger.json>)/swagger.json \>
+>   swagger.json
 
 1.  If you are using the Purestake service, you must supply the API token in the
-    header and this can be done in Postman.
-
+    header and this can be done in Postman.  
+      
+    
 
     ![A screenshot of a social media post Description automatically generated](media/d36a7c1e9ae1be71207bb8409e528734.png)
 
@@ -505,69 +414,72 @@ curl http://\$(cat \~/node/data/algod.net)/swagger.json \> swagger.json
 
 ![](media/7e497ed376d280824be06766aeace0a9.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Make these changes to the request:
 
 2.  Click on GET current status node command.
 
-> Change http://localhost to <http://127.0.0.1:8080> for algod
-> and <http://127.0.0.1:7833> for kmd
->
-> If using the hackathon instance change http://localhost to:
-> <http://hackathon.algodev.network:9100/>
->
-> If using Purestake change http://localhost to:
-> <http://testnet.algo-api.purestake.io/ps1>
-> and the Key name is X-API-Token with Value of
-> B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+>   Change http://localhost to <http://127.0.0.1:8080> for algod  
+>   and <http://127.0.0.1:7833> for kmd  
+>     
+>   If using the hackathon instance change http://localhost to:
+>   <http://hackathon.algodev.network:9100/>  
+>     
+>   If using Purestake change http://localhost to:  
+>   <http://testnet.algo-api.purestake.io/ps1>  
+>   and the Key name is X-API-Token with Value of
+>   B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
 
 ![](media/5307527b32eaa5ad0de7af747aa8f032.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  If not using Purestake, add header key and value ([info
-    here](https://developer.algorand.org/docs/using-sdks-and-rest-apis))
+    here](https://developer.algorand.org/docs/using-sdks-and-rest-apis))  
     The API Token for the algod process key name is X-Algo-API-Token and the
     kmd's Key name is X-KMD-API-Token. If using the hackathon instance, the
     algod X-Algo-API-Token  value is:
-    ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1
+    ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1  
     Press Send to send the request
 
 2.  See the response
 
 ![](media/8fc17a52b7f1f7f54e0f5075f7ced80d.png)
 
-> A screenshot of a social media post Description automatically generated
+>   A screenshot of a social media post Description automatically generated
 
 1.  It might be more convenient to set the variable baseUrl in an environment of
     PostMan rather than changing each request individually.
 
 2.  There is a trick to use a pre-request script: right click on the collection
-    Algod REST API, edit, then pre-request script, and write:
+    Algod REST API, edit, then pre-request script, and write:  
     pm.request.headers.upsert({key: 'X-Algo-API-Token', value:
-    'e5c941507a5ae016a47a59a76b492dded26dbf0462283f2a227dae340f11b6ed' })
-
-    This removes the need of adding the header in all requests.
-
+    'e5c941507a5ae016a47a59a76b492dded26dbf0462283f2a227dae340f11b6ed' })  
+      
+    This removes the need of adding the header in all requests.  
+      
+    
 
     ![A screenshot of a cell phone Description automatically generated](media/f123ea768a6e2c5e38d658f9c55fbf74.png)
 
-# **Goal Command Line tools / AlgoExplorer.io**<br>
+**Goal Command Line tools / AlgoExplorer.io**<br>
+=================================================
 
 Time Estimate - 10 minutes
 
 In this section we will show how to use the goal command line tool as well as
 the AlgoExplorer.io.
 
-## Goal
+Goal
+----
 
 The goal command line tool provides access to these objects, methods and
 properties.
 
 ![](media/939993ce523be2673b9a0a6037a1cd21.png)
 
-> A screenshot of a computer Description automatically generated
+>   A screenshot of a computer Description automatically generated
 
 The data directory is the data directory for the node. It may be simpler to set
 ALGORAND_DATA env variable rather than specifying each time. In that case, the
@@ -589,43 +501,45 @@ export PATH=\$PATH:\~/node
 
 Restart the terminal session after defining the environment variable
 
-1.  To start a node use this command:
-
+1.  To start a node use this command:  
+      
     goal node start
 
-2.  To start kmd use this command:
-
+2.  To start kmd use this command:  
+      
     goal kmd start
 
-3.  To get help with goal use this command:
-
-    goal -h
-
+3.  To get help with goal use this command:  
+      
+    goal -h  
+      
+    
 
     ![A screenshot of a social media post Description automatically generated](media/957ce5b29917b215e792715102d5aa3c.png)
 
 4.  To get help with and command
 
-> goal [command] -h
->
-> For example, us this command to get help with node
+>   goal [command] -h  
+>     
+>   For example, us this command to get help with node
 
-> goal node -h
+>   goal node -h
 
 ![](media/1b3879b40042663ec1adb7f709488359.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Run this to get a status. We will copy off the block number, for subsequent
     use in AlgoExplorer:
 
-> goal node status
+>   goal node status
 
 1.  Copy last committed block
 
 ![A screenshot of a cell phone Description automatically generated](media/55a1e30fb07cf2b71b6feeff62c51788.png)
 
-## AlgoExplorer.io
+AlgoExplorer.io
+---------------
 
 The AlgoExplorer can be used to search on blocks, transactions and account
 addresses in either MainNet or TestNet.
@@ -645,24 +559,25 @@ addresses in either MainNet or TestNet.
 
 ![](media/ee185a60301f2d5669a75f615830c9d3.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Drill into a transaction and notice Sender / receiver / note / status /
     amount / fees and other fields.
 
 ![](media/ea9e0dac347cb553324dc2f03619b8df.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
-# **Getting started with Private Network (optional)**
+**Getting started with Private Network (optional)**
+===================================================
 
 5 Minutes
 
 In this section you will learn how to create a Private Network. A Private
 Network is for developers. It allows you to learn Algorand Blockchain without
 having to touch either TestNet or MainNet. Code using the Algorand SDKs, can be
-used to access the Private Network.
-
+used to access the Private Network.  
+  
 This exercise is suggested for developers that are just getting started with
 Algorand.
 
@@ -677,7 +592,7 @@ Private Network.
 
 ![](media/fef8c85cfebcf1008ac9873c1cb116de.png)
 
-> A close up of a map Description automatically generated
+>   A close up of a map Description automatically generated
 
 1.  In Finder, navigate to your root directory and show the directory structure
     does not have folders for Node and Primary.
@@ -685,19 +600,20 @@ Private Network.
 2.  Run this command in Terminal from the node folder to create the private
     network.
 
-> **goal network create -r \~/net1 -n private -t networktemplate.json**
+>   **goal network create -r \~/net1 -n private -t networktemplate.json**
 
 ![A screenshot of a cell phone Description automatically generated](media/396ec53e20937e04e1a5e015c1ac7c89.png)
 
-> **goal network start -r \~/net1**
+>   **goal network start -r \~/net1**
 
-> **goal network status -r \~/net1**
+>   **goal network status -r \~/net1**
 
 ![A screenshot of a social media post Description automatically generated](media/37ef77ee2e7d05b41f20dcea57efe721.png)
 
 1.  Open Finder and look at the directory structure for /net1/Node and
-    /net1/Primary
-
+    /net1/Primary  
+      
+    
 
     ![A screenshot of a cell phone Description automatically generated](media/4dd1801a4835941cb8e41983e01f3235.png)
 
@@ -707,51 +623,56 @@ Private Network.
 
 ![](media/e8757b51bc64d99bf50f3673f6061851.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 Go to
 <https://developer.algorand.org/docs/creating-new-account-and-participation-key>
 to complete all the rest of the tasks in this tutorial including:
 
-- Creating a new wallet
+-   Creating a new wallet
 
-- Creating a new Account and Participation key
+-   Creating a new Account and Participation key
 
-- Write a raw transaction and post to algod REST server
+-   Write a raw transaction and post to algod REST server
 
-- Creating a multisig account
+-   Creating a multisig account
 
 ![](media/9c552049b375d85c381826359f52cf05.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Once finished you can delete the private network as this is for learning
     only and cannot be used for further development, other than testing with SDK
     code. Delete the Private Network
 
-> **goal network delete -r \~/net1**
+>   **goal network delete -r \~/net1**
 
-# **SDKs**
+**SDKs**
+========
 
-> **Click to go to your desired SDK**
+>     
+>   **Click to go to your desired SDK**  
+>   
 
-> [JavaScript SDK](#bookmark=id.111kx3o)
+>   [JavaScript SDK](#bookmark=id.111kx3o)  
+>   
 
-[Go SDK](#GoSDK)
+[Go SDK](#GoSDK)  
 
-> [Java SDK](#java-sdk)
 
-> [Python SDK](#python-sdk)
+>   [Java SDK](#java-sdk)
 
-> **JavaScript SDK**
-> Time Estimate - 20 minutes
+>   [Python SDK](#python-sdk)
 
-> In this section, we use the sample web app that comes with the Algorand
-> JavaScript SDK.
+>   **JavaScript SDK**  
+>   Time Estimate - 20 minutes
+
+>   In this section, we use the sample web app that comes with the Algorand
+>   JavaScript SDK.
 
 1.  For the JavaScript samples, open folder for myjsdemo into VS Code or you
-    favorite IDE
-
+    favorite IDE  
+      
     Or just open the js.code-workspace in the algorandsamples folder with VS
     Code.
 
@@ -779,7 +700,7 @@ to complete all the rest of the tasks in this tutorial including:
 
 ![](media/d85b87fe6f822cdb77ae18fe801f89bf.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Run thru debugger with localhost (launch.json file below) or just bring up
     Finder and double click on Test.html.
@@ -788,7 +709,7 @@ to complete all the rest of the tasks in this tutorial including:
 
 ![](media/2f7af7a9ec7900adb5a7489ef162fdb1.png)
 
-> A screenshot of a social media post Description automatically generated
+>   A screenshot of a social media post Description automatically generated
 
 1.  **Run sample by navigating to the test.html page and click on buttons in
     this order:**
@@ -816,25 +737,25 @@ Screen shots:
 
 ![](media/94cad5841cdbf79cd67f3f142790d548.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Generate Account
 
 ![](media/7e3ecfbfd429c2a215237c9011ffb533.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Get Account Details
 
 ![](media/0eedda905477e39cc33223dea06727d2.png)
 
-> A screenshot of a social media post Description automatically generated
+>   A screenshot of a social media post Description automatically generated
 
 1.  Algorand TestNet Dispenser
 
 ![](media/d6746f6f0ad0630cc8690e68962101ac.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Recover Account from Account Mnemonic
 
@@ -842,23 +763,23 @@ Screen shots:
 
 ![](media/df455bf0017c520ceb089108af09d03a.png)
 
-> A screenshot of a social media post Description automatically generated
+>   A screenshot of a social media post Description automatically generated
 
 1.  Submit Transaction
 
 ![](media/19f891c9d7c2836621d36f22498a24fb.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  Get Tx From Account
 
 ![](media/4d5841c33c0f1170f2e4c6201afd8453.png)
 
-> A screenshot of a cell phone Description automatically generated
+>   A screenshot of a cell phone Description automatically generated
 
 1.  **Walk thru code in code in test.js** and **see each function we just
-    used**.
-
+    used**.  
+      
     All of this functionality is accomplished in a little over 200 lines of
     code! How about that!” (Applause) ☺
 
@@ -933,44 +854,44 @@ console.log(e);
 
 1.  See <https://developer.algorand.org/docs/javascript-sdk> for more samples.
 
-> [Web App: Client Wrapper
-> Functions](https://developer.algorand.org/docs/javascript-sdk#webapp-client)
+>   [Web App: Client Wrapper
+>   Functions](https://developer.algorand.org/docs/javascript-sdk#webapp-client)
 
-> [Node: Retrieving Latest Block
-> Information](https://developer.algorand.org/docs/javascript-sdk#node-example-latest)
+>   [Node: Retrieving Latest Block
+>   Information](https://developer.algorand.org/docs/javascript-sdk#node-example-latest)
 
-> [Node: Creating a New Wallet and Account Using
-> kmd](https://developer.algorand.org/docs/javascript-sdk#node-example-create-wallet)
+>   [Node: Creating a New Wallet and Account Using
+>   kmd](https://developer.algorand.org/docs/javascript-sdk#node-example-create-wallet)
 
-> [Node: Backing Up and Restoring a
-> Wallet](https://developer.algorand.org/docs/javascript-sdk#node-example-backup-wallet)
+>   [Node: Backing Up and Restoring a
+>   Wallet](https://developer.algorand.org/docs/javascript-sdk#node-example-backup-wallet)
 
-> [Node: Signing and Submitting a
-> Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-sign)
+>   [Node: Signing and Submitting a
+>   Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-sign)
 
-> [Node: Locating a
-> Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-find-transaction)
+>   [Node: Locating a
+>   Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-find-transaction)
 
-> [Node: Writing to the Note Field of a
-> Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write)
+>   [Node: Writing to the Note Field of a
+>   Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-note-write)
 
-> [Node: Reading the Note Field of a
-> Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-note-read)
+>   [Node: Reading the Note Field of a
+>   Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-note-read)
 
-> [Node: Creating a Multisignature Account and Signing a
-> Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-multisig)
+>   [Node: Creating a Multisignature Account and Signing a
+>   Transaction](https://developer.algorand.org/docs/javascript-sdk#node-example-multisig)
 
 1.  [Skip to next section](#_heading=h.28h4qwu)
 
-> **Go SDK**
-> Time Estimate - 20 minutes
+>   **Go SDK**  
+>   Time Estimate - 20 minutes
 
 1.  **If using GO, Add the algorandsamples (or the directory you unzipped the
     hackathon code samples to) to the GOPATH environment variable**
 
 Add these two line by editing your bash_profile and then restart your IDE and
-terminal sessions:
-
+terminal sessions:  
+  
 GOPATH=\~/go:\~/algorandsamples/mygodemo/
 
 export GOPATH
@@ -979,15 +900,16 @@ export GOPATH
     terminal and Visual Studio Code. Adapt accordingly if you are not using bash
     as a shell. This file is located in your home directory and you may need to
     type in command + shift + . to see it in Finder or opening the file in your
-    editor, as it is hidden.
+    editor, as it is hidden. 
 
 2.  **For the Go samples, open folder for mygodemo into VS Code or you favorite
-    IDE**
-
+    IDE**  
+      
     Or just open the go.code-workspace in the algorandsamples folder with VS
-    Code.
+    Code.  
+    
 
-3)  The Go **launch.json** file should be similar to this:
+3.  The Go **launch.json** file should be similar to this:
 
 ![A screenshot of a social media post Description automatically generated](media/53c9336b015511f11d6d67ff1081dca9.png)
 
@@ -1040,10 +962,10 @@ If you have not already done so, Download/clone the Go SDK from:
 The following example creates a wallet and generates an account within that
 wallet. This account can now be used to sign transactions, but you will need
 some funds to get started. If you are on the test network, TestNet, you can use
-the [dispenser](https://bank.testnet.algorand.network/)\* \*to seed your account
+the [dispenser](https://bank.testnet.algorand.network/)* *to seed your account
 with some Algos.
 
-### backupwallet.go - Backing up a Wallet
+### backupwallet.go - Backing up a Wallet 
 
 You can export a master derivation key from the wallet and convert it to a
 mnemonic phrase in order to back up any generated addresses. This backup phrase
@@ -1065,25 +987,26 @@ shown in the next section of this document.
 The following example shows how to create a transaction and sign it offline. You
 can also create the transaction online and then sign it offline.
 
-### submittransfilefrom.go - Submit the transaction from a file
+### submittransfilefrom.go - Submit the transaction from a file 
 
 This example takes the output from the previous example (file containing signed
 transaction) and submits it to Algod process of a node.
 
-### manipulatemultisig.go - Manipulating multisig transactions
+### manipulatemultisig.go - Manipulating multisig transactions 
 
 Here, we first create a simple multisig payment transaction, with three public
 identities and a threshold of 2.
 
 [Skip to next section](#resources)
 
-## Java SDK
+Java SDK
+--------
 
 Time estimate: 20 minutes
 
 1.  **For the Java samples open folder for java-test into VS Code or you
-    favorite IDE**
-
+    favorite IDE**  
+      
     Or just open the java.code-workspace in the algorandsamples folder with VS
     Code.
 
@@ -1097,7 +1020,7 @@ Time estimate: 20 minutes
 
 2.  Show the Go SDK at:
 
-> <https://github.com/algorand/go-algorand-sdk>
+>   <https://github.com/algorand/go-algorand-sdk>
 
 ### GetBlock.java – gets the status and lastround
 
@@ -1116,24 +1039,24 @@ Time estimate: 20 minutes
 1.  Run as many of the following scripts as desired, in this order (there is a
     file for each in a folder):
 
-### AccountTest.java - Generate account and backup phrase
+### AccountTest.java - Generate account and backup phrase 
 
 This example creates a random account, a backup phrase and performs a recovery
 
 This account can now be used to sign transactions, but you will need some funds
 to get started. If you are on the test network, TestNet, you can use
-the [dispenser](https://bank.testnet.algorand.network/)\* \*to seed your account
+the [dispenser](https://bank.testnet.algorand.network/)* *to seed your account
 with some Algos.
 
-### NewWallet.java - kmd client
+### NewWallet.java - kmd client 
 
 The following example creates a wallet and generates an account within that
 wallet. This account can now be used to sign transactions, but you will need
 some funds to get started. If you are on the test network, TestNet, you can use
-the [dispenser](https://bank.testnet.algorand.network/)\* \*to seed your account
+the [dispenser](https://bank.testnet.algorand.network/)* *to seed your account
 with some Algos.
 
-### BackupWallet.java and RestoreWallet.java - Backing up and restoring a Wallet
+### BackupWallet.java and RestoreWallet.java - Backing up and restoring a Wallet 
 
 You can export a master derivation key from the wallet and convert it to a
 mnemonic phrase in order to back up any generated addresses. This backup phrase
@@ -1144,27 +1067,27 @@ order to recover it.
 To restore a wallet, convert the phrase to a key and pass it to CreateWallet.
 This call will fail if the wallet already exists:
 
-### SignAndSubmit.java - Signing and submitting a transaction
+### SignAndSubmit.java - Signing and submitting a transaction 
 
 The following example shows how to use both KMD and Algod when signing and
 submitting a transaction. You can also sign a transaction offline, which is
 shown in the next section of this document.
 
-### SignOffline.java - Sign a transaction offline
+### SignOffline.java - Sign a transaction offline 
 
 The following example shows how to create a transaction and sign it offline. You
 can also create the transaction online and then sign it offline.
 
-### SubmitFromFile.java - Submit the transaction from a file
+### SubmitFromFile.java - Submit the transaction from a file 
 
 This example takes the output from the previous example (file containing signed
 transaction) and submits it to Algod process of a node.
 
-### GetAccountTransactions.java - Get account transactions
+### GetAccountTransactions.java - Get account transactions 
 
 This example gets transactions for an account.
 
-### Multisig.Java - Manipulating multisig transactions
+###  Multisig.Java - Manipulating multisig transactions
 
 Here, we first create a simple multisig payment transaction, with three public
 identities and a threshold of 2.
@@ -1173,15 +1096,16 @@ identities and a threshold of 2.
 
 [Skip to next section](#resources)
 
-## <br>Python SDK
+<br>Python SDK
+--------------
 
 Time estimate: 20 minutes
 
 ### <br>example.py
 
 1.  **For the Python samples open folder for mypythondemo into VS Code or you
-    favorite IDE**
-
+    favorite IDE**  
+      
     Or just open the python.code-workspace in the algorandsamples folder with VS
     Code.
 
@@ -1191,63 +1115,63 @@ Time estimate: 20 minutes
 
 1.  If not already done, clone or download the Python SDK at:
 
-> <https://github.com/algorand/py-algorand-sdk>
+>   <https://github.com/algorand/py-algorand-sdk>
 
 1.  Use the instructions on the readme file to install the SDK
 
 2.  In this section we will run the example.py code from the SDK. Before running
-    example.py start kmd and alogd using these goal commands:
-
-    goal kmd start -d [data directory]
-
+    example.py start kmd and alogd using these goal commands:  
+      
+    goal kmd start -d [data directory]  
+      
     goal node start -d [data directory]
 
 3.  Next, create a wallet and account, and copy off account address.
 
-goal wallet new [wallet name] -d [data directory]
-
+goal wallet new [wallet name] -d [data directory]  
+  
 goal account new -d [data directory] -w [wallet name]
 
 1.  Paste the account address into the [Algorand TestNet
     Dispenser](https://bank.testnet.algorand.network/) to send Algos to this
     account.
 
-2.  Edit params.py and add token information and data-dir-path
-
-    1. Edit params.py
-    2. Add token info for algod and kmd
-    3. Add your data directory path
+2.  Edit params.py and add token information and data-dir-path  
+      
+    1) Edit params.py  
+    2) Add token info for algod and kmd  
+    3) Add your data directory path
 
 ![A screenshot of a cell phone Description automatically generated](media/20de068e6cb25493bc36932f5426f006.png)
 
-1.  Edit example.py
-
-    1. Edit example.py
-    2. Uncomment Enter your Wallet, password and account info
-    3. Comment prompt for these values
-    4. Run the code and see the results in the Output console
+1.  Edit example.py  
+      
+    1) Edit example.py  
+    2) Uncomment Enter your Wallet, password and account info  
+    3) Comment prompt for these values  
+    4) Run the code and see the results in the Output console
 
 ![A screenshot of a cell phone Description automatically generated](media/c4b23f83277024a9d8e9d62f51acac3b.png)
 
-1.  The example code performs the following functions:
-
+1.  The example code performs the following functions:  
+      
     Create kmd and algod clients
 
-> Create a new kmd wallet
+>   Create a new kmd wallet
 
-> Generate an account and import to wallet
+>   Generate an account and import to wallet
 
-> Get the mnemonic
+>   Get the mnemonic
 
-> Get last block
+>   Get last block
 
-> Create a transaction
+>   Create a transaction
 
-> Sign a transaction with kmd
+>   Sign a transaction with kmd
 
-> Sign a transaction with account
+>   Sign a transaction with account
 
-> Send the transaction
+>   Send the transaction
 
 To see the new wallet and accounts we created use:
 
@@ -1286,84 +1210,85 @@ Manipulating multisig transactions
 
 [Skip to next section](#resources)
 
-# **Resources**
+**Resources**
+=============
 
 **More resources can be found here:**
 
 AlgoExplorer.io
 
-- <https://algoexplorer.io/>
+-   <https://algoexplorer.io/>
 
 Algorand GitHub
 
-- <https://github.com/algorand>
+-   <https://github.com/algorand>
 
 Algorand TestNet Dispenser
 
-- <https://bank.testnet.algorand.network/>
+-   <https://bank.testnet.algorand.network/>
 
 Developer Portal
 
-- [https://developer.algorand.org/](https://developer.algorand.org/docs/developer-faq)
+-   [https://developer.algorand.org/](https://developer.algorand.org/docs/developer-faq)
 
 Developer FAQs
 
-- <https://developer.algorand.org/docs/developer-faq>
+-   <https://developer.algorand.org/docs/developer-faq>
 
 Forums
 
-- <https://forum.algorand.org/>
+-   <https://forum.algorand.org/>
 
 Community Portal – Events, Blog, Chapters, etc
 
-- <https://community.algorand.org/>
+-   <https://community.algorand.org/>
 
 Community Ambassador program
 
-- <https://community.algorand.org/ambassadors/>
+-   <https://community.algorand.org/ambassadors/>
 
 Swagger hub
 
-- <https://swagger.io/tools/swaggerhub/>
+-   <https://swagger.io/tools/swaggerhub/>
 
 Algorand Foundation Roadmap
 
-- <https://algorand.foundation/roadmap>
+-   <https://algorand.foundation/roadmap>
 
 Token Dynamics
 
-- <https://algorand.foundation/token-dynamics>
+-   <https://algorand.foundation/token-dynamics>
 
 YouTube Algorand
 
-- <https://www.youtube.com/algorand>
+-   <https://www.youtube.com/algorand>
 
 Consensus 2019 videos - Turing award winner - Silvio Micali keynote - is in the
 second group (Construct) \#55 - Building the Technical Innovation Required for a
 New Borderless Economy
 
-- <https://www.coindesk.com/events/consensus-2019/videos>
+-   <https://www.coindesk.com/events/consensus-2019/videos>
 
 ![A screenshot of a social media post Description automatically generated](media/ac20240a4c83cb36162201c301d44c25.png)
 
 More resources here:
 
-- Go <https://golang.org/doc/install>.
+-   Go <https://golang.org/doc/install>.
 
-- Python [www.python.org/downloads](http://www.python.org/downloads)
+-   Python [www.python.org/downloads](http://www.python.org/downloads)
 
-- Maven
-  <http://www.codebind.com/mac-osx/install-maven-mac-os/>
+-   Maven  
+    <http://www.codebind.com/mac-osx/install-maven-mac-os/>
 
-> or
+>   or
 
-> <https://www.baeldung.com/install-maven-on-windows-linux-mac>
+>   <https://www.baeldung.com/install-maven-on-windows-linux-mac>
 
-- Java
-  <https://www.oracle.com/technetwork/java/javase/downloads/index.html>
+-   Java  
+    <https://www.oracle.com/technetwork/java/javase/downloads/index.html>
 
-- Enable JavaScript in browsers
-  <https://www.techwalla.com/articles/how-to-enable-javascript-on-a-mac>
+-   Enable JavaScript in browsers
+    <https://www.techwalla.com/articles/how-to-enable-javascript-on-a-mac>
 
-- Install Node JS for localhost server
-  <https://www.npmjs.com/package/http-server>
+-   Install Node JS for localhost server
+    <https://www.npmjs.com/package/http-server>
