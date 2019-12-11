@@ -1,10 +1,9 @@
-LAB Exercise - Algorand Hackathon Developer
-===========================================
+LAB Exercise - Algorand Hackathon Developer<br>
+===============================================
 
 Getting Started for Hackathon
 -----------------------------
 
-  
 **Time Estimate: 1 hour**
 
 This section provides guidance on installing an Algorand node and the tools that
@@ -15,8 +14,7 @@ terminal type in:
   
 echo \$HOME
 
-**Install Algorand node**  
-
+### Install Algorand node
 
 Time Estimate 10 minutes
 
@@ -107,7 +105,7 @@ minor update to client instantiation in return for many benefits.
 
 Additional SDK support is in progress.
 
-#### Examples of a PureStake GET and POST
+### Examples of a PureStake GET and POST
 
 -   [GET
     versions](https://github.com/PureStake/api-examples/blob/master/javascript-examples/get_versions.js)
@@ -153,7 +151,7 @@ Secure communications
 
 -   All API traffic over https only
 
-**Verify your data directory**  
+Verify your data directory  
   
 To verify where your data directory is and that you are running TestNet, use
 these two commands:
@@ -170,8 +168,7 @@ these two commands:
 
 >   A screenshot of a cell phone Description automatically generated
 
-Apply current updates
----------------------
+### Apply current updates
 
 >   To manually update use these commands  
 >     
@@ -182,7 +179,7 @@ Apply current updates
 >   To configure Auto-Update see:  
 >   <https://developer.algorand.org/docs/configure-auto-update>
 
-**Download/Clone Algorand SDKs in your language of choice.**  
+Download/Clone Algorand SDKs in your language of choice.  
   
 **These are the SDKs available to date. More are on the way. \*\***  
 Time Estimate - 10 minutes
@@ -259,8 +256,7 @@ Time Estimate - 10 minutes
 
 >   A screenshot of a cell phone Description automatically generated
 
-Install VS Code or alternate IDE (optional)<br>
------------------------------------------------
+### Install VS Code or alternate IDE (optional)<br>
 
 **Install an Integrated Development Environment for coding and debugging
 JavaScript, Java, Go and/or Python solutions (optional)**
@@ -298,7 +294,7 @@ like this:
 
 >   A screenshot of a computer Description automatically generated
 
-**Unzip the hackathon samples**  
+Unzip the hackathon samples  
   
   
 Time Estimate - 5 minutes  
@@ -315,8 +311,7 @@ The contents should look similar to this:
 
 ![A screenshot of text Description automatically generated](media/6bd344124383e44192dc7b593da7be6e.png)
 
-Start two terminal sessions 
-----------------------------
+### Start two terminal sessions 
 
 -   In the first one, start localhost using
     [http-server](https://www.npmjs.com/package/http-server): Navigate to
@@ -338,8 +333,7 @@ Start two terminal sessions
 
 >   goal kmd start
 
-Replace tokens and addresses in the sample code. 
--------------------------------------------------
+### Replace tokens and addresses in the sample code. 
 
 Time Estimate - 10 minutes
 
@@ -374,8 +368,8 @@ constants with these values:
 
 >   A screenshot of a cell phone Description automatically generated
 
-**Install Postman or your favorite code-agnostic tool for REST API testing (Paw…
-etc) (Optional)**  
+Install Postman or your favorite code-agnostic tool for REST API testing (Paw…
+etc) (Optional)  
   
 Time Estimate - 10 minutes
 
@@ -463,16 +457,15 @@ curl http://\$(cat \~/node/data/algod.net)/swagger.json \> swagger.json
 
     ![A screenshot of a cell phone Description automatically generated](media/f123ea768a6e2c5e38d658f9c55fbf74.png)
 
-**Goal Command Line tools / AlgoExplorer.io**<br>
-=================================================
+Goal Command Line tools / AlgoExplorer.io
+-----------------------------------------
 
 Time Estimate - 10 minutes
 
 In this section we will show how to use the goal command line tool as well as
 the AlgoExplorer.io.
 
-Goal
-----
+### Goal
 
 The goal command line tool provides access to these objects, methods and
 properties.
@@ -538,8 +531,7 @@ Restart the terminal session after defining the environment variable
 
 ![A screenshot of a cell phone Description automatically generated](media/55a1e30fb07cf2b71b6feeff62c51788.png)
 
-AlgoExplorer.io
----------------
+### AlgoExplorer.io
 
 The AlgoExplorer can be used to search on blocks, transactions and account
 addresses in either MainNet or TestNet.
@@ -568,103 +560,27 @@ addresses in either MainNet or TestNet.
 
 >   A screenshot of a cell phone Description automatically generated
 
-**Getting started with Private Network (optional)**
-===================================================
-
-5 Minutes
-
-In this section you will learn how to create a Private Network. A Private
-Network is for developers. It allows you to learn Algorand Blockchain without
-having to touch either TestNet or MainNet. Code using the Algorand SDKs, can be
-used to access the Private Network.  
-  
-This exercise is suggested for developers that are just getting started with
-Algorand.
-
-Note: the [Algorand TestNet Dispenser](https://bank.testnet.algorand.network/),
-a tool used to send Algos to an account, only works for TestNet and not a
-Private Network.
-
-1.  Navigate to the algorandsamples folder
-
-2.  Open networktemplate.json in VS Code and review. Note the Primary and Node
-    Nodes that will be created.
-
-![](media/fef8c85cfebcf1008ac9873c1cb116de.png)
-
->   A close up of a map Description automatically generated
-
-1.  In Finder, navigate to your root directory and show the directory structure
-    does not have folders for Node and Primary.
-
-2.  Run this command in Terminal from the node folder to create the private
-    network.
-
->   **goal network create -r \~/net1 -n private -t networktemplate.json**
-
-![A screenshot of a cell phone Description automatically generated](media/396ec53e20937e04e1a5e015c1ac7c89.png)
-
->   **goal network start -r \~/net1**
-
->   **goal network status -r \~/net1**
-
-![A screenshot of a social media post Description automatically generated](media/37ef77ee2e7d05b41f20dcea57efe721.png)
-
-1.  Open Finder and look at the directory structure for /net1/Node and
-    /net1/Primary  
-      
-    
-
-    ![A screenshot of a cell phone Description automatically generated](media/4dd1801a4835941cb8e41983e01f3235.png)
-
-2.  (Optional) The full set of Private Network tutorials are here:
-    <https://developer.algorand.org/docs/tutorials>. This is a great learning
-    resource.
-
-![](media/e8757b51bc64d99bf50f3673f6061851.png)
-
->   A screenshot of a cell phone Description automatically generated
-
-Go to
-<https://developer.algorand.org/docs/creating-new-account-and-participation-key>
-to complete all the rest of the tasks in this tutorial including:
-
--   Creating a new wallet
-
--   Creating a new Account and Participation key
-
--   Write a raw transaction and post to algod REST server
-
--   Creating a multisig account
-
-![](media/9c552049b375d85c381826359f52cf05.png)
-
->   A screenshot of a cell phone Description automatically generated
-
-1.  Once finished you can delete the private network as this is for learning
-    only and cannot be used for further development, other than testing with SDK
-    code. Delete the Private Network
-
->   **goal network delete -r \~/net1**
-
-**SDKs**
-========
+SDKs
+----
 
 >     
 >   **Click to go to your desired SDK**  
 >   
 
->   [JavaScript SDK](#bookmark=id.111kx3o)  
+>   [JavaScript SDK](#javascript-sdk)  
 >   
 
-[Go SDK](#GoSDK)  
+[Go SDK](#go-sdk)  
 
 
 >   [Java SDK](#java-sdk)
 
 >   [Python SDK](#python-sdk)
 
->   **JavaScript SDK**  
+**JavaScript SDK**
+------------------
+
+>     
 >   Time Estimate - 20 minutes
 
 >   In this section, we use the sample web app that comes with the Algorand
@@ -883,7 +799,10 @@ console.log(e);
 
 1.  [Skip to next section](#_heading=h.28h4qwu)
 
->   **Go SDK**  
+**Go SDK**
+----------
+
+>     
 >   Time Estimate - 20 minutes
 
 1.  **If using GO, Add the algorandsamples (or the directory you unzipped the
@@ -997,7 +916,7 @@ transaction) and submits it to Algod process of a node.
 Here, we first create a simple multisig payment transaction, with three public
 identities and a threshold of 2.
 
-[Skip to next section](#resources)
+[Skip to next section](#_resources)
 
 Java SDK
 --------
@@ -1094,10 +1013,10 @@ identities and a threshold of 2.
 
 ### EncodeDecode.Java - Encode/decode Note Field<br><br>This sample shows how to encode and decode the Note Field to build Layer 2 solutions.<br>
 
-[Skip to next section](#resources)
+[Skip to next section](#_resources)
 
-<br>Python SDK
---------------
+Python SDK
+----------
 
 Time estimate: 20 minutes
 
@@ -1208,10 +1127,89 @@ Manipulating multisig transactions
 
 <https://github.com/algorand/py-algorand-sdk#working-with-notefield>
 
-[Skip to next section](#resources)
+[Skip to next section](#_resources)
 
-**Resources**
-=============
+Getting started with Private Network (optional)
+-----------------------------------------------
+
+5 Minutes
+
+In this section you will learn how to create a Private Network. A Private
+Network is for developers. It allows you to learn Algorand Blockchain without
+having to touch either TestNet or MainNet. Code using the Algorand SDKs, can be
+used to access the Private Network.  
+  
+This exercise is suggested for developers that are just getting started with
+Algorand.
+
+Note: the [Algorand TestNet Dispenser](https://bank.testnet.algorand.network/),
+a tool used to send Algos to an account, only works for TestNet and not a
+Private Network.
+
+1.  Navigate to the algorandsamples folder
+
+2.  Open networktemplate.json in VS Code and review. Note the Primary and Node
+    Nodes that will be created.
+
+![](media/fef8c85cfebcf1008ac9873c1cb116de.png)
+
+>   A close up of a map Description automatically generated
+
+1.  In Finder, navigate to your root directory and show the directory structure
+    does not have folders for Node and Primary.
+
+2.  Run this command in Terminal from the node folder to create the private
+    network.
+
+>   **goal network create -r \~/net1 -n private -t networktemplate.json**
+
+![A screenshot of a cell phone Description automatically generated](media/396ec53e20937e04e1a5e015c1ac7c89.png)
+
+>   **goal network start -r \~/net1**
+
+>   **goal network status -r \~/net1**
+
+![A screenshot of a social media post Description automatically generated](media/37ef77ee2e7d05b41f20dcea57efe721.png)
+
+1.  Open Finder and look at the directory structure for /net1/Node and
+    /net1/Primary  
+      
+    
+
+    ![A screenshot of a cell phone Description automatically generated](media/4dd1801a4835941cb8e41983e01f3235.png)
+
+2.  (Optional) The full set of Private Network tutorials are here:
+    <https://developer.algorand.org/docs/tutorials>. This is a great learning
+    resource.
+
+![](media/e8757b51bc64d99bf50f3673f6061851.png)
+
+>   A screenshot of a cell phone Description automatically generated
+
+Go to
+<https://developer.algorand.org/docs/creating-new-account-and-participation-key>
+to complete all the rest of the tasks in this tutorial including:
+
+-   Creating a new wallet
+
+-   Creating a new Account and Participation key
+
+-   Write a raw transaction and post to algod REST server
+
+-   Creating a multisig account
+
+![](media/9c552049b375d85c381826359f52cf05.png)
+
+>   A screenshot of a cell phone Description automatically generated
+
+1.  Once finished you can delete the private network as this is for learning
+    only and cannot be used for further development, other than testing with SDK
+    code. Delete the Private Network
+
+>   **goal network delete -r \~/net1**
+
+Resources
+---------
 
 **More resources can be found here:**
 
