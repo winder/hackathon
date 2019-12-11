@@ -2,8 +2,6 @@
 
 **Table of Contents**
 
-![A screenshot of a social media post Description automatically generated](images/media/34ad69b32a6b583719be78db5b3aceb6.png)
-
 [Getting Started for Hackathon 2](#getting-started-for-hackathon)
 
 [Install Algorand node 2](#_Toc17979065)
