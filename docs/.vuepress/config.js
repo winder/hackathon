@@ -1,7 +1,7 @@
 module.exports = {
   title: "Algorand Hackathon Developer Guide",
   description: "Just playing around",
-  base: "/hackathon",
+  base: "/hackathon/",
   themeConfig: {
     nav: [
       { text: "Home", link: "/" },
