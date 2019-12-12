@@ -1,3 +1,3 @@
-Hackthon Guide and Documentation
+##Hackthon Guide and Documentation
 
 https://algorand-devrel.github.io/hackathon
