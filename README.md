@@ -1,6 +1,6 @@
 # Algorand Hackathon
 
-Sample code includes a hackathon token and server provided in the file algorandsamples.zip. 
+Sample code includes a hackathon token and server url in the file algorandsamples.zip. 
 
 This code runs with no modifications for JavaScript, Java, Go and Python. 
 
