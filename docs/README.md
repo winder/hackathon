@@ -25,18 +25,18 @@ install your own node, so you can do this lab exercise and continue to work on
 the solution after the hackathon is over, as well as build other solutions.
 Follow the instructions on how to install your node are here:
 
-<https://developer.algorand.org/docs/introduction-installing-node>  
+<https://developer.algorand.org/docs/run-a-node/setup/install/>  
 
 
 By default, an Algorand installation is configured to run on MainNet. For most
 users, this is the desired outcome.  Developers, however, need access to our
 TestNet or DevNet networks. This
-[guide](https://developer.algorand.org/docs/switching-networks) will walk you
+[guide](https://developer.algorand.org/docs/run-a-node/operations/switch_networks/) will walk you
 through how to switch networks, if you have not already done so.
 
 Your node may take a while to sync (several hours). You can proceed to the
 following steps in the meantime, noting if the goal command does not seem to be
-working, like transferring funds for example, it may be because the node is not
+working, like transferring funds, for example, it may be because the node is not
 synced yet. To see if it is synced use this command from terminal:
 
 >   goal node status -d \~/node/data
