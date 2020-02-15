@@ -10,8 +10,7 @@ module.exports = {
     ],
     sidebarDepth: 2,
     sidebar: [
-      ['/', 'LAB Exercise - Algorand Hackathon Developer'],  
-      ['/ASA', 'Tutorial ASA']  
+      ['/', 'LAB Exercise - Algorand Hackathon Developer']  
     ]
   }
 };
