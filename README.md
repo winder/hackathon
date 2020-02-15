@@ -1,23 +1,12 @@
 # Algorand Hackathon
 
-### Hackthon Guide and Documentation
+Sample code includes a hackathon token and server provided in the file algorandsamples.zip. 
 
-[https://algorand-devrel.github.io/hackathon](https://algorand-devrel.github.io/hackathon)
+This code runs with no modifications for JavaScript, Java, Go and Python. 
 
-### Contributing
+Sample C# code can be found here: https://github.com/RileyGe/dotnet-algorand-sdk. 
 
-```bash
-# Clone the repository
-git clone git@github.com:algorand-devrel/hackathon.git
-cd hackathon
+The tutorial for the hackathon repository has been replaced by the new developer portal…   
+https://developer.algorand.org/ 
 
-# First time only - install dependencies
-npm install
-
-# Run in dev mode
-npm run docs:dev
-
-# Deployment
-./deploy.sh
-```
-
+Navigate to https://developer.algorand.org/ and click on Start Building / Workspace Setup
