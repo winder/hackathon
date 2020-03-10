@@ -6,7 +6,13 @@ This repository contains content for participants of hackathons or workshops. **
 ## Getting Started with Algorand
 
 
-1. Navigate to https://developer.algorand.org/ and click on [Start Building / Workspace Setup](https://developer.algorand.org/docs/build-apps/setup/). It is recommended to first run your own node, which will install all development tools including goal, kmd, and algokey. However, it will take several hours to sync. So, for hackathon or workshop development, you may want to use, while your node syncs, the Docker Sandbox or a Third-party service as documented. Not listed on the setup page is another option, a hackathon workshop instance, and documented below. Then, follow the steps on Connect to Node and Your First Transaction pages.
+1. Navigate to https://developer.algorand.org/ and click on [Start Building / Workspace Setup](https://developer.algorand.org/docs/build-apps/setup/). Complete the three Start Building tasks: 
+
+* Workspace Setup 
+* Connect to Node 
+* Your First Transaction 
+
+It is recommended to first run your own node, which will install all development tools including goal, kmd, and algokey. However, it will take several hours to sync. While your node syncs, you may want to use the Docker Sandbox or a Third-party service as documented. Not listed on the setup page is another option which uses a hackathon workshop instance, and is documented below. 
 
 ![Dev  portal](/imgs/Hackathon-00.png)
 
