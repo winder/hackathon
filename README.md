@@ -25,7 +25,7 @@ All of the completed code below runs without any modifcations and is in algroand
 
 * Server: http://hackathon.algodev.network:9100
 
-Note: Want to learn how to debug with VS Code? See our quick tutorial for [Debugging Java](https://github.com/algorand-devrel/hackathon/VSCode/Java/vscode.md).
+**Note: ** Want to learn how to debug with VS Code? See our quick tutorial for [Debugging Java](https://github.com/algorand-devrel/hackathon/blob/master/VSCode/Java/vscode.md).
 
 **1. Create Standalone Accounts**
 
