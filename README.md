@@ -1,4 +1,4 @@
-# Algorand Hackathon
+ # Algorand Hackathon
 
 This repository contains content for participants of hackathons or workshops. **Getting Started with Algorand** and **Algorand 2.0 Workshop** steps are below.
 
@@ -12,7 +12,7 @@ This repository contains content for participants of hackathons or workshops. **
 * Connect to Node 
 * Your First Transaction 
 
-It is recommended to first run your own node, which will install all development tools including goal, kmd, and algokey. However, it will take several hours to sync. While your node syncs, you may want to use the Docker Sandbox or a Third-party service as documented. Not listed on the setup page is another option which uses a hackathon workshop instance, and is documented below. 
+It is recommended to first run your own node, which will install all development tools including goal, kmd, and algokey. However, it will take several hours to sync. While your node syncs, you may want to use the Docker Sandbox or a Third-party service as documented. Not listed on the setup page is another option which uses a hackathon workshop instance and this is documented below. 
 
 ![Dev  portal](/imgs/Hackathon-00.png)
 
@@ -25,19 +25,31 @@ The sample code includes a hackathon token and server URL in the file _algorands
 
 ## Algorand 2.0 Workshop for Java
 
-All of the completed code below runs without any modifcations and is in algroandsamples.zip (/java-test/src/main/java/com/algorand/javatest) and uses a stand-up hackathon instance:
+The fastest and recommended way to start using a node for SDK coding is to use the [Sandbox](https://github.com/algorand/sandbox). All of the completed code below runs without any modifications. By default, the code uses the sandbox endpoints.
 
-* Token: "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1"
+Sandbox uses the following API endpoints:
 
-* Server: http://hackathon.algodev.network:9100
+address: http://localhost:4001
 
-**Note: ** Want to learn how to debug with VS Code? See our quick tutorial for [Debugging Java](https://github.com/algorand-devrel/hackathon/blob/master/VSCode/Java/vscode.md).
+token: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+ The code is in [algroandsamples java-test folder](https://github.com/algorand-devrel/hackathon/tree/master/algorandsamples/java-test/src/main/java/com/algorand/javatest) 
+ 
+ Another option to the sandbox endpoints is to use a stand-up hackathon instance endpoints ... so these endpoints can be used if a sandbox has not been setup:
+
+* address: http://hackathon.algodev.network:9100
+
+* token: "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1"
+
+To debug code samples, navigate to the algorandsamples folder in finder or explorer and open the java.code-workspace with VS Code. The code is located in the java-test folder. 
+
+**Note:** Want to learn how to debug with VS Code? See our quick tutorial for [Debugging Java](https://github.com/algorand-devrel/hackathon/blob/master/VSCode/Java/vscode.md).
 
 **1. Create Standalone Accounts**
 
 * Explore feature: https://developer.algorand.org/docs/features/accounts/create/#standalone
 
-* Completed code: _TutorialCreateAccounts.java_
+* Completed code: [_TutorialCreateAccounts.java_](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialCreateAccounts.java)
 
 **2. Dispense funds**
 
@@ -47,19 +59,19 @@ All of the completed code below runs without any modifcations and is in algroand
 
 * Explore feature: <https://developer.algorand.org/docs/features/asa/>
 
-* Completed code: _TutorialAssetExample.java_
+* Completed code: [_TutorialAssetExample.java_](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialAssetExample.java)
 
 **4. Atomic Transfers**
 
 * Explore feature: https://developer.algorand.org/docs/features/atomic_transfers/
 
-* Completed code: _TutorialGroupedTransaction.java_
+* Completed code: [_TutorialGroupedTransaction.java_](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialGroupedTransaction.java)
 
 **5. Algorand Smart Contracts Layer 1**
 
 * Explore feature: https://developer.algorand.org/docs/features/asc1/sdks/
 
-* Completed code: _TutorialSubmitTealContract.java_ and _TutorialSubmitTealDelegate.java_
+* Completed code: [_TutorialSubmitTealContract.java_](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialSubmitTealContract.java) and [_TutorialSubmitTealDelegate.java_](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialSubmitTealDelegate.java)
 
 ![Dev  portal](/imgs/Hackathon-01.png)
 

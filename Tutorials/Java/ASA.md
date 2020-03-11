@@ -30,7 +30,7 @@ network
 Step 1A - Create 3 Accounts and add Algos to the Accounts
 --------------------------------------------------
 
-Assets are created at the account level. Each account can have up to 1000 assets for creator accounts as well as for consumer accounts. So, before starting the ASA tutorial, 3 new accounts will be created for this step for ASA transactions. Once created, copy off the account mnumonic and account address values.  
+Assets are created at the account level. Each account can have up to 1000 assets for creator accounts as well as for consumer accounts. So, before starting the ASA tutorial, 3 new accounts will be created for this step for ASA transactions. Once created, copy off the account mnemonic and account address values.  
 
 **Task 1A-1** Create an empty code file for desired language of choice (CreateNewAccounts.js, CreateNewAccounts.py, CreateNewAccounts.java, or CreateNewAccounts.go). Then simply copy the and insert the snippet. Update the node token and URL, and run. Then copy off the account addresses and mnemonics. In Step 1B, we will paste those into the TutorialASA code and recover the account using the mnemonics created in this step. Mnemonics are for demonstration purposes. **NEVER** reveal secret mnemonics in practice.
 

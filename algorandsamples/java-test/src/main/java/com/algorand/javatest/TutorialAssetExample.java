@@ -33,7 +33,7 @@ public class TutorialAssetExample {
   
         // your own node
         // final String ALGOD_API_ADDR = "http://127.0.0.1:8080";
-        // final String ALGOD_API_TOKEN = "ec068ed68dc176e61a07b897c53835c6fb956271ce70aad3b204f0db6fa34f6d";
+        // final String ALGOD_API_TOKEN = "your token in your node/data/algod.token file";
 
         //sandbox
         final String ALGOD_API_ADDR = "http://localhost:4001";
