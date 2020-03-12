@@ -129,7 +129,23 @@ Transaction, Block or AssetID.</center> -->
 
 The tutorial code below is separated into snippets categorized by ASA core functions and is laid out in order. The remainder of the workshop is one solution and should be coded as a single script. 
 
-**Task 2-1** Create an empty code file called _myTutorialAssetExample.java_ in the same location as Step 1. Then simply copy the code below and paste it into the empty file. Then append each snippet after the last line of code in the prior step as you read through this tutorial.
+All of the completed code below runs without any modifications. By default, the code uses the sandbox endpoints.
+
+Sandbox uses the following API endpoints:
+
+address: http://localhost:4001
+
+token: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+ The completed code is in [algroandsamples java-test folder](https://github.com/algorand-devrel/hackathon/tree/master/algorandsamples/java-test/src/main/java/com/algorand/javatest) 
+ 
+ Another option to the sandbox endpoints is to use a stand-up hackathon instance endpoints ... so these endpoints can be used if not using the sandbox:
+
+* address: http://hackathon.algodev.network:9100
+
+* token: "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1"
+
+**Task 2-1** Create an empty code file called _myTutorialAssetExample.java_ in the same location as Step 1. Then simply copy the code below and paste it into the empty file and run it. Then append each snippet after the last line of code in the prior step as you read through this workshop.
 
 ```java
 package com.algorand.javatest;
