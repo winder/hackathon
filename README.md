@@ -29,7 +29,7 @@ For development, try to first run your own node, which will install all developm
 
 The fastest and recommended way to get started is to use the [Algorand Sandbox](https://github.com/algorand/sandbox). 
 
-To debug code samples, navigate to the algorandsamples folder in finder or explorer and open the java.code-workspace with VS Code. The code is located in the java-test folder. 
+To debug code samples, clone repository and then navigate to the algorandsamples folder using  Finder or Explorer. Open the _java.code-workspace_ with VS Code. The code is located in the _java-test_ folder. 
 
 **Note:** Want to learn how to debug with VS Code? See our quick tutorial for [Debugging Java](https://github.com/algorand-devrel/hackathon/blob/master/VSCode/Java/vscode.md).
 
