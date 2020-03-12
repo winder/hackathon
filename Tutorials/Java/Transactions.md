@@ -1,6 +1,6 @@
 # Java Workshop – Transactions
 
-Estimated time 10 minutes
+Estimated time 20 minutes
 
 # Summary
 
@@ -26,7 +26,7 @@ Completed code for this workshop can be found here [TutorialTransaction.java](ht
 
 # Background
 
-After you successfully connect to algod using the [Algorand Sandbox](https://github.com/algorand/sandbox) and your preferred SDK, explore the methods available to read from and write to the blockchain. Remember that writing to the Algorand blockchain is simply sending a transaction to the network that is later confirmed within a block.
+After you successfully connect to algod using the [Algorand Sandbox](https://github.com/algorand/sandbox) and your preferred SDK, let's explore the methods available to read from and write to the blockchain. Remember that writing to the Algorand blockchain is simply sending a transaction to the network that is later confirmed within a block.
 
 Follow the guide below to send your first transaction on Algorand and familiarize yourself with some of the core functions of the SDKs. Examples of goal commands and REST API calls are included when they are the same or similar, allowing you to cross-verify and gain fluency across all available tools and platforms.
 
@@ -63,9 +63,8 @@ Account 3
 
 **Info:**
     You may want to verify account information periodically as well as transactions
-    with asset information during the course of this workshop. You can use either
-    the [Algo TestNet Explorer](https://testnet.algoexplorer.io/) or use the Purestake's [Goalseeker](https://goalseeker.purestake.io/algorand/testnet), which also
-    facilitates search by asset ID.
+    with asset information during this workshop. You can use either use 
+    the [Algo TestNet Explorer](https://testnet.algoexplorer.io/) or use the Purestake's [Goalseeker](https://goalseeker.purestake.io/algorand/testnet), which also facilitates search by asset ID.
 
 ![Figure Step 2-1 Use Purestake’s [Goalseeker](https://goalseeker.purestake.io/algorand/testnet) to search on Address, Transaction, Block or AssetID](/imgs/TutorialASA-01.png)
 **Figure Step 2-1** Purestake’s Goalseeker used to search Address,
@@ -339,9 +338,9 @@ try {
 
 In this workshop, notice above the pattern of constructing a transaction, authorizing it, submitting it to the network, and confirming its inclusion in a block. This is a framework to familiarize yourself with as it appears often in blockchain-related development.
 
+See here for [more information on Transactions](https://developer.algorand.org/docs/features/transactions/).  
+
 Source code for the completed solution can be found here:
-
-
 
 [Transaction Sample](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialGroupedTransaction.java)
 

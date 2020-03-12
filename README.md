@@ -33,7 +33,23 @@ To debug code samples, clone repository and then navigate to the algorandsamples
 
 **Note:** Want to learn how to debug with VS Code? See our quick tutorial for [Debugging Java](https://github.com/algorand-devrel/hackathon/blob/master/VSCode/Java/vscode.md).
 
-## 1. [Java Workshop – Algorand Standard Assets (ASA)](https://github.com/algorand-devrel/hackathon/blob/master/Tutorials/Java/ASA.md)
+## 1. [Java Workshop – Transactions](https://github.com/algorand-devrel/hackathon/blob/master/Tutorials/Java/Transactions.md)
+
+Estimated time = 20 minutes
+
+[CLICK HERE TO OPEN WORkSHOP](https://github.com/algorand-devrel/hackathon/blob/master/Tutorials/Java/Transactions.md)
+
+In this workshop you will learn how to send your first transaction on Algorand and familiarize yourself with some of the core functions of the SDKs. Remember that writing to the Algorand blockchain is simply sending a transaction to the network that is later confirmed within a block.
+
+Aditonal Resources
+
+See here for [more information on Transactions](https://developer.algorand.org/docs/features/transactions/).  
+
+Source code for the completed solution can be found here:
+
+[Transaction Sample](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialGroupedTransaction.java)
+
+## 2. [Java Workshop – Algorand Standard Assets (ASA)](https://github.com/algorand-devrel/hackathon/blob/master/Tutorials/Java/ASA.md)
 
 Estimated time = 70 minutes
 
@@ -55,7 +71,7 @@ Additional resources can be found here:
 
 * [Completed ASA WorkShop code](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialAssetExample.java)
 
-## 2. Atomic Transfers
+## 3. Atomic Transfers
 
 Estimated time: 10 Minutes
 
@@ -63,7 +79,7 @@ Estimated time: 10 Minutes
 
 * Completed code: [_TutorialGroupedTransaction.java_](https://github.com/algorand-devrel/hackathon/blob/master/algorandsamples/java-test/src/main/java/com/algorand/javatest/TutorialGroupedTransaction.java)
 
-## 3. Algorand Smart Contracts Layer 1
+## 4. Algorand Smart Contracts Layer 1
 
 Estimated time: 10 minutes
 
@@ -73,7 +89,7 @@ Estimated time: 10 minutes
 
 ![Dev  portal](/imgs/Hackathon-01.png)
 
-**Figure 1** Tutorial Completed code
+**Figure 1** Workshop Completed code
 
 
 
