@@ -62,11 +62,16 @@ Here are several things to be aware of before getting started with assets.
 
 Time estimate - 10 minutes
 
-Assets are created at the account level. So, before starting the ASA workshop, 3 new accounts will be created for this step for ASA transactions. Once created, copy off the account mnemonic and account address values.  
+Assets are created at the account level. So, before starting the ASA workshop, 3 new accounts will be created for this step for ASA transactions. Once created, copy off the account mnemonic and account address values.
 
-**Task 1-1** Setup. Clone the [Hackathon Repository](https://github.com/algorand-devrel/hackathon)
+**Task 1-1** Setup. Clone the [Hackathon Repository](https://github.com/algorand-devrel/hackathon).
 
-**Task 1-2** Open the workspace or folder. From Finder or Explorer navigate to the algorandsamples folder and open the java.code-workspace with VS Code.  If using another IDE, the completed source code is nested under algorandsamples/java-test folder. 
+**Task 1-2** Open the workspace or folder. You will need to start a new instance of VS Code for this workshop. Navigate to the algorandsamples folder using Finder/Explorer. 
+
+Right click on the file _java.code-workspace_ and select Open With ... and select Visual Studio Code or add it by selecting Other... If using another IDE or opening from VS Code, open the completed source code folder  algorandsamples/java-test folder. 
+
+![Figure Step 1-2 Open WorkSpace from Finder/Explorer](/imgs/TutorialASA-03.png)
+**Figure Step 1-2** Open WorkSpace from Finder/Explorer.
 
 **Task 1-3** Create your code. Create an empty code file in the source folder (/algorandsamples/java-test/src/main/java/com/algorand/javatest) and name it  _myTutorialCreateAccounts.java_
 
