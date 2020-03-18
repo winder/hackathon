@@ -15,5 +15,8 @@ public class TutorialCreateAccounts {
 
         //Copy off accounts and mnemonics    
         //Dispense TestNet Algos to each account: https://bank.testnet.algorand.network/
+        // resource:
+        // https://developer.algorand.org/docs/features/accounts/create/#standalone
+  
     }
 }

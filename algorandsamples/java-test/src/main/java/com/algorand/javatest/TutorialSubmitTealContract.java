@@ -95,7 +95,8 @@ public class TutorialSubmitTealContract
 
             // send raw LogicSigTransaction to network
             byte[] encodedTxBytes = Encoder.encodeToMsgPack(stx);
-            // int 0 is the teal program, which returns false, so rawTransaction will fail below      
+            // int 0 is the teal program, which returns false, 
+            // so rawTransaction will fail below      
             TransactionID id = algodApiInstance.rawTransaction(encodedTxBytes);
             System.out.println("Successfully sent tx with id: " + id);
 
@@ -105,3 +106,6 @@ public class TutorialSubmitTealContract
 
     }
 }
+
+// resource
+// https://developer.algorand.org/docs/features/asc1/sdks/#contract-account-sdk-usage

@@ -99,3 +99,6 @@ public class TutorialSubmitTealDelegate {
 
     }
 }
+
+// resource
+// https://developer.algorand.org/docs/features/asc1/sdks/#account-delegation-sdk-usage

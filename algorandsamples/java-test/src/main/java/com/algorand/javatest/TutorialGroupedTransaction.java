@@ -176,3 +176,5 @@ public class TutorialGroupedTransaction {
         mn.AtomicTransfer();
     }
 }
+
+// resource: https://developer.algorand.org/docs/features/atomic_transfers/

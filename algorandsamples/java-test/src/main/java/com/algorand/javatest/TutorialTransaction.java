@@ -144,15 +144,7 @@ public class TutorialTransaction {
         } catch (ApiException e) {
             System.err.println("Exception when calling algod#transactionInformation: " + e.getCode());
         }
-       // read the transaction
-        try {
-            com.algorand.algosdk.algod.client.model.Transaction confirmedTxn = algodApiInstance
-                    .transactionInformation(RECEIVER, signedTxn.transactionID);
-            System.out.println("Transaction information (with notes): " + confirmedTxn.toString());
-            System.out.println("Decoded note: " + new String(confirmedTxn.getNoteb64()));
-        } catch (ApiException e) {
-            System.err.println("Exception when calling algod#transactionInformation: " + e.getCode());
-        }
+
     }
 
     public static void main(String args[]) throws Exception {
@@ -160,3 +152,6 @@ public class TutorialTransaction {
         t.gettingStartedExample();
     }
 }
+
+// resources : https://developer.algorand.org/docs/build-apps/hello_world/
+// and https://developer.algorand.org/docs/features/transactions/
