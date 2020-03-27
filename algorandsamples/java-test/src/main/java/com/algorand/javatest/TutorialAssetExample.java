@@ -245,7 +245,7 @@ public class TutorialAssetExample {
             // and see that it can accept the new asseet
             act = algodApiInstance.accountInformation(acct3.getAddress().toString());
             AssetHolding ah = act.getHolding(assetID);
-            System.out.println( "Asset Holding: " + ah.getAmount() );
+            System.out.println( "Account 3 Asset Holding: " + ah.getAmount() );
 
         } catch (Exception e){
             e.printStackTrace();
@@ -279,7 +279,7 @@ public class TutorialAssetExample {
             // list the account information for acct3 
             // and see that it now has 5 of the new asset
             act = algodApiInstance.accountInformation(acct3.getAddress().toString());
-            System.out.println( act.getHolding(assetID).getAmount() );
+            System.out.println("Account 3 Asset Holding: " + act.getHolding(assetID).getAmount() );
         } catch (Exception e){
             e.printStackTrace();
             return;
