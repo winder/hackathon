@@ -20,5 +20,8 @@
   "homepage": "https://github.com/algorand-devrel/hackathon#readme",
   "devDependencies": {
     "vuepress": "^1.0.4"
+  },
+  "dependencies": {
+    "algosdk": "^1.5.0"
   }
 }

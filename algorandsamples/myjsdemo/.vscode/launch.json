@@ -5,6 +5,35 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch TutorialOptInAsset",
+            "program": "${workspaceFolder}/TutorialOptInAsset.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch TutorialCreateAsset",
+            "program": "${workspaceFolder}/TutorialCreateAsset.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch TutorialAssetExample",
+            "program": "${workspaceFolder}/TutorialAssetExample.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
