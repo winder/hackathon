@@ -4,6 +4,51 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch TutorialDestroyAsset",
+        "program": "${workspaceFolder}/TutorialDestroyAsset.js",
+        "skipFiles": [
+            "<node_internals>/**"
+        ]
+    },
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch TutorialRevokeAsset",
+        "program": "${workspaceFolder}/TutorialRevokeAsset.js",
+        "skipFiles": [
+            "<node_internals>/**"
+        ]
+    },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch TutorialFreezeAsset",
+            "program": "${workspaceFolder}/TutorialFreezeAsset.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch TutorialTransferAsset",
+            "program": "${workspaceFolder}/TutorialTransferAsset.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch TutorialChangeAssetManager",
+            "program": "${workspaceFolder}/TutorialChangeAssetManager.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
         {
             "type": "node",
             "request": "launch",
