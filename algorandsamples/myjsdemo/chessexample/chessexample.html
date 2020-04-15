@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Chess Game on Algorand</title>
+  <link rel="stylesheet" href="css/chessboard-1.0.0.css">
+  <link rel="stylesheet" href="css/gamestyle.css">  
+</head>
+<body>
+
+<div class="note">
+<label>Status:</label>
+<div id="status"></div>
+<div id="playercolor"></div>
+<div id="currentplayer"></div>
+</div>
+<div id="parent">
+  <div id="wide">
+    <div style="text-align: center;left: 50%;">
+      <div id="myBoard" style="width: 40%;padding: 25px;display: inline-block;"></div>
+    </div>
+  </div>
+  <div id="narrow1">
+    <label style="padding: 5px;text-align: center;">Game Requests</label>
+<ul id="requestlist">
+  <li>No Current Game Requests</li>
+</ul>   
+
+  </div>
+  <div id="narrow2">
+    <label style="padding: 5px;text-align: center;">Leaders</label>
+<ul id="winnerList">
+  <li>No Top Winners</li>
+</ul>   
+
+  </div>
+
+</div>
+
+<div id="wrapper" >
+    <div id="first" style="padding: 5px;text-align: center">
+     <button class="myButton" id='generate'>
+         Generate Player
+     </button>
+     <button class="myButton"id='recover'>
+         Recover Player
+     </button>  
+     
+     <!-- <button class="myButton"id='recovermatch'>-->
+      <!--   Recover Match-->
+     <!--</button>
+   -->
+     <button class="myButton"id='findmatch'>
+         Find Match
+     </button>                
+    </div>
+
+    <div class='note' id="second">
+<label for="name">Player1:</label>
+<input readonly type="text" id="from" name="from" required
+     size="75"> 
+<div>     
+<label for="name">Player2:</label>       
+<input readonly type="text" id="to" name="to" required
+       size="75">
+</div>  
+<label for="name">GameID:</label>       
+<input type="text" id="chessid" name="chessid" required
+       size="75">
+</div>  
+
+</div>
+      
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/chessboard-1.0.0.min.js"></script>
+<script src="js/chess.js"></script>
+<script src="js/algosdk.min.js"></script>
+<script src="js/test.js"></script>
+</body>
+</html>
