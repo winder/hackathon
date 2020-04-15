@@ -7,6 +7,24 @@
     {
         "type": "node",
         "request": "launch",
+        "name": "Launch Program ASA",
+        "program": "${workspaceFolder}/ASA.js",
+        "skipFiles": [
+            "<node_internals>/**"
+        ]
+    },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program ASC1",
+            "program": "${workspaceFolder}/ASC1.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+    {
+        "type": "node",
+        "request": "launch",
         "name": "Launch TutorialDestroyAsset",
         "program": "${workspaceFolder}/TutorialDestroyAsset.js",
         "skipFiles": [
@@ -84,6 +102,31 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8081",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chess Chrome against localhost",
+            "url": "http://localhost:8080/chessexample/chessexample.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch PureStakeAtomicTransfer",
+            "program": "${workspaceFolder}/AtomicTransferPurestake.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch AtomicTransfer",
+            "program": "${workspaceFolder}/AtomicTransfer.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
         }
     ]
 }
