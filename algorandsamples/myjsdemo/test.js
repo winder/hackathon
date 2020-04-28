@@ -71,7 +71,7 @@
 
         return text;
     }
-    //acount information
+    //account information
     if (adetails) {
         // debugger;
         adetails.onclick = function() {
