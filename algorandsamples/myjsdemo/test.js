@@ -6,7 +6,10 @@
     // Algorand Hackathon
     const atoken = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
     const aserver = "http://hackathon.algodev.network";
-    const aport = 9100;  
+    const aport = 9100; 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const fromaccount = urlParams.get('account');
 
     // your own node
     // const atoken = "your atoken"
@@ -104,7 +107,7 @@
                 var textedJson = JSON.stringify(block, undefined, 4);
                 console.log(textedJson);
                 ta.innerHTML = textedJson;
-
+                from.value = fromaccount;
                 console.log(block);
             })().catch(e => {
                 console.log(e);
