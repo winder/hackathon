@@ -89,6 +89,7 @@ public class TutorialSubmitTealContract
         System.out.println("lsig address: " + lsig.toAddress());
         Transaction tx = new Transaction(lsig.toAddress(), new Address(DEST_ADDR), BigInteger.valueOf(1000), amount, firstRound, lastRound, genId, genesisHash);
 
+
         try {
             // create the LogicSigTransaction with contract account LogicSig
             SignedTransaction stx = Account.signLogicsigTransaction(lsig, tx);

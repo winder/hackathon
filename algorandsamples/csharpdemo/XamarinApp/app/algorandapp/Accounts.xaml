@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Accounts"
+             x:Class="algorandapp.Accounts">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <OnPlatform.Platforms>
+                <On Platform="iOS" Value="0, 100, 0, 0" />
+                <On Platform="Android" Value="0, 0, 0, 0" />
+                <On Platform="UWP" Value="0, 0, 0, 0" />
+            </OnPlatform.Platforms>
+        </OnPlatform>
+    </ContentPage.Padding>
+
+    <ScrollView>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                 <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout HorizontalOptions="Start" Grid.Row="0" Grid.Column="0">
+            <Label Text="TestNet" />
+            <Switch x:Name="TestNetToggle" Toggled="Switch_Toggled_TestNet" OnColor="Orange"
+                    ThumbColor="Green" />
+            <Label Text="BetaNet" />
+            <Switch x:Name="BetaNetToggle" Toggled="Switch_Toggled_BetaNet" OnColor="Orange"
+                    ThumbColor="Green" />
+            </StackLayout>
+            <Button x:Name="myButtonClearAccounts" Grid.Row="0" Grid.Column="1"
+                    Text="Clear Device Accounts" Clicked="myButtonClearAccounts_Clicked" IsVisible="True">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+
+            <Button x:Name="myButtonGetBlock" Grid.Row="1" Grid.Column="0"  Text="Get Block" Clicked="myButtonGetBlock_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="myButtonGenerateAccount1" Grid.Row="2" Grid.Column="0"
+                    Text="Generate Account 1" Clicked="myButtonGenerateAccount1_click">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+
+            <Button x:Name="myButtonGenerateAccount2" Grid.Row="3" Grid.Column="0"
+                    Text="Generate Account 2" Clicked="myButtonGenerateAccount2_Clicked" IsEnabled="False">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="myButtonGenerateAccount3" Grid.Row="4" Grid.Column="0"
+                    Text="Generate Account 3" Clicked="myButtonGenerateAccount3_Clicked" IsEnabled="False">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+
+            <Button x:Name="myButtonGetAccount1Info" Grid.Row="2" Grid.Column="1" IsVisible="False"
+                    Text="Get Account 1 Balance" Clicked="myButtonGetAccount1Info_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="myButtonGetAccount2Info" Grid.Row="3" Grid.Column="1" IsVisible="False"
+                    Text="Get Account 2 Balance" Clicked="myButtonGetAccount2Info_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+             <Button x:Name="myButtonGetAccount3Info" Grid.Row="4" Grid.Column="1" IsVisible="False"
+                    Text="Get Account 3 Balance" Clicked="myButtonGetAccount3Info_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="myButtonCreateMultiSig" Grid.Row="5" Grid.Column="0" IsVisible="False"
+                    Text="Create Multisig Address" Clicked="myButtonCreateMultiSig_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="myButtonGetMultiSig" Grid.Row="5" Grid.Column="1" IsVisible="False"
+                    Text="Get Multisig Address" Clicked="myButtonGetMultiSig_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Label FontSize="Large" x:Name="myLabel" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="Account Methods" HorizontalOptions="StartAndExpand" >
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Label.FontSize>
+            </Label>
+
+            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="" HorizontalOptions="StartAndExpand">
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Label.FontSize>
+            </Label>
+        </Grid>
+
+
+    </ScrollView>
+</ContentPage>

@@ -4,9 +4,15 @@
     //and algod.token files within the data directory
    
     // Algorand Hackathon
-    const atoken = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
-    const aserver = "http://hackathon.algodev.network";
-    const aport = 9100; 
+    // const atoken = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+    // const aserver = "http://hackathon.algodev.network";
+    // const aport = 9100; 
+
+    // sandbox
+    const atoken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    const aserver = "http://localhost";
+    const aport = 4001;
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const fromaccount = urlParams.get('account');

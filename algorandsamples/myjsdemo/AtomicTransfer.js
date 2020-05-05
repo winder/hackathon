@@ -29,10 +29,23 @@ const port = 4001;
 //     " century also task cherry address curious save item" +
 //     " clean theme amateur loyal apart hybrid steak about blanket";
 
-var account1_mnemonic = "flash ready garden rabbit couple talent quiz buzz manual lottery twist corn ivory hat trade actual goddess rice swing dinner shove gravity paddle abandon jacket";
-var account2_mnemonic = "enact solution token firm beach legend series rubber display begin angry bachelor play record captain vocal thought boss dish share brave rabbit frown about such";
-var account3_mnemonic = "awake used crawl list cruel harvest useful flag essay speed glad salmon camp sudden ride symptom test kind version together project inquiry diet abandon budget"
-   
+// var account1_mnemonic = "flash ready garden rabbit couple talent quiz buzz manual lottery twist corn ivory hat trade actual goddess rice swing dinner shove gravity paddle abandon jacket";
+// var account2_mnemonic = "enact solution token firm beach legend series rubber display begin angry bachelor play record captain vocal thought boss dish share brave rabbit frown about such";
+// var account3_mnemonic = "awake used crawl list cruel harvest useful flag essay speed glad salmon camp sudden ride symptom test kind version together project inquiry diet abandon budget"
+
+
+var account1_mnemonic = "portion never forward pill lunch organ biology" +
+    " weird catch curve isolate plug innocent skin grunt" +
+    " bounce clown mercy hole eagle soul chunk type absorb trim";
+var account2_mnemonic = "place blouse sad pigeon wing warrior wild script" +
+    " problem team blouse camp soldier breeze twist mother" +
+    " vanish public glass code arrow execute convince ability" +
+    " there";
+var account3_mnemonic = "image travel claw climb bottom spot path roast" +
+    " century also task cherry address curious save item" +
+    " clean theme amateur loyal apart hybrid steak about blanket"
+
+
 //instantiate the algod wrapper
 let algodclient = new algosdk.Algod(token, server, port);
 

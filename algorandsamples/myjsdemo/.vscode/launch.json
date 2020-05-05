@@ -16,12 +16,21 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program ASC1",
-            "program": "${workspaceFolder}/ASC1.js",
+            "name": "Launch Program ASCAccountDelegation",
+            "program": "${workspaceFolder}/ASCAccountDelegation.js",
             "skipFiles": [
                 "<node_internals>/**"
             ]
         },
+                {
+                    "type": "node",
+                    "request": "launch",
+                    "name": "Launch Program ASCContract",
+                    "program": "${workspaceFolder}/ASCContract.js",
+                    "skipFiles": [
+                        "<node_internals>/**"
+                    ]
+                },
     {
         "type": "node",
         "request": "launch",
@@ -100,7 +109,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8081",
+            "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
         },
         {
