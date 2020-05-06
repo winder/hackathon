@@ -24,16 +24,19 @@ namespace algorandapp
     public partial class Accounts : ContentPage
     {
 
-        public const string ALGOD_API_TOKEN = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
-        public const string ALGOD_API_ADDR = "https://testnet-algorand.api.purestake.io/ps1";
-        public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
-        public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
+        //public const string ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
+        //public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
+        //public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
+        //public const string ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
 
-        //public const string ALGOD_API_TOKEN = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
-        //public const string ALGOD_API_ADDR = "http://hackathon.algodev.network:9100";
+        public const string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
+        public const string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
+        public const string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+        public const string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
+
 
         //   https://betanet-algorand.api.purestake.io/ps1
-        public AlgodApi algodApiInstance = new AlgodApi(ALGOD_API_ADDR, ALGOD_API_TOKEN);
+        public AlgodApi algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
        // public AlgodClient client = new AlgodClient();
         
 
@@ -109,6 +112,7 @@ namespace algorandapp
             var msig = await SecureStorage.GetAsync("Multisig");
             var transaction = await SecureStorage.GetAsync("Transaction");
             var multisigtransaction = await SecureStorage.GetAsync("MultisigTransaction");
+
             EnableNetworkToggles(network);
             CreateMultiSig.IsVisible = true;
             Transaction.IsVisible = true;
@@ -178,10 +182,12 @@ namespace algorandapp
                 }
                 else
                 {
+                    //CreateMultiSig.IsEnabled = true;
                     CreateMultiSig.IsEnabled = false;
-                    CreateMultiSig.Text = "Multisig created = " + msig.ToString();
+                    CreateMultiSig.Text = "Multisig created ";
                     GetMultiSig.IsVisible = true;
                     myLabel2.Text = "Multisig created - version = 1, threshold = 2, number of accounts = 3";
+                    Entry3.Text = msig.ToString();
                     // enable send multisig transaction
                 }
     
@@ -194,7 +200,7 @@ namespace algorandapp
                 else
                 {
                     Transaction.IsEnabled = true;
-                    Transaction.Text = "Transaction sent from account 1 to 2";
+                    Transaction.Text = "Transaction from account 1 to 2";
                     GetTransaction.IsVisible = true;   
                 }
                 if (msig != null)
@@ -208,8 +214,8 @@ namespace algorandapp
                     }
                     else
                     {
-                        MultisigTransaction.IsEnabled = false;
-                        MultisigTransaction.Text = "Sent Multisig Transaction";
+                        MultisigTransaction.IsEnabled = true;
+                        MultisigTransaction.Text = "Send Multisig Transaction to Account 3";
                         GetMultiSigTx.IsVisible = true;
                     }
                 }
@@ -316,7 +322,12 @@ namespace algorandapp
                 Debug.WriteLine("Error: " + ex.Message);
                 // Possible that device doesn't support secure storage on device.
             }
-          
+
+            OpenDispenser(helper, network, myAccountAddress);
+        }
+
+        private static void OpenDispenser(helper helper, string network, string myAccountAddress)
+        {
             if (network == "TestNet")
             {
 
@@ -330,8 +341,6 @@ namespace algorandapp
 
             }
         }
-
-
 
         public async void ClearAccounts_Clicked(System.Object sender, System.EventArgs e)
         {
@@ -365,16 +374,16 @@ namespace algorandapp
                     GetAccount3Info.IsVisible = false;
 
 
-                    CreateMultiSig.IsEnabled = true;
-                    Transaction.IsEnabled = true;
-                    MultisigTransaction.IsEnabled = true;
+                    CreateMultiSig.IsEnabled = false;
+                    Transaction.IsEnabled = false;
+                    MultisigTransaction.IsEnabled = false;
 
                     GenerateAccount1.Text = "Generate Account 1";
                     GenerateAccount2.Text = "Generate Account 2";
                     GenerateAccount3.Text = "Generate Account 3";
                     CreateMultiSig.Text = "Create Multisig Address";
-                    Transaction.Text = "Trasaction from account A to B";
-                    MultisigTransaction.Text = "Send Multisig Tranaction to account C";
+                    Transaction.Text = "Transaction from Account A to B";
+                    MultisigTransaction.Text = "Send Multisig Transaction to Account C";
                
 
                     myLabel.Text = "";
@@ -462,7 +471,7 @@ namespace algorandapp
             {
                 await SecureStorage.SetAsync("Network", "TestNet");
                 BetaNetToggle.IsToggled = false;
-                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN);
+                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
             }
             else
             {
@@ -480,7 +489,7 @@ namespace algorandapp
             {
                 await SecureStorage.SetAsync("Network", "BetaNet");
                 TestNetToggle.IsToggled = false;
-                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN);
+                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
             }
             else
             {
@@ -519,7 +528,7 @@ namespace algorandapp
             try
             {
                 mnemonic1 = await SecureStorage.GetAsync("Account 1");
-                mnemonic2 = await SecureStorage.GetAsync("Account 3");
+                mnemonic2 = await SecureStorage.GetAsync("Account 2");
                 mnemonic3 = await SecureStorage.GetAsync("Account 3");
             }
             catch (Exception ex)
@@ -547,7 +556,9 @@ namespace algorandapp
             GetMultiSig.IsVisible = true;
             await SecureStorage.SetAsync("Multisig", msig.ToString());
             buttonstate();
-       
+            var helper = new helper();
+            var network = await SecureStorage.GetAsync("Network");
+            OpenDispenser(helper, network, msig.ToString());
 
 
         }
@@ -562,6 +573,7 @@ namespace algorandapp
 
         public async void Transaction_Clicked(System.Object sender, System.EventArgs e)
         {
+
             Account account1;
             Account account2;
             Account account3;
@@ -602,30 +614,38 @@ namespace algorandapp
             var signedTx = account1.SignTransaction(tx);
 
             Console.WriteLine("Signed transaction with txid: " + signedTx.transactionID);
-
+            TransactionID id = null;
             // send the transaction to the network
             try
             {
-                var id = Utils.SubmitTransaction(algodApiInstance, signedTx);
+                id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Successfully sent tx with id: " + id.TxId);
-                Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
-
-                GetTransaction.IsVisible = true;
-                Transaction.Text = "Transaction successfully sent";
-               
-                await SecureStorage.SetAsync("Transaction", id.TxId.ToString());
-                buttonstate();
+                var x = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                Console.WriteLine(x);
             }
             catch (ApiException err)
             {
-                // This is generally expected, but should give us an informative error message.
+                // This should give us an informative error message.
+             //   await SecureStorage.SetAsync("Transaction", err.Message);
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
+             //   Entry3.Text = "Transaction ID = " + err.Message;
             }
 
-          
+
+            await SecureStorage.SetAsync("Transaction", id.TxId.ToString());
+            GetTransaction.IsVisible = true;
+            Transaction.Text = "Transaction successfully sent";
+
+           
+            buttonstate();
+
             await DisplayAccount(2);
-            var txid = await SecureStorage.GetAsync("Transaction");
-            Entry3.Text = "Transaction ID = " + txid.ToString();
+            var mytx = await SecureStorage.GetAsync("Transaction");
+            if (mytx != null)
+            {
+                Entry3.Text = "Transaction ID = " + mytx.ToString();
+            }
+
         }
 
         public async void GetTransaction_Clicked(System.Object sender, System.EventArgs e)
@@ -638,10 +658,115 @@ namespace algorandapp
 
         public async void GetMultiSigTx_Clicked(System.Object sender, System.EventArgs e)
         {
+            await DisplayAccount(3);
+            var txid = await SecureStorage.GetAsync("MultisigTransaction");
+            Entry3.Text = "Multisig Transaction ID = " + txid.ToString();
         }
 
         public async void MultisigTransaction_Clicked(System.Object sender, System.EventArgs e)
         {
+            //MultisigTransaction
+            // List for Pks for multisig account
+            List<Ed25519PublicKeyParameters> publicKeys = new List<Ed25519PublicKeyParameters>();
+            Account account1;
+            Account account2;
+            Account account3;
+            string mnemonic1 = "";
+            string mnemonic2 = "";
+            string mnemonic3 = "";
+
+            try
+            {
+                mnemonic1 = await SecureStorage.GetAsync("Account 1");
+                mnemonic2 = await SecureStorage.GetAsync("Account 2");
+                mnemonic3 = await SecureStorage.GetAsync("Account 3");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                // Possible that device doesn't support secure storage on device.
+            }
+            // restore accounts
+            account1 = new Account(mnemonic1);
+            account2 = new Account(mnemonic2);
+            account3 = new Account(mnemonic3);
+
+
+
+            publicKeys.Add(account1.GetEd25519PublicKey());
+            publicKeys.Add(account2.GetEd25519PublicKey());
+            publicKeys.Add(account3.GetEd25519PublicKey());
+
+            // Instantiate the the Multisig Accout
+
+            MultisigAddress msig = new MultisigAddress(1, 2, publicKeys);
+            Console.WriteLine("Multisignature Address: " + msig.ToString());
+       //     Console.WriteLine("no algo in the random address, use TestNet Dispenser to add funds");
+            //no algo in the random adress, use TestNet Dispenser to add funds
+            //Console.ReadKey();
+            string DEST_ADDR = account3.Address.ToString();
+            // add some notes to the transaction
+            byte[] notes = Encoding.UTF8.GetBytes("These are some notes encoded in some way!");//.getBytes();
+
+            //ulong? feePerByte;
+            //string genesisID;
+            //Digest genesisHash;
+            //ulong? firstRound = 0;
+            //Algorand.Algod.Client.Model.TransactionParams transParams = null;
+            var amount = Utils.AlgosToMicroalgos(1);
+            Transaction tx = null;
+            
+            try
+            {
+                tx = Utils.GetPaymentTransaction(new Address(msig.ToString()), new Address(DEST_ADDR), amount, "this is a multisig trans",
+                    algodApiInstance.TransactionParams());
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine("Could not get params", err.Message);
+            }
+            //BigInteger amount = BigInteger.valueOf(2000000);
+            //BigInteger lastRound = firstRound.add(BigInteger.valueOf(1000)); // 1000 is the max tx window
+            // Setup Transaction
+            // Use a fee of 0 as we will set the fee per
+            // byte when we sign the tx and overwrite it
+
+            //var tx = Utils.GetPaymentTransaction(new Address(msa.ToString()), new Address(DEST_ADDR), amount, "this is a multisig trans", transParams);
+            //Transaction tx = new Transaction(new Address(msa.ToString()), transParams.Fee, transParams.LastRound, transParams.LastRound + 1000,
+            //        notes, amount, new Address(DEST_ADDR), transParams.GenesisID, new Digest(Convert.FromBase64String(transParams.Genesishashb64)));
+            // Sign the Transaction for two accounts
+            SignedTransaction signedTx = account1.SignMultisigTransaction(msig, tx);
+            SignedTransaction completeTx = account2.AppendMultisigTransaction(msig, signedTx);
+
+            // send the transaction to the network
+            TransactionID id = null;
+            try
+            {
+                id = Utils.SubmitTransaction(algodApiInstance, completeTx);
+                Console.WriteLine("Successfully sent tx with id: " + id);
+                var x = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                Console.WriteLine(x);
+            }
+            catch (ApiException err)
+            {
+                // This is generally expected, but should give us an informative error message.
+                Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
+            }
+            await SecureStorage.SetAsync("MultisigTransaction", id.TxId.ToString());
+            MultisigTransaction.Text = "Transaction successfully sent";
+            GetMultiSigTx.IsVisible = true;
+       
+
+
+            buttonstate();
+
+            await DisplayAccount(3);
+            var mytx = await SecureStorage.GetAsync("MultisigTransaction");
+            if (mytx != null)
+            {
+                Entry3.Text = "Transaction ID = " + mytx.ToString();
+            }
+
         }
     }
 }

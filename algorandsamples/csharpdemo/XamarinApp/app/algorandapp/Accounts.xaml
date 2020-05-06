@@ -106,24 +106,8 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Button x:Name="CreateMultiSig" Grid.Row="5" Grid.Column="0" IsEnabled="False"
-                    Text="Create Multisig Address" Clicked="CreateMultiSig_Clicked">
-                <Button.FontSize>
-                    <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                </Button.FontSize>
-            </Button>
-            <Button x:Name="GetMultiSig" Grid.Row="5" Grid.Column="1" IsVisible="False"
-                    Text="Get Multisig Address" Clicked="GetMultiSig_Clicked">
-                <Button.FontSize>
-                    <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                </Button.FontSize>
 
-            </Button>
-            <Button x:Name="Transaction" Grid.Row="6" Grid.Column="0" IsEnabled="False"
+            <Button x:Name="Transaction" Grid.Row="5" Grid.Column="0" IsEnabled="False"
                     Text="Transaction from Account 1 to 2" Clicked="Transaction_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -131,13 +115,30 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Button x:Name="GetTransaction" Grid.Row="6" Grid.Column="1" IsVisible="False"
+            <Button x:Name="GetTransaction" Grid.Row="5" Grid.Column="1" IsVisible="False"
                     Text="Get Transaction" Clicked="GetTransaction_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
                 </Button.FontSize>
+            </Button>
+                        <Button x:Name="CreateMultiSig" Grid.Row="6" Grid.Column="0" IsEnabled="False"
+                    Text="Create Multisig Address" Clicked="CreateMultiSig_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="GetMultiSig" Grid.Row="6" Grid.Column="1" IsVisible="False"
+                    Text="Get Multisig Address" Clicked="GetMultiSig_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+
             </Button>
             <Button x:Name="MultisigTransaction" Grid.Row="7" Grid.Column="0" IsEnabled="False"
                     Text="Send Multisig Transaction to Account 3" Clicked="MultisigTransaction_Clicked">

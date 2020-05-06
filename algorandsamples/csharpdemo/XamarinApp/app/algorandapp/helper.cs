@@ -17,16 +17,16 @@ namespace algorandapp
         {
             if (Device.RuntimePlatform == Device.iOS)
             {
-                await Launcher.OpenAsync(url + "&account=" + account);
+                await Launcher.OpenAsync(url + "?account=" + account);
 
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                await Launcher.OpenAsync(url + "&account=" + account);
+                await Launcher.OpenAsync(url + "?account=" + account);
             }
             else if (Device.RuntimePlatform == Device.UWP)
             {
-                await Launcher.OpenAsync(url + "&account=" + account);
+                await Launcher.OpenAsync(url + "?account=" + account);
             }
         }
 
