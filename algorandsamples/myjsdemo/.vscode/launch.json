@@ -8,7 +8,7 @@
         "type": "chrome",
         "request": "launch",
         "name": "Launch Chrome Dispenser",
-        "url": "http://localhost:8080/dispenser/dispenser.html?account=RC24PIKZFYXCKRLA3RGHL5L5DGXU2UJMHN5X3MOVRTZTOWL4JEEVGIIQIY",
+        "url": "http://localhost:8080/dispenser/dispenser.html",
         "webRoot": "${workspaceFolder}"
     },
 

@@ -23,59 +23,29 @@ namespace algorandapp
 {
     public partial class Accounts : ContentPage
     {
-
+        // Purestake
         //public const string ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
         //public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
         //public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
         //public const string ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
 
+     // Purestake Hackathon TestNet
+     //   algodAddress = "https://testnet-algorand.api.purestake.io/ps1"
+	 //algodToken = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab”
+     // Purestake Hackathon BetaNet 
+	 //algodAddress = "https://betanet-algorand.api.purestake.io/ps1"
+	 //algodToken = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab”
+
+
+        // Standalone instance
         public const string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
         public const string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
         public const string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
         public const string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
 
 
-        //   https://betanet-algorand.api.purestake.io/ps1
+        //   default to TESTNET
         public AlgodApi algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
-       // public AlgodClient client = new AlgodClient();
-        
-
-        
-        //Purestake
-        // https://testnet-algorand.api.purestake.io/ps1
-        // WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb
-//        final String ALGOD_API_ADDR = "https://testnet-algorand.api.purestake.io/ps1";
-                
-//        AlgodClient client = new AlgodClient();
-
-//        client.addDefaultHeader("X-API-Key", "......");
-        
-//        client.setBasePath(ALGOD_API_ADDR);
-
-//        AlgodApi algodApiInstance = new AlgodApi(client);
-
-//        NodeStatus status = null;
-        
-//        try {
-//            status = algodApiInstance.getStatus();
-//        } catch (Exception e) {
-//            System.err.print("Failed to get algod status: " + e.getMessage());
-//        }
-        
-//        if(status!=null) {
-//            System.out.println("algod last round: " + status.getLastRound());
-//System.out.println("algod time since last round: " + status.getTimeSinceLastRound());
-//System.out.println("algod catchup: " + status.getCatchupTime());
-//System.out.println("algod latest version: " + status.getLastConsensusVersion());
-
-//BigInteger lastRound = status.getLastRound();
-//            try {
-//                Block block = algodApiInstance.getBlock(lastRound);
-//System.out.println("Block info: " + block.toString());
-//            } catch (Exception e) {
-//                System.err.print("Failed to get block info: " + e.getMessage());
-//            }
-//        }
 
 
 
@@ -85,16 +55,6 @@ namespace algorandapp
         InitializeComponent();
         Appearing += Accounts_Appearing;
 
-
-
-
-            // client.addDefaultHeader("X-API-Key", "......");
-            //AlgodClient client = new AlgodClient();
-            //client.Configuration.DefaultHeader.Add("X-API-Key", ALGOD_API_TOKEN);
-            //client.RestClient.BaseUrl = new Uri(ALGOD_API_ADDR);
-
-            ////  AlgodApi algodApiInstance = new AlgodApi(client);
-            //AlgodApi algodApiInstance = new AlgodApi(client);
         }
 
         private void Accounts_Appearing(object sender, EventArgs e)
@@ -117,7 +77,9 @@ namespace algorandapp
             CreateMultiSig.IsVisible = true;
             Transaction.IsVisible = true;
             MultisigTransaction.IsVisible = true;
-            if (account1 == null)
+
+            // test for null (first time) and "" (after first time)
+            if (string.IsNullOrEmpty(account1))
             {
                 // this account is not generated yet
                 GenerateAccount1.IsEnabled = true;
@@ -132,7 +94,7 @@ namespace algorandapp
                 GetAccount1Info.IsVisible = true;
                 DisableNetworkToggles(network);
             }
-            if (account2 == null)
+            if (string.IsNullOrEmpty(account2))
             {
                 // this account is not generated yet
                 GenerateAccount2.IsEnabled = true;
@@ -147,7 +109,7 @@ namespace algorandapp
                 GetAccount2Info.IsVisible = true;
                 DisableNetworkToggles(network);
             }
-            if (account3 == null)
+            if (string.IsNullOrEmpty(account3))
             {
                 // this account is not generated yet
                 GenerateAccount3.IsEnabled = true;
@@ -162,8 +124,10 @@ namespace algorandapp
                 GetAccount3Info.IsVisible = true;
                 DisableNetworkToggles(network);
             }
-
-            if ((account1 != null) & (account2 != null) & (account3 != null))
+            
+            if (!(string.IsNullOrEmpty(account1) ||
+                string.IsNullOrEmpty(account2) ||
+                string.IsNullOrEmpty(account3)))
             {
                 // all accounts created - leave state
 
@@ -173,7 +137,7 @@ namespace algorandapp
                 Entry3.Text = "";
 
 
-                if (msig == null)
+                if (string.IsNullOrEmpty(msig))
                 {
                     CreateMultiSig.IsEnabled = true;
                     CreateMultiSig.Text = "Create Multisig Address";
@@ -191,7 +155,7 @@ namespace algorandapp
                     // enable send multisig transaction
                 }
     
-                if (transaction == null)
+                if (string.IsNullOrEmpty(transaction))
                 {
                     Transaction.IsEnabled = true;
                     Transaction.Text = "Transaction from Account 1 to 2";
@@ -203,9 +167,10 @@ namespace algorandapp
                     Transaction.Text = "Transaction from account 1 to 2";
                     GetTransaction.IsVisible = true;   
                 }
-                if (msig != null)
+                if (!(string.IsNullOrEmpty(msig)))
+
                 {
-                    if (multisigtransaction == null)
+                    if (string.IsNullOrEmpty(multisigtransaction))
                     {
                         // only enable if multisigaddress created
                         MultisigTransaction.IsEnabled = true;
@@ -261,8 +226,6 @@ namespace algorandapp
         }
         public async void GenerateAccount1_click(System.Object sender, System.EventArgs e)
         {      
-
-
             var accountnumber = 1;
             createaccounts(accountnumber);
             GenerateAccount1.Text = "Account 1 created";
@@ -270,8 +233,9 @@ namespace algorandapp
             GetAccount1Info.IsVisible = true;
             var network = await SecureStorage.GetAsync("Network");
             DisableNetworkToggles(network);
-            buttonstate();
-            
+            // test to make sure account has funds before doing state?
+
+            buttonstate();           
 
         }
         public async void GenerateAccount2_Clicked(System.Object sender, System.EventArgs e)
@@ -449,8 +413,9 @@ namespace algorandapp
         {
             var status = await algodApiInstance.GetStatusAsync();
             long lastround = (long)status.LastRound;
+            Block block; 
             try {
-              var block = await algodApiInstance.GetBlockAsyncWithHttpInfo(lastround);
+              block = await algodApiInstance.GetBlockAsync(lastround);
               myLabel2.Text = "Block Info = " + block.ToString();
             }
             catch (Exception err)
@@ -641,7 +606,8 @@ namespace algorandapp
 
             await DisplayAccount(2);
             var mytx = await SecureStorage.GetAsync("Transaction");
-            if (mytx != null)
+            if (!(mytx == null || mytx ==""))
+
             {
                 Entry3.Text = "Transaction ID = " + mytx.ToString();
             }
@@ -762,7 +728,8 @@ namespace algorandapp
 
             await DisplayAccount(3);
             var mytx = await SecureStorage.GetAsync("MultisigTransaction");
-            if (mytx != null)
+            if (!(mytx == null || mytx == ""))
+
             {
                 Entry3.Text = "Transaction ID = " + mytx.ToString();
             }

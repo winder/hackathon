@@ -1,24 +1,34 @@
 ﻿<Properties StartupConfiguration="{3D8488E0-5101-4301-82D6-304AE6FB9D56}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp.iOS/Main.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/Accounts.xaml.cs">
     <Files>
-      <File FileName="app/algorandapp/MainPage.xaml.cs" Line="60" Column="1" />
-      <File FileName="app/algorandapp/MainPage.xaml" />
-      <File FileName="app/algorandapp/Accounts.xaml" Line="134" Column="53" />
-      <File FileName="app/algorandapp/helper.cs" Line="29" Column="50" />
-      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="381" Column="59" />
-      <File FileName="app/algorandapp.iOS/Main.cs" Line="17" Column="1" />
+      <File FileName="app/algorandapp/MainPage.xaml" Line="100" Column="62" />
+      <File FileName="app/algorandapp/Accounts.xaml" Line="6" Column="1" />
+      <File FileName="app/algorandapp/ASA.xaml" Line="4" Column="45" />
+      <File FileName="app/algorandapp/ASCAccountDelegation.xaml" Line="4" Column="43" />
+      <File FileName="app/algorandapp/ASCContractAccount.xaml" Line="4" Column="41" />
+      <File FileName="app/algorandapp/AtomicTransfers.xaml" Line="4" Column="37" />
+      <File FileName="app/algorandapp/NodeAndNetwork.xaml" Line="4" Column="46" />
+      <File FileName="app/algorandapp/Settings.xaml" Line="4" Column="29" />
+      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="82" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="XamarinApp" expanded="True">
             <Node name="algorandapp" expanded="True">
-              <Node name="Accounts.xaml" expanded="True" />
+              <Node name="Accounts.xaml" expanded="True">
+                <Node name="Accounts.xaml.cs" selected="True" />
+              </Node>
+              <Node name="ASA.xaml" expanded="True" />
+              <Node name="ASCAccountDelegation.xaml" expanded="True" />
+              <Node name="ASCContractAccount.xaml" expanded="True" />
+              <Node name="AtomicTransfers.xaml" expanded="True" />
+              <Node name="MainPage.xaml" expanded="True" />
+              <Node name="NodeAndNetwork.xaml" expanded="True" />
+              <Node name="Settings.xaml" expanded="True" />
             </Node>
             <Node name="algorandapp.Android" expanded="True" />
-            <Node name="algorandapp.iOS" expanded="True">
-              <Node name="Main.cs" selected="True" />
-            </Node>
+            <Node name="algorandapp.iOS" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -29,11 +39,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="735" column="1" />
-      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="699" column="1" />
-      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="548" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="707" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="321" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="615" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="421" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="426" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.algorandapp.Android AndroidDesignerPreferredTheme="Theme.AppCompat.Light.NoActionBar" PreferredExecutionTarget="Android.Android_Accelerated_Oreo" />
+  <MonoDevelop.Ide.ItemProperties.algorandapp.Android AndroidDesignerPreferredTheme="Theme.AppCompat.Light.NoActionBar" PreferredExecutionTarget="Android.nexus_10_pie_9_0_-_api_28" />
 </Properties>

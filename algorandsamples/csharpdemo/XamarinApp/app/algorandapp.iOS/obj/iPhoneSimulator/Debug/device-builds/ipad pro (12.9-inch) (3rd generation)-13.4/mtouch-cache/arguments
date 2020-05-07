@@ -1,0 +1,4 @@
+# Version: 13.16.0.13 (d16-5-xcode11.4): b75deaf82)
+# [first argument, ignore] # @/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/obj/iPhoneSimulator/Debug/device-builds/ipad pro (12.9-inch) (3rd generation)-13.4/response-file.rsp
+/Library/Frameworks/Xamarin.iOS.framework/Versions/13.16.0.13/lib/mtouch/mtouch.exe \
+	'--gcc_flags=-Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker \"/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/obj/iPhoneSimulator/Debug/device-builds/ipad pro (12.9-inch) (3rd generation)-13.4/Entitlements.xcent\"' \
