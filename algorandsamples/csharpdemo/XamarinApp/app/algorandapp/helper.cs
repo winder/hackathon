@@ -48,5 +48,26 @@ namespace algorandapp
             return accountinfo;
         }
 
+
+        public async Task<string[]> GetNetwork(int accountID)
+        {
+            string[] accountinfo = new string[2];
+
+
+            Account myAccount = new Account();
+            var myMnemonic = myAccount.ToMnemonic();
+            Console.WriteLine("Account " + accountID.ToString() + " Address = " + myAccount.Address.ToString());
+            Console.WriteLine("Account " + accountID.ToString() + " Mnemonic = " + myMnemonic.ToString());
+            var myAccountAddress = myAccount.Address.ToString();
+            // return myLabel;
+
+            accountinfo[0] = myAccount.Address.ToString();
+            accountinfo[1] = myMnemonic.ToString();
+
+            return accountinfo;
+        }
+
+
+
     }
 }

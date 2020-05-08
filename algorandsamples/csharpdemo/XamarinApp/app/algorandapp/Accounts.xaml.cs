@@ -54,11 +54,15 @@ namespace algorandapp
  
         InitializeComponent();
         Appearing += Accounts_Appearing;
-
         }
 
-        private void Accounts_Appearing(object sender, EventArgs e)
+        private async void Accounts_Appearing(object sender, EventArgs e)
         {
+            await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
+            await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
+            await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
+            await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
+
             buttonstate();
         }
 
@@ -454,8 +458,10 @@ namespace algorandapp
             {
                 await SecureStorage.SetAsync("Network", "BetaNet");
                 TestNetToggle.IsToggled = false;
+
                 algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
-            }
+
+                 }
             else
             {
                 await SecureStorage.SetAsync("Network", "TestNet");

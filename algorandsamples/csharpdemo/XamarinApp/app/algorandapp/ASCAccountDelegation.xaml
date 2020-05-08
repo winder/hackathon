@@ -12,4 +12,44 @@
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
+
+      <StackLayout>
+    <StackLayout>
+       <Label FontSize="Large" x:Name="myLabel"
+              Text="Welcome to Algorand C# SDK" HorizontalOptions="Center" >
+       <Label.FontSize>
+                     <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Label.FontSize>
+        </Label>
+    </StackLayout>
+<ScrollView>
+<Grid >
+  <Grid.RowDefinitions>
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+  </Grid.RowDefinitions>
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="*" />
+     
+  </Grid.ColumnDefinitions>
+
+         <Button x:Name="CreateAsset" Grid.Row="0" Grid.Column="0"
+                 Text="Create Asset" Clicked="CreateAsset_click">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+    </Grid>
+    </ScrollView>
+    </StackLayout>
+
 </ContentPage>
