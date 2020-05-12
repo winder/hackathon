@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "Xamarin.iOS,Version=v1.0": {
-      "Algorand/0.1.2.4": {
+      "Algorand/0.1.2.5": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.NetCore": "1.8.5",
@@ -291,7 +291,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Algorand": "0.1.2.4",
+          "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
           "Ripple.Chaos.NaCl": "0.1.0",
@@ -307,7 +307,7 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win": {
-      "Algorand/0.1.2.4": {
+      "Algorand/0.1.2.5": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.NetCore": "1.8.5",
@@ -596,7 +596,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Algorand": "0.1.2.4",
+          "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
           "Ripple.Chaos.NaCl": "0.1.0",
@@ -612,7 +612,7 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x64": {
-      "Algorand/0.1.2.4": {
+      "Algorand/0.1.2.5": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.NetCore": "1.8.5",
@@ -901,7 +901,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Algorand": "0.1.2.4",
+          "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
           "Ripple.Chaos.NaCl": "0.1.0",
@@ -917,7 +917,7 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x86": {
-      "Algorand/0.1.2.4": {
+      "Algorand/0.1.2.5": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.NetCore": "1.8.5",
@@ -1206,7 +1206,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Algorand": "0.1.2.4",
+          "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
           "Ripple.Chaos.NaCl": "0.1.0",
@@ -1223,14 +1223,15 @@
     }
   },
   "libraries": {
-    "Algorand/0.1.2.4": {
-      "sha512": "JHcygUNxgBhNgs+zdoQr81CBLhjSXHbVl9nEeBSnM+XTHIttCRCvHK+Jc2QyoZNVqz11pAlKBLyFQcbhA0/zmQ==",
+    "Algorand/0.1.2.5": {
+      "sha512": "snEtJidxvPyhf17LQGT7Aa87q7q8fm5yQ4txMHVfc1YLjv4PGVF1p50IvWOqkPGnvMKvw93TppTgSBk3Qtrdyg==",
       "type": "package",
-      "path": "algorand/0.1.2.4",
+      "path": "algorand/0.1.2.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "algorand.0.1.2.4.nupkg.sha512",
+        "LICENSE",
+        "algorand.0.1.2.5.nupkg.sha512",
         "algorand.nuspec",
         "lib/netstandard2.0/Algorand.dll"
       ]
@@ -1980,7 +1981,7 @@
   },
   "projectFileDependencyGroups": {
     "Xamarin.iOS,Version=v1.0": [
-      "Algorand >= 0.1.2.4",
+      "Algorand >= 0.1.2.5",
       "Xamarin.Essentials >= 1.3.1",
       "Xamarin.Forms >= 4.3.0.991221",
       "algorandapp >= 1.0.0"
@@ -2023,7 +2024,7 @@
         "dependencies": {
           "Algorand": {
             "target": "Package",
-            "version": "[0.1.2.4, )"
+            "version": "[0.1.2.5, )"
           },
           "Xamarin.Essentials": {
             "target": "Package",

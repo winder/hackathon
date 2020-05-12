@@ -38,14 +38,18 @@ namespace algorandapp
 
 
         // Standalone instance
-        public const string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
-        public const string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
-        public const string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
-        public const string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
+        //public string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
+        //public string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
+        //public string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+        //public string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
 
+        public string ALGOD_API_TOKEN_BETANET = "";
+        public string ALGOD_API_ADDR_BETANET = "";
+        public string ALGOD_API_TOKEN_TESTNET = "";
+        public string ALGOD_API_ADDR_TESTNET = "";
 
         //   default to TESTNET
-        public AlgodApi algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
+        public AlgodApi algodApiInstance ;
 
 
 
@@ -58,12 +62,28 @@ namespace algorandapp
 
         private async void Accounts_Appearing(object sender, EventArgs e)
         {
-            await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
-            await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
-            await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-            await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
+            ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync("ALGOD_API_TOKEN_BETANET");
+            ALGOD_API_TOKEN_TESTNET = await SecureStorage.GetAsync("ALGOD_API_TOKEN_TESTNET");
+            ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync("ALGOD_API_ADDR_TESTNET");
+            ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync("ALGOD_API_ADDR_BETANET");
+            var network = await SecureStorage.GetAsync("Network");
 
-            buttonstate();
+            if (network == "TestNet")
+            {
+                
+                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
+            }
+            else
+            {
+                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
+            }
+
+        //await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
+        //await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
+        //await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
+        //await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
+
+        buttonstate();
         }
 
         public async void buttonstate ()
@@ -77,7 +97,7 @@ namespace algorandapp
             var transaction = await SecureStorage.GetAsync("Transaction");
             var multisigtransaction = await SecureStorage.GetAsync("MultisigTransaction");
 
-            EnableNetworkToggles(network);
+            DisplayNetwork(network);
             CreateMultiSig.IsVisible = true;
             Transaction.IsVisible = true;
             MultisigTransaction.IsVisible = true;
@@ -96,7 +116,7 @@ namespace algorandapp
                 GenerateAccount1.Text = "Account 1 created";
                 GenerateAccount1.IsEnabled = false;
                 GetAccount1Info.IsVisible = true;
-                DisableNetworkToggles(network);
+               // DisableNetworkToggles(network);
             }
             if (string.IsNullOrEmpty(account2))
             {
@@ -111,7 +131,7 @@ namespace algorandapp
                 GenerateAccount2.Text = "Account 2 created";
                 GenerateAccount2.IsEnabled = false;
                 GetAccount2Info.IsVisible = true;
-                DisableNetworkToggles(network);
+               // DisableNetworkToggles(network);
             }
             if (string.IsNullOrEmpty(account3))
             {
@@ -126,7 +146,7 @@ namespace algorandapp
                 GenerateAccount3.Text = "Account 3 created";
                 GenerateAccount3.IsEnabled = false;
                 GetAccount3Info.IsVisible = true;
-                DisableNetworkToggles(network);
+               // DisableNetworkToggles(network);
             }
             
             if (!(string.IsNullOrEmpty(account1) ||
@@ -135,7 +155,7 @@ namespace algorandapp
             {
                 // all accounts created - leave state
 
-                DisableNetworkToggles(network);
+            //    DisableNetworkToggles(network);
                 myLabel.Text = "Accounts 1, 2 and 3 have been created on " + network;
                 myLabel2.Text = "";
                 Entry3.Text = "";
@@ -193,40 +213,26 @@ namespace algorandapp
 
         }
 
-        private void DisableNetworkToggles(string network)
+ 
+        private void DisplayNetwork(string network)
         {
             if (network == "TestNet")
             {
-                BetaNetToggle.IsToggled = false;
-                TestNetToggle.IsToggled = true;
-                BetaNetToggle.IsEnabled = false;
-                TestNetToggle.IsEnabled = false;
+                NetworkLabel.Text = "Network: TestNet";
             }
             else
+            if (network == "BetaNet")
             {
-                BetaNetToggle.IsToggled = true;
-                TestNetToggle.IsToggled = false;
-                BetaNetToggle.IsEnabled = false;
-                TestNetToggle.IsEnabled = false;
-            }
-        }
+                NetworkLabel.Text = "Network: BetaNet";
 
-        private void EnableNetworkToggles(string network)
-        {
-            if (network == "TestNet")
-            {
-                BetaNetToggle.IsToggled = false;
-                TestNetToggle.IsToggled = true;
-                BetaNetToggle.IsEnabled = true;
-                TestNetToggle.IsEnabled = true;
             }
             else
+            if (network == "MainNet")
             {
-                BetaNetToggle.IsToggled = true;
-                TestNetToggle.IsToggled = false;
-                BetaNetToggle.IsEnabled = true;
-                TestNetToggle.IsEnabled = true;
+                NetworkLabel.Text = "Network: MainNet";
             }
+            else
+                NetworkLabel.Text = "Network: not set";
         }
         public async void GenerateAccount1_click(System.Object sender, System.EventArgs e)
         {      
@@ -236,7 +242,7 @@ namespace algorandapp
             GenerateAccount1.IsEnabled = false;
             GetAccount1Info.IsVisible = true;
             var network = await SecureStorage.GetAsync("Network");
-            DisableNetworkToggles(network);
+          //  DisableNetworkToggles(network);
             // test to make sure account has funds before doing state?
 
             buttonstate();           
@@ -251,7 +257,7 @@ namespace algorandapp
             GenerateAccount2.IsEnabled = false;
             GetAccount2Info.IsVisible = true;
             var network = await SecureStorage.GetAsync("Network");
-            DisableNetworkToggles(network);
+          //  DisableNetworkToggles(network);
             buttonstate();
         }
 
@@ -263,7 +269,7 @@ namespace algorandapp
             GenerateAccount3.IsEnabled = false;
             GetAccount3Info.IsVisible = true;
             var network = await SecureStorage.GetAsync("Network");
-            DisableNetworkToggles(network);
+          //  DisableNetworkToggles(network);
             buttonstate();
 
         }
@@ -357,7 +363,7 @@ namespace algorandapp
                     myLabel.Text = "";
                     myLabel2.Text = "";
                     Entry3.Text = "";
-                    EnableNetworkToggles("TestNet");
+                    DisplayNetwork("TestNet");
                     buttonstate();
 
                 }
@@ -434,42 +440,6 @@ namespace algorandapp
 
         }
 
-        public async void Switch_Toggled_TestNet(System.Object sender, Xamarin.Forms.ToggledEventArgs e)
-        {
-            if (TestNetToggle.IsToggled)
-            {
-                await SecureStorage.SetAsync("Network", "TestNet");
-                BetaNetToggle.IsToggled = false;
-                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
-            }
-            else
-            {
-                await SecureStorage.SetAsync("Network", "BetaNet");
-                BetaNetToggle.IsToggled = true;
-                
-            }
-
-
-        }
-
-        public async void Switch_Toggled_BetaNet(System.Object sender, Xamarin.Forms.ToggledEventArgs e)
-        {
-            if (BetaNetToggle.IsToggled)
-            {
-                await SecureStorage.SetAsync("Network", "BetaNet");
-                TestNetToggle.IsToggled = false;
-
-                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
-
-                 }
-            else
-            {
-                await SecureStorage.SetAsync("Network", "TestNet");
-                TestNetToggle.IsToggled = true;
-                
-            }
-
-        }
 
         public async void GetAccount3Info_Clicked(System.Object sender, System.EventArgs e)
         {
@@ -586,13 +556,16 @@ namespace algorandapp
 
             Console.WriteLine("Signed transaction with txid: " + signedTx.transactionID);
             TransactionID id = null;
+            string wait = "";
             // send the transaction to the network
             try
             {
                 id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Successfully sent tx with id: " + id.TxId);
-                var x = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
-                Console.WriteLine(x);
+                wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                Console.WriteLine(wait);
+
+
             }
             catch (ApiException err)
             {
@@ -611,12 +584,9 @@ namespace algorandapp
             buttonstate();
 
             await DisplayAccount(2);
-            var mytx = await SecureStorage.GetAsync("Transaction");
-            if (!(mytx == null || mytx ==""))
+            // myLabel.Text = "Successfully sent tx with id: " + id.TxId;
+            Entry3.Text = wait;
 
-            {
-                Entry3.Text = "Transaction ID = " + mytx.ToString();
-            }
 
         }
 

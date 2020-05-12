@@ -38,7 +38,7 @@
           "dependencies": {
             "Algorand": {
               "target": "Package",
-              "version": "[0.1.2.4, )"
+              "version": "[0.1.2.5, )"
             },
             "Xamarin.Android.Support.Core.Utils": {
               "target": "Package",
@@ -93,7 +93,7 @@
           "dependencies": {
             "Algorand": {
               "target": "Package",
-              "version": "[0.1.2.4, )"
+              "version": "[0.1.2.5, )"
             },
             "Jurassic": {
               "target": "Package",

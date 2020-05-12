@@ -33,12 +33,9 @@
                  <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
-            <Label Text="TestNet" />
-            <Switch x:Name="TestNetToggle" Toggled="Switch_Toggled_TestNet" OnColor="Orange"
-                    ThumbColor="Green" />
-            <Label Text="BetaNet" />
-            <Switch x:Name="BetaNetToggle" Toggled="Switch_Toggled_BetaNet" OnColor="Orange"
-                    ThumbColor="Green" />
+            <Label x:Name="NetworkLabel"
+                   Text="Network: TestNet"
+                   FontSize="Large"/>
             </StackLayout>
             <Button x:Name="ClearAccounts" Grid.Row="0" Grid.Column="1"
                     Text="Clear Device Accounts" Clicked="ClearAccounts_Clicked" IsVisible="True">
