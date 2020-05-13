@@ -30,18 +30,21 @@ namespace algorandapp
         //public const string ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
 
         // Standalone instance
-        public const string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
-        public const string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
-        public const string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
-        public const string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
-
+        //public const string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
+        //public const string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
+        //public const string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+        //public const string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
+        public string ALGOD_API_TOKEN_BETANET = "";
+        public string ALGOD_API_ADDR_BETANET = "";
+        public string ALGOD_API_TOKEN_TESTNET = "";
+        public string ALGOD_API_ADDR_TESTNET = "";
 
         public Account account1;
         public Account account2;
         public Account account3;
 
         //   default to TESTNET
-        public AlgodApi algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
+        public AlgodApi algodApiInstance;
 
         public ASA()
         {
@@ -49,14 +52,14 @@ namespace algorandapp
             Appearing += ASA_Appearing;
         }
 
-        private void ASA_Appearing(object sender, EventArgs e)
+        private async void ASA_Appearing(object sender, EventArgs e)
         {
-            buttonstate();
-
-        }
-        public async void buttonstate()
-        {
+            ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync("ALGOD_API_TOKEN_BETANET");
+            ALGOD_API_TOKEN_TESTNET = await SecureStorage.GetAsync("ALGOD_API_TOKEN_TESTNET");
+            ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync("ALGOD_API_ADDR_TESTNET");
+            ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync("ALGOD_API_ADDR_BETANET");
             var network = await SecureStorage.GetAsync("Network");
+
             if (network == "TestNet")
             {
 
@@ -65,13 +68,24 @@ namespace algorandapp
             else
             {
                 algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
-
-
             }
+            buttonstate();
+
+        }
+        public async void buttonstate()
+        {
+            var network = await SecureStorage.GetAsync("Network");
+
 
         }
 
         private async void CreateAsset_click(System.Object sender, System.EventArgs e)
+        {
+            await getAccounts();
+
+        }
+
+        private async Task getAccounts()
         {
             Account account1;
             Account account2;
@@ -97,9 +111,8 @@ namespace algorandapp
             account2 = new Account(mnemonic2);
             account3 = new Account(mnemonic3);
 
+
         }
-
-
     }
 }
 

@@ -3,11 +3,49 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using Account = Algorand.Account;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using Algorand.Algod.Client.Api;
+
+// Purestake mine
+//public const string ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
+//public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
+//public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
+//public const string ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
+
+// Purestake Hackathon
+//public const string ALGOD_API_TOKEN_BETANET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
+//public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
+//public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
+//public const string ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
+
+// Standalone hackathon instance
+//public string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
+//public string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
+//public string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+//public string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
+
+
+
 
 namespace algorandapp
 {
     public class helper
     {
+        public ulong? MIN_ACCOUNT_BALANCE = (ulong?)100000;
+        public string StorageAccountName1 = "Account 1";
+        public string StorageAccountName2 = "Account 2";
+        public string StorageAccountName3 = "Account 3";
+        public string StorageTokenBetaNet = "ALGOD_API_TOKEN_BETANET";
+        public string StorageADDRBetaNet = "ALGOD_API_ADDR_BETANET";
+        public string StorageTokenTestNet = "ALGOD_API_TOKEN_TESTNET";
+        public string StorageADDRTestNet = "ALGOD_API_ADDR_TESTNET";
+        public string StorageNetwork = "Network";
+        public string StorageMultisig = "Multisig";
+        public string StorageTransaction = "Transaction";
+        public string StorageMultisigTransaction = "MultisigTransaction";
+
+
+
         public helper()
         {
 
@@ -30,44 +68,92 @@ namespace algorandapp
             }
         }
 
-        public async Task<string[]> CreateAccount(int accountID )
+        public async Task<string[]> CreateAccount(string accountname)
         {
             string[] accountinfo = new string[2];
 
 
+
             Account myAccount = new Account();
             var myMnemonic = myAccount.ToMnemonic();
-            Console.WriteLine("Account " + accountID.ToString() + " Address = " + myAccount.Address.ToString());
-            Console.WriteLine("Account " + accountID.ToString() + " Mnemonic = " + myMnemonic.ToString());
-            var myAccountAddress = myAccount.Address.ToString();
-           // return myLabel;
+            Console.WriteLine(accountname.ToString() + " Address = " + myAccount.Address.ToString());
+            Console.WriteLine(accountname.ToString() + " Mnemonic = " + myMnemonic.ToString());
 
             accountinfo[0] = myAccount.Address.ToString();
             accountinfo[1] = myMnemonic.ToString();
 
             return accountinfo;
         }
+        public AlgodApi algodApiInstance;
 
-
-        public async Task<string[]> GetNetwork(int accountID)
+        public async Task<ulong?> GetAccountBalance(string accountname)
         {
-            string[] accountinfo = new string[2];
+
+            Account account = null;
+            string myaddress = "";
+
+            string network = await SecureStorage.GetAsync(StorageNetwork);
+            if (!(accountname == StorageMultisig))
+            {
+                string mnemonic = await SecureStorage.GetAsync(accountname);
+                account = new Account(mnemonic);
+                myaddress = account.Address.ToString();
+            }
+            else
+            {
+                // multisig address
+                myaddress = await SecureStorage.GetAsync(accountname);
+            }
 
 
-            Account myAccount = new Account();
-            var myMnemonic = myAccount.ToMnemonic();
-            Console.WriteLine("Account " + accountID.ToString() + " Address = " + myAccount.Address.ToString());
-            Console.WriteLine("Account " + accountID.ToString() + " Mnemonic = " + myMnemonic.ToString());
-            var myAccountAddress = myAccount.Address.ToString();
-            // return myLabel;
 
-            accountinfo[0] = myAccount.Address.ToString();
-            accountinfo[1] = myMnemonic.ToString();
 
-            return accountinfo;
+            algodApiInstance = await CreateApiInstance();
+
+            if (algodApiInstance != null)
+            {
+                Algorand.Algod.Client.Model.Account accountinfo = await algodApiInstance.AccountInformationAsync(myaddress);
+
+                if (accountinfo != null)
+                {
+                    return accountinfo.Amount;
+                }
+
+            }
+            return (ulong?)0;
+
+
         }
 
+        public async Task<AlgodApi> CreateApiInstance()
+        {
+            // creatapi instance
 
 
+            string ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync(StorageTokenBetaNet);
+            string ALGOD_API_TOKEN_TESTNET = await SecureStorage.GetAsync(StorageTokenTestNet);
+            string ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync(StorageADDRTestNet);
+            string ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync(StorageADDRBetaNet);
+            string network = await GetNetwork();
+
+            if (network == "TestNet")
+            {
+
+                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
+            }
+            else
+            {
+                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
+            }
+            return algodApiInstance;
+
+        }
+
+        public async Task<string> GetNetwork()
+        {
+            string network = await SecureStorage.GetAsync("Network");
+            return network;
+
+        }
     }
 }

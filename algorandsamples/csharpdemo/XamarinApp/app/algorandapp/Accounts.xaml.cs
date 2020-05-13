@@ -23,81 +23,45 @@ namespace algorandapp
 {
     public partial class Accounts : ContentPage
     {
-        // Purestake
-        //public const string ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
-        //public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
-        //public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
-        //public const string ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
 
-     // Purestake Hackathon TestNet
-     //   algodAddress = "https://testnet-algorand.api.purestake.io/ps1"
-	 //algodToken = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab”
-     // Purestake Hackathon BetaNet 
-	 //algodAddress = "https://betanet-algorand.api.purestake.io/ps1"
-	 //algodToken = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab”
+        public static helper helper = new helper();
 
-
-        // Standalone instance
-        //public string ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
-        //public string ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
-        //public string ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
-        //public string ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
-
-        public string ALGOD_API_TOKEN_BETANET = "";
-        public string ALGOD_API_ADDR_BETANET = "";
-        public string ALGOD_API_TOKEN_TESTNET = "";
-        public string ALGOD_API_ADDR_TESTNET = "";
 
         //   default to TESTNET
         public AlgodApi algodApiInstance ;
 
-
+        public string network = "";
 
         public Accounts()
         {
  
         InitializeComponent();
         Appearing += Accounts_Appearing;
+       // helper = new helper();
         }
 
         private async void Accounts_Appearing(object sender, EventArgs e)
         {
-            ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync("ALGOD_API_TOKEN_BETANET");
-            ALGOD_API_TOKEN_TESTNET = await SecureStorage.GetAsync("ALGOD_API_TOKEN_TESTNET");
-            ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync("ALGOD_API_ADDR_TESTNET");
-            ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync("ALGOD_API_ADDR_BETANET");
-            var network = await SecureStorage.GetAsync("Network");
+   
+            algodApiInstance = await helper.CreateApiInstance();
+            network = await helper.GetNetwork();
 
-            if (network == "TestNet")
-            {
-                
-                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
-            }
-            else
-            {
-                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
-            }
-
-        //await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
-        //await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
-        //await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-        //await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
-
-        buttonstate();
+            buttonstate();
         }
 
         public async void buttonstate ()
         {
 
-            var account1 = await SecureStorage.GetAsync("Account 1");
-            var account2 = await SecureStorage.GetAsync("Account 2");
-            var account3 = await SecureStorage.GetAsync("Account 3");
-            var network = await SecureStorage.GetAsync("Network");
-            var msig = await SecureStorage.GetAsync("Multisig");
-            var transaction = await SecureStorage.GetAsync("Transaction");
-            var multisigtransaction = await SecureStorage.GetAsync("MultisigTransaction");
+            var account1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
+            var account2 = await SecureStorage.GetAsync(helper.StorageAccountName2);
+            var account3 = await SecureStorage.GetAsync(helper.StorageAccountName3);
+            network = await SecureStorage.GetAsync(helper.StorageNetwork);
+            var msig = await SecureStorage.GetAsync(helper.StorageMultisig);
+            var transaction = await SecureStorage.GetAsync(helper.StorageTransaction);
+            var multisigtransaction = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
 
-            DisplayNetwork(network);
+            NetworkLabel.Text = "Network: " + network;
+
             CreateMultiSig.IsVisible = true;
             Transaction.IsVisible = true;
             MultisigTransaction.IsVisible = true;
@@ -108,58 +72,58 @@ namespace algorandapp
                 // this account is not generated yet
                 GenerateAccount1.IsEnabled = true;
                 GetAccount1Info.IsVisible = false;
-                GenerateAccount1.Text = "Generate Account 1";
+                GenerateAccount1.Text = "Generate " + helper.StorageAccountName1;
 
             }
             else
             {
-                GenerateAccount1.Text = "Account 1 created";
+                GenerateAccount1.Text = helper.StorageAccountName1 + " created";
                 GenerateAccount1.IsEnabled = false;
                 GetAccount1Info.IsVisible = true;
-               // DisableNetworkToggles(network);
+                // DisableNetworkToggles(network);
             }
             if (string.IsNullOrEmpty(account2))
             {
                 // this account is not generated yet
                 GenerateAccount2.IsEnabled = true;
                 GetAccount2Info.IsVisible = false;
-                GenerateAccount2.Text = "Generate Account 2";
+                GenerateAccount2.Text = "Generate " + helper.StorageAccountName2;
 
             }
             else
             {
-                GenerateAccount2.Text = "Account 2 created";
+                GenerateAccount2.Text = helper.StorageAccountName2 + " created";
                 GenerateAccount2.IsEnabled = false;
                 GetAccount2Info.IsVisible = true;
-               // DisableNetworkToggles(network);
+                // DisableNetworkToggles(network);
             }
             if (string.IsNullOrEmpty(account3))
             {
                 // this account is not generated yet
                 GenerateAccount3.IsEnabled = true;
                 GetAccount3Info.IsVisible = false;
-                GenerateAccount3.Text = "Generate Account 3";
+                GenerateAccount3.Text = "Generate " + helper.StorageAccountName3;
             }
             else
             {
 
-                GenerateAccount3.Text = "Account 3 created";
+                GenerateAccount3.Text = helper.StorageAccountName3 + " created";
                 GenerateAccount3.IsEnabled = false;
                 GetAccount3Info.IsVisible = true;
-               // DisableNetworkToggles(network);
+                // DisableNetworkToggles(network);
             }
-            
+
             if (!(string.IsNullOrEmpty(account1) ||
                 string.IsNullOrEmpty(account2) ||
                 string.IsNullOrEmpty(account3)))
             {
                 // all accounts created - leave state
 
-            //    DisableNetworkToggles(network);
-                myLabel.Text = "Accounts 1, 2 and 3 have been created on " + network;
+                //    DisableNetworkToggles(network);
+                myLabel.Text = "All 3 accounts have been created on " + network;
                 myLabel2.Text = "";
                 Entry3.Text = "";
-
+                Entry4.Text = "";
 
                 if (string.IsNullOrEmpty(msig))
                 {
@@ -174,22 +138,24 @@ namespace algorandapp
                     CreateMultiSig.IsEnabled = false;
                     CreateMultiSig.Text = "Multisig created ";
                     GetMultiSig.IsVisible = true;
+                    // todo store off version threshold and number of account
                     myLabel2.Text = "Multisig created - version = 1, threshold = 2, number of accounts = 3";
-                    Entry3.Text = msig.ToString();
+                    Entry3.Text = helper.StorageMultisig + " Address = " + msig.ToString();
+                    
                     // enable send multisig transaction
                 }
-    
+
                 if (string.IsNullOrEmpty(transaction))
                 {
                     Transaction.IsEnabled = true;
-                    Transaction.Text = "Transaction from Account 1 to 2";
+                    Transaction.Text = "Transaction from " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
                     GetTransaction.IsVisible = false;
                 }
                 else
                 {
                     Transaction.IsEnabled = true;
-                    Transaction.Text = "Transaction from account 1 to 2";
-                    GetTransaction.IsVisible = true;   
+                    Transaction.Text = "Send again " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2 + "?";
+                    GetTransaction.IsVisible = true;
                 }
                 if (!(string.IsNullOrEmpty(msig)))
 
@@ -198,50 +164,48 @@ namespace algorandapp
                     {
                         // only enable if multisigaddress created
                         MultisigTransaction.IsEnabled = true;
-                        MultisigTransaction.Text = "Send Multisig Transaction to Account 3";
+                        MultisigTransaction.Text = "Send Multisig Tx to " + helper.StorageAccountName3;
                         GetMultiSigTx.IsVisible = false;
                     }
                     else
                     {
                         MultisigTransaction.IsEnabled = true;
-                        MultisigTransaction.Text = "Send Multisig Transaction to Account 3";
+                        MultisigTransaction.Text = "Send again Multisig Tx to " + helper.StorageAccountName3 + "?";
                         GetMultiSigTx.IsVisible = true;
                     }
                 }
 
             }
 
+            FundsNeeded1.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
+            FundsNeeded2.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
+            FundsNeeded3.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
+            FundsNeededMS.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
         }
 
- 
-        private void DisplayNetwork(string network)
+        private async Task<bool> ToggleFundButton(string network, string accountname)
         {
-            if (network == "TestNet")
+            ulong? amount = await helper.GetAccountBalance(accountname);
+            if (amount < helper.MIN_ACCOUNT_BALANCE)
             {
-                NetworkLabel.Text = "Network: TestNet";
+                // dispense if more funds needed
+                return true;
             }
             else
-            if (network == "BetaNet")
-            {
-                NetworkLabel.Text = "Network: BetaNet";
-
-            }
-            else
-            if (network == "MainNet")
-            {
-                NetworkLabel.Text = "Network: MainNet";
-            }
-            else
-                NetworkLabel.Text = "Network: not set";
+                return false;
         }
+
+
+
+
         public async void GenerateAccount1_click(System.Object sender, System.EventArgs e)
         {      
-            var accountnumber = 1;
-            createaccounts(accountnumber);
-            GenerateAccount1.Text = "Account 1 created";
+          
+            createaccounts(helper.StorageAccountName1);
+            GenerateAccount1.Text = helper.StorageAccountName1 + " created";
             GenerateAccount1.IsEnabled = false;
             GetAccount1Info.IsVisible = true;
-            var network = await SecureStorage.GetAsync("Network");
+            var network = await SecureStorage.GetAsync(helper.StorageNetwork);
           //  DisableNetworkToggles(network);
             // test to make sure account has funds before doing state?
 
@@ -251,45 +215,46 @@ namespace algorandapp
         public async void GenerateAccount2_Clicked(System.Object sender, System.EventArgs e)
 
         {
-            var accountnumber = 2;   
-            createaccounts(accountnumber);
-            GenerateAccount2.Text = "Account 2 created";
+             
+            createaccounts(helper.StorageAccountName2);
+            GenerateAccount2.Text = helper.StorageAccountName2 + " created";
             GenerateAccount2.IsEnabled = false;
             GetAccount2Info.IsVisible = true;
-            var network = await SecureStorage.GetAsync("Network");
+            var network = await SecureStorage.GetAsync(helper.StorageNetwork);
           //  DisableNetworkToggles(network);
             buttonstate();
         }
 
         public async void GenerateAccount3_Clicked(System.Object sender, System.EventArgs e)
         {
-            var accountnumber = 3;
-            createaccounts(accountnumber);
-            GenerateAccount3.Text = "Account 3 created";
+    
+            createaccounts(helper.StorageAccountName3);
+            GenerateAccount3.Text = helper.StorageAccountName3 + " created";
             GenerateAccount3.IsEnabled = false;
             GetAccount3Info.IsVisible = true;
-            var network = await SecureStorage.GetAsync("Network");
+            var network = await SecureStorage.GetAsync(helper.StorageNetwork);
           //  DisableNetworkToggles(network);
             buttonstate();
 
         }
 
 
-        public async void createaccounts(int accountnumber)
+        public async void createaccounts(string accountname)
         {
-            var helper = new helper();
-            var network = await SecureStorage.GetAsync("Network");
-            string[] myAccountInfo = await helper.CreateAccount(accountnumber);
+           
+           
+            string[] myAccountInfo = await helper.CreateAccount(accountname);
 
             var myAccountAddress = myAccountInfo[0].ToString();
             var myMnemonic = myAccountInfo[1].ToString();
 
-            myLabel.Text = "Account " + accountnumber.ToString() + " Address = " + myAccountAddress.ToString();
-            myLabel2.Text = "Account " + accountnumber.ToString() + " Mnemonic = " + myMnemonic.ToString();
-            Entry3.Text = "Account = " + accountnumber.ToString() + " Address = " + myAccountAddress.ToString(); ;
+            myLabel.Text = "";
+            myLabel2.Text = "";
+            Entry3.Text = accountname + " Address = " + myAccountAddress.ToString();
+            Entry4.Text = accountname + " Mnemonic = " + myMnemonic.ToString();
             try
             {
-                await SecureStorage.SetAsync("Account " + accountnumber.ToString(), myMnemonic);
+                await SecureStorage.SetAsync(accountname, myMnemonic);
             }
             catch (Exception ex)
             {
@@ -325,13 +290,13 @@ namespace algorandapp
                 try
                 {
 
-                    await SecureStorage.SetAsync("Account 1", "");
-                    await SecureStorage.SetAsync("Account 2", "");
-                    await SecureStorage.SetAsync("Account 3", "");
-                    await SecureStorage.SetAsync("Multisig", "");
-                    await SecureStorage.SetAsync("Transaction", "");
-                    await SecureStorage.SetAsync("MultisigTransaction", "");
-                    await SecureStorage.SetAsync("Network", "TestNet");
+                    await SecureStorage.SetAsync(helper.StorageAccountName1, "");
+                    await SecureStorage.SetAsync(helper.StorageAccountName2, "");
+                    await SecureStorage.SetAsync(helper.StorageAccountName3, "");
+                    await SecureStorage.SetAsync(helper.StorageMultisig, "");
+                    await SecureStorage.SetAsync(helper.StorageTransaction, "");
+                    await SecureStorage.SetAsync(helper.StorageMultisigTransaction, "");
+                    await SecureStorage.SetAsync(helper.StorageNetwork, "TestNet");
 
                     GenerateAccount1.IsEnabled = true;
                     GenerateAccount2.IsEnabled = true;
@@ -352,18 +317,22 @@ namespace algorandapp
                     Transaction.IsEnabled = false;
                     MultisigTransaction.IsEnabled = false;
 
-                    GenerateAccount1.Text = "Generate Account 1";
-                    GenerateAccount2.Text = "Generate Account 2";
-                    GenerateAccount3.Text = "Generate Account 3";
+                    GenerateAccount1.Text = "Generate " + helper.StorageAccountName1;
+                    GenerateAccount2.Text = "Generate " + helper.StorageAccountName2;
+                    GenerateAccount3.Text = "Generate " + helper.StorageAccountName3;
                     CreateMultiSig.Text = "Create Multisig Address";
-                    Transaction.Text = "Transaction from Account A to B";
-                    MultisigTransaction.Text = "Send Multisig Transaction to Account C";
-               
+                    Transaction.Text = "Transaction from " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
+                    MultisigTransaction.Text = "Send Multisig Transaction to " + helper.StorageAccountName3;
+                    // note: multisig sends from acct 1 and 2 if they both sign,
+                    // the account receiving funds (acct 3) does not have to be in the multisig,
+                    // it could be any account
 
                     myLabel.Text = "";
                     myLabel2.Text = "";
                     Entry3.Text = "";
-                    DisplayNetwork("TestNet");
+                    network = await SecureStorage.GetAsync(helper.StorageNetwork);
+                    NetworkLabel.Text = "Network: " + network;
+                
                     buttonstate();
 
                 }
@@ -380,26 +349,17 @@ namespace algorandapp
         public async void GetAccount1Info_Clicked(System.Object sender, System.EventArgs e)
 
         {
-
-            var accountnumber = 1;
-
-            await GetAccountInfo(accountnumber);
-
-
+            await DisplayAccount(helper.StorageAccountName1);
         }
 
-        async Task GetAccountInfo(int accountnumber)
-        {
-            await DisplayAccount(accountnumber);
-        }
 
-        private async Task DisplayAccount(int accountnumber)
+        private async Task DisplayAccount(string accountname)
         {
             Account account;
             string mnemonic = "";
             try
             {
-                mnemonic = await SecureStorage.GetAsync("Account " + accountnumber.ToString());
+                mnemonic = await SecureStorage.GetAsync(accountname);
             }
             catch (Exception ex)
             {
@@ -414,9 +374,11 @@ namespace algorandapp
             Algorand.Algod.Client.Model.Account accountinfo = await algodApiInstance.AccountInformationAsync(account.Address.ToString());
 
             Debug.WriteLine("accountinfo: " + accountinfo);
-            myLabel.Text = "Account " + accountnumber.ToString() + " Address = " + account.Address.ToString();
+            myLabel.Text = accountname + " Address = " + account.Address.ToString();
             myLabel2.Text = "Account amount (micro algos) = " + accountinfo.Amount.ToString();
-            Entry3.Text = "Account " + accountnumber.ToString() + " Address = " + account.Address.ToString();
+          
+            Entry3.Text = accountname + " Info = " + accountinfo.ToString();
+            Entry4.Text = accountname + " Address = " + account.Address.ToString();
         }
 
         public async void GetBlock_Clicked(System.Object sender, System.EventArgs e)
@@ -426,38 +388,42 @@ namespace algorandapp
             Block block; 
             try {
               block = await algodApiInstance.GetBlockAsync(lastround);
+              myLabel.Text = "Last Round = " + lastround.ToString();
               myLabel2.Text = "Block Info = " + block.ToString();
+              Entry3.Text = "Block Info = " + block.ToString();
+              Entry4.Text = "Last Round = " + lastround.ToString();
             }
             catch (Exception err)
             {
+   
+                myLabel.Text = "Last Round = " + lastround.ToString();
                 myLabel2.Text = "Block Info = " + err.Message;
+                Entry3.Text = "Status = " + status.ToString();
+                Entry4.Text = "";
             }
 
 
-            myLabel.Text = "Last Round = " + lastround.ToString();
 
-            Entry3.Text = "Last Round = " + lastround.ToString();
 
         }
 
 
         public async void GetAccount3Info_Clicked(System.Object sender, System.EventArgs e)
-        {
-            var accountnumber = 3;
-
-            await GetAccountInfo(accountnumber);
+        {    
+            await DisplayAccount(helper.StorageAccountName3);
 
         }
 
         public async void GetAccount2Info_Clicked(System.Object sender, System.EventArgs e)
         {
-            var accountnumber = 2;
 
-            await GetAccountInfo(accountnumber);
+            await DisplayAccount(helper.StorageAccountName2);
+          
         }
 
         public async void CreateMultiSig_Clicked(System.Object sender, System.EventArgs e)
         {
+
             Account account1;
             Account account2;
             Account account3;
@@ -468,9 +434,9 @@ namespace algorandapp
 
             try
             {
-                mnemonic1 = await SecureStorage.GetAsync("Account 1");
-                mnemonic2 = await SecureStorage.GetAsync("Account 2");
-                mnemonic3 = await SecureStorage.GetAsync("Account 3");
+                mnemonic1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
+                mnemonic2 = await SecureStorage.GetAsync(helper.StorageAccountName2);
+                mnemonic3 = await SecureStorage.GetAsync(helper.StorageAccountName3);
             }
             catch (Exception ex)
             {
@@ -489,16 +455,19 @@ namespace algorandapp
             publickeys.Add(account3.GetEd25519PublicKey());
 
             MultisigAddress msig = new MultisigAddress(1, 2, publickeys);
-
+            
             myLabel.Text = "Multisig Address " + msig.ToString();
             myLabel2.Text = "";
+            ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
+            Entry4.Text = "Multisig balance = " + balance.ToString();
+
             CreateMultiSig.Text = "Multisig created";
             CreateMultiSig.IsEnabled = false;
             GetMultiSig.IsVisible = true;
-            await SecureStorage.SetAsync("Multisig", msig.ToString());
+            await SecureStorage.SetAsync(helper.StorageMultisig, msig.ToString());
             buttonstate();
-            var helper = new helper();
-            var network = await SecureStorage.GetAsync("Network");
+          
+            var network = await SecureStorage.GetAsync(helper.StorageNetwork);
             OpenDispenser(helper, network, msig.ToString());
 
 
@@ -509,24 +478,28 @@ namespace algorandapp
             var msig = await SecureStorage.GetAsync("Multisig");
             myLabel.Text = "Multisig address = " + msig.ToString();
             myLabel2.Text = "";
-
+            Entry3.Text = "Multisig address = " + msig.ToString();
+            ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
+            Entry4.Text = "Multisig balance = " + balance.ToString() ;
+           
         }
 
         public async void Transaction_Clicked(System.Object sender, System.EventArgs e)
         {
-
+            // todo create method to restore accounts
             Account account1;
             Account account2;
             Account account3;
+
             string mnemonic1 = "";
             string mnemonic2 = "";
             string mnemonic3 = "";
 
             try
             {
-                mnemonic1 = await SecureStorage.GetAsync("Account 1");
-                mnemonic2 = await SecureStorage.GetAsync("Account 2");
-                mnemonic3 = await SecureStorage.GetAsync("Account 3");
+                mnemonic1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
+                mnemonic2 = await SecureStorage.GetAsync(helper.StorageAccountName2);
+                mnemonic3 = await SecureStorage.GetAsync(helper.StorageAccountName3);
             }
             catch (Exception ex)
             {
@@ -570,39 +543,59 @@ namespace algorandapp
             catch (ApiException err)
             {
                 // This should give us an informative error message.
-             //   await SecureStorage.SetAsync("Transaction", err.Message);
+                //   await SecureStorage.SetAsync("Transaction", err.Message);
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
-             //   Entry3.Text = "Transaction ID = " + err.Message;
+                if (err.Message.Contains("overspend"))
+                {
+                    var network = await SecureStorage.GetAsync(helper.StorageNetwork);
+                    myLabel.Text = (network + " Account has insuficent funds. ");
+                    
+                
+                    myLabel2.Text = (network + " add funds and try again. ");
+                    Entry3.Text = "Account = " + account1.Address.ToString();
+                }
+                   Entry4.Text = "Transaction ID = " + err.Message;
             }
 
-
-            await SecureStorage.SetAsync("Transaction", id.TxId.ToString());
+            if (!(String.IsNullOrEmpty(id.TxId)))
+                { 
+            await SecureStorage.SetAsync(helper.StorageTransaction, id.TxId.ToString());
             GetTransaction.IsVisible = true;
             Transaction.Text = "Transaction successfully sent";
-
+            }
+    
            
             buttonstate();
 
-            await DisplayAccount(2);
+            await DisplayAccount(helper.StorageAccountName2);
             // myLabel.Text = "Successfully sent tx with id: " + id.TxId;
             Entry3.Text = wait;
+            var mytx = await SecureStorage.GetAsync(helper.StorageTransaction);
+            if (!(mytx == null || mytx ==""))
 
+            {
+                Entry3.Text = "Transaction ID = " + mytx.ToString();
+            }
+            Entry4.Text = "";
 
         }
 
         public async void GetTransaction_Clicked(System.Object sender, System.EventArgs e)
         {
-            await DisplayAccount(2);
-            var txid = await SecureStorage.GetAsync("Transaction");
+            await DisplayAccount(helper.StorageAccountName2);
+            var txid = await SecureStorage.GetAsync(helper.StorageTransaction);
             Entry3.Text = "Transaction ID = " + txid.ToString();
 
         }
 
         public async void GetMultiSigTx_Clicked(System.Object sender, System.EventArgs e)
         {
-            await DisplayAccount(3);
-            var txid = await SecureStorage.GetAsync("MultisigTransaction");
+            await DisplayAccount(helper.StorageAccountName3);
+            var txid = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
             Entry3.Text = "Multisig Transaction ID = " + txid.ToString();
+            ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
+            Entry4.Text = "Multisig balance = " + balance.ToString();
+
         }
 
         public async void MultisigTransaction_Clicked(System.Object sender, System.EventArgs e)
@@ -619,9 +612,9 @@ namespace algorandapp
 
             try
             {
-                mnemonic1 = await SecureStorage.GetAsync("Account 1");
-                mnemonic2 = await SecureStorage.GetAsync("Account 2");
-                mnemonic3 = await SecureStorage.GetAsync("Account 3");
+                mnemonic1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
+                mnemonic2 = await SecureStorage.GetAsync(helper.StorageAccountName2);
+                mnemonic3 = await SecureStorage.GetAsync(helper.StorageAccountName3);
             }
             catch (Exception ex)
             {
@@ -648,13 +641,10 @@ namespace algorandapp
             //Console.ReadKey();
             string DEST_ADDR = account3.Address.ToString();
             // add some notes to the transaction
+
+            // todo notes
             byte[] notes = Encoding.UTF8.GetBytes("These are some notes encoded in some way!");//.getBytes();
 
-            //ulong? feePerByte;
-            //string genesisID;
-            //Digest genesisHash;
-            //ulong? firstRound = 0;
-            //Algorand.Algod.Client.Model.TransactionParams transParams = null;
             var amount = Utils.AlgosToMicroalgos(1);
             Transaction tx = null;
             
@@ -667,15 +657,6 @@ namespace algorandapp
             {
                 Console.WriteLine("Could not get params", err.Message);
             }
-            //BigInteger amount = BigInteger.valueOf(2000000);
-            //BigInteger lastRound = firstRound.add(BigInteger.valueOf(1000)); // 1000 is the max tx window
-            // Setup Transaction
-            // Use a fee of 0 as we will set the fee per
-            // byte when we sign the tx and overwrite it
-
-            //var tx = Utils.GetPaymentTransaction(new Address(msa.ToString()), new Address(DEST_ADDR), amount, "this is a multisig trans", transParams);
-            //Transaction tx = new Transaction(new Address(msa.ToString()), transParams.Fee, transParams.LastRound, transParams.LastRound + 1000,
-            //        notes, amount, new Address(DEST_ADDR), transParams.GenesisID, new Digest(Convert.FromBase64String(transParams.Genesishashb64)));
             // Sign the Transaction for two accounts
             SignedTransaction signedTx = account1.SignMultisigTransaction(msig, tx);
             SignedTransaction completeTx = account2.AppendMultisigTransaction(msig, signedTx);
@@ -694,22 +675,85 @@ namespace algorandapp
                 // This is generally expected, but should give us an informative error message.
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
             }
-            await SecureStorage.SetAsync("MultisigTransaction", id.TxId.ToString());
+            await SecureStorage.SetAsync(helper.StorageMultisigTransaction, id.TxId.ToString());
             MultisigTransaction.Text = "Transaction successfully sent";
             GetMultiSigTx.IsVisible = true;
-       
+            ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
+            Entry4.Text = "Multisig balance = " + balance.ToString();
+
 
 
             buttonstate();
 
-            await DisplayAccount(3);
-            var mytx = await SecureStorage.GetAsync("MultisigTransaction");
+            await DisplayAccount(helper.StorageAccountName3);
+            var mytx = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
             if (!(mytx == null || mytx == ""))
 
             {
                 Entry3.Text = "Transaction ID = " + mytx.ToString();
+
             }
 
+        }
+
+        async void FundsNeeded1_click(System.Object sender, System.EventArgs e)
+        {
+    
+            await PromptToAddFunds(network, helper.StorageAccountName1);
+            buttonstate();
+        }
+
+        private async Task PromptToAddFunds(string network, string accountname)
+        {
+            if (!(String.IsNullOrEmpty(accountname)))
+            {
+                ulong? amount = await helper.GetAccountBalance(accountname);
+                if (amount < helper.MIN_ACCOUNT_BALANCE)
+                {
+                    // diplay Account1 on network is belown min balance.
+                    // would you like to dispense fund to it?
+
+                    string action = await DisplayActionSheet("ActionSheet: " + accountname + "on " + network + " is below min balance would you like to dispense funds to it?", "Cancel", null, "Yes", "No");
+                    Debug.WriteLine("Action: " + action);
+                    string myaddress = "";
+                    if (action == "Yes")
+                    {
+                        if (accountname != helper.StorageMultisig)
+                        {
+                            var mnemonic = await SecureStorage.GetAsync(accountname);
+                            Account myaccount = new Account(mnemonic);
+                            myaddress = myaccount.Address.ToString();
+                        }
+                        else
+                        {
+                            // get multisig addr
+                            myaddress = await SecureStorage.GetAsync(accountname);
+                        }
+
+                        OpenDispenser(helper, network, myaddress);
+
+                    }
+                }
+            }
+        }
+
+        async void FundsNeeded2_click(System.Object sender, System.EventArgs e)
+        {
+            await PromptToAddFunds(network, helper.StorageAccountName2);
+            buttonstate();
+        }
+
+        async void FundsNeeded3_click(System.Object sender, System.EventArgs e)
+        {
+            await PromptToAddFunds(network, helper.StorageAccountName3);
+            buttonstate();
+        }
+
+        async void FundsNeededMS_click(System.Object sender, System.EventArgs e)
+        {
+            await PromptToAddFunds(network, helper.StorageMultisig);
+            FundsNeededMS.IsVisible = false;
+            buttonstate();
         }
     }
 }

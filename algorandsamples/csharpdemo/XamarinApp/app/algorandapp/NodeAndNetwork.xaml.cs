@@ -252,14 +252,17 @@ namespace algorandapp
         public async void PurestakeBetaNet_click(System.Object sender, System.EventArgs e)
         {
             // Purestake BetaNet
-            // mine ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
-            ALGOD_API_TOKEN_BETANET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
+            // mine
+            ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
+            // hackathon
+
+            // ALGOD_API_TOKEN_BETANET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
             ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
       
             await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
             await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
-            myLabel.Text = "PureStake BetaNet accessible";
-
+            myLabel.Text = "PureStake BetaNet set";
+            await SecureStorage.SetAsync("Network", "BetaNet");
         }
 
         public async void PurestakeTestNet_click(System.Object sender, System.EventArgs e)
@@ -267,12 +270,15 @@ namespace algorandapp
             // Purestake TestNet
 
             ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
-            // mine  ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
-            ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
+            // mine
+            ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
+            // hackathon
+            // ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
         
             await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
             await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-            myLabel.Text = "Purestake TestNet accessible";
+            await SecureStorage.SetAsync("Network", "TestNet");
+            myLabel.Text = "Purestake TestNet set";
         }
 
         public async void HackathonBetaNet_click(System.Object sender, System.EventArgs e)
@@ -283,7 +289,7 @@ namespace algorandapp
             await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
             await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
             await SecureStorage.SetAsync("Network", "BetaNet");
-            myLabel.Text = "Hackathon BetaNet accessible";
+            myLabel.Text = "Hackathon BetaNet set";
         }
 
         public async void HackathonTestNet_click(System.Object sender, System.EventArgs e)
@@ -294,8 +300,8 @@ namespace algorandapp
 
             await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
             await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-        
-            myLabel.Text = "Hackathon TestNet accessible";
+            await SecureStorage.SetAsync("Network", "TestNet");
+            myLabel.Text = "Hackathon TestNet set";
         }
 
         void myBetaNet_click(System.Object sender, System.EventArgs e)
@@ -327,7 +333,7 @@ namespace algorandapp
                 await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
 
                 await SecureStorage.SetAsync("SavedBetaNetwork", "true");
-
+                await SecureStorage.SetAsync("Network", "BetaNet");
                 myLabel.Text = "Saved BetaNet Token and Server Address";
             }
             else
@@ -349,7 +355,7 @@ namespace algorandapp
                 await SecureStorage.SetAsync("TestNetAddress", ALGOD_API_ADDR_TESTNET);
                 await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
                 await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-
+                await SecureStorage.SetAsync("Network", "TestNet");
                 await SecureStorage.SetAsync("SavedTestNetwork", "true");
 
                 myLabel.Text = "Saved TestNet Token and Server Address";

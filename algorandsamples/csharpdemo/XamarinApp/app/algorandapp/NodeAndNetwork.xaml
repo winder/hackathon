@@ -40,13 +40,13 @@
                     Toggled="Switch_Toggled_TestNet"
                     OnColor="Orange"
                     ThumbColor="Green"
-                    IsToggled="True"/>
+                    />
             <Label Text="BetaNet" />
             <Switch x:Name="BetaNetToggle"
                     Toggled="Switch_Toggled_BetaNet"
                     OnColor="Orange"
                     ThumbColor="Green"
-                    IsToggled="False"/>
+                   />
             </StackLayout>
 
 

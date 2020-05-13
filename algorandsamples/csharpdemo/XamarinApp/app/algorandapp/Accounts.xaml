@@ -26,10 +26,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                 <ColumnDefinition Width="200" />
                  <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
@@ -37,7 +39,7 @@
                    Text="Network: TestNet"
                    FontSize="Large"/>
             </StackLayout>
-            <Button x:Name="ClearAccounts" Grid.Row="0" Grid.Column="1"
+            <Button x:Name="ClearAccounts" Grid.Row="0" Grid.Column="2"
                     Text="Clear Device Accounts" Clicked="ClearAccounts_Clicked" IsVisible="True">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -61,9 +63,24 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-
+            <Button x:Name="FundsNeeded1" Grid.Row="2" Grid.Column="1"
+                    Text="Funds Needed" IsVisible="False" Clicked="FundsNeeded1_click">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
             <Button x:Name="GenerateAccount2" Grid.Row="3" Grid.Column="0"
                     Text="Generate Account 2" Clicked="GenerateAccount2_Clicked" IsEnabled="False">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="FundsNeeded2" Grid.Row="3" Grid.Column="1"
+                    Text="Funds Needed" IsVisible="False" Clicked="FundsNeeded2_click">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
@@ -78,8 +95,15 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-
-            <Button x:Name="GetAccount1Info" Grid.Row="2" Grid.Column="1" IsVisible="False"
+             <Button x:Name="FundsNeeded3" Grid.Row="4" Grid.Column="1"
+                    Text="Funds Needed" IsVisible="False" Clicked="FundsNeeded3_click">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="GetAccount1Info" Grid.Row="2" Grid.Column="2" IsVisible="False"
                     Text="Get Account 1 Balance" Clicked="GetAccount1Info_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -87,7 +111,7 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Button x:Name="GetAccount2Info" Grid.Row="3" Grid.Column="1" IsVisible="False"
+            <Button x:Name="GetAccount2Info" Grid.Row="3" Grid.Column="2" IsVisible="False"
                     Text="Get Account 2 Balance" Clicked="GetAccount2Info_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -95,7 +119,7 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-             <Button x:Name="GetAccount3Info" Grid.Row="4" Grid.Column="1" IsVisible="False"
+             <Button x:Name="GetAccount3Info" Grid.Row="4" Grid.Column="2" IsVisible="False"
                     Text="Get Account 3 Balance" Clicked="GetAccount3Info_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -112,7 +136,7 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Button x:Name="GetTransaction" Grid.Row="5" Grid.Column="1" IsVisible="False"
+            <Button x:Name="GetTransaction" Grid.Row="5" Grid.Column="2" IsVisible="False"
                     Text="Get Transaction" Clicked="GetTransaction_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -128,7 +152,15 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Button x:Name="GetMultiSig" Grid.Row="6" Grid.Column="1" IsVisible="False"
+             <Button x:Name="FundsNeededMS" Grid.Row="6" Grid.Column="1"
+                    Text="Funds Needed" IsVisible="False" Clicked="FundsNeededMS_click">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Button.FontSize>
+            </Button>
+            <Button x:Name="GetMultiSig" Grid.Row="6" Grid.Column="2" IsVisible="False"
                     Text="Get Multisig Address" Clicked="GetMultiSig_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -138,14 +170,14 @@
 
             </Button>
             <Button x:Name="MultisigTransaction" Grid.Row="7" Grid.Column="0" IsEnabled="False"
-                    Text="Send Multisig Transaction to Account 3" Clicked="MultisigTransaction_Clicked">
+                    Text="Send Multisig Tx to Account 3" Clicked="MultisigTransaction_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Button x:Name="GetMultiSigTx" Grid.Row="7" Grid.Column="1" IsVisible="False"
+            <Button x:Name="GetMultiSigTx" Grid.Row="7" Grid.Column="2" IsVisible="False"
                     Text="Get Multisig Transaction" Clicked="GetMultiSigTx_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -153,7 +185,7 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Label FontSize="Large" x:Name="myLabel" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+            <Label FontSize="Large" x:Name="myLabel" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
                    Text="" HorizontalOptions="StartAndExpand" >
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -162,7 +194,7 @@
                 </Label.FontSize>
             </Label>
 
-            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
                    Text="" HorizontalOptions="StartAndExpand">
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -170,10 +202,12 @@
                       Android="16" />
                 </Label.FontSize>
             </Label>
-            <Entry x:Name="Entry3" FontSize="Large" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2">
+            <Entry x:Name="Entry3" FontSize="Large" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3">
 
             </Entry>
+            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3">
 
+            </Entry>
         </Grid>
 
 
