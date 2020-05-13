@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="ASA"
+             Title="Welcome to Algorand Standard Assets!"
              x:Class="algorandapp.ASA">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -15,8 +15,8 @@
 
     <StackLayout>
     <StackLayout>
-       <Label FontSize="Large" x:Name="myLabel"
-              Text="Welcome to Algorand Standard Assets!" HorizontalOptions="Center" >
+       <Label FontSize="Large" x:Name="myAsset"
+              HorizontalOptions="Center" >
        <Label.FontSize>
                      <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
@@ -37,10 +37,15 @@
   </Grid.RowDefinitions>
   <Grid.ColumnDefinitions>
     <ColumnDefinition Width="*" />
-     
+    <ColumnDefinition Width="*" />
+      
   </Grid.ColumnDefinitions>
-
-         <Button x:Name="CreateAsset" Grid.Row="0" Grid.Column="0"
+            <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
+            <Label x:Name="NetworkLabel"
+                   Text="Network: TestNet"
+                   FontSize="Large"/>
+            </StackLayout>
+         <Button x:Name="CreateAsset" Grid.Row="1" Grid.Column="0"
                  Text="Create Asset" Clicked="CreateAsset_click">
                       <Button.FontSize>
           <OnPlatform x:TypeArguments="x:Double"
@@ -48,6 +53,53 @@
                       Android="16" />
         </Button.FontSize>
         </Button>
+         <Button x:Name="GetAssetInfo" Grid.Row="1" Grid.Column="1"
+                 Text="Get Asset Info" Clicked="GetAssetInfo_click">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+             <Button x:Name="CongfigureRoles" Grid.Row="2" Grid.Column="0"
+                 Text="Configure Manger Role" Clicked="CongfigureManagerRole_click">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+         <Button x:Name="GetManagerInfo" Grid.Row="2" Grid.Column="1"
+                 Text="Get Manager Info" Clicked="GetManagerInfo_click">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+
+            <Label FontSize="Large" x:Name="myLabel" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="" HorizontalOptions="StartAndExpand" >
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Label.FontSize>
+            </Label>
+            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="" HorizontalOptions="StartAndExpand">
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Label.FontSize>
+            </Label>
+            <Entry x:Name="Entry3" FontSize="Large" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+
+            </Entry>
+            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+
+            </Entry>
     </Grid>
     </ScrollView>
     </StackLayout>

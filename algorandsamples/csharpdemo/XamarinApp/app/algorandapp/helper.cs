@@ -43,6 +43,7 @@ namespace algorandapp
         public string StorageMultisig = "Multisig";
         public string StorageTransaction = "Transaction";
         public string StorageMultisigTransaction = "MultisigTransaction";
+        public string StorageAssetIDName = "AssetID";
 
 
 
@@ -84,6 +85,34 @@ namespace algorandapp
 
             return accountinfo;
         }
+
+        public async Task<Account[]> RestoreAccounts()
+        {
+            Account[] accounts = new Account[3];
+
+            string mnemonic1 = "";
+            string mnemonic2 = "";
+            string mnemonic3 = "";
+
+            try
+            {
+                mnemonic1 = await SecureStorage.GetAsync(StorageAccountName1);
+                mnemonic2 = await SecureStorage.GetAsync(StorageAccountName2);
+                mnemonic3 = await SecureStorage.GetAsync(StorageAccountName3);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                // Possible that device doesn't support secure storage on device.
+            }
+            // restore accounts
+            accounts[0] = new Account(mnemonic1);
+            accounts[1] = new Account(mnemonic2);
+            accounts[2] = new Account(mnemonic3);
+            return accounts;
+
+
+        }
         public AlgodApi algodApiInstance;
 
         public async Task<ulong?> GetAccountBalance(string accountname)
@@ -96,8 +125,12 @@ namespace algorandapp
             if (!(accountname == StorageMultisig))
             {
                 string mnemonic = await SecureStorage.GetAsync(accountname);
+                if (mnemonic != null)
+                {
                 account = new Account(mnemonic);
                 myaddress = account.Address.ToString();
+                }
+
             }
             else
             {
@@ -112,11 +145,14 @@ namespace algorandapp
 
             if (algodApiInstance != null)
             {
-                Algorand.Algod.Client.Model.Account accountinfo = await algodApiInstance.AccountInformationAsync(myaddress);
-
+                if (!(String.IsNullOrEmpty(myaddress)))
+                {
+                    Algorand.Algod.Client.Model.Account accountinfo = await algodApiInstance.AccountInformationAsync(myaddress);
+                
                 if (accountinfo != null)
                 {
                     return accountinfo.Amount;
+                }
                 }
 
             }

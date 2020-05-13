@@ -27,7 +27,6 @@ namespace algorandapp
         public static helper helper = new helper();
 
 
-        //   default to TESTNET
         public AlgodApi algodApiInstance ;
 
         public string network = "";
@@ -47,6 +46,8 @@ namespace algorandapp
             network = await helper.GetNetwork();
 
             buttonstate();
+
+
         }
 
         public async void buttonstate ()
@@ -177,22 +178,34 @@ namespace algorandapp
 
             }
 
-            FundsNeeded1.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
-            FundsNeeded2.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
-            FundsNeeded3.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
-            FundsNeededMS.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
+          
+            if (!String.IsNullOrEmpty(account1))
+                FundsNeeded1.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
+            if (!String.IsNullOrEmpty(account2)) 
+            {
+                FundsNeeded2.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
+            }
+            if (!String.IsNullOrEmpty(account3))
+                FundsNeeded3.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
+            if (!String.IsNullOrEmpty(msig))
+                FundsNeededMS.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
         }
 
         private async Task<bool> ToggleFundButton(string network, string accountname)
         {
             ulong? amount = await helper.GetAccountBalance(accountname);
-            if (amount < helper.MIN_ACCOUNT_BALANCE)
-            {
-                // dispense if more funds needed
-                return true;
+            var account = await SecureStorage.GetAsync(helper.StorageAccountName1);
+            if (!(String.IsNullOrEmpty(account)))
+            { 
+                if (amount < helper.MIN_ACCOUNT_BALANCE)
+                {
+                    // dispense if more funds needed
+                    return true;
+                }
+                else
+                    return false;
             }
-            else
-                return false;
+            return false;
         }
 
 
@@ -262,7 +275,7 @@ namespace algorandapp
                 // Possible that device doesn't support secure storage on device.
             }
 
-            OpenDispenser(helper, network, myAccountAddress);
+           // OpenDispenser(helper, network, myAccountAddress);
         }
 
         private static void OpenDispenser(helper helper, string network, string myAccountAddress)
@@ -350,6 +363,8 @@ namespace algorandapp
 
         {
             await DisplayAccount(helper.StorageAccountName1);
+            FundsNeeded1.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
+
         }
 
 
@@ -408,45 +423,28 @@ namespace algorandapp
         }
 
 
-        public async void GetAccount3Info_Clicked(System.Object sender, System.EventArgs e)
-        {    
-            await DisplayAccount(helper.StorageAccountName3);
 
-        }
 
         public async void GetAccount2Info_Clicked(System.Object sender, System.EventArgs e)
         {
 
             await DisplayAccount(helper.StorageAccountName2);
-          
+            FundsNeeded2.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
         }
 
+        public async void GetAccount3Info_Clicked(System.Object sender, System.EventArgs e)
+        {    
+            await DisplayAccount(helper.StorageAccountName3);
+            FundsNeeded3.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
+        }
         public async void CreateMultiSig_Clicked(System.Object sender, System.EventArgs e)
         {
-
-            Account account1;
-            Account account2;
-            Account account3;
-            string mnemonic1 = "";
-            string mnemonic2 = "";
-            string mnemonic3 = "";
-
-
-            try
-            {
-                mnemonic1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
-                mnemonic2 = await SecureStorage.GetAsync(helper.StorageAccountName2);
-                mnemonic3 = await SecureStorage.GetAsync(helper.StorageAccountName3);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error: " + ex.Message);
-                // Possible that device doesn't support secure storage on device.
-            }
             // restore accounts
-            account1 = new Account(mnemonic1);
-            account2 = new Account(mnemonic2);
-            account3 = new Account(mnemonic3);
+            var accounts = await helper.RestoreAccounts();
+            Account account1 = accounts[0];
+            Account account2 = accounts[1];
+            Account account3 = accounts[2];
+  
 
             List<Ed25519PublicKeyParameters> publickeys = new List<Ed25519PublicKeyParameters>();
 
@@ -467,8 +465,7 @@ namespace algorandapp
             await SecureStorage.SetAsync(helper.StorageMultisig, msig.ToString());
             buttonstate();
           
-            var network = await SecureStorage.GetAsync(helper.StorageNetwork);
-            OpenDispenser(helper, network, msig.ToString());
+        //     OpenDispenser(helper, network, msig.ToString());
 
 
         }
@@ -481,35 +478,17 @@ namespace algorandapp
             Entry3.Text = "Multisig address = " + msig.ToString();
             ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
             Entry4.Text = "Multisig balance = " + balance.ToString() ;
-           
+            FundsNeededMS.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
         }
 
         public async void Transaction_Clicked(System.Object sender, System.EventArgs e)
         {
-            // todo create method to restore accounts
-            Account account1;
-            Account account2;
-            Account account3;
-
-            string mnemonic1 = "";
-            string mnemonic2 = "";
-            string mnemonic3 = "";
-
-            try
-            {
-                mnemonic1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
-                mnemonic2 = await SecureStorage.GetAsync(helper.StorageAccountName2);
-                mnemonic3 = await SecureStorage.GetAsync(helper.StorageAccountName3);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error: " + ex.Message);
-                // Possible that device doesn't support secure storage on device.
-            }
+          
             // restore accounts
-            account1 = new Account(mnemonic1);
-            account2 = new Account(mnemonic2);
-            account3 = new Account(mnemonic3);
+            var accounts = await helper.RestoreAccounts();
+            Account account1 = accounts[0];
+            Account account2 = accounts[1];
+            Account account3 = accounts[2];
 
             // transfer from Account 1 to 2
             TransactionParams transParams = null;
@@ -601,31 +580,15 @@ namespace algorandapp
         public async void MultisigTransaction_Clicked(System.Object sender, System.EventArgs e)
         {
             //MultisigTransaction
+
             // List for Pks for multisig account
             List<Ed25519PublicKeyParameters> publicKeys = new List<Ed25519PublicKeyParameters>();
-            Account account1;
-            Account account2;
-            Account account3;
-            string mnemonic1 = "";
-            string mnemonic2 = "";
-            string mnemonic3 = "";
 
-            try
-            {
-                mnemonic1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
-                mnemonic2 = await SecureStorage.GetAsync(helper.StorageAccountName2);
-                mnemonic3 = await SecureStorage.GetAsync(helper.StorageAccountName3);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error: " + ex.Message);
-                // Possible that device doesn't support secure storage on device.
-            }
             // restore accounts
-            account1 = new Account(mnemonic1);
-            account2 = new Account(mnemonic2);
-            account3 = new Account(mnemonic3);
-
+            var accounts = await helper.RestoreAccounts();
+            Account account1 = accounts[0];
+            Account account2 = accounts[1];
+            Account account3 = accounts[2];
 
 
             publicKeys.Add(account1.GetEd25519PublicKey());
@@ -636,9 +599,7 @@ namespace algorandapp
 
             MultisigAddress msig = new MultisigAddress(1, 2, publicKeys);
             Console.WriteLine("Multisignature Address: " + msig.ToString());
-       //     Console.WriteLine("no algo in the random address, use TestNet Dispenser to add funds");
-            //no algo in the random adress, use TestNet Dispenser to add funds
-            //Console.ReadKey();
+            //   dispense funds to msig account
             string DEST_ADDR = account3.Address.ToString();
             // add some notes to the transaction
 
@@ -647,7 +608,7 @@ namespace algorandapp
 
             var amount = Utils.AlgosToMicroalgos(1);
             Transaction tx = null;
-            
+            //noteb64 = notes
             try
             {
                 tx = Utils.GetPaymentTransaction(new Address(msig.ToString()), new Address(DEST_ADDR), amount, "this is a multisig trans",
@@ -701,6 +662,7 @@ namespace algorandapp
     
             await PromptToAddFunds(network, helper.StorageAccountName1);
             buttonstate();
+            FundsNeeded1.IsVisible = false;
         }
 
         private async Task PromptToAddFunds(string network, string accountname)
@@ -741,12 +703,14 @@ namespace algorandapp
         {
             await PromptToAddFunds(network, helper.StorageAccountName2);
             buttonstate();
+            FundsNeeded2.IsVisible = false;
         }
 
         async void FundsNeeded3_click(System.Object sender, System.EventArgs e)
         {
             await PromptToAddFunds(network, helper.StorageAccountName3);
             buttonstate();
+            FundsNeeded3.IsVisible = false;
         }
 
         async void FundsNeededMS_click(System.Object sender, System.EventArgs e)
@@ -754,6 +718,7 @@ namespace algorandapp
             await PromptToAddFunds(network, helper.StorageMultisig);
             FundsNeededMS.IsVisible = false;
             buttonstate();
+            FundsNeededMS.IsVisible = false;
         }
     }
 }
