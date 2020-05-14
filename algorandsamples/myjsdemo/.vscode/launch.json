@@ -4,13 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    {
-        "type": "chrome",
-        "request": "launch",
-        "name": "Launch Chrome Dispenser",
-        "url": "http://localhost:8080/dispenser/dispenser.html?account=RC24PIKZFYXCKRLA3RGHL5L5DGXU2UJMHN5X3MOVRTZTOWL4JEEVGIIQIY",
-        "webRoot": "${workspaceFolder}"
-    },
 
 
     {
