@@ -35,17 +35,28 @@ namespace algorandapp
         public string StorageAccountName1 = "Account 1";
         public string StorageAccountName2 = "Account 2";
         public string StorageAccountName3 = "Account 3";
-        public string StorageTokenBetaNet = "ALGOD_API_TOKEN_BETANET";
-        public string StorageADDRBetaNet = "ALGOD_API_ADDR_BETANET";
-        public string StorageTokenTestNet = "ALGOD_API_TOKEN_TESTNET";
-        public string StorageADDRTestNet = "ALGOD_API_ADDR_TESTNET";
+        public string StorageALGOD_API_TOKEN_BETANET = "ALGOD_API_TOKEN_BETANET";
+        public string StorageALGOD_API_ADDR_BETANET = "ALGOD_API_ADDR_BETANET";
+        public string StorageALGOD_API_TOKEN_TESTNET = "ALGOD_API_TOKEN_TESTNET";
+        public string StorageALGOD_API_ADDR_TESTNET = "ALGOD_API_ADDR_TESTNET";
         public string StorageNetwork = "Network";
         public string StorageMultisig = "Multisig";
         public string StorageTransaction = "Transaction";
         public string StorageMultisigTransaction = "MultisigTransaction";
         public string StorageAssetIDName = "AssetID";
+        public string StorageTestNet = "TestNet";
+        public string StorageBetaNet = "BetaNet";
 
-
+        public string StoragePurestake = "Purestake";
+        public string StorageHackathon = "Hackathon";
+        public string StoragemyNode = "myNode";
+        public string StorageSavedBetaNetwork = "SavedBetaNetwork";
+        public string StorageSavedTestNetwork = "SavedTestNetwork";
+        public string StorageTestNetToken = "TestNetToken";
+        public string StorageTestNetAddress = "TestNetAddress";
+        public string StorageBetaNetToken = "BetaNetToken";
+        public string StorageBetaNetAddress = "BetaNetAddress";
+        public string StorageNodeType = "NodeType";
 
         public helper()
         {
@@ -166,10 +177,10 @@ namespace algorandapp
             // creatapi instance
 
 
-            string ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync(StorageTokenBetaNet);
-            string ALGOD_API_TOKEN_TESTNET = await SecureStorage.GetAsync(StorageTokenTestNet);
-            string ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync(StorageADDRTestNet);
-            string ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync(StorageADDRBetaNet);
+            string ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync(StorageALGOD_API_TOKEN_BETANET);
+            string ALGOD_API_TOKEN_TESTNET = await SecureStorage.GetAsync(StorageALGOD_API_TOKEN_TESTNET);
+            string ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync(StorageALGOD_API_ADDR_TESTNET);
+            string ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync(StorageALGOD_API_ADDR_BETANET);
             string network = await GetNetwork();
 
             if (network == "TestNet")

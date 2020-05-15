@@ -40,7 +40,7 @@ namespace algorandapp
         public string ALGOD_API_TOKEN_TESTNET = "";
         public string ALGOD_API_ADDR_TESTNET = "";
         //   default to TESTNET
-
+        public static helper helper = new helper();
         public AlgodApi algodApiInstance = null;
 
         public int sizeoftoken;
@@ -115,27 +115,27 @@ namespace algorandapp
         {
             // algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
 
-            ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync("ALGOD_API_TOKEN_BETANET");
-            ALGOD_API_TOKEN_TESTNET =  await SecureStorage.GetAsync("ALGOD_API_TOKEN_TESTNET");
-            ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync("ALGOD_API_ADDR_TESTNET");
-            ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync("ALGOD_API_ADDR_BETANET");
+            ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync(helper.StorageALGOD_API_TOKEN_BETANET);
+            ALGOD_API_TOKEN_TESTNET =  await SecureStorage.GetAsync(helper.StorageALGOD_API_TOKEN_TESTNET);
+            ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync(helper.StorageALGOD_API_ADDR_TESTNET);
+            ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync(helper.StorageALGOD_API_ADDR_BETANET);
 
-            var savedtest = await SecureStorage.GetAsync("SavedTestNetwork");
+            var savedtest = await SecureStorage.GetAsync(helper.StorageSavedTestNetwork);
 
-            var savedbeta = await SecureStorage.GetAsync("SavedBetaNetwork");
+            var savedbeta = await SecureStorage.GetAsync(helper.StorageSavedBetaNetwork);
 
             if (savedtest == "true")
             {
-                EntryTestNetToken.Text = await SecureStorage.GetAsync("TestNetToken");
-                EntryTestNetServer.Text = await SecureStorage.GetAsync("TestNetAddress");
+                EntryTestNetToken.Text = await SecureStorage.GetAsync(helper.StorageTestNetToken);
+                EntryTestNetServer.Text = await SecureStorage.GetAsync(helper.StorageTestNetAddress);
 
             }
 
 
             if (savedbeta == "true")
             {
-                EntryBetaNetToken.Text = await SecureStorage.GetAsync("BetaNetToken");
-                EntryBetaNetServer.Text = await SecureStorage.GetAsync("BetaNetAddress");
+                EntryBetaNetToken.Text = await SecureStorage.GetAsync(helper.StorageBetaNetToken);
+                EntryBetaNetServer.Text = await SecureStorage.GetAsync(helper.StorageBetaNetAddress);
             }
  
 
@@ -143,22 +143,89 @@ namespace algorandapp
         }
         public async void buttonstate()
         {
-            var network = await SecureStorage.GetAsync("Network");
+            var network = await SecureStorage.GetAsync(helper.StorageNetwork);
+            var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
+
+            if (network == helper.StorageTestNet)
+            {
+                if (nodetype == helper.StoragePurestake)
+                {
+                    PurestakeTestNet.IsChecked = true;
+                    await PurestakeTestNetClicked();
+                }
+                else
+                     if (nodetype == helper.StorageHackathon)
+                {
+                    HackathonTestNet.IsChecked = true;
+                    await HackathonTestNetClicked();
+                }
+                else
+                { 
+                if (nodetype == helper.StoragemyNode)
+                {
+                    myTestNet.IsChecked = true;
+                    myTestNetClicked();
+                }
+            }
+            }
+            else if (network == helper.StorageBetaNet)
+            {
+                if (nodetype == helper.StoragePurestake)
+                {
+                    PurestakeBetaNet.IsChecked = true;
+                    await PurestakeBetaNetClicked();
+                }
+                else
+                     if (nodetype == helper.StorageHackathon)
+                {
+                    HackathonBetaNet.IsChecked = true;
+                    await HackathonTestNetClicked();
+                }
+                else
+                {
+                    if (nodetype == helper.StoragemyNode)
+                    {
+                        myBetaNet.IsChecked = true;
+                        myBetaNetClicked();
+                    }
+
+                }
+
+            }
+
             if (String.IsNullOrEmpty(network))
             {
                 //default to TestNet
-                await SecureStorage.SetAsync("Network", "TestNet");
-                network = "TestNet";
+                await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
+                network = helper.StorageTestNet;
             }
+            if (PurestakeTestNet.IsChecked || PurestakeBetaNet.IsChecked
+                || HackathonTestNet.IsChecked || HackathonBetaNet.IsChecked
+                || myTestNet.IsChecked || myBetaNet.IsChecked)
+            { }
+            else
+            {
+                //default to Purstake
+                if (network == helper.StorageTestNet)
+                {
+                    PurestakeTestNet.IsChecked = true;
+                    await PurestakeTestNetClicked();
+                }
+                else
+                {
+                    PurestakeBetaNet.IsChecked = true;
+                    await PurestakeBetaNetClicked();
+                }
 
+            }
             EnableNetworkToggles(network);
         }
 
         public async void EnableNetworkToggles(string network)
         {
-            var savedtest = "";
 
-            if (network == "TestNet")
+
+            if (network == helper.StorageTestNet)
             {
                 BetaNetToggle.IsToggled = false;
                 TestNetToggle.IsToggled = true;
@@ -167,17 +234,11 @@ namespace algorandapp
                 BetaNetStack.IsVisible = false;
                 TestNetStack.IsVisible = true;
 
-                savedtest = await SecureStorage.GetAsync("TestNetToken");
-                if (savedtest != null)
+                var savedtest = await SecureStorage.GetAsync(helper.StorageSavedTestNetwork);
+                if ((!String.IsNullOrEmpty(savedtest)) && (savedtest == "true"))
                 {
-                    EntryTestNetToken.Text = await SecureStorage.GetAsync("TestNetToken");
-                }
-                savedtest = "";
-                savedtest  = await SecureStorage.GetAsync("TestNetAddress");
-
-                if (savedtest != null)
-                {
-                    EntryTestNetServer.Text = await SecureStorage.GetAsync("TestNetAddress");
+                    EntryTestNetToken.Text = await SecureStorage.GetAsync(helper.StorageTestNetToken);
+                    EntryTestNetServer.Text = await SecureStorage.GetAsync(helper.StorageTestNetAddress);
                 }
             }
             else
@@ -188,18 +249,11 @@ namespace algorandapp
                 TestNetToggle.IsEnabled = true;
                 BetaNetStack.IsVisible = true;
                 TestNetStack.IsVisible = false;
-                savedtest = "";
-                savedtest = await SecureStorage.GetAsync("BetaNetToken");
-                if (savedtest != null)
+                var savedbeta = await SecureStorage.GetAsync(helper.StorageSavedBetaNetwork);
+                if ((!String.IsNullOrEmpty(savedbeta)) && (savedbeta == "true"))
                 {
-                    EntryBetaNetToken.Text = await SecureStorage.GetAsync("BetaNetToken");
-                }
-                savedtest = "";
-                savedtest = await SecureStorage.GetAsync("BetaNetAddress");
-
-                if (savedtest != null)
-                {
-                    EntryBetaNetServer.Text = await SecureStorage.GetAsync("BetaNetAddress");
+                    EntryBetaNetToken.Text = await SecureStorage.GetAsync(helper.StorageBetaNetToken);
+                    EntryBetaNetServer.Text = await SecureStorage.GetAsync(helper.StorageBetaNetAddress);
                 }
 
             }
@@ -211,7 +265,7 @@ namespace algorandapp
         {
             if (TestNetToggle.IsToggled)
             {
-                await SecureStorage.SetAsync("Network", "TestNet");
+                await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
                 BetaNetToggle.IsToggled = false;
                 BetaNetStack.IsVisible = false;
                 TestNetStack.IsVisible = true;
@@ -220,7 +274,7 @@ namespace algorandapp
             }
             else
             {
-                await SecureStorage.SetAsync("Network", "BetaNet");
+                await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
                 BetaNetToggle.IsToggled = true;
                 BetaNetStack.IsVisible = true;
                 TestNetStack.IsVisible = false;
@@ -234,7 +288,7 @@ namespace algorandapp
         {
             if (BetaNetToggle.IsToggled)
             {
-                await SecureStorage.SetAsync("Network", "BetaNet");
+                await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
                 TestNetToggle.IsToggled = false;
 
               //  algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
@@ -242,7 +296,7 @@ namespace algorandapp
             }
             else
             {
-                await SecureStorage.SetAsync("Network", "TestNet");
+                await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
                 TestNetToggle.IsToggled = true;
 
             }
@@ -253,19 +307,32 @@ namespace algorandapp
         {
             // Purestake BetaNet
             // mine
+            await PurestakeBetaNetClicked();
+
+        }
+
+        private async Task PurestakeBetaNetClicked()
+        {
             ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
             // hackathon
 
             // ALGOD_API_TOKEN_BETANET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
             ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
-      
-            await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
-            await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
-            myLabel.Text = "PureStake BetaNet set";
-            await SecureStorage.SetAsync("Network", "BetaNet");
+
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_TOKEN_BETANET, ALGOD_API_TOKEN_BETANET);
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_ADDR_BETANET, ALGOD_API_ADDR_BETANET);
+            myLabel.Text = "Purestake BetaNet set";
+            await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
+            await SecureStorage.SetAsync(helper.StorageNodeType, helper.StoragePurestake);
         }
 
         public async void PurestakeTestNet_click(System.Object sender, System.EventArgs e)
+        {
+            await PurestakeTestNetClicked();
+
+        }
+
+        private async Task PurestakeTestNetClicked()
         {
             // Purestake TestNet
 
@@ -274,66 +341,97 @@ namespace algorandapp
             ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
             // hackathon
             // ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
-        
-            await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
-            await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-            await SecureStorage.SetAsync("Network", "TestNet");
+
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_TOKEN_TESTNET, ALGOD_API_TOKEN_TESTNET);
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_ADDR_TESTNET, ALGOD_API_ADDR_TESTNET);
+            await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
             myLabel.Text = "Purestake TestNet set";
+            await SecureStorage.SetAsync(helper.StorageNodeType, helper.StoragePurestake);
+
         }
+
 
         public async void HackathonBetaNet_click(System.Object sender, System.EventArgs e)
         {
-                   // Standalone instance
+            await HackathonBetaNetClicked();
+        }
+
+        private async Task HackathonBetaNetClicked()
+        {
+
+            // Standalone instance
             ALGOD_API_TOKEN_BETANET = "050e81d219d12a0888dafddaeafb5ff8d181bf1256d1c749345995678b16902f";
             ALGOD_API_ADDR_BETANET = "http://betanet-hackathon.algodev.network:8180";
-            await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
-            await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
-            await SecureStorage.SetAsync("Network", "BetaNet");
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_TOKEN_BETANET, ALGOD_API_TOKEN_BETANET);
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_ADDR_BETANET, ALGOD_API_ADDR_BETANET);
+            await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
             myLabel.Text = "Hackathon BetaNet set";
+            await SecureStorage.SetAsync(helper.StorageNodeType, helper.StorageHackathon);
         }
 
         public async void HackathonTestNet_click(System.Object sender, System.EventArgs e)
         {
+            await HackathonTestNetClicked();
+        }
 
-             ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
-             ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
+        private async Task HackathonTestNetClicked()
+        {
+            ALGOD_API_TOKEN_TESTNET = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+            ALGOD_API_ADDR_TESTNET = "http://hackathon.algodev.network:9100";
 
-            await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
-            await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-            await SecureStorage.SetAsync("Network", "TestNet");
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_TOKEN_TESTNET, ALGOD_API_TOKEN_TESTNET);
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_ADDR_TESTNET, ALGOD_API_ADDR_TESTNET);
+            await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
             myLabel.Text = "Hackathon TestNet set";
+            await SecureStorage.SetAsync(helper.StorageNodeType, helper.StorageHackathon);
         }
 
         void myBetaNet_click(System.Object sender, System.EventArgs e)
         {
+            myBetaNetClicked();
+
+        }
+
+        private async void myBetaNetClicked()
+        {
             TestNetEntry.IsVisible = false;
             BetaNetEntry.IsVisible = true;
             myLabel.Text = "";
+            await SecureStorage.SetAsync(helper.StorageNodeType, helper.StoragemyNode);
 
         }
 
         void myTestNet_click(System.Object sender, System.EventArgs e)
         {
+            myTestNetClicked();
+        }
+
+        private async void myTestNetClicked()
+        {
             TestNetEntry.IsVisible = true;
             BetaNetEntry.IsVisible = false;
             myLabel.Text = "";
+            await SecureStorage.SetAsync(helper.StorageNodeType, helper.StoragemyNode);
         }
 
         public async void SaveBetaNetwork_click(System.Object sender, System.EventArgs e)
         {
-            await SecureStorage.SetAsync("SavedBetaNetwork", "false");
+            await SecureStorage.SetAsync(helper.StorageSavedBetaNetwork, "false");
             if ((sizeoftoken > 0) && (sizeofaddress > 0))
             {
                 ALGOD_API_TOKEN_BETANET = EntryBetaNetToken.Text;
                 ALGOD_API_ADDR_BETANET = EntryBetaNetServer.Text;
 
-                await SecureStorage.SetAsync("BetaNetToken", ALGOD_API_TOKEN_BETANET);
-                await SecureStorage.SetAsync("BetaNetAddress", ALGOD_API_ADDR_BETANET);
-                await SecureStorage.SetAsync("ALGOD_API_TOKEN_BETANET", ALGOD_API_TOKEN_BETANET);
-                await SecureStorage.SetAsync("ALGOD_API_ADDR_BETANET", ALGOD_API_ADDR_BETANET);
+                //store off values for myNode - to populate back if node changed to Purestake or Hackathon
 
-                await SecureStorage.SetAsync("SavedBetaNetwork", "true");
-                await SecureStorage.SetAsync("Network", "BetaNet");
+                await SecureStorage.SetAsync(helper.StorageBetaNetToken, ALGOD_API_TOKEN_BETANET);
+                await SecureStorage.SetAsync(helper.StorageBetaNetAddress, ALGOD_API_ADDR_BETANET);
+                // store off current values of myNode
+                await SecureStorage.SetAsync(helper.StorageALGOD_API_TOKEN_BETANET, ALGOD_API_TOKEN_BETANET);
+                await SecureStorage.SetAsync(helper.StorageALGOD_API_ADDR_BETANET, ALGOD_API_ADDR_BETANET);
+
+                await SecureStorage.SetAsync(helper.StorageSavedBetaNetwork, "true");
+                await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
                 myLabel.Text = "Saved BetaNet Token and Server Address";
             }
             else
@@ -345,18 +443,20 @@ namespace algorandapp
 
         public async void SaveTestNetwork_click(System.Object sender, System.EventArgs e)
         {
-            await SecureStorage.SetAsync("SavedTestNetwork", "false");
-            if ((sizeoftoken >0) && ( sizeofaddress >0))
+            await SecureStorage.SetAsync(helper.StorageSavedTestNetwork, "false");
+            if ((sizeoftoken > 0) && ( sizeofaddress > 0))
             {
                 ALGOD_API_TOKEN_TESTNET = EntryTestNetToken.Text;
                 ALGOD_API_ADDR_TESTNET = EntryTestNetServer.Text;
 
-                await SecureStorage.SetAsync("TestNetToken", ALGOD_API_TOKEN_TESTNET);
-                await SecureStorage.SetAsync("TestNetAddress", ALGOD_API_ADDR_TESTNET);
-                await SecureStorage.SetAsync("ALGOD_API_TOKEN_TESTNET", ALGOD_API_TOKEN_TESTNET);
-                await SecureStorage.SetAsync("ALGOD_API_ADDR_TESTNET", ALGOD_API_ADDR_TESTNET);
-                await SecureStorage.SetAsync("Network", "TestNet");
-                await SecureStorage.SetAsync("SavedTestNetwork", "true");
+                //store off values for myNode - to populate back if node changed to Purestake or Hackathon
+                await SecureStorage.SetAsync(helper.StorageTestNetToken, ALGOD_API_TOKEN_TESTNET);
+                await SecureStorage.SetAsync(helper.StorageTestNetAddress, ALGOD_API_ADDR_TESTNET);
+                // store off current values of myNode
+                await SecureStorage.SetAsync(helper.StorageALGOD_API_TOKEN_TESTNET, ALGOD_API_TOKEN_TESTNET);
+                await SecureStorage.SetAsync(helper.StorageALGOD_API_ADDR_TESTNET, ALGOD_API_ADDR_TESTNET);
+                await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
+                await SecureStorage.SetAsync(helper.StorageSavedTestNetwork, "true");
 
                 myLabel.Text = "Saved TestNet Token and Server Address";
             }
