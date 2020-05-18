@@ -36,7 +36,7 @@
             </Grid.ColumnDefinitions>
             <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
             <Label x:Name="NetworkLabel"
-                   Text="Network: TestNet"
+                   Text="Network: TestNet Purestake"
                    FontSize="Large"/>
             </StackLayout>
             <Button x:Name="ClearAccounts" Grid.Row="0" Grid.Column="2"

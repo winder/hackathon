@@ -34,6 +34,12 @@
     <RowDefinition Height="Auto" />
     <RowDefinition Height="Auto" />
     <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="100" />
   </Grid.RowDefinitions>
   <Grid.ColumnDefinitions>
     <ColumnDefinition Width="*" />
@@ -61,7 +67,7 @@
                       Android="16" />
         </Button.FontSize>
         </Button>
-             <Button x:Name="CongfigureRoles" Grid.Row="2" Grid.Column="0"
+        <Button x:Name="CongfigureManagerRole" Grid.Row="2" Grid.Column="0"
                  Text="Configure Manger Role" Clicked="CongfigureManagerRole_click">
                       <Button.FontSize>
           <OnPlatform x:TypeArguments="x:Double"
@@ -69,8 +75,24 @@
                       Android="16" />
         </Button.FontSize>
         </Button>
-         <Button x:Name="GetManagerInfo" Grid.Row="2" Grid.Column="1"
-                 Text="Get Manager Info" Clicked="GetManagerInfo_click">
+         <Button x:Name="GetConfigurationInfo" Grid.Row="2" Grid.Column="1"
+                 Text="Get Configutation Info" Clicked="GetConfigurationInfo_click">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+        <Button x:Name="OptIn" Grid.Row="3" Grid.Column="0"
+                 Text="Opt In Account 3" Clicked="OptIn_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+         <Button x:Name="GetOptInInfo" Grid.Row="3" Grid.Column="1"
+                 Text="Get Opt In Info" Clicked="GetOptInInfo_click">
                       <Button.FontSize>
           <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
@@ -78,7 +100,74 @@
         </Button.FontSize>
         </Button>
 
-            <Label FontSize="Large" x:Name="myLabel" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+         <Button x:Name="TransferAsset" Grid.Row="4" Grid.Column="0"
+                 Text="Transfer from Account 1 to 3" Clicked="TransferAsset_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+         <Button x:Name="GetTransferInfo" Grid.Row="4" Grid.Column="1"
+                 Text="Get Transfer Info" Clicked="GetTransferInfo_click">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+         <Button x:Name="FreezeAsset" Grid.Row="5" Grid.Column="0"
+                 Text="Freeze Account 3" Clicked="FreezeAsset_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+         <Button x:Name="GetFreezeInfo" Grid.Row="5" Grid.Column="1"
+                 Text="Get Freeze Info" Clicked="GetFreezeInfo_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+
+         <Button x:Name="RevokeAsset" Grid.Row="6" Grid.Column="0"
+                 Text="Revoke on Account 3" Clicked="RevokeAsset_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+         <Button x:Name="GetRevokeInfo" Grid.Row="6" Grid.Column="1"
+                 Text="Get Revoke Info" Clicked="GetRevokeInfo_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+
+        <Button x:Name="DestroyAsset" Grid.Row="7" Grid.Column="0"
+                 Text="Destroy on Account 1" Clicked="DestroyAsset_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+         <Button x:Name="GetDestroyInfo" Grid.Row="7" Grid.Column="1"
+                 Text="Get Destroy Info" Clicked="GetDestroyInfo_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+        </Button>
+
+            <Label FontSize="Large" x:Name="myLabel" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
                    Text="" HorizontalOptions="StartAndExpand" >
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -86,7 +175,7 @@
                       Android="16" />
                 </Label.FontSize>
             </Label>
-            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
                    Text="" HorizontalOptions="StartAndExpand">
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -94,12 +183,15 @@
                       Android="16" />
                 </Label.FontSize>
             </Label>
-            <Entry x:Name="Entry3" FontSize="Large" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Entry x:Name="Entry3" FontSize="Large" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2">
 
             </Entry>
-            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
 
             </Entry>
+    <WebView x:Name="myWebView" HeightRequest="100" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2">
+
+    </WebView>
     </Grid>
     </ScrollView>
     </StackLayout>

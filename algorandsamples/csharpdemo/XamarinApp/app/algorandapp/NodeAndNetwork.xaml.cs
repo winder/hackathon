@@ -45,8 +45,9 @@ namespace algorandapp
 
         public int sizeoftoken;
         public int sizeofaddress;
-
-
+        public string network = "";
+        public string nodetype = "";
+        
         public NodeAndNetwork()
         {
             InitializeComponent();
@@ -137,14 +138,15 @@ namespace algorandapp
                 EntryBetaNetToken.Text = await SecureStorage.GetAsync(helper.StorageBetaNetToken);
                 EntryBetaNetServer.Text = await SecureStorage.GetAsync(helper.StorageBetaNetAddress);
             }
- 
+            network = await helper.GetNetwork();
+
 
             buttonstate();
         }
         public async void buttonstate()
         {
-            var network = await SecureStorage.GetAsync(helper.StorageNetwork);
-            var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
+           // var network = await SecureStorage.GetAsync(helper.StorageNetwork);
+            nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
 
             if (network == helper.StorageTestNet)
             {
@@ -228,7 +230,7 @@ namespace algorandapp
             if (network == helper.StorageTestNet)
             {
                 BetaNetToggle.IsToggled = false;
-                TestNetToggle.IsToggled = true;
+                TestNetToggle.IsToggled = true; 
                 BetaNetToggle.IsEnabled = true;
                 TestNetToggle.IsEnabled = true;
                 BetaNetStack.IsVisible = false;
@@ -269,6 +271,26 @@ namespace algorandapp
                 BetaNetToggle.IsToggled = false;
                 BetaNetStack.IsVisible = false;
                 TestNetStack.IsVisible = true;
+                if (helper.StoragemyNode == await SecureStorage.GetAsync(helper.StorageNodeType))
+                {
+                    myTestNet.IsChecked = true;
+                    myTestNetClicked();
+                    TestNetEntry.IsVisible = true;
+
+                }
+                if (helper.StoragePurestake == await SecureStorage.GetAsync(helper.StorageNodeType))
+                {
+                    PurestakeTestNet.IsChecked = true;
+                    await PurestakeTestNetClicked();
+                    TestNetEntry.IsVisible = false;
+                }
+                if (helper.StorageHackathon == await SecureStorage.GetAsync(helper.StorageNodeType))
+                {
+                    HackathonTestNet.IsChecked = true;
+                    await HackathonTestNetClicked();
+                    TestNetEntry.IsVisible = false;
+                }
+
 
                 //   algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
             }
@@ -278,6 +300,8 @@ namespace algorandapp
                 BetaNetToggle.IsToggled = true;
                 BetaNetStack.IsVisible = true;
                 TestNetStack.IsVisible = false;
+
+
 
             }
 
@@ -291,7 +315,27 @@ namespace algorandapp
                 await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
                 TestNetToggle.IsToggled = false;
 
-              //  algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
+                if (helper.StoragemyNode == await SecureStorage.GetAsync(helper.StorageNodeType))
+                {
+                    myBetaNet.IsChecked = true;
+                    myBetaNetClicked();
+                    BetaNetEntry.IsVisible = true;
+                }
+                if (helper.StoragePurestake == await SecureStorage.GetAsync(helper.StorageNodeType))
+                {
+                    PurestakeBetaNet.IsChecked = true;
+                    await PurestakeBetaNetClicked();
+                    BetaNetEntry.IsVisible = false ;
+                }
+                if (helper.StorageHackathon == await SecureStorage.GetAsync(helper.StorageNodeType))
+                {
+                    HackathonBetaNet.IsChecked = true;
+                    await HackathonBetaNetClicked();
+                    BetaNetEntry.IsVisible = false;
+                }
+
+
+                //  algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
 
             }
             else
@@ -299,7 +343,10 @@ namespace algorandapp
                 await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
                 TestNetToggle.IsToggled = true;
 
+
             }
+
+
 
         }
 
@@ -324,6 +371,7 @@ namespace algorandapp
             myLabel.Text = "Purestake BetaNet set";
             await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
             await SecureStorage.SetAsync(helper.StorageNodeType, helper.StoragePurestake);
+            BetaNetEntry.IsVisible = false;
         }
 
         public async void PurestakeTestNet_click(System.Object sender, System.EventArgs e)
@@ -347,6 +395,7 @@ namespace algorandapp
             await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
             myLabel.Text = "Purestake TestNet set";
             await SecureStorage.SetAsync(helper.StorageNodeType, helper.StoragePurestake);
+            TestNetEntry.IsVisible = false;
 
         }
 
@@ -367,6 +416,7 @@ namespace algorandapp
             await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageBetaNet);
             myLabel.Text = "Hackathon BetaNet set";
             await SecureStorage.SetAsync(helper.StorageNodeType, helper.StorageHackathon);
+            BetaNetEntry.IsVisible = false;
         }
 
         public async void HackathonTestNet_click(System.Object sender, System.EventArgs e)
@@ -384,6 +434,8 @@ namespace algorandapp
             await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
             myLabel.Text = "Hackathon TestNet set";
             await SecureStorage.SetAsync(helper.StorageNodeType, helper.StorageHackathon);
+            TestNetEntry.IsVisible = false;
+
         }
 
         void myBetaNet_click(System.Object sender, System.EventArgs e)

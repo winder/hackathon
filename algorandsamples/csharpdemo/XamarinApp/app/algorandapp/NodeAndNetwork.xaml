@@ -93,7 +93,7 @@
                 </Entry>
             </StackLayout>
             <Button x:Name="SaveBetaNet" Grid.Row="8" Grid.Column="0"
-                 Text="Save" Clicked="SaveBetaNetwork_click">
+                 Text="Save" FontSize="Large" Clicked="SaveBetaNetwork_click">
             </Button>
         </StackLayout>
     </StackLayout>
@@ -134,7 +134,7 @@
                 </Entry>
             </StackLayout>
             <Button x:Name="SaveTestNet" Grid.Row="8" Grid.Column="0"
-                 Text="Save" Clicked="SaveTestNetwork_click">
+                 Text="Save" FontSize="Large" Clicked="SaveTestNetwork_click">
             </Button>
        </StackLayout>
 

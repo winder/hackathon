@@ -292,6 +292,7 @@
           "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.3.1",
           "Xamarin.Forms": "4.6.0.726"
@@ -595,6 +596,7 @@
           "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.3.1",
           "Xamarin.Forms": "4.6.0.726"
@@ -898,6 +900,7 @@
           "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.3.1",
           "Xamarin.Forms": "4.6.0.726"
@@ -1201,6 +1204,7 @@
           "Algorand": "0.1.2.5",
           "Jurassic": "3.0.0",
           "KodeAid.Base32": "1.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.3.1",
           "Xamarin.Forms": "4.6.0.726"
@@ -2038,6 +2042,7 @@
   "projectFileDependencyGroups": {
     "Xamarin.iOS,Version=v1.0": [
       "Algorand >= 0.1.2.5",
+      "Newtonsoft.Json >= 12.0.3",
       "Xamarin.Essentials >= 1.3.1",
       "Xamarin.Forms >= 4.6.0.726",
       "algorandapp >= 1.0.0"
@@ -2081,6 +2086,10 @@
           "Algorand": {
             "target": "Package",
             "version": "[0.1.2.5, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[12.0.3, )"
           },
           "Xamarin.Essentials": {
             "target": "Package",

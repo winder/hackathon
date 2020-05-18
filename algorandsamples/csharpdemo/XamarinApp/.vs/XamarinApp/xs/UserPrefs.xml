@@ -1,10 +1,14 @@
-﻿<Properties StartupConfiguration="{CAD279A1-993F-456F-A200-7113A44E9E13}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/NodeAndNetwork.xaml">
+﻿<Properties StartupConfiguration="{3D8488E0-5101-4301-82D6-304AE6FB9D56}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/ASA.xaml.cs">
     <Files>
-      <File FileName="app/algorandapp/Accounts.xaml" Line="37" Column="1" />
-      <File FileName="app/algorandapp/helper.cs" Line="38" Column="56" />
-      <File FileName="app/algorandapp/NodeAndNetwork.xaml.cs" Line="238" Column="1" />
-      <File FileName="app/algorandapp/NodeAndNetwork.xaml" Line="55" Column="17" />
+      <File FileName="app/algorandapp/Accounts.xaml" Line="39" Column="53" />
+      <File FileName="app/algorandapp/helper.cs" Line="59" Column="50" />
+      <File FileName="app/algorandapp/NodeAndNetwork.xaml.cs" Line="372" Column="1" />
+      <File FileName="app/algorandapp/NodeAndNetwork.xaml" Line="100" Column="1" />
+      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="46" Column="5" />
+      <File FileName="app/algorandapp.iOS/Main.cs" Line="17" Column="1" />
+      <File FileName="app/algorandapp/ASA.xaml" Line="89" Column="68" />
+      <File FileName="app/algorandapp/ASA.xaml.cs" Line="183" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,10 +17,11 @@
             <Node name="algorandapp" expanded="True">
               <Node name="Accounts.xaml" expanded="True" />
               <Node name="App.xaml" expanded="True" />
-              <Node name="ASA.xaml" expanded="True" />
-              <Node name="NodeAndNetwork.xaml" expanded="True" selected="True" />
+              <Node name="ASA.xaml" expanded="True">
+                <Node name="ASA.xaml.cs" selected="True" />
+              </Node>
+              <Node name="NodeAndNetwork.xaml" expanded="True" />
             </Node>
-            <Node name="algorandapp.Android" expanded="True" />
             <Node name="algorandapp.iOS" expanded="True" />
           </Node>
         </State>
@@ -28,13 +33,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="457" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/Accounts.xaml.cs" relfile="app/algorandapp/Accounts.xaml.cs" line="461" column="1" />
       <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/ASA.xaml.cs" relfile="app/algorandapp/ASA.xaml.cs" line="109" column="1" />
       <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/ASA.xaml.cs" relfile="app/algorandapp/ASA.xaml.cs" line="83" column="1" />
       <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/ASA.xaml.cs" relfile="app/algorandapp/ASA.xaml.cs" line="117" column="1" />
       <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/ASA.xaml.cs" relfile="app/algorandapp/ASA.xaml.cs" line="75" column="1" />
       <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/ASA.xaml.cs" relfile="app/algorandapp/ASA.xaml.cs" line="158" column="1" />
-      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/NodeAndNetwork.xaml.cs" relfile="app/algorandapp/NodeAndNetwork.xaml.cs" line="238" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/NodeAndNetwork.xaml.cs" relfile="app/algorandapp/NodeAndNetwork.xaml.cs" line="274" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/NodeAndNetwork.xaml.cs" relfile="app/algorandapp/NodeAndNetwork.xaml.cs" line="372" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

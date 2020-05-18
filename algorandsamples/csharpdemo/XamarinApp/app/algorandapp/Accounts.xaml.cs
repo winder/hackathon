@@ -60,8 +60,9 @@ namespace algorandapp
             var msig = await SecureStorage.GetAsync(helper.StorageMultisig);
             var transaction = await SecureStorage.GetAsync(helper.StorageTransaction);
             var multisigtransaction = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
-
-            NetworkLabel.Text = "Network: " + network;
+            var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
+            
+            NetworkLabel.Text = "Network: " + network + " " + nodetype;
 
             CreateMultiSig.IsVisible = true;
             Transaction.IsVisible = true;
@@ -344,7 +345,10 @@ namespace algorandapp
                     myLabel2.Text = "";
                     Entry3.Text = "";
                     network = await SecureStorage.GetAsync(helper.StorageNetwork);
-                    NetworkLabel.Text = "Network: " + network;
+                    var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
+
+                    NetworkLabel.Text = "Network: " + network + " " + nodetype;
+
                 
                     buttonstate();
 

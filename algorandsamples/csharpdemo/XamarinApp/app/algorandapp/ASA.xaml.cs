@@ -18,6 +18,8 @@ using Org.BouncyCastle.Crypto.Parameters;
 using System.IO;
 using Xamarin.Essentials;
 using System.Numerics;
+using Newtonsoft.Json;
+
 
 namespace algorandapp
 {
@@ -53,6 +55,8 @@ namespace algorandapp
             account1 = accounts[0];
             account2 = accounts[1];
             account3 = accounts[2];
+            var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
+            NetworkLabel.Text = "Network: " + network + " " + nodetype;
             buttonstate();
 
         }
@@ -159,8 +163,11 @@ namespace algorandapp
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
-                Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
-             
+                var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                Console.WriteLine(wait);
+                Entry3.Text = "Transaction comitted " + wait;
+
+
             }
             catch (Exception err)
             {
@@ -170,8 +177,279 @@ namespace algorandapp
             }
         }
 
-        void GetManagerInfo_click(System.Object sender, System.EventArgs e)
+        void GetConfigurationInfo_click(System.Object sender, System.EventArgs e)
         {
+            var ap = algodApiInstance.AssetInformation((long?)assetID);
+
+            myLabel.Text = ap.ToString();
+
+            Entry3.Text = "Manager Key = " + ap.Managerkey.ToString();
+          //  Entry4.Text = myLabel.Text;
+            //Entry4.Text = "Freeze Address = " + ap.Freezeaddr.ToString() +"\n" +
+            //    "Clawback Address = " + ap.Clawbackaddr.ToString() +
+            //    "Creator Address = " + ap.Creator.ToString();
+        }
+
+        void OptIn_Clicked(System.Object sender, System.EventArgs e)
+        {
+
+            // Opt in to Receiving the Asset
+            // Opting in to transact with the new asset
+            // All accounts that want recieve the new asset
+            // Have to opt in. To do this they send an asset transfer
+            // of the new asset to themseleves with an ammount of 0
+            // In this example we are setting up the 3rd recovered account to 
+            // receive the new asset        
+            // First we update standard Transaction parameters
+            // To account for changes in the state of the blockchain
+            var transParams = algodApiInstance.TransactionParams();
+            var tx = Utils.GetActivateAssetTransaction(account3.Address, assetID, transParams, "opt in transaction");
+
+            // The transaction must be signed by the current manager account
+            // We are reusing the signedTx variable from the first transaction in the example    
+            var signedTx = account3.SignTransaction(tx);
+            // send the transaction to the network and
+            // wait for the transaction to be confirmed
+            Algorand.Algod.Client.Model.Account act = null;
+            try
+            {
+                TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
+                Console.WriteLine("Transaction ID: " + id.TxId);
+                var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                Console.WriteLine(wait);
+                // We can now list the account information for acct3 
+                // and see that it can accept the new asset
+                myLabel2.Text = wait;
+                act = algodApiInstance.AccountInformation(account3.Address.ToString()) ;
+                var assetholding = act.Assets.ToString();
+                Console.WriteLine(assetholding);
+            }
+            catch (Exception err)
+            {
+                //e.printStackTrace();
+                Console.WriteLine(err.Message);
+                return;
+            }
+        }
+
+
+
+        void GetOptInInfo_click(System.Object sender, System.EventArgs e)
+        {
+        
+            var ac = algodApiInstance.AccountInformation(account3.Address.ToString());
+
+            var assetholding = ac.Assets.ToList();
+            if (assetholding.Count > 0)
+            {
+                myLabel.Text = "Account 3 Holding Amount = " + ac.GetHolding(assetID).Amount.ToString() ;
+            }
+            
+        }
+
+        void FreezeAsset_Clicked(System.Object sender, System.EventArgs e)
+        {
+            // Freeze the Asset:
+            // The asset was created and configured to allow freezing an account
+            // If the freeze address is blank, it will no longer be possible to do this.
+            // In this example we will now freeze account3 from transacting with the 
+            // The newly created asset. 
+            // Thre freeze transaction is sent from the freeze acount
+            // Which in this example is account2 
+            // First we update standard Transaction parameters
+            // To account for changes in the state of the blockchain
+            var transParams = algodApiInstance.TransactionParams();
+            // Next we set asset xfer specific parameters
+            // The sender should be freeze account acct2
+            // Theaccount to freeze should be set to acct3
+            var tx = Utils.GetFreezeAssetTransaction(account2.Address, account3.Address, assetID, true, transParams, "freeze transaction");
+            // The transaction must be signed by the freeze account acct2
+            // We are reusing the signedTx variable from the first transaction in the example    
+            var signedTx = account2.SignTransaction(tx);
+            // send the transaction to the network and
+            // wait for the transaction to be confirmed
+            try
+            {
+                TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
+                Console.WriteLine("Transaction ID: " + id.TxId);
+                Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                // We can now list the account information for acct3 
+                // and see that it now frozen 
+                // Note--currently no getter method for frozen state
+                var act = algodApiInstance.AccountInformation(account3.Address.ToString());
+                Console.WriteLine(act.GetHolding(assetID).ToString());
+                myLabel.Text = act.GetHolding(assetID).ToString();
+
+            }
+            catch (Exception err)
+            {
+                //e.printStackTrace();
+                Console.WriteLine(err.Message);
+                return;
+            }
+        }
+
+        void GetFreezeInfo_Clicked(System.Object sender, System.EventArgs e)
+        {
+            var act = algodApiInstance.AccountInformation(account3.Address.ToString());
+            Console.WriteLine(act.GetHolding(assetID).ToString());
+            myLabel.Text = "Frozen value = " + act.GetHolding(assetID).Amount.ToString();
+            // need to chang this to get GetHolding(assetID).Frozen whe this PR request is approved
+            // https://github.com/RileyGe/dotnet-algorand-sdk/pull/5
+        }
+
+        void RevokeAsset_Clicked(System.Object sender, System.EventArgs e)
+        {
+            // Revoke the asset:
+            // The asset was also created with the ability for it to be revoked by 
+            // clawbackaddress. If the asset was created or configured by the manager
+            // not allow this by setting the clawbackaddress to a blank address  
+            // then this would not be possible.
+            // We will now clawback the 10 assets in account3. Account2
+            // is the clawbackaccount and must sign the transaction
+            // The sender will be be the clawback adress.
+            // the recipient will also be be the creator acct1 in this case  
+            // First we update standard Transaction parameters
+            // To account for changes in the state of the blockchain
+            var transParams = algodApiInstance.TransactionParams();
+            // Next we set asset xfer specific parameters
+            ulong assetAmount = 10;
+            var tx = Utils.GetRevokeAssetTransaction(account2.Address, account3.Address, account1.Address, assetID, assetAmount, transParams, "revoke transaction");
+            // The transaction must be signed by the clawback account
+            // We are reusing the signedTx variable from the first transaction in the example    
+            var signedTx = account2.SignTransaction(tx);
+            // send the transaction to the network and
+            // wait for the transaction to be confirmed
+            try
+            {
+                TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
+                Console.WriteLine("Transaction ID: " + id);
+                Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                // We can now list the account information for acct3 
+                // and see that it now has 0 of the new asset
+                var act = algodApiInstance.AccountInformation(account3.Address.ToString());
+       
+                Console.WriteLine(act.GetHolding(assetID).Amount);
+                myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+            }
+            catch (Exception err)
+            {
+                //e.printStackTrace();
+                Console.WriteLine(err.Message);
+                return;
+            }
+
+        }
+
+        void GetRevokeInfo_Clicked(System.Object sender, System.EventArgs e)
+        {
+            var act = algodApiInstance.AccountInformation(account3.Address.ToString());
+            myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+        }
+
+        async void DestroyAsset_Clicked(System.Object sender, System.EventArgs e)
+        {
+            // Destroy the Asset:
+            // All of the created assets should now be back in the creators
+            // Account so we can delete the asset.
+            // If this is not the case the asset deletion will fail
+            // The address for the from field must be the creator
+            // First we update standard Transaction parameters
+            // To account for changes in the state of the blockchain
+            var transParams = algodApiInstance.TransactionParams();
+            // Next we set asset xfer specific parameters
+            // The manager must sign and submit the transaction
+            // This is currently set to acct1
+            var tx = Utils.GetDestroyAssetTransaction(account1.Address, assetID, transParams, "destroy transaction");
+            // The transaction must be signed by the manager account
+            // We are reusing the signedTx variable from the first transaction in the example    
+            var signedTx = account1.SignTransaction(tx);
+            // send the transaction to the network and
+            // wait for the transaction to be confirmed
+            try
+            {
+                TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
+                Console.WriteLine("Transaction ID: " + id);
+                //waitForTransactionToComplete(algodApiInstance, signedTx.transactionID);
+                //Console.ReadKey();
+                Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                // We can now list the account information for acct1 
+                // and see that the asset is no longer there
+                var act = algodApiInstance.AccountInformation(account1.Address.ToString());
+
+                Console.WriteLine("Does AssetID: " + assetID + " exist? " +
+                    act.Thisassettotal.ContainsKey(assetID));
+                myLabel.Text = "Does AssetID: " + assetID + " exist? " +
+                    act.Thisassettotal.ContainsKey(assetID);
+
+                await SecureStorage.SetAsync(helper.StorageAssetIDName, "");
+                myAsset.Text = "";
+
+            }
+            catch (Exception err)
+            {
+                //e.printStackTrace();
+                Console.WriteLine(err.Message);
+                return;
+            }
+        }
+
+        void GetTransferInfo_click(System.Object sender, System.EventArgs e)
+        {
+            var act = algodApiInstance.AccountInformation(account3.Address.ToString());
+            Console.WriteLine(act.GetHolding(assetID).Amount);
+            myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+        }
+
+        void TransferAsset_Clicked(System.Object sender, System.EventArgs e)
+        {
+
+            // Transfer the Asset:
+            // Now that account3 can recieve the new asset 
+            // we can tranfer assets in from the creator
+            // to account3
+            // First we update standard Transaction parameters
+            // To account for changes in the state of the blockchain
+            var transParams = algodApiInstance.TransactionParams();
+            // Next we set asset xfer specific parameters
+            // We set the assetCloseTo to null so we do not close the asset out
+            Address assetCloseTo = new Address();
+            ulong assetAmount = 10;
+            var tx = Utils.GetTransferAssetTransaction(account1.Address, account3.Address, assetID, assetAmount, transParams, null, "transfer message");
+            // The transaction must be signed by the sender account
+            // We are reusing the signedTx variable from the first transaction in the example    
+            var signedTx = account1.SignTransaction(tx);
+            // send the transaction to the network and
+            // wait for the transaction to be confirmed
+            try
+            {
+                TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
+                Console.WriteLine("Transaction ID: " + id.TxId);
+                Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                // We can now list the account information for acct3 
+                // and see that it now has 5 of the new asset
+                var act = algodApiInstance.AccountInformation(account3.Address.ToString()); 
+                Console.WriteLine(act.GetHolding(assetID).Amount);
+                myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+            }
+            catch (Exception err)
+            {
+                //e.printStackTrace();
+                Console.WriteLine(err.Message);
+                return;
+            }
+        }
+
+
+
+        void GetDestroyInfo_Clicked(System.Object sender, System.EventArgs e)
+        {
+            var act = algodApiInstance.AccountInformation(account1.Address.ToString());
+
+            Console.WriteLine("Does AssetID: " + assetID + " exist? " +
+                act.Thisassettotal.ContainsKey(assetID));
+            myLabel.Text = "Does AssetID: " + assetID + " exist? " +
+                act.Thisassettotal.ContainsKey(assetID);
         }
     }
 }
