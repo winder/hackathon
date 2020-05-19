@@ -12,17 +12,12 @@
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
+
+
+
+
+
       <StackLayout>
-    <StackLayout>
-       <Label FontSize="Large" x:Name="myLabel"
-              Text="Welcome to Algorand C# SDK" HorizontalOptions="Center" >
-       <Label.FontSize>
-                     <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Label.FontSize>
-        </Label>
-    </StackLayout>
 <ScrollView>
 <Grid >
   <Grid.RowDefinitions>
@@ -36,17 +31,52 @@
   </Grid.RowDefinitions>
   <Grid.ColumnDefinitions>
     <ColumnDefinition Width="*" />
-     
+    <ColumnDefinition Width="*" />   
   </Grid.ColumnDefinitions>
-
-         <Button x:Name="CreateAsset" Grid.Row="0" Grid.Column="0"
-                 Text="Create Asset" Clicked="CreateAsset_click">
+     <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
+            <Label x:Name="NetworkLabel"
+                   Text="Network: TestNet"
+                   FontSize="Large"/>
+            </StackLayout>
+         <Button x:Name="AtomicTransfer" Grid.Row="1" Grid.Column="0"
+                 Text="Atomic Transfer from Acct1 to Acct2 and Acct3" Clicked="AtomicTransfer_Clicked">
                       <Button.FontSize>
           <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
         </Button.FontSize>
         </Button>
+             <Button x:Name="AtomicTransferInfo" Grid.Row="1" Grid.Column="1"
+                 Text="Get Atomic Transfer Info" Clicked="AtomicTransferInfo_Clicked">
+                      <Button.FontSize>
+          <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+        </Button.FontSize>
+
+        </Button>
+                <Label FontSize="Large" x:Name="myLabel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="" HorizontalOptions="StartAndExpand" >
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Label.FontSize>
+            </Label>
+            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="" HorizontalOptions="StartAndExpand">
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                </Label.FontSize>
+            </Label>
+             <Entry x:Name="Entry3" FontSize="Large" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+
+            </Entry>
+            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+
+            </Entry>
     </Grid>
     </ScrollView>
     </StackLayout>
