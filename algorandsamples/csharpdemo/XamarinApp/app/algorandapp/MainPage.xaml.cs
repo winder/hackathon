@@ -68,6 +68,11 @@ namespace algorandapp
         {
             await this.Navigation.PushAsync(new Settings());
         }
+
+        async void ASC1_Clicked(System.Object sender, System.EventArgs e)
+        {
+            await this.Navigation.PushAsync(new ASC());
+        }
     }
 
 

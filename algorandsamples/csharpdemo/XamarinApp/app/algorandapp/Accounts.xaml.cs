@@ -400,6 +400,9 @@ namespace algorandapp
             Entry4.Text = accountname + " Address = " + account.Address.ToString();
         }
 
+        // this method fails if the block does not have transactions, it should not be required to have transactions
+        // https://github.com/RileyGe/dotnet-algorand-sdk/issues/3
+
         public async void GetBlock_Clicked(System.Object sender, System.EventArgs e)
         {
             var status = await algodApiInstance.GetStatusAsync();

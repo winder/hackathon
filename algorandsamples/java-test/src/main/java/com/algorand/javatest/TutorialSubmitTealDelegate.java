@@ -75,7 +75,7 @@ public class TutorialSubmitTealDelegate {
             0x01, 0x20, 0x01, 0x00, 0x22  // int 0, returns false, so rawTransaction will fail below
         };
         LogicsigSignature lsig = new LogicsigSignature(program, null);        
-
+       
         // sign the logic signature with an account sk
         src.signLogicsig(lsig);
 

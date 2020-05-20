@@ -73,22 +73,16 @@
                       Android="16" />
         </Button.FontSize>
         </Button>
-        <Button x:Name="ASCContractAccount" Grid.Row="4" Grid.Column="0"
-                Text="ASC1 Contract Account" Clicked="ASCContractAccount_Clicked">
+
+        <Button x:Name="ASC1" Grid.Row="4" Grid.Column="0"
+                Text="Algorand Smart Contract Layer 1" Clicked="ASC1_Clicked">
                       <Button.FontSize>
           <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
         </Button.FontSize>
         </Button>
-        <Button x:Name="ASCAccountDelegation" Grid.Row="5" Grid.Column="0"
-                Text="ASC1 Account Delegation" Clicked="ASCAccountDelegation_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>
+
         <!--<Button x:Name="Settings" Grid.Row="6" Grid.Column="0"
                 Text="Settings" Clicked="Settings_Clicked">
                       <Button.FontSize>
