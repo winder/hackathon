@@ -201,6 +201,9 @@ namespace algorandapp
 
         void ASCAccountDelegationInfo_Clicked(System.Object sender, System.EventArgs e)
         {
+            var act = algodApiInstance.AccountInformation(account1.Address.ToString());
+            myLabel2.Text = "Account 1 balance after tx: " + act.Amount.ToString();
+       
         }
     }
 }

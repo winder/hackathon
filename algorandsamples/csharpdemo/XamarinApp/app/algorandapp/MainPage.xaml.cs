@@ -54,15 +54,7 @@ namespace algorandapp
         }
 
 
-        public async void ASCContractAccount_Clicked(System.Object sender, System.EventArgs e)
-        {
-            await this.Navigation.PushAsync(new ASCContractAccount());
-        }
 
-        public async void ASCAccountDelegation_Clicked(System.Object sender, System.EventArgs e)
-        {
-            await this.Navigation.PushAsync(new ASCAccountDelegation());
-        }
 
         public async void Settings_Clicked(System.Object sender, System.EventArgs e)
         {

@@ -1,33 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/algorandapp.iOS.csproj": {}
+    "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\algorandapp.iOS.csproj": {}
   },
   "projects": {
-    "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/algorandapp.iOS.csproj": {
+    "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\algorandapp.iOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/algorandapp.iOS.csproj",
+        "projectUniqueName": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\algorandapp.iOS.csproj",
         "projectName": "algorandapp.iOS",
-        "projectPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/algorandapp.iOS.csproj",
-        "packagesPath": "/Users/algorand/.nuget/packages/",
-        "outputPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/obj/",
+        "projectPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\algorandapp.iOS.csproj",
+        "packagesPath": "C:\\Users\\rfust\\.nuget\\packages\\",
+        "outputPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "/Users/algorand/.config/NuGet/NuGet.Config"
+          "C:\\Users\\rfust\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "xamarinios10"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "xamarinios10": {
             "projectReferences": {
-              "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj": {
-                "projectPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj"
+              "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\algorandapp.csproj": {
+                "projectPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\algorandapp.csproj"
               }
             }
           }
@@ -67,25 +73,29 @@
         }
       }
     },
-    "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj": {
+    "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\algorandapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj",
+        "projectUniqueName": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\algorandapp.csproj",
         "projectName": "algorandapp",
-        "projectPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj",
-        "packagesPath": "/Users/algorand/.nuget/packages/",
-        "outputPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/obj/",
+        "projectPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\algorandapp.csproj",
+        "packagesPath": "C:\\Users\\rfust\\.nuget\\packages\\",
+        "outputPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/algorand/.config/NuGet/NuGet.Config"
+          "C:\\Users\\rfust\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -147,7 +157,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

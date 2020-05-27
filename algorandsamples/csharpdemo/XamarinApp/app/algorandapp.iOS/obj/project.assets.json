@@ -1533,7 +1533,7 @@
       ]
     },
     "System.Reflection.Emit.Lightweight/4.3.0": {
-      "sha512": "M9igUZppYgi2KGSL5z+oW3+CXWyUcXXXf53kYYK2Q1F5ekti72JUgzL7hx+goO/KzgjknbBERS5mxlegqOm7tA==",
+      "sha512": "oadVHGSMsTmZsAF864QYN1t1QzZjIcuKU3l2S9cZOwDdDueNTrqq1yRj7koFfIGEnKpt6NjpL3rOzRhs4ryOgA==",
       "type": "package",
       "path": "system.reflection.emit.lightweight/4.3.0",
       "files": [
@@ -1954,32 +1954,39 @@
     ]
   },
   "packageFolders": {
-    "/Users/algorand/.nuget/packages/": {}
+    "C:\\Users\\rfust\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/algorandapp.iOS.csproj",
+      "projectUniqueName": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\algorandapp.iOS.csproj",
       "projectName": "algorandapp.iOS",
-      "projectPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/algorandapp.iOS.csproj",
-      "packagesPath": "/Users/algorand/.nuget/packages/",
-      "outputPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/obj/",
+      "projectPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\algorandapp.iOS.csproj",
+      "packagesPath": "C:\\Users\\rfust\\.nuget\\packages\\",
+      "outputPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "/Users/algorand/.config/NuGet/NuGet.Config"
+        "C:\\Users\\rfust\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "xamarinios10"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj": {
-              "projectPath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj"
+            "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\algorandapp.csproj": {
+              "projectPath": "\\\\vmware-host\\Shared Folders\\Documents\\GitHub\\rfustino\\hackathon\\algorandsamples\\csharpdemo\\XamarinApp\\app\\algorandapp\\algorandapp.csproj"
             }
           }
         }
