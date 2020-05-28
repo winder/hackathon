@@ -16,5 +16,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wordlists\" />
+    <Folder Include="Assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\changemanager.jpg" />
+    <None Remove="Assets\createasset.jpg" />
+    <None Remove="Assets\destroy.jpg" />
+    <None Remove="Assets\freeze.jpg" />
+    <None Remove="Assets\opt-in.jpg" />
+    <None Remove="Assets\revoke.jpg" />
+    <None Remove="Assets\transfer-asset.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\changemanager.jpg" />
+    <EmbeddedResource Include="Assets\createasset.jpg" />
+    <EmbeddedResource Include="Assets\destroy.jpg" />
+    <EmbeddedResource Include="Assets\freeze.jpg" />
+    <EmbeddedResource Include="Assets\optin.jpg" />
+    <EmbeddedResource Include="Assets\revoke.jpg" />
+    <EmbeddedResource Include="Assets\transferasset.jpg" />
   </ItemGroup>
 </Project>

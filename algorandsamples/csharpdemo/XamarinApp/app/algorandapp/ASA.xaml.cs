@@ -19,7 +19,7 @@ using System.IO;
 using Xamarin.Essentials;
 using System.Numerics;
 using Newtonsoft.Json;
-
+using System.Threading;
 
 namespace algorandapp
 {
@@ -66,7 +66,7 @@ namespace algorandapp
             NetworkLabel.Text = "Network: " + network;
             var AssetID = await SecureStorage.GetAsync(helper.StorageAssetIDName);
             if (!String.IsNullOrEmpty(AssetID))
-            { 
+            {
                 myAsset.Text = "Asset ID = " + AssetID;
                 assetID = Convert.ToUInt64(AssetID);
             }
@@ -75,7 +75,7 @@ namespace algorandapp
 
         private async void CreateAsset_click(System.Object sender, System.EventArgs e)
         {
-
+            CreateAsset.Opacity = .2;
             var transParams = algodApiInstance.TransactionParams();
 
             // The following parameters are asset specific
@@ -83,7 +83,7 @@ namespace algorandapp
 
             // Create the Asset
             // Total number of this asset available for circulation
-     
+
             var ap = new AssetParams(creator: account1.Address.ToString(), assetname: "latikum22",
                 unitname: "LAT", defaultfrozen: false, total: 10000,
                 url: "http://this.test.com", metadatahash: Convert.ToBase64String(
@@ -101,7 +101,7 @@ namespace algorandapp
             SignedTransaction signedTx = account1.SignTransaction(tx);
             // send the transaction to the network and
             // wait for the transaction to be confirmed
-         
+
             try
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
@@ -111,13 +111,17 @@ namespace algorandapp
                 Algorand.Algod.Client.Model.Transaction ptx = algodApiInstance.PendingTransactionInformation(id.TxId);
                 assetID = ptx.Txresults.Createdasset;
                 var assetIDstr = assetID.ToString();
-                await SecureStorage.SetAsync(helper.StorageAssetIDName,assetIDstr);
+                await SecureStorage.SetAsync(helper.StorageAssetIDName, assetIDstr);
+                CreateAsset.Opacity = 1;
             }
             catch (Exception err)
             {
                 Console.WriteLine(err.StackTrace);
+                CreateAsset.Opacity = 1;
                 return;
             }
+
+
             Console.WriteLine("AssetID = " + assetID);
             // now the asset already created
             myLabel.Text = "AssetID created = " + assetID.ToString();
@@ -125,19 +129,21 @@ namespace algorandapp
             myAsset.Text = "AssetID = " + assetID.ToString();
 
             buttonstate();
+     
         }
 
-        async void GetAssetInfo_click(System.Object sender, System.EventArgs e)
+        void GetAssetInfo_click(System.Object sender, System.EventArgs e)
         {
             myLabel.Text = "AssetID = " + assetID.ToString();
             var act = algodApiInstance.AccountInformation(account1.Address.ToString());
             myLabel2.Text = "Asset Info = " + act.ToString();
-          //  Entry3.Text = "Assets = " + act.Assets.Values.ToString();
-         
+            //  Entry3.Text = "Assets = " + act.Assets.Values.ToString();
+
         }
 
         void CongfigureManagerRole_click(System.Object sender, System.EventArgs e)
         {
+            CongfigureManagerRole.Opacity = .2;
             // Change Asset Configuration:
             // Next we will change the asset configuration
             // First we update standard Transaction parameters
@@ -164,17 +170,20 @@ namespace algorandapp
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
                 var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                CongfigureManagerRole.Opacity = 1;
                 Console.WriteLine(wait);
                 Entry3.Text = "Transaction comitted " + wait;
-
 
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
+                CongfigureManagerRole.Opacity = 1;
                 return;
             }
+      
+
         }
 
         void GetConfigurationInfo_click(System.Object sender, System.EventArgs e)
@@ -184,7 +193,7 @@ namespace algorandapp
             myLabel.Text = ap.ToString();
 
             Entry3.Text = "Manager Key = " + ap.Managerkey.ToString();
-          //  Entry4.Text = myLabel.Text;
+            //  Entry4.Text = myLabel.Text;
             //Entry4.Text = "Freeze Address = " + ap.Freezeaddr.ToString() +"\n" +
             //    "Clawback Address = " + ap.Clawbackaddr.ToString() +
             //    "Creator Address = " + ap.Creator.ToString();
@@ -192,6 +201,17 @@ namespace algorandapp
 
         void OptIn_Clicked(System.Object sender, System.EventArgs e)
         {
+            //await myProgressBar.ProgressTo(1.0, 10000, Easing.Linear);
+            OptIn.Opacity = .2;
+            //myProgressBar.Progress = 0;
+            //Task.Run(() =>
+            //{
+            //    for (int i = 0; i < 10000; i++)
+            //    {
+            //        Thread.Sleep(5);
+            //        myProgressBar.Progress = Convert.ToDouble("00." + i.ToString());
+            //    }
+            //});
 
             // Opt in to Receiving the Asset
             // Opting in to transact with the new asset
@@ -216,11 +236,12 @@ namespace algorandapp
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
                 var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                OptIn.Opacity = 1;
                 Console.WriteLine(wait);
                 // We can now list the account information for acct3 
                 // and see that it can accept the new asset
                 myLabel2.Text = wait;
-                act = algodApiInstance.AccountInformation(account3.Address.ToString()) ;
+                act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 var assetholding = act.Assets.ToString();
                 Console.WriteLine(assetholding);
             }
@@ -228,27 +249,32 @@ namespace algorandapp
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
+                OptIn.Opacity = 1;
                 return;
             }
+
+
+
         }
 
 
 
         void GetOptInInfo_click(System.Object sender, System.EventArgs e)
         {
-        
+
             var ac = algodApiInstance.AccountInformation(account3.Address.ToString());
 
             var assetholding = ac.Assets.ToList();
             if (assetholding.Count > 0)
             {
-                myLabel.Text = "Account 3 Holding Amount = " + ac.GetHolding(assetID).Amount.ToString() ;
+                myLabel.Text = "Account 3 Holding Amount = " + ac.GetHolding(assetID).Amount.ToString();
             }
-            
+
         }
 
-        void FreezeAsset_Clicked(System.Object sender, System.EventArgs e)
+        async void FreezeAsset_Clicked(System.Object sender, System.EventArgs e)
         {
+            FreezeAsset.Opacity = .2;
             // Freeze the Asset:
             // The asset was created and configured to allow freezing an account
             // If the freeze address is blank, it will no longer be possible to do this.
@@ -273,24 +299,30 @@ namespace algorandapp
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                FreezeAsset.Opacity = 1;
                 // We can now list the account information for acct3 
                 // and see that it now frozen 
                 // Note--currently no getter method for frozen state
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 Console.WriteLine(act.GetHolding(assetID).ToString());
                 myLabel.Text = act.GetHolding(assetID).ToString();
+               
 
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
+                FreezeAsset.Opacity = 1;
                 return;
             }
+
+
         }
 
         void GetFreezeInfo_Clicked(System.Object sender, System.EventArgs e)
         {
+
             var act = algodApiInstance.AccountInformation(account3.Address.ToString());
             Console.WriteLine(act.GetHolding(assetID).ToString());
             myLabel.Text = "Frozen value = " + act.GetHolding(assetID).Amount.ToString();
@@ -300,6 +332,7 @@ namespace algorandapp
 
         void RevokeAsset_Clicked(System.Object sender, System.EventArgs e)
         {
+            RevokeAsset.Opacity = .2;
             // Revoke the asset:
             // The asset was also created with the ability for it to be revoked by 
             // clawbackaddress. If the asset was created or configured by the manager
@@ -325,10 +358,11 @@ namespace algorandapp
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id);
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                RevokeAsset.Opacity = 1;
                 // We can now list the account information for acct3 
                 // and see that it now has 0 of the new asset
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
-       
+
                 Console.WriteLine(act.GetHolding(assetID).Amount);
                 myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
             }
@@ -336,8 +370,10 @@ namespace algorandapp
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
+                RevokeAsset.Opacity = 1;
                 return;
             }
+
 
         }
 
@@ -349,6 +385,7 @@ namespace algorandapp
 
         async void DestroyAsset_Clicked(System.Object sender, System.EventArgs e)
         {
+            DestroyAsset.Opacity = .2;
             // Destroy the Asset:
             // All of the created assets should now be back in the creators
             // Account so we can delete the asset.
@@ -384,14 +421,17 @@ namespace algorandapp
 
                 await SecureStorage.SetAsync(helper.StorageAssetIDName, "");
                 myAsset.Text = "";
-
+                DestroyAsset.Opacity = 1;
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
+                DestroyAsset.Opacity = 1;
                 Console.WriteLine(err.Message);
                 return;
             }
+
+
         }
 
         void GetTransferInfo_click(System.Object sender, System.EventArgs e)
@@ -403,7 +443,7 @@ namespace algorandapp
 
         void TransferAsset_Clicked(System.Object sender, System.EventArgs e)
         {
-
+            TransferAsset.Opacity = .2;
             // Transfer the Asset:
             // Now that account3 can recieve the new asset 
             // we can tranfer assets in from the creator
@@ -428,16 +468,19 @@ namespace algorandapp
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
                 // We can now list the account information for acct3 
                 // and see that it now has 5 of the new asset
-                var act = algodApiInstance.AccountInformation(account3.Address.ToString()); 
+                var act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 Console.WriteLine(act.GetHolding(assetID).Amount);
                 myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+                TransferAsset.Opacity = 1;
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
+                TransferAsset.Opacity = 1;
                 return;
             }
+
         }
 
 

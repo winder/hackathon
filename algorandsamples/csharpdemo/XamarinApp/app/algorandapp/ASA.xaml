@@ -1,198 +1,312 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:algorandapp"
              Title="Welcome to Algorand Standard Assets!"
              x:Class="algorandapp.ASA">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="0, 100, 0, 0" />
-                <On Platform="Android" Value="0, 0, 0, 0" />
-                <On Platform="UWP" Value="0, 0, 0, 0" />
+                <On Platform="iOS" Value="20, 100, 0, 0" />
+                <On Platform="Android" Value="20, 0, 0, 0" />
+                <On Platform="UWP" Value="20, 0, 0, 0" />
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <StackLayout>
-    <StackLayout>
-       <Label FontSize="Large" x:Name="myAsset"
+        <StackLayout  >
+            <Label FontSize="Large" x:Name="myAsset"
               HorizontalOptions="Center" >
-       <Label.FontSize>
-                     <OnPlatform x:TypeArguments="x:Double"
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Label.FontSize>
-        </Label>
-    </StackLayout>
-<ScrollView>
-<Grid >
-  <Grid.RowDefinitions>
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="100" />
-  </Grid.RowDefinitions>
-  <Grid.ColumnDefinitions>
-    <ColumnDefinition Width="*" />
-    <ColumnDefinition Width="*" />
-      
-  </Grid.ColumnDefinitions>
-            <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
+                </Label.FontSize>
+            </Label>
             <Label x:Name="NetworkLabel"
                    Text="Network: TestNet"
-                   FontSize="Large"/>
-            </StackLayout>
-         <Button x:Name="CreateAsset" Grid.Row="1" Grid.Column="0"
+                   FontSize="Large" HorizontalOptions="Center"/>
+            <!--<ProgressBar x:Name="myProgressBar" HorizontalOptions="FillAndExpand"
+                         ProgressColor="Blue" Progress=".5" HeightRequest="50"/>-->
+        </StackLayout>
+        <ScrollView>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+
+                </Grid.ColumnDefinitions>
+
+                <!--<Button x:Name="CreateAsset" Grid.Row="1" Grid.Column="0"
                  Text="Create Asset" Clicked="CreateAsset_click">
                       <Button.FontSize>
           <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
         </Button.FontSize>
-        </Button>
-         <Button x:Name="GetAssetInfo" Grid.Row="1" Grid.Column="1"
-                 Text="Get Asset Info" Clicked="GetAssetInfo_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>
-        <Button x:Name="CongfigureManagerRole" Grid.Row="2" Grid.Column="0"
+        </Button>-->
+                <Image x:Name="CreateAsset" Grid.Row="1" Grid.Column="0" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.createasset.jpg}" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="CreateAsset_click"/>
+                    </Image.GestureRecognizers>
+
+                </Image>
+                <Label Grid.Row="2" Grid.Column="0"
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Create Asset">
+                </Label>
+                <Button x:Name="GetAssetInfo" Grid.Row="1" Grid.Column="1"
+                     Text="Get Asset Info" Clicked="GetAssetInfo_click">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
+                          iOS="30"
+                          Android="16" />
+                    </Button.FontSize>
+                </Button>
+                <Image x:Name="CongfigureManagerRole" Grid.Row="3" Grid.Column="0" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.changemanager.jpg}" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="CongfigureManagerRole_click"/>
+                    </Image.GestureRecognizers>
+
+                </Image>
+                <Label Grid.Row="4" Grid.Column="0"
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Configure Manger Role">
+                </Label>
+
+                <!--<Button x:Name="CongfigureManagerRole" Grid.Row="3" Grid.Column="0"
                  Text="Configure Manger Role" Clicked="CongfigureManagerRole_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="GetConfigurationInfo" Grid.Row="2" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>-->
+                <Button x:Name="GetConfigurationInfo" Grid.Row="3" Grid.Column="1"
                  Text="Get Configutation Info" Clicked="GetConfigurationInfo_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-        <Button x:Name="OptIn" Grid.Row="3" Grid.Column="0"
+                    </Button.FontSize>
+                </Button>
+
+                <Image x:Name="OptIn" Grid.Row="5" Grid.Column="0" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.optin.jpg}" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="OptIn_Clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Row="6" Grid.Column="0"
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Opt In Account 3">
+                </Label>
+
+                <!--<Button x:Name="OptIn" Grid.Row="5" Grid.Column="0"
                  Text="Opt In Account 3" Clicked="OptIn_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="GetOptInInfo" Grid.Row="3" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>-->
+                <Button x:Name="GetOptInInfo" Grid.Row="5" Grid.Column="1"
                  Text="Get Opt In Info" Clicked="GetOptInInfo_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-
-         <Button x:Name="TransferAsset" Grid.Row="4" Grid.Column="0"
-                 Text="Transfer from Account 1 to 3" Clicked="TransferAsset_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="GetTransferInfo" Grid.Row="4" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>
+                <Image x:Name="TransferAsset" Grid.Row="7" Grid.Column="0" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.transferasset.jpg}" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="TransferAsset_Clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Row="8" Grid.Column="0"
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Transfer from Account 1 to 3">
+                </Label>
+                <Button x:Name="GetTransferInfo" Grid.Row="7" Grid.Column="1"
                  Text="Get Transfer Info" Clicked="GetTransferInfo_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="FreezeAsset" Grid.Row="5" Grid.Column="0"
+                    </Button.FontSize>
+                </Button>
+                <!--<Button x:Name="TransferAsset" Grid.Row="7" Grid.Column="0"
+                 Text="Transfer from Account 1 to 3" Clicked="TransferAsset_Clicked">
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
+                      iOS="30"
+                      Android="16" />
+                    </Button.FontSize>
+                </Button>-->
+                <Image x:Name="FreezeAsset" Grid.Row="9" Grid.Column="0" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.freeze.jpg}" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="FreezeAsset_Clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Row="10" Grid.Column="0"
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Freeze Account 3">
+                </Label>
+                <!--<Button x:Name="FreezeAsset" Grid.Row="9" Grid.Column="0"
                  Text="Freeze Account 3" Clicked="FreezeAsset_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="GetFreezeInfo" Grid.Row="5" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>-->
+
+
+                <StackLayout Grid.Row="9" Grid.Column="1">
+                    <Button x:Name="GetFreezeInfo" 
                  Text="Get Freeze Info" Clicked="GetFreezeInfo_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                        <Button.FontSize>
+                            <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
+                        </Button.FontSize>
+                    </Button>
+                </StackLayout>
+                <Image x:Name="RevokeAsset" Grid.Row="11" Grid.Column="0" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.revoke.jpg}" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="RevokeAsset_Clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Row="12" Grid.Column="0"
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Revoke on Account 3">
+                </Label>
 
-         <Button x:Name="RevokeAsset" Grid.Row="6" Grid.Column="0"
+                <!--<Button x:Name="RevokeAsset" Grid.Row="11" Grid.Column="0"
                  Text="Revoke on Account 3" Clicked="RevokeAsset_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="GetRevokeInfo" Grid.Row="6" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>-->
+
+                <Button x:Name="GetRevokeInfo" Grid.Row="11" Grid.Column="1"
                  Text="Get Revoke Info" Clicked="GetRevokeInfo_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
+                    </Button.FontSize>
+                </Button>
+                <Image x:Name="DestroyAsset" Grid.Row="13" Grid.Column="0" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.destroy.jpg}" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="DestroyAsset_Clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Row="14" Grid.Column="0"
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Destroy on Account 1">
+                </Label>
 
-        <Button x:Name="DestroyAsset" Grid.Row="7" Grid.Column="0"
+                <!--<Button x:Name="DestroyAsset" Grid.Row="13" Grid.Column="0"
                  Text="Destroy on Account 1" Clicked="DestroyAsset_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="GetDestroyInfo" Grid.Row="7" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>-->
+                <Button x:Name="GetDestroyInfo" Grid.Row="13" Grid.Column="1"
                  Text="Get Destroy Info" Clicked="GetDestroyInfo_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
+                    </Button.FontSize>
+                </Button>
 
-            <Label FontSize="Large" x:Name="myLabel" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+                <Label FontSize="Large" x:Name="myLabel" Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2"
                    Text="" HorizontalOptions="StartAndExpand" >
-                <Label.FontSize>
-                    <OnPlatform x:TypeArguments="x:Double"
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-                </Label.FontSize>
-            </Label>
-            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+                    </Label.FontSize>
+                </Label>
+                <Label FontSize="Large" x:Name="myLabel2" Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2"
                    Text="" HorizontalOptions="StartAndExpand">
-                <Label.FontSize>
-                    <OnPlatform x:TypeArguments="x:Double"
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-                </Label.FontSize>
-            </Label>
-            <Entry x:Name="Entry3" FontSize="Large" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2">
+                    </Label.FontSize>
+                </Label>
+                <Entry x:Name="Entry3" FontSize="Large" Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2">
 
-            </Entry>
-            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
+                </Entry>
+                <Entry x:Name="Entry4" FontSize="Large" Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2">
 
-            </Entry>
-    <WebView x:Name="myWebView" HeightRequest="100" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2">
+                </Entry>
+                <WebView x:Name="myWebView" HeightRequest="100" Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2">
 
-    </WebView>
-    </Grid>
-    </ScrollView>
+                </WebView>
+            </Grid>
+        </ScrollView>
     </StackLayout>
 </ContentPage>
