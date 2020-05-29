@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{3D8488E0-5101-4301-82D6-304AE6FB9D56}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/ASA.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/AtomicTransfers.xaml">
     <Files>
       <File FileName="app/algorandapp.Android/FileAccessHelper.cs" Line="1" Column="1" />
       <File FileName="app/algorandapp.Android/MainActivity.cs" />
@@ -7,9 +7,11 @@
       <File FileName="app/algorandapp/AtomicTransfers.xaml.cs" />
       <File FileName="app/algorandapp/App.xaml.cs" Line="14" Column="15" />
       <File FileName="app/algorandapp/AppShell.xaml.cs" Line="12" Column="12" />
-      <File FileName="app/algorandapp/ASA.xaml" Line="76" Column="43" />
-      <File FileName="app/algorandapp/ASA.xaml.cs" Line="143" Column="1" />
+      <File FileName="app/algorandapp/ASA.xaml" Line="35" Column="1" />
+      <File FileName="app/algorandapp/ASA.xaml.cs" Line="130" Column="27" />
       <File FileName="app/algorandapp.iOS/Main.cs" Line="17" Column="1" />
+      <File FileName="app/algorandapp/NodeAndNetwork.xaml.cs" Line="37" Column="51" />
+      <File FileName="app/algorandapp/AtomicTransfers.xaml" Line="48" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,10 +21,10 @@
               <Node name="Assets" expanded="True" />
               <Node name="App.xaml" expanded="True" />
               <Node name="AppShell.xaml" expanded="True" />
-              <Node name="ASA.xaml" expanded="True">
-                <Node name="ASA.xaml.cs" selected="True" />
-              </Node>
+              <Node name="ASA.xaml" expanded="True" />
               <Node name="ASC.xaml" expanded="True" />
+              <Node name="AtomicTransfers.xaml" selected="True" />
+              <Node name="NodeAndNetwork.xaml" expanded="True" />
             </Node>
             <Node name="algorandapp.Android" expanded="True" />
             <Node name="algorandapp.iOS" expanded="True">

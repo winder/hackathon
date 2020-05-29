@@ -57,10 +57,24 @@ namespace algorandapp
             account3 = accounts[2];
             var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
             NetworkLabel.Text = "Network: " + network + " " + nodetype;
-            buttonstate();
+
+            var lastASAbutton = await SecureStorage.GetAsync(helper.StorageLastASAButton);
+            if (string.IsNullOrEmpty(lastASAbutton))
+            {
+                 buttonstate("init");
+            }
+            else
+            {
+                buttonstate(lastASAbutton);
+            }
+
+          //  StorageLastASAButton
+
+
+
 
         }
-        public async void buttonstate()
+        public async void buttonstate(string buttonclicked)
         {
 
             NetworkLabel.Text = "Network: " + network;
@@ -69,6 +83,175 @@ namespace algorandapp
             {
                 myAsset.Text = "Asset ID = " + AssetID;
                 assetID = Convert.ToUInt64(AssetID);
+            }
+
+
+
+            switch (buttonclicked)
+            {
+                case "init":
+                    StackCongfigureManagerRole.IsEnabled = false;
+                    CongfigureManagerRole.Opacity = .4;
+
+                    StackOptIn.IsEnabled = false;
+                    OptIn.Opacity = .4;
+
+                    StackTransferAsset.IsEnabled = false;
+                    TransferAsset.Opacity = .4;
+
+                    StackFreezeAsset.IsEnabled = false;
+                    FreezeAsset.Opacity = .4;
+
+                    StackRevokeAsset.IsEnabled = false;
+                    RevokeAsset.Opacity = .4;
+
+                    StackDestroyAsset.IsEnabled = false;
+                    DestroyAsset.Opacity = .4;
+                    break;
+
+                case "create":
+                    StackCongfigureManagerRole.IsEnabled = true;
+                    CongfigureManagerRole.Opacity = 1;
+
+                    StackOptIn.IsEnabled = false;
+                    OptIn.Opacity = .4;
+
+                    StackTransferAsset.IsEnabled = false;
+                    TransferAsset.Opacity = .4;
+
+                    StackFreezeAsset.IsEnabled = false;
+                    FreezeAsset.Opacity = .4;
+
+                    StackRevokeAsset.IsEnabled = false;
+                    RevokeAsset.Opacity = .4;
+
+                    StackDestroyAsset.IsEnabled = false;
+                    DestroyAsset.Opacity = .4;
+                    break;
+
+                case "manage":
+                    StackCongfigureManagerRole.IsEnabled = false;
+                    CongfigureManagerRole.Opacity = .4;
+
+                    StackOptIn.IsEnabled = true;
+                    OptIn.Opacity = 1;
+
+                    StackTransferAsset.IsEnabled = false;
+                    TransferAsset.Opacity = .4;
+
+                    StackFreezeAsset.IsEnabled = false;
+                    FreezeAsset.Opacity = .4;
+
+                    StackRevokeAsset.IsEnabled = false;
+                    RevokeAsset.Opacity = .4;
+
+                    StackDestroyAsset.IsEnabled = false;
+                    DestroyAsset.Opacity = .4;
+                    break;
+
+                case "optin":
+                    StackCongfigureManagerRole.IsEnabled = false;
+                    CongfigureManagerRole.Opacity = .4;
+
+                    StackOptIn.IsEnabled = true;
+                    OptIn.Opacity = 1;
+
+                    StackTransferAsset.IsEnabled = true;
+                    TransferAsset.Opacity = 1;
+
+                    StackFreezeAsset.IsEnabled = false;
+                    FreezeAsset.Opacity = .4;
+
+                    StackRevokeAsset.IsEnabled = false;
+                    RevokeAsset.Opacity = .4;
+
+                    StackDestroyAsset.IsEnabled = false;
+                    DestroyAsset.Opacity = .4;
+                    break;
+
+                case "transfer":
+                    StackCongfigureManagerRole.IsEnabled = false;
+                    CongfigureManagerRole.Opacity = .4;
+
+                    StackOptIn.IsEnabled = true;
+                    OptIn.Opacity = 1;
+
+                    StackTransferAsset.IsEnabled = true;
+                    TransferAsset.Opacity = 1;
+
+                    StackFreezeAsset.IsEnabled = true;
+                    FreezeAsset.Opacity = 1;
+
+                    StackRevokeAsset.IsEnabled = false;
+                    RevokeAsset.Opacity = .4;
+
+                    StackDestroyAsset.IsEnabled = false;
+                    DestroyAsset.Opacity = .4;
+                    break;
+
+                case "freeze":
+                    StackCongfigureManagerRole.IsEnabled = false;
+                    CongfigureManagerRole.Opacity = .4;
+
+                    StackOptIn.IsEnabled = true;
+                    OptIn.Opacity = 1;
+
+                    StackTransferAsset.IsEnabled = true;
+                    TransferAsset.Opacity = 1;
+
+                    StackFreezeAsset.IsEnabled = true;
+                    FreezeAsset.Opacity = 1;
+
+                    StackRevokeAsset.IsEnabled = true;
+                    RevokeAsset.Opacity = 1;
+
+                    StackDestroyAsset.IsEnabled = false;
+                    DestroyAsset.Opacity = .4;
+                    break;
+
+                case "revoke":
+                    StackCongfigureManagerRole.IsEnabled = false;
+                    CongfigureManagerRole.Opacity = .4;
+
+                    StackOptIn.IsEnabled = true;
+                    OptIn.Opacity = 1;
+
+                    StackTransferAsset.IsEnabled = true;
+                    TransferAsset.Opacity = 1;
+
+                    StackFreezeAsset.IsEnabled = true;
+                    FreezeAsset.Opacity = 1;
+
+                    StackRevokeAsset.IsEnabled = true;
+                    RevokeAsset.Opacity = 1;
+
+                    StackDestroyAsset.IsEnabled = true;
+                    DestroyAsset.Opacity = 1;
+                    break;
+
+                case "destroy":
+                    StackCongfigureManagerRole.IsEnabled = false;
+                    CongfigureManagerRole.Opacity = .4;
+
+                    StackOptIn.IsEnabled = false;
+                    OptIn.Opacity = .4;
+
+                    StackTransferAsset.IsEnabled = false;
+                    TransferAsset.Opacity = .4;
+
+                    StackFreezeAsset.IsEnabled = false;
+                    FreezeAsset.Opacity = .4;
+
+                    StackRevokeAsset.IsEnabled = false;
+                    RevokeAsset.Opacity = .4;
+
+                    StackDestroyAsset.IsEnabled = false;
+                    DestroyAsset.Opacity = .4;
+                    await SecureStorage.SetAsync(helper.StorageLastASAButton, "init");
+
+                    break;
+                default:
+                    break;
             }
 
         }
@@ -113,35 +296,43 @@ namespace algorandapp
                 var assetIDstr = assetID.ToString();
                 await SecureStorage.SetAsync(helper.StorageAssetIDName, assetIDstr);
                 CreateAsset.Opacity = 1;
+                await SecureStorage.SetAsync(helper.StorageLastASAButton, "create");
+                buttonstate("create");
+                var act = algodApiInstance.AssetInformation((long?)assetID).ToJson();
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "AssetID = " + assetID.ToString() + "</h1>" +
+                    "<h2>" + "Asset Info = " + act.ToString() + "</h2>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
             }
             catch (Exception err)
             {
                 Console.WriteLine(err.StackTrace);
                 CreateAsset.Opacity = 1;
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                    "</body></html>";
+                myWebView.Source = htmlSource;
                 return;
             }
 
 
             Console.WriteLine("AssetID = " + assetID);
             // now the asset already created
-            myLabel.Text = "AssetID created = " + assetID.ToString();
-            Entry3.Text = "AssetID created = " + assetID.ToString();
-            myAsset.Text = "AssetID = " + assetID.ToString();
+            //myLabel.Text = "AssetID created = " + assetID.ToString();
+            //Entry3.Text = "AssetID created = " + assetID.ToString();
+            //myAsset.Text = "AssetID = " + assetID.ToString();
 
-            buttonstate();
-     
-        }
 
-        void GetAssetInfo_click(System.Object sender, System.EventArgs e)
-        {
-            myLabel.Text = "AssetID = " + assetID.ToString();
-            var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-            myLabel2.Text = "Asset Info = " + act.ToString();
-            //  Entry3.Text = "Assets = " + act.Assets.Values.ToString();
+
+
 
         }
 
-        void CongfigureManagerRole_click(System.Object sender, System.EventArgs e)
+
+        async void CongfigureManagerRole_click(System.Object sender, System.EventArgs e)
         {
             CongfigureManagerRole.Opacity = .2;
             // Change Asset Configuration:
@@ -165,14 +356,26 @@ namespace algorandapp
             var signedTx = account2.SignTransaction(tx);
             // send the transaction to the network and
             // wait for the transaction to be confirmed
+            string mytx;
             try
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
+                mytx= id.TxId;
                 var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
                 CongfigureManagerRole.Opacity = 1;
                 Console.WriteLine(wait);
-                Entry3.Text = "Transaction comitted " + wait;
+                await SecureStorage.SetAsync(helper.StorageLastASAButton, "manage");
+                buttonstate("manage");
+                var act = algodApiInstance.AssetInformation((long?)assetID).ToJson();
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
+                    "<h2>" + "Asset Info = " + act.ToString() + "</h2>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
+            
 
             }
             catch (Exception err)
@@ -180,26 +383,19 @@ namespace algorandapp
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
                 CongfigureManagerRole.Opacity = 1;
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                    "</body></html>";
+                myWebView.Source = htmlSource;
                 return;
             }
-      
+
 
         }
 
-        void GetConfigurationInfo_click(System.Object sender, System.EventArgs e)
-        {
-            var ap = algodApiInstance.AssetInformation((long?)assetID);
 
-            myLabel.Text = ap.ToString();
 
-            Entry3.Text = "Manager Key = " + ap.Managerkey.ToString();
-            //  Entry4.Text = myLabel.Text;
-            //Entry4.Text = "Freeze Address = " + ap.Freezeaddr.ToString() +"\n" +
-            //    "Clawback Address = " + ap.Clawbackaddr.ToString() +
-            //    "Creator Address = " + ap.Creator.ToString();
-        }
-
-        void OptIn_Clicked(System.Object sender, System.EventArgs e)
+        async void OptIn_Clicked(System.Object sender, System.EventArgs e)
         {
             //await myProgressBar.ProgressTo(1.0, 10000, Easing.Linear);
             OptIn.Opacity = .2;
@@ -230,26 +426,43 @@ namespace algorandapp
             var signedTx = account3.SignTransaction(tx);
             // send the transaction to the network and
             // wait for the transaction to be confirmed
-            Algorand.Algod.Client.Model.Account act = null;
+            Algorand.Algod.Client.Model.Account account = null;
+            string mytx;
             try
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
                 var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
+                mytx = id.TxId;
                 OptIn.Opacity = 1;
                 Console.WriteLine(wait);
                 // We can now list the account information for acct3 
                 // and see that it can accept the new asset
-                myLabel2.Text = wait;
-                act = algodApiInstance.AccountInformation(account3.Address.ToString());
-                var assetholding = act.Assets.ToString();
+                //myLabel2.Text = wait;
+                account = algodApiInstance.AccountInformation(account3.Address.ToString());
+                var assetholding = account.Assets;
                 Console.WriteLine(assetholding);
+                await SecureStorage.SetAsync(helper.StorageLastASAButton, "optin");
+                buttonstate("optin");
+
+                account = algodApiInstance.AccountInformation(account3.Address.ToString());
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
+                    "<h2>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h2>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
                 OptIn.Opacity = 1;
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                    "</body></html>";
+                myWebView.Source = htmlSource;
                 return;
             }
 
@@ -259,18 +472,7 @@ namespace algorandapp
 
 
 
-        void GetOptInInfo_click(System.Object sender, System.EventArgs e)
-        {
 
-            var ac = algodApiInstance.AccountInformation(account3.Address.ToString());
-
-            var assetholding = ac.Assets.ToList();
-            if (assetholding.Count > 0)
-            {
-                myLabel.Text = "Account 3 Holding Amount = " + ac.GetHolding(assetID).Amount.ToString();
-            }
-
-        }
 
         async void FreezeAsset_Clicked(System.Object sender, System.EventArgs e)
         {
@@ -294,19 +496,31 @@ namespace algorandapp
             var signedTx = account2.SignTransaction(tx);
             // send the transaction to the network and
             // wait for the transaction to be confirmed
+            string mytx;
             try
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                mytx = id.TxId;
                 FreezeAsset.Opacity = 1;
                 // We can now list the account information for acct3 
                 // and see that it now frozen 
                 // Note--currently no getter method for frozen state
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 Console.WriteLine(act.GetHolding(assetID).ToString());
-                myLabel.Text = act.GetHolding(assetID).ToString();
-               
+                //  myLabel.Text = act.GetHolding(assetID).ToString();
+                await SecureStorage.SetAsync(helper.StorageLastASAButton, "freeze");
+                buttonstate("freeze");
+                var asset = algodApiInstance.AssetInformation((long?)assetID).ToJson();
+                Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
+                // pull request pending for making Freeze public
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
+                    "<h2>" + "Account 3 Asset Freeze = + account.GetHolding(assetID).Freeze.ToString() " + "</h2>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
 
             }
             catch (Exception err)
@@ -314,23 +528,19 @@ namespace algorandapp
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
                 FreezeAsset.Opacity = 1;
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                    "</body></html>";
+                myWebView.Source = htmlSource;
                 return;
             }
 
 
         }
 
-        void GetFreezeInfo_Clicked(System.Object sender, System.EventArgs e)
-        {
 
-            var act = algodApiInstance.AccountInformation(account3.Address.ToString());
-            Console.WriteLine(act.GetHolding(assetID).ToString());
-            myLabel.Text = "Frozen value = " + act.GetHolding(assetID).Amount.ToString();
-            // need to chang this to get GetHolding(assetID).Frozen whe this PR request is approved
-            // https://github.com/RileyGe/dotnet-algorand-sdk/pull/5
-        }
 
-        void RevokeAsset_Clicked(System.Object sender, System.EventArgs e)
+        async void RevokeAsset_Clicked(System.Object sender, System.EventArgs e)
         {
             RevokeAsset.Opacity = .2;
             // Revoke the asset:
@@ -353,35 +563,46 @@ namespace algorandapp
             var signedTx = account2.SignTransaction(tx);
             // send the transaction to the network and
             // wait for the transaction to be confirmed
+            string mytx;
             try
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id);
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                mytx = id.TxId;
                 RevokeAsset.Opacity = 1;
                 // We can now list the account information for acct3 
                 // and see that it now has 0 of the new asset
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
 
                 Console.WriteLine(act.GetHolding(assetID).Amount);
-                myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+                await SecureStorage.SetAsync(helper.StorageLastASAButton, "revoke");
+                buttonstate("revoke");
+                Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
+                    "<h2>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h2>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
                 RevokeAsset.Opacity = 1;
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                    "</body></html>";
+                myWebView.Source = htmlSource;
                 return;
             }
 
 
+
         }
 
-        void GetRevokeInfo_Clicked(System.Object sender, System.EventArgs e)
-        {
-            var act = algodApiInstance.AccountInformation(account3.Address.ToString());
-            myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
-        }
 
         async void DestroyAsset_Clicked(System.Object sender, System.EventArgs e)
         {
@@ -403,6 +624,7 @@ namespace algorandapp
             var signedTx = account1.SignTransaction(tx);
             // send the transaction to the network and
             // wait for the transaction to be confirmed
+            string mytx;
             try
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
@@ -410,38 +632,49 @@ namespace algorandapp
                 //waitForTransactionToComplete(algodApiInstance, signedTx.transactionID);
                 //Console.ReadKey();
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
+                mytx = id.TxId;
                 // We can now list the account information for acct1 
                 // and see that the asset is no longer there
                 var act = algodApiInstance.AccountInformation(account1.Address.ToString());
 
                 Console.WriteLine("Does AssetID: " + assetID + " exist? " +
                     act.Thisassettotal.ContainsKey(assetID));
-                myLabel.Text = "Does AssetID: " + assetID + " exist? " +
-                    act.Thisassettotal.ContainsKey(assetID);
+             //   myLabel.Text = "Does AssetID: " + assetID + " exist? " +
+             //       act.Thisassettotal.ContainsKey(assetID);
 
                 await SecureStorage.SetAsync(helper.StorageAssetIDName, "");
+            
                 myAsset.Text = "";
                 DestroyAsset.Opacity = 1;
+                await SecureStorage.SetAsync(helper.StorageLastASAButton, "destroy");
+                buttonstate("destroy");
+                Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
+                    "<h2>" + "Does AssetID: " + assetID + " exist? " + account.Thisassettotal.ContainsKey(assetID) + "</h2>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
                 DestroyAsset.Opacity = 1;
                 Console.WriteLine(err.Message);
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                    "</body></html>";
+                myWebView.Source = htmlSource;
                 return;
             }
 
 
         }
 
-        void GetTransferInfo_click(System.Object sender, System.EventArgs e)
-        {
-            var act = algodApiInstance.AccountInformation(account3.Address.ToString());
-            Console.WriteLine(act.GetHolding(assetID).Amount);
-            myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
-        }
 
-        void TransferAsset_Clicked(System.Object sender, System.EventArgs e)
+
+        async void TransferAsset_Clicked(System.Object sender, System.EventArgs e)
         {
             TransferAsset.Opacity = .2;
             // Transfer the Asset:
@@ -461,39 +694,60 @@ namespace algorandapp
             var signedTx = account1.SignTransaction(tx);
             // send the transaction to the network and
             // wait for the transaction to be confirmed
+            string mytx;
             try
             {
                 TransactionID id = Utils.SubmitTransaction(algodApiInstance, signedTx);
                 Console.WriteLine("Transaction ID: " + id.TxId);
+                mytx = id.TxId;
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
                 // We can now list the account information for acct3 
                 // and see that it now has 5 of the new asset
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 Console.WriteLine(act.GetHolding(assetID).Amount);
-                myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+             //   myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
                 TransferAsset.Opacity = 1;
+                await SecureStorage.SetAsync(helper.StorageLastASAButton, "transfer");
+                buttonstate("transfer");
+                var asset = algodApiInstance.AssetInformation((long?)assetID).ToJson();
+                Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
+                    "<h2>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h2>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
             }
             catch (Exception err)
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
                 TransferAsset.Opacity = 1;
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                    "</body></html>";
+                myWebView.Source = htmlSource;
                 return;
             }
 
+
         }
 
-
-
-        void GetDestroyInfo_Clicked(System.Object sender, System.EventArgs e)
+        async void Reset_Clicked(System.Object sender, System.EventArgs e)
         {
-            var act = algodApiInstance.AccountInformation(account1.Address.ToString());
+            await SecureStorage.SetAsync(helper.StorageAssetIDName, "");
+            await SecureStorage.SetAsync(helper.StorageLastASAButton, "init");
+            myAsset.Text = "";
+            buttonstate("init");
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body></body></html>";
 
-            Console.WriteLine("Does AssetID: " + assetID + " exist? " +
-                act.Thisassettotal.ContainsKey(assetID));
-            myLabel.Text = "Does AssetID: " + assetID + " exist? " +
-                act.Thisassettotal.ContainsKey(assetID);
+            myWebView.Source = htmlSource;
         }
+
+
+
     }
 }
 

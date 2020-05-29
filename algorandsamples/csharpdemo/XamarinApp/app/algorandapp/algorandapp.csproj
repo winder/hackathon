@@ -26,14 +26,28 @@
     <None Remove="Assets\opt-in.jpg" />
     <None Remove="Assets\revoke.jpg" />
     <None Remove="Assets\transfer-asset.jpg" />
+    <None Remove="Assets\changemanager50.png" />
+    <None Remove="Assets\changemanager.png" />
+    <None Remove="Assets\createasset.png" />
+    <None Remove="Assets\destroy.png" />
+    <None Remove="Assets\freeze.png" />
+    <None Remove="Assets\optin.png" />
+    <None Remove="Assets\revoke.png" />
+    <None Remove="Assets\transferasset.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\changemanager.jpg" />
     <EmbeddedResource Include="Assets\createasset.jpg" />
     <EmbeddedResource Include="Assets\destroy.jpg" />
     <EmbeddedResource Include="Assets\freeze.jpg" />
     <EmbeddedResource Include="Assets\optin.jpg" />
     <EmbeddedResource Include="Assets\revoke.jpg" />
     <EmbeddedResource Include="Assets\transferasset.jpg" />
+    <EmbeddedResource Include="Assets\changemanager.png" />
+    <EmbeddedResource Include="Assets\createasset.png" />
+    <EmbeddedResource Include="Assets\destroy.png" />
+    <EmbeddedResource Include="Assets\freeze.png" />
+    <EmbeddedResource Include="Assets\optin.png" />
+    <EmbeddedResource Include="Assets\revoke.png" />
+    <EmbeddedResource Include="Assets\transferasset.png" />
   </ItemGroup>
 </Project>

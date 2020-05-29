@@ -57,6 +57,7 @@ namespace algorandapp
         public string StorageBetaNetToken = "BetaNetToken";
         public string StorageBetaNetAddress = "BetaNetAddress";
         public string StorageNodeType = "NodeType";
+        public string StorageLastASAButton = "LastASAButton";
 
         public helper()
         {
