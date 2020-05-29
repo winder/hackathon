@@ -124,6 +124,7 @@ namespace algorandapp
             var savedtest = await SecureStorage.GetAsync(helper.StorageSavedTestNetwork);
 
             var savedbeta = await SecureStorage.GetAsync(helper.StorageSavedBetaNetwork);
+            // todo if empty set to sandbox defaults
 
             if (savedtest == "true")
             {
@@ -138,6 +139,8 @@ namespace algorandapp
                 EntryBetaNetToken.Text = await SecureStorage.GetAsync(helper.StorageBetaNetToken);
                 EntryBetaNetServer.Text = await SecureStorage.GetAsync(helper.StorageBetaNetAddress);
             }
+
+
             network = await helper.GetNetwork();
 
 

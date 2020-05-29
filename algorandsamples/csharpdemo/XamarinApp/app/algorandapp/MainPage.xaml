@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:algorandapp"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Title="Algorand Sample App"
+             Title="Algorand Sample App Using .NET SDK/Xamarin"
              mc:Ignorable="d" x:Class="algorandapp.MainPage">
-<ContentPage.Padding>
+    <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
                 <On Platform="iOS" Value="0, 100, 0, 0" />
@@ -13,77 +14,152 @@
                 <On Platform="UWP" Value="0, 0, 0, 0" />
             </OnPlatform.Platforms>
         </OnPlatform>
-</ContentPage.Padding>
-<StackLayout>
+    </ContentPage.Padding>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <StackLayout>
-       <Label FontSize="Large" x:Name="myLabel"
+        <StackLayout>
+            <Label FontSize="Large" x:Name="myLabel"
               Text="Welcome to Algorand C# SDK" HorizontalOptions="Center" >
-       <Label.FontSize>
-                     <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Label.FontSize>
-        </Label>
-    </StackLayout>
-<ScrollView>
-<Grid >
-  <Grid.RowDefinitions>
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-  </Grid.RowDefinitions>
-  <Grid.ColumnDefinitions>
-    <ColumnDefinition Width="*" />
-     
-  </Grid.ColumnDefinitions>
+                <Label.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="20"
+                      Android="12" />
+                </Label.FontSize>
+            </Label>
+            <Label x:Name="NetworkLabel"
+                   Text="Network: TestNet"
+                   FontSize="Large" HorizontalOptions="Center"/>
+            <Button x:Name="ResetAsset" 
+                 Text="Reset Defaults" Clicked="Reset_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="20"
+                      Android="12" />
+                </Button.FontSize>
 
-         <Button x:Name="NodeNetwork" Grid.Row="0" Grid.Column="0"
-                 Text="Node and Network Settings" Clicked="NodeNetwork_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>
-        <Button x:Name="GenerateAccount" Grid.Row="1" Grid.Column="0"
-                Text="Accounts and Transactions" Clicked="GenerateAccount_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>
-        <Button x:Name="ASA" Grid.Row="2" Grid.Column="0"
-                Text="Algorand Standard Assets" Clicked="ASA_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>
-        <Button x:Name="AtomicTransfers" Grid.Row="3" Grid.Column="0"
-                Text="Atomic Transfers" Clicked="AtomicTransfers_click">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>
+            </Button>
+        </StackLayout>
+        <ScrollView>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
 
-        <Button x:Name="ASC1" Grid.Row="4" Grid.Column="0"
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Image x:Name="NodeNetwork"
+                               Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.homenodenetworksettings.jpg}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="NodeNetwork_click"/>
+                        </Image.GestureRecognizers>
+
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Node and Network Settings">
+                    </Label>
+
+                </StackLayout>
+
+                <StackLayout x:Name="StackGenerateAccount"
+                                 Grid.Row="2" Grid.Column="0">
+                    <Image x:Name="GenerateAccount"
+                               Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.homeaccountstransfers.jpg}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="GenerateAccount_click"/>
+                        </Image.GestureRecognizers>
+
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Accounts and Transactions">
+                    </Label>
+                </StackLayout>
+ 
+                <StackLayout  x:Name="StackASA" Grid.Row="2" Grid.Column="1">
+                    <Image x:Name="ASA" Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.homeasa.jpg}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="ASA_click"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Algorand Standard Assets">
+                    </Label>
+
+                </StackLayout>
+
+
+                <StackLayout x:Name="StackAtomicTransfers" Grid.Row="3" Grid.Column="0">
+                    <Image x:Name="AtomicTransfers"  Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.homeatomictransfers.jpg}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="AtomicTransfers_click"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Atomic Transfers">
+                    </Label>
+
+                </StackLayout>
+
+
+                <StackLayout x:Name="StackASC1"  Grid.Row="3" Grid.Column="1">
+                    <Image x:Name="ASC1"  Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.homeasclayer1.jpg}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="ASC1_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Algorand Smart Contract Layer 1">
+                    </Label>
+
+                </StackLayout  >
+
+                <!--<Button x:Name="ASC1" Grid.Row="4" Grid.Column="0"
                 Text="Algorand Smart Contract Layer 1" Clicked="ASC1_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
+                    </Button.FontSize>
+                </Button>-->
 
-        <!--<Button x:Name="Settings" Grid.Row="6" Grid.Column="0"
+                <!--<Button x:Name="Settings" Grid.Row="6" Grid.Column="0"
                 Text="Settings" Clicked="Settings_Clicked">
                       <Button.FontSize>
           <OnPlatform x:TypeArguments="x:Double"
@@ -91,17 +167,11 @@
                       Android="16" />
         </Button.FontSize>
         </Button>-->
-        <Label FontSize="Large" x:Name="myLabel2" Grid.Row="7" Grid.Column="0"
-           Text="" HorizontalOptions="StartAndExpand">
-          <Label.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Label.FontSize>
-        </Label>
 
-</Grid>
+            </Grid>
 
-</ScrollView>
-</StackLayout>
+        </ScrollView>
+    </StackLayout>
+
+
 </ContentPage>

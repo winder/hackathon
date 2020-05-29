@@ -41,7 +41,7 @@
           "dependencies": {
             "Algorand": {
               "target": "Package",
-              "version": "[0.1.2.5, )"
+              "version": "[0.1.2.6, )"
             },
             "Jurassic": {
               "target": "Package",

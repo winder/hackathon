@@ -54,7 +54,7 @@ namespace algorandapp
         async void ASCContractAccount_Clicked(System.Object sender, System.EventArgs e)
         {
             Algorand.Algod.Client.Model.TransactionParams transParams = null;
-          //  Algorand.Algod.Client.Model.TransactionParams transParams = algodApiInstance.TransactionParams();
+            //  Algorand.Algod.Client.Model.TransactionParams transParams = algodApiInstance.TransactionParams();
             //TransactionParams transParams = null;
             try
             {
@@ -66,19 +66,16 @@ namespace algorandapp
             }
             // format and send logic sig
             byte[] program = { 0x01, 0x20, 0x01, 0x00, 0x22 }; // int 0, returns false, so rawTransaction will fail below
-            // langspec.json needs to be downloaded to this project from
-            // https://github.com/RileyGe/dotnet-algorand-sdk/blob/master/sdk-examples/langspec.json
             // In the iOS project, place it in the Resources folder
             // and set the properties to Build Action of Bundled resource, copy if newer
             // In the Android project, place it in the Resources folder
             // and set the properties to Build Action of Bundled resource, copy if newer
 
-            // this line fails in Android https://github.com/RileyGe/dotnet-algorand-sdk/issues/6
             // works in iOS if you copy the langspec.json file to the resources folder in the iOS project build property bundled reource.
 
             LogicsigSignature lsig = new LogicsigSignature(program, null);
             Console.WriteLine("Escrow address: " + lsig.ToAddress().ToString());
-            Algorand.Transaction tx = Utils.GetLogicSignatureTransaction(lsig,account1.Address, transParams, "logic sig message");
+            Algorand.Transaction tx = Utils.GetLogicSignatureTransaction(lsig, account1.Address, transParams, "logic sig message");
             if (!lsig.Verify(tx.sender))
             {
                 string msg = "Verification failed";
@@ -118,11 +115,11 @@ namespace algorandapp
         }
         async void ASCContractAccountInfo_Clicked(System.Object sender, System.EventArgs e)
         {
-       
+
             var act = algodApiInstance.AccountInformation(account1.Address.ToString());
 
             myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
-            var wait  = await SecureStorage.GetAsync(helper.StorageTransaction);
+            var wait = await SecureStorage.GetAsync(helper.StorageTransaction);
             Entry3.Text = wait;
         }
 
@@ -154,21 +151,12 @@ namespace algorandapp
 
             // sign the logic signature with an account sk
             account1.SignLogicsig(lsig);
-            
-            Console.WriteLine("Escrow address: " + lsig.ToAddress().ToString());
-            Algorand.Transaction tx = Utils.GetLogicSignatureTransaction(lsig, account2.Address, transParams, "logic sig message");
-            //issue, this verify fails https://github.com/RileyGe/dotnet-algorand-sdk/issues/7
 
-            if (!lsig.Verify(tx.sender))
+            Console.WriteLine("Escrow address: " + lsig.ToAddress().ToString());
+            Algorand.Transaction tx = Utils.GetLogicSignatureTransaction(account1.Address, account2.Address, transParams, "logic sig message");
+            try
             {
-                string msg = "Verification failed";
-                Console.WriteLine(msg);
-            }
-            else
-            {
-                try
-                {
-                    SignedTransaction stx = Account.SignLogicsigTransaction(lsig, tx);
+                    SignedTransaction stx = Account.SignLogicsigDelegatedTransaction(lsig, tx);
                     byte[] encodedTxBytes = Encoder.EncodeToMsgPack(stx);
                     // int 0 is the teal program, which returns false, 
                     // so rawTransaction will fail below   
@@ -181,8 +169,6 @@ namespace algorandapp
                     var act = algodApiInstance.AccountInformation(account1.Address.ToString());
                     myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
                     await SecureStorage.SetAsync(helper.StorageTransaction, wait.ToString());
-
-
                 }
                 catch (ApiException err)
                 {
@@ -192,7 +178,8 @@ namespace algorandapp
 
 
                 }
-            }
+            
+
 
 
         }
@@ -203,7 +190,7 @@ namespace algorandapp
         {
             var act = algodApiInstance.AccountInformation(account1.Address.ToString());
             myLabel2.Text = "Account 1 balance after tx: " + act.Amount.ToString();
-       
+
         }
     }
 }

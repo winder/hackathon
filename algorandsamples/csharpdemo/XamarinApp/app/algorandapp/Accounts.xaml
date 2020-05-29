@@ -185,7 +185,7 @@
                       Android="16" />
                 </Button.FontSize>
             </Button>
-            <Label FontSize="Large" x:Name="myLabel" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+            <Label IsVisible="false" FontSize="Large" x:Name="myLabel" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
                    Text="" HorizontalOptions="StartAndExpand" >
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -194,7 +194,7 @@
                 </Label.FontSize>
             </Label>
 
-            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
+            <Label IsVisible="false" FontSize="Large" x:Name="myLabel2" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3"
                    Text="" HorizontalOptions="StartAndExpand">
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -202,12 +202,15 @@
                       Android="16" />
                 </Label.FontSize>
             </Label>
-            <Entry x:Name="Entry3" FontSize="Large" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3">
+            <Entry IsVisible="false" x:Name="Entry3" FontSize="Large" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3">
 
             </Entry>
-            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3">
+            <Entry IsVisible="false" x:Name="Entry4" FontSize="Large" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3">
 
             </Entry>
+             <WebView x:Name="myWebView" HeightRequest="500" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3">
+
+             </WebView>
         </Grid>
 
 

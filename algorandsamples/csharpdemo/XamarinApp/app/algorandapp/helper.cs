@@ -58,7 +58,7 @@ namespace algorandapp
         public string StorageBetaNetAddress = "BetaNetAddress";
         public string StorageNodeType = "NodeType";
         public string StorageLastASAButton = "LastASAButton";
-
+        public string StorageLastHomeButton = "LastHomeButton";
         public helper()
         {
 
@@ -139,8 +139,8 @@ namespace algorandapp
                 string mnemonic = await SecureStorage.GetAsync(accountname);
                 if (mnemonic != null)
                 {
-                account = new Account(mnemonic);
-                myaddress = account.Address.ToString();
+                    account = new Account(mnemonic);
+                    myaddress = account.Address.ToString();
                 }
 
             }
@@ -160,11 +160,11 @@ namespace algorandapp
                 if (!(String.IsNullOrEmpty(myaddress)))
                 {
                     Algorand.Algod.Client.Model.Account accountinfo = await algodApiInstance.AccountInformationAsync(myaddress);
-                
-                if (accountinfo != null)
-                {
-                    return accountinfo.Amount;
-                }
+
+                    if (accountinfo != null)
+                    {
+                        return accountinfo.Amount;
+                    }
                 }
 
             }
@@ -183,15 +183,34 @@ namespace algorandapp
             string ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync(StorageALGOD_API_ADDR_TESTNET);
             string ALGOD_API_ADDR_BETANET = await SecureStorage.GetAsync(StorageALGOD_API_ADDR_BETANET);
             string network = await GetNetwork();
-
-            if (network == "TestNet")
+            if (string.IsNullOrEmpty(network))
             {
+                //first time - default to TestNet/Purestake
+                ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
+                // mine
+                ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
+                // hackathon
+                // ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
+
+                await SecureStorage.SetAsync(StorageALGOD_API_TOKEN_TESTNET, ALGOD_API_TOKEN_TESTNET);
+                await SecureStorage.SetAsync(StorageALGOD_API_ADDR_TESTNET, ALGOD_API_ADDR_TESTNET);
 
                 algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
+
+                await SecureStorage.SetAsync("Network", StorageTestNet);
             }
             else
             {
-                algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
+                if (network == "TestNet")
+                {
+
+                    algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
+                }
+                else
+                {
+
+                    algodApiInstance = new AlgodApi(ALGOD_API_ADDR_BETANET, ALGOD_API_TOKEN_BETANET);
+                }
             }
             return algodApiInstance;
 

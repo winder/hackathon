@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "adkJaQrvo+AXxij81YAX1aLMf/8SzSHDoMqqkyOV6BDWXI5JSgTqnrORKvNDER0MWnbtcRuovFbmZSnVJJgDeg==",
+  "dgSpecHash": "Km9/+HJwLpHc2C4wYbN7xsSz1bY/1uWkC5LzX46+yHy9TxHoDX40DRIBKui9rFF4vCll1ao+y+GxqsvG9IidXg==",
   "success": true,
   "projectFilePath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp.iOS/algorandapp.iOS.csproj",
   "expectedPackageFiles": [
-    "/Users/algorand/.nuget/packages/algorand/0.1.2.5/algorand.0.1.2.5.nupkg.sha512",
+    "/Users/algorand/.nuget/packages/algorand/0.1.2.6/algorand.0.1.2.6.nupkg.sha512",
     "/Users/algorand/.nuget/packages/bouncycastle.netcore/1.8.5/bouncycastle.netcore.1.8.5.nupkg.sha512",
     "/Users/algorand/.nuget/packages/jurassic/3.0.0/jurassic.3.0.0.nupkg.sha512",
     "/Users/algorand/.nuget/packages/kodeaid.base32/1.0.2/kodeaid.base32.1.0.2.nupkg.sha512",

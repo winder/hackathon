@@ -340,10 +340,13 @@ namespace algorandapp
                     // note: multisig sends from acct 1 and 2 if they both sign,
                     // the account receiving funds (acct 3) does not have to be in the multisig,
                     // it could be any account
+                    var htmlSource = new HtmlWebViewSource();
+                    htmlSource.Html = @"<html><body></body></html>";
 
-                    myLabel.Text = "";
-                    myLabel2.Text = "";
-                    Entry3.Text = "";
+                    myWebView.Source = htmlSource;
+                    //myLabel.Text = "";
+                    //myLabel2.Text = "";
+                    //Entry3.Text = "";
                     network = await SecureStorage.GetAsync(helper.StorageNetwork);
                     var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
 
@@ -393,11 +396,18 @@ namespace algorandapp
             Algorand.Algod.Client.Model.Account accountinfo = await algodApiInstance.AccountInformationAsync(account.Address.ToString());
 
             Debug.WriteLine("accountinfo: " + accountinfo);
-            myLabel.Text = accountname + " Address = " + account.Address.ToString();
-            myLabel2.Text = "Account amount (micro algos) = " + accountinfo.Amount.ToString();
+            //myLabel.Text = accountname + " Address = " + account.Address.ToString();
+            //myLabel2.Text = "Account amount (micro algos) = " + accountinfo.Amount.ToString();
           
-            Entry3.Text = accountname + " Info = " + accountinfo.ToString();
-            Entry4.Text = accountname + " Address = " + account.Address.ToString();
+            //Entry3.Text = accountname + " Info = " + accountinfo.ToString();
+            //Entry4.Text = accountname + " Address = " + account.Address.ToString();
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3>" + " Address = " + account.Address.ToString() + "</h3>" +
+                "<h3>" + "Account amount (micro algos) = " + accountinfo.Amount.ToString() + "</h3>" +
+                "<p>Info = " + accountinfo.ToJson() + " </p>" +
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
         }
 
         // this method fails if the block does not have transactions, it should not be required to have transactions
@@ -414,6 +424,7 @@ namespace algorandapp
               myLabel2.Text = "Block Info = " + block.ToString();
               Entry3.Text = "Block Info = " + block.ToString();
               Entry4.Text = "Last Round = " + lastround.ToString();
+
             }
             catch (Exception err)
             {

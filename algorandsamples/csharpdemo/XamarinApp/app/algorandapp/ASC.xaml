@@ -11,9 +11,6 @@
     </ContentPage.Padding>
 
 
-
-
-
 <StackLayout>
 <ScrollView>
 <Grid >

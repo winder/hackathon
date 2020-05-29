@@ -11,7 +11,7 @@
     <PackageReference Include="Ripple.Chaos.NaCl" Version="0.1.0" />
     <PackageReference Include="Jurassic" Version="3.0.0" />
     <PackageReference Include="KodeAid.Base32" Version="1.0.2" />
-    <PackageReference Include="Algorand" Version="0.1.2.5" />
+    <PackageReference Include="Algorand" Version="0.1.2.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +34,11 @@
     <None Remove="Assets\optin.png" />
     <None Remove="Assets\revoke.png" />
     <None Remove="Assets\transferasset.png" />
+    <None Remove="Assets\HomeAccountsTransfers.jpg" />
+    <None Remove="Assets\HomeASA.jpg" />
+    <None Remove="Assets\HomeASClayer1.jpg" />
+    <None Remove="Assets\HomeAtomicTransfers.jpg" />
+    <None Remove="Assets\HomeNodeNetworkSettings.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\createasset.jpg" />
@@ -49,5 +54,10 @@
     <EmbeddedResource Include="Assets\optin.png" />
     <EmbeddedResource Include="Assets\revoke.png" />
     <EmbeddedResource Include="Assets\transferasset.png" />
+    <EmbeddedResource Include="Assets\homeaccountstransfers.jpg" />
+    <EmbeddedResource Include="Assets\homeasa.jpg" />
+    <EmbeddedResource Include="Assets\homeasclayer1.jpg" />
+    <EmbeddedResource Include="Assets\homeatomictransfers.jpg" />
+    <EmbeddedResource Include="Assets\homenodenetworksettings.jpg" />
   </ItemGroup>
 </Project>

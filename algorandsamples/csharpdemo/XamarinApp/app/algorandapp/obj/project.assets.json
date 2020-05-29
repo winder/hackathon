@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "Algorand/0.1.2.5": {
+      "Algorand/0.1.2.6": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.NetCore": "1.8.5",
@@ -331,15 +331,15 @@
     }
   },
   "libraries": {
-    "Algorand/0.1.2.5": {
-      "sha512": "snEtJidxvPyhf17LQGT7Aa87q7q8fm5yQ4txMHVfc1YLjv4PGVF1p50IvWOqkPGnvMKvw93TppTgSBk3Qtrdyg==",
+    "Algorand/0.1.2.6": {
+      "sha512": "HINi4qDBWxN6Ba+ajxABx2zzJapnrWr7fFQoObv5HVHxaicLy5PToNq0uoiOddYPXQLKXLQMBlAyt6Rs8VjFkg==",
       "type": "package",
-      "path": "algorand/0.1.2.5",
+      "path": "algorand/0.1.2.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
-        "algorand.0.1.2.5.nupkg.sha512",
+        "algorand.0.1.2.6.nupkg.sha512",
         "algorand.nuspec",
         "lib/netstandard2.0/Algorand.dll"
       ]
@@ -1845,7 +1845,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "Algorand >= 0.1.2.5",
+      "Algorand >= 0.1.2.6",
       "Jurassic >= 3.0.0",
       "KodeAid.Base32 >= 1.0.2",
       "NETStandard.Library >= 2.0.3",
@@ -1896,7 +1896,7 @@
         "dependencies": {
           "Algorand": {
             "target": "Package",
-            "version": "[0.1.2.5, )"
+            "version": "[0.1.2.6, )"
           },
           "Jurassic": {
             "target": "Package",

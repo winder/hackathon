@@ -32,14 +32,15 @@
             <Label x:Name="NetworkLabel"
                    Text="Network: TestNet"
                    FontSize="Large" HorizontalOptions="Center"/>
-
-
+            <Label x:Name="Status"
+                   Text=""
+                   FontSize="Large" HorizontalOptions="Center"/>
             <Button x:Name="ResetAsset" 
-                 Text="Reset" Clicked="Reset_Clicked">
+                 Text="Reset Assets" Clicked="Reset_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
+                      iOS="20"
+                      Android="12" />
                 </Button.FontSize>
 
             </Button>
@@ -62,7 +63,8 @@
 
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Image x:Name="CreateAsset"  Aspect="AspectFit"
+                    <Image x:Name="CreateAsset"
+                           Aspect="AspectFill"
                 Source="{local:ImageResource algorandapp.Assets.createasset.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
@@ -79,7 +81,8 @@
 
                 </StackLayout>
                 <StackLayout x:Name="StackCongfigureManagerRole" Grid.Row="2" Grid.Column="0">
-                    <Image x:Name="CongfigureManagerRole"  Aspect="AspectFit"
+                    <Image x:Name="CongfigureManagerRole"
+                           Aspect="AspectFill"
                 Source="{local:ImageResource algorandapp.Assets.changemanager.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
@@ -95,7 +98,8 @@
                     </Label>
                 </StackLayout>
                 <StackLayout  x:Name="StackOptIn" Grid.Row="2" Grid.Column="1">
-                    <Image x:Name="OptIn" Aspect="AspectFit"
+                    <Image x:Name="OptIn"
+                           Aspect="AspectFill"
                 Source="{local:ImageResource algorandapp.Assets.optin.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
@@ -111,7 +115,8 @@
 
                 </StackLayout>
                 <StackLayout x:Name="StackTransferAsset" Grid.Row="3" Grid.Column="0">
-                    <Image x:Name="TransferAsset"  Aspect="AspectFit"
+                    <Image x:Name="TransferAsset"
+                           Aspect="AspectFill"
                 Source="{local:ImageResource algorandapp.Assets.transferasset.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
@@ -128,7 +133,8 @@
                 </StackLayout>
 
                 <StackLayout x:Name="StackFreezeAsset"  Grid.Row="3" Grid.Column="1">
-                    <Image x:Name="FreezeAsset"  Aspect="AspectFit"
+                    <Image x:Name="FreezeAsset"
+                           Aspect="AspectFill"
                 Source="{local:ImageResource algorandapp.Assets.freeze.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
@@ -144,7 +150,8 @@
 
                 </StackLayout  >
                 <StackLayout x:Name="StackRevokeAsset" Grid.Row="4" Grid.Column="0">
-                    <Image x:Name="RevokeAsset"  Aspect="AspectFit"
+                    <Image x:Name="RevokeAsset"
+                           Aspect="AspectFill"
                 Source="{local:ImageResource algorandapp.Assets.revoke.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
@@ -160,7 +167,8 @@
 
                 </StackLayout>
                 <StackLayout x:Name="StackDestroyAsset" Grid.Row="4" Grid.Column="1">
-                    <Image x:Name="DestroyAsset"  Aspect="AspectFit"
+                    <Image x:Name="DestroyAsset"
+                           Aspect="AspectFill"
                 Source="{local:ImageResource algorandapp.Assets.destroy.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer

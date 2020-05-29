@@ -76,7 +76,7 @@ namespace algorandapp
         }
         public async void buttonstate(string buttonclicked)
         {
-
+            Status.Text = "";
             NetworkLabel.Text = "Network: " + network;
             var AssetID = await SecureStorage.GetAsync(helper.StorageAssetIDName);
             if (!String.IsNullOrEmpty(AssetID))
@@ -258,7 +258,14 @@ namespace algorandapp
 
         private async void CreateAsset_click(System.Object sender, System.EventArgs e)
         {
+            Status.Text = "Submitting to blockchain... please wait...";
             CreateAsset.Opacity = .2;
+            HtmlWebViewSource htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3>" + "Submitting to blockchain... please wait...</h3>" +
+                "</body></html>";
+            myWebView.Source = htmlSource;
+
+
             var transParams = algodApiInstance.TransactionParams();
 
             // The following parameters are asset specific
@@ -295,14 +302,15 @@ namespace algorandapp
                 assetID = ptx.Txresults.Createdasset;
                 var assetIDstr = assetID.ToString();
                 await SecureStorage.SetAsync(helper.StorageAssetIDName, assetIDstr);
-                CreateAsset.Opacity = 1;
+   
                 await SecureStorage.SetAsync(helper.StorageLastASAButton, "create");
                 buttonstate("create");
+                CreateAsset.Opacity = 1;
                 var act = algodApiInstance.AssetInformation((long?)assetID).ToJson();
 
-                var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "AssetID = " + assetID.ToString() + "</h1>" +
-                    "<h2>" + "Asset Info = " + act.ToString() + "</h2>" +
+               // htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3>" + "AssetID = " + assetID.ToString() + "</h3>" +
+                    "<h3>" + "Asset Info = " + act.ToString() + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -311,8 +319,8 @@ namespace algorandapp
             {
                 Console.WriteLine(err.StackTrace);
                 CreateAsset.Opacity = 1;
-                var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+              //  htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
@@ -370,8 +378,8 @@ namespace algorandapp
                 var act = algodApiInstance.AssetInformation((long?)assetID).ToJson();
 
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
-                    "<h2>" + "Asset Info = " + act.ToString() + "</h2>" +
+                htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                    "<h3>" + "Asset Info = " + act.ToString() + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -384,7 +392,7 @@ namespace algorandapp
                 Console.WriteLine(err.Message);
                 CongfigureManagerRole.Opacity = 1;
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
@@ -448,8 +456,8 @@ namespace algorandapp
                 account = algodApiInstance.AccountInformation(account3.Address.ToString());
 
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
-                    "<h2>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h2>" +
+                htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                    "<h3>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -460,7 +468,7 @@ namespace algorandapp
                 Console.WriteLine(err.Message);
                 OptIn.Opacity = 1;
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
@@ -516,8 +524,8 @@ namespace algorandapp
                 Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
                 // pull request pending for making Freeze public
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
-                    "<h2>" + "Account 3 Asset Freeze = + account.GetHolding(assetID).Freeze.ToString() " + "</h2>" +
+                htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                    "<h3>" + "Account 3 Asset Freeze = " + account.GetHolding(assetID).Frozen.ToString()  + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -529,7 +537,7 @@ namespace algorandapp
                 Console.WriteLine(err.Message);
                 FreezeAsset.Opacity = 1;
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
@@ -581,8 +589,8 @@ namespace algorandapp
                 Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
 
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
-                    "<h2>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h2>" +
+                htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                    "<h3>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -593,7 +601,7 @@ namespace algorandapp
                 Console.WriteLine(err.Message);
                 RevokeAsset.Opacity = 1;
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
@@ -651,8 +659,8 @@ namespace algorandapp
                 Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
 
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
-                    "<h2>" + "Does AssetID: " + assetID + " exist? " + account.Thisassettotal.ContainsKey(assetID) + "</h2>" +
+                htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                    "<h3>" + "Does AssetID: " + assetID + " exist? " + account.Thisassettotal.ContainsKey(assetID) + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -663,7 +671,7 @@ namespace algorandapp
                 DestroyAsset.Opacity = 1;
                 Console.WriteLine(err.Message);
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
@@ -713,8 +721,8 @@ namespace algorandapp
                 Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
 
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Transaction ID = " + mytx + "</h1>" +
-                    "<h2>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h2>" +
+                htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                    "<h3>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -725,7 +733,7 @@ namespace algorandapp
                 Console.WriteLine(err.Message);
                 TransferAsset.Opacity = 1;
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h1>" + "Error = " + err.Message + "</h1>" +
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
