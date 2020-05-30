@@ -122,10 +122,7 @@ namespace algorandapp
                 // all accounts created - leave state
 
                 //    DisableNetworkToggles(network);
-                myLabel.Text = "All 3 accounts have been created on " + network;
-                myLabel2.Text = "";
-                Entry3.Text = "";
-                Entry4.Text = "";
+
 
                 if (string.IsNullOrEmpty(msig))
                 {
@@ -141,8 +138,14 @@ namespace algorandapp
                     CreateMultiSig.Text = "Multisig created ";
                     GetMultiSig.IsVisible = true;
                     // todo store off version threshold and number of account
-                    myLabel2.Text = "Multisig created - version = 1, threshold = 2, number of accounts = 3";
-                    Entry3.Text = helper.StorageMultisig + " Address = " + msig.ToString();
+                    var htmlSource = new HtmlWebViewSource();
+                    htmlSource.Html = @"<html><body><h3>" + "Multisig created - version = 1, threshold = 2, number of accounts = 3 </h3>" +
+                        "<h3>" + helper.StorageMultisig + " Address = " + msig.ToString() + "</h3>" +
+
+                        "</body></html>";
+
+                    myWebView.Source = htmlSource;
+
                     
                     // enable send multisig transaction
                 }
@@ -156,7 +159,7 @@ namespace algorandapp
                 else
                 {
                     Transaction.IsEnabled = true;
-                    Transaction.Text = "Send again " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2 + "?";
+                    Transaction.Text = "Send " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2 + "?";
                     GetTransaction.IsVisible = true;
                 }
                 if (!(string.IsNullOrEmpty(msig)))
@@ -172,7 +175,7 @@ namespace algorandapp
                     else
                     {
                         MultisigTransaction.IsEnabled = true;
-                        MultisigTransaction.Text = "Send again Multisig Tx to " + helper.StorageAccountName3 + "?";
+                        MultisigTransaction.Text = "Send Multisig Tx to " + helper.StorageAccountName3 + "?";
                         GetMultiSigTx.IsVisible = true;
                     }
                 }
@@ -261,11 +264,14 @@ namespace algorandapp
 
             var myAccountAddress = myAccountInfo[0].ToString();
             var myMnemonic = myAccountInfo[1].ToString();
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3>" + accountname + " Address = " + myAccountAddress.ToString() +
+                "<h3>" + accountname + " Mnemonic = " + myMnemonic.ToString() + "</h3>" +
 
-            myLabel.Text = "";
-            myLabel2.Text = "";
-            Entry3.Text = accountname + " Address = " + myAccountAddress.ToString();
-            Entry4.Text = accountname + " Mnemonic = " + myMnemonic.ToString();
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
+
             try
             {
                 await SecureStorage.SetAsync(accountname, myMnemonic);
@@ -344,9 +350,7 @@ namespace algorandapp
                     htmlSource.Html = @"<html><body></body></html>";
 
                     myWebView.Source = htmlSource;
-                    //myLabel.Text = "";
-                    //myLabel2.Text = "";
-                    //Entry3.Text = "";
+
                     network = await SecureStorage.GetAsync(helper.StorageNetwork);
                     var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
 
@@ -396,11 +400,7 @@ namespace algorandapp
             Algorand.Algod.Client.Model.Account accountinfo = await algodApiInstance.AccountInformationAsync(account.Address.ToString());
 
             Debug.WriteLine("accountinfo: " + accountinfo);
-            //myLabel.Text = accountname + " Address = " + account.Address.ToString();
-            //myLabel2.Text = "Account amount (micro algos) = " + accountinfo.Amount.ToString();
-          
-            //Entry3.Text = accountname + " Info = " + accountinfo.ToString();
-            //Entry4.Text = accountname + " Address = " + account.Address.ToString();
+
             var htmlSource = new HtmlWebViewSource();
             htmlSource.Html = @"<html><body><h3>" + " Address = " + account.Address.ToString() + "</h3>" +
                 "<h3>" + "Account amount (micro algos) = " + accountinfo.Amount.ToString() + "</h3>" +
@@ -420,19 +420,23 @@ namespace algorandapp
             Block block; 
             try {
               block = await algodApiInstance.GetBlockAsync(lastround);
-              myLabel.Text = "Last Round = " + lastround.ToString();
-              myLabel2.Text = "Block Info = " + block.ToString();
-              Entry3.Text = "Block Info = " + block.ToString();
-              Entry4.Text = "Last Round = " + lastround.ToString();
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3>" + "Last Round = " + lastround.ToString() + "</h3>" +
+                    "<h3>" + "Block Info = " + block.ToJson() + "</h3>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
 
             }
             catch (Exception err)
             {
-   
-                myLabel.Text = "Last Round = " + lastround.ToString();
-                myLabel2.Text = "Block Info = " + err.Message;
-                Entry3.Text = "Status = " + status.ToString();
-                Entry4.Text = "";
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message.ToString() + "</h3>" + 
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
             }
 
 
@@ -471,11 +475,16 @@ namespace algorandapp
             publickeys.Add(account3.GetEd25519PublicKey());
 
             MultisigAddress msig = new MultisigAddress(1, 2, publickeys);
-            
-            myLabel.Text = "Multisig Address " + msig.ToString();
-            myLabel2.Text = "";
             ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
-            Entry4.Text = "Multisig balance = " + balance.ToString();
+
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3>" + "Multisig Address " + msig.ToString() + "</h3>" +
+                "<h3>" + "Multisig balance = " + balance.ToString() + "</h3>" + 
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
+
+
 
             CreateMultiSig.Text = "Multisig created";
             CreateMultiSig.IsEnabled = false;
@@ -491,11 +500,15 @@ namespace algorandapp
         public async void GetMultiSig_Clicked(System.Object sender, System.EventArgs e)
         {
             var msig = await SecureStorage.GetAsync("Multisig");
-            myLabel.Text = "Multisig address = " + msig.ToString();
-            myLabel2.Text = "";
-            Entry3.Text = "Multisig address = " + msig.ToString();
             ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
-            Entry4.Text = "Multisig balance = " + balance.ToString() ;
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3>" + "Multisig Address " + msig.ToString() + "</h3>" +
+                "<h3>" + "Multisig balance = " + balance.ToString() + "</h3>" +
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
+
+
             FundsNeededMS.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
         }
 
@@ -507,6 +520,7 @@ namespace algorandapp
             Account account1 = accounts[0];
             Account account2 = accounts[1];
             Account account3 = accounts[2];
+            HtmlWebViewSource htmlSource;
 
             // transfer from Account 1 to 2
             TransactionParams transParams = null;
@@ -542,16 +556,27 @@ namespace algorandapp
                 // This should give us an informative error message.
                 //   await SecureStorage.SetAsync("Transaction", err.Message);
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
+                
                 if (err.Message.Contains("overspend"))
                 {
                     var network = await SecureStorage.GetAsync(helper.StorageNetwork);
-                    myLabel.Text = (network + " Account has insuficent funds. ");
-                    
-                
-                    myLabel2.Text = (network + " add funds and try again. ");
-                    Entry3.Text = "Account = " + account1.Address.ToString();
+                    htmlSource = new HtmlWebViewSource();
+                    htmlSource.Html = @"<html><body><h3>" + network + " Account has insuficent funds. " + "</h3>" +
+                        "<h3>" + network + " add funds and try again. " + "</h3>" +
+                        "<p>Account = " + account1.Address.ToString() +"</p>" +
+                        "</body></html>";
+
+                    myWebView.Source = htmlSource;
+
+
                 }
-                   Entry4.Text = "Transaction ID = " + err.Message;
+                htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3> Transaction ID = " + err.Message + "</h3>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
+
+              //  Entry4.Text = "Transaction ID = " + err.Message;
             }
 
             if (!(String.IsNullOrEmpty(id.TxId)))
@@ -565,23 +590,32 @@ namespace algorandapp
             buttonstate();
 
             await DisplayAccount(helper.StorageAccountName2);
-            // myLabel.Text = "Successfully sent tx with id: " + id.TxId;
-            Entry3.Text = wait;
+
             var mytx = await SecureStorage.GetAsync(helper.StorageTransaction);
             if (!(mytx == null || mytx ==""))
 
             {
-                Entry3.Text = "Transaction ID = " + mytx.ToString();
-            }
-            Entry4.Text = "";
 
+            htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3> Transaction ID = " + mytx.ToString() + " </h3>" +
+                "<h3>" + wait + "</h3>" +
+
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
+            }
         }
 
         public async void GetTransaction_Clicked(System.Object sender, System.EventArgs e)
         {
             await DisplayAccount(helper.StorageAccountName2);
             var txid = await SecureStorage.GetAsync(helper.StorageTransaction);
-            Entry3.Text = "Transaction ID = " + txid.ToString();
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3> Transaction ID = " + txid.ToString() + " </h3>" +
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
+
 
         }
 
@@ -589,9 +623,13 @@ namespace algorandapp
         {
             await DisplayAccount(helper.StorageAccountName3);
             var txid = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
-            Entry3.Text = "Multisig Transaction ID = " + txid.ToString();
+
             ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
-            Entry4.Text = "Multisig balance = " + balance.ToString();
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3> Multisig Transaction ID = " + txid.ToString() + " </h3>" +
+                "<h3>" + "Multisig balance = " + balance.ToString() + "</h3>" + "</body></html>";
+
+            myWebView.Source = htmlSource;
 
         }
 
@@ -651,14 +689,20 @@ namespace algorandapp
             }
             catch (ApiException err)
             {
-                // This is generally expected, but should give us an informative error message.
+ 
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
             }
             await SecureStorage.SetAsync(helper.StorageMultisigTransaction, id.TxId.ToString());
             MultisigTransaction.Text = "Transaction successfully sent";
             GetMultiSigTx.IsVisible = true;
             ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
-            Entry4.Text = "Multisig balance = " + balance.ToString();
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3> Multisig balance = " + balance.ToString() + " </h3>" +
+                  "</body></html>";
+
+            myWebView.Source = htmlSource;
+
+ 
 
 
 
@@ -669,7 +713,12 @@ namespace algorandapp
             if (!(mytx == null || mytx == ""))
 
             {
-                Entry3.Text = "Transaction ID = " + mytx.ToString();
+                htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3> Transaction ID = " + mytx.ToString() + " </h3>" +
+                      "</body></html>";
+
+                myWebView.Source = htmlSource;
+     
 
             }
 

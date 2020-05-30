@@ -39,7 +39,7 @@ namespace algorandapp
             account1 = accounts[0];
             account2 = accounts[1];
             account3 = accounts[2];
-            
+
             nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
             NetworkLabel.Text = "Network: " + network + " " + nodetype;
             buttonstate();
@@ -57,6 +57,7 @@ namespace algorandapp
             //var transParams = algodApiInstance.TransactionParams();
 
             TransactionParams transParams = null;
+            AtomicTransfer.IsEnabled = false;
 
             try
             {
@@ -67,7 +68,7 @@ namespace algorandapp
                 throw new Exception("Could not get params", err);
             }
             // let's create a transaction group
-            var amount = Utils.AlgosToMicroalgos(1); 
+            var amount = Utils.AlgosToMicroalgos(1);
             var tx = Utils.GetPaymentTransaction(account1.Address, account2.Address, amount, "pay message", transParams);
             var tx2 = Utils.GetPaymentTransaction(account1.Address, account3.Address, amount, "pay message", transParams);
             //SignedTransaction signedTx2 = src.SignTransactionWithFeePerByte(tx2, feePerByte);
@@ -83,23 +84,31 @@ namespace algorandapp
                 List<byte> byteList = new List<byte>(Algorand.Encoder.EncodeToMsgPack(signedTx));
                 byteList.AddRange(Algorand.Encoder.EncodeToMsgPack(signedTx2));
                 var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-                myLabel.Text = "Account 1 balance before: " + act.Amount.ToString();
+                var before = "Account 1 balance before: " + act.Amount.ToString();
                 var id = algodApiInstance.RawTransaction(byteList.ToArray());
                 var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
                 Console.WriteLine(wait);
 
                 // Console.WriteLine("Successfully sent tx group with first tx id: " + id);
 
-                Entry3.Text = wait;
                 act = algodApiInstance.AccountInformation(account1.Address.ToString());
-                myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
+        
                 await SecureStorage.SetAsync(helper.StorageTransaction, wait.ToString());
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3>" + before + " </h3>" +
+                    "<h3>" + wait + "</h3>" + "<h3> Account 1 balance after: " + act.Amount.ToString() + "</h3></body></html>";
+
+                myWebView.Source = htmlSource;
+                AtomicTransfer.IsEnabled = true;
             }
             catch (ApiException err)
             {
                 // This is generally expected, but should give us an informative error message.
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
+                AtomicTransfer.IsEnabled = true;
             }
+           
 
 
         }
@@ -107,10 +116,15 @@ namespace algorandapp
         async void AtomicTransferInfo_Clicked(System.Object sender, System.EventArgs e)
         {
             var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-            Entry3.Text = await SecureStorage.GetAsync(helper.StorageTransaction);
-           
-            Entry4.Text = "Account 1 balance : " + act.Amount.ToString();
+            var mytx = await SecureStorage.GetAsync(helper.StorageTransaction);
 
+          
+
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3>" + mytx + " </h3>" +
+                 "Account 1 balance : " +act.Amount.ToString() + "</body></html>";
+
+            myWebView.Source = htmlSource;
 
 
         }

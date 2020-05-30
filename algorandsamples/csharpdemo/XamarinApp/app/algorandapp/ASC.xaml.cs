@@ -53,6 +53,7 @@ namespace algorandapp
         }
         async void ASCContractAccount_Clicked(System.Object sender, System.EventArgs e)
         {
+            ASCContractAccount.IsEnabled = false;
             Algorand.Algod.Client.Model.TransactionParams transParams = null;
             //  Algorand.Algod.Client.Model.TransactionParams transParams = algodApiInstance.TransactionParams();
             //TransactionParams transParams = null;
@@ -94,12 +95,20 @@ namespace algorandapp
                     Console.WriteLine("Successfully sent tx logic sig tx id: " + id);
                     var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
                     Console.WriteLine(wait);
-                    Entry3.Text = wait;
+               //     Entry3.Text = wait;
                     var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-                    myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
+                 //   myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
+
+                    var htmlSource = new HtmlWebViewSource();
+                    htmlSource.Html = @"<html><body><h3>" + wait + "</h3>" +
+                        "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
+                        "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
+                        "</body></html>";
+
+                    myWebView.Source = htmlSource;
                     await SecureStorage.SetAsync(helper.StorageTransaction, wait.ToString());
 
-
+                    ASCContractAccount.IsEnabled = true;
                 }
                 catch (ApiException err)
                 {
@@ -107,7 +116,14 @@ namespace algorandapp
                     Console.WriteLine("Fail expected");
 
                     Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
+            
+                    var htmlSource = new HtmlWebViewSource();
+                    htmlSource.Html = @"<html><body>" +
+                        "<h3>" + "Exception when calling algod#rawTransaction: " + err.Message + "</h3>" +
+                        "</body></html>";
 
+                    myWebView.Source = htmlSource;
+                    ASCContractAccount.IsEnabled = true;
 
                 }
             }
@@ -118,14 +134,23 @@ namespace algorandapp
 
             var act = algodApiInstance.AccountInformation(account1.Address.ToString());
 
-            myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
+         //   myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
             var wait = await SecureStorage.GetAsync(helper.StorageTransaction);
-            Entry3.Text = wait;
+        //    Entry3.Text = wait;
+
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body><h3>" + wait + "</h3>" +
+                "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
+                "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
         }
 
 
         async void ASCAccountDelegation_Clicked(System.Object sender, System.EventArgs e)
         {
+            ASCAccountDelegation.IsEnabled = false;
             Algorand.Algod.Client.Model.TransactionParams transParams = null;
             //  Algorand.Algod.Client.Model.TransactionParams transParams = algodApiInstance.TransactionParams();
             //TransactionParams transParams = null;
@@ -165,19 +190,32 @@ namespace algorandapp
                     Console.WriteLine("Successfully sent tx logic sig tx id: " + id);
                     var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
                     Console.WriteLine(wait);
-                    Entry3.Text = wait;
+               //     Entry3.Text = wait;
                     var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-                    myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
+                //    myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
                     await SecureStorage.SetAsync(helper.StorageTransaction, wait.ToString());
-                }
+
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3>" + wait + "</h3>" +
+                    "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
+                    "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
+                    "</body></html>";
+
+                myWebView.Source = htmlSource;
+                ASCAccountDelegation.IsEnabled = true;
+            }
                 catch (ApiException err)
                 {
                     // This is generally expected, but should give us an informative error message.
 
                     Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body><h3> Exception when calling algod#rawTransaction: " + err.Message + "</h3>" + "</body></html>";
 
+                myWebView.Source = htmlSource;
+                ASCAccountDelegation.IsEnabled = true;
 
-                }
+            }
             
 
 
@@ -189,7 +227,14 @@ namespace algorandapp
         void ASCAccountDelegationInfo_Clicked(System.Object sender, System.EventArgs e)
         {
             var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-            myLabel2.Text = "Account 1 balance after tx: " + act.Amount.ToString();
+      //      myLabel2.Text = "Account 1 balance after tx: " + act.Amount.ToString();
+            var htmlSource = new HtmlWebViewSource();
+            htmlSource.Html = @"<html><body>" +
+                "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
+                "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
+                "</body></html>";
+
+            myWebView.Source = htmlSource;
 
         }
     }

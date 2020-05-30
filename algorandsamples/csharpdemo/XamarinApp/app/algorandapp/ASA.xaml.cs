@@ -329,9 +329,7 @@ namespace algorandapp
 
             Console.WriteLine("AssetID = " + assetID);
             // now the asset already created
-            //myLabel.Text = "AssetID created = " + assetID.ToString();
-            //Entry3.Text = "AssetID created = " + assetID.ToString();
-            //myAsset.Text = "AssetID = " + assetID.ToString();
+
 
 
 
@@ -446,7 +444,7 @@ namespace algorandapp
                 Console.WriteLine(wait);
                 // We can now list the account information for acct3 
                 // and see that it can accept the new asset
-                //myLabel2.Text = wait;
+           
                 account = algodApiInstance.AccountInformation(account3.Address.ToString());
                 var assetholding = account.Assets;
                 Console.WriteLine(assetholding);
@@ -477,8 +475,6 @@ namespace algorandapp
 
 
         }
-
-
 
 
 
@@ -514,7 +510,7 @@ namespace algorandapp
                 FreezeAsset.Opacity = 1;
                 // We can now list the account information for acct3 
                 // and see that it now frozen 
-                // Note--currently no getter method for frozen state
+   
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 Console.WriteLine(act.GetHolding(assetID).ToString());
                 //  myLabel.Text = act.GetHolding(assetID).ToString();
@@ -522,7 +518,7 @@ namespace algorandapp
                 buttonstate("freeze");
                 var asset = algodApiInstance.AssetInformation((long?)assetID).ToJson();
                 Algorand.Algod.Client.Model.Account account = algodApiInstance.AccountInformation(account3.Address.ToString());
-                // pull request pending for making Freeze public
+
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
                     "<h3>" + "Account 3 Asset Freeze = " + account.GetHolding(assetID).Frozen.ToString()  + "</h3>" +
@@ -647,8 +643,7 @@ namespace algorandapp
 
                 Console.WriteLine("Does AssetID: " + assetID + " exist? " +
                     act.Thisassettotal.ContainsKey(assetID));
-             //   myLabel.Text = "Does AssetID: " + assetID + " exist? " +
-             //       act.Thisassettotal.ContainsKey(assetID);
+
 
                 await SecureStorage.SetAsync(helper.StorageAssetIDName, "");
             
@@ -713,7 +708,7 @@ namespace algorandapp
                 // and see that it now has 5 of the new asset
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 Console.WriteLine(act.GetHolding(assetID).Amount);
-             //   myLabel.Text = "Account 3 Amount = " + act.GetHolding(assetID).Amount.ToString();
+     
                 TransferAsset.Opacity = 1;
                 await SecureStorage.SetAsync(helper.StorageLastASAButton, "transfer");
                 buttonstate("transfer");

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="algorandapp.ASC">
-       <ContentPage.Padding>
+    <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
                 <On Platform="iOS" Value="0, 100, 0, 0" />
@@ -11,90 +11,94 @@
     </ContentPage.Padding>
 
 
-<StackLayout>
-<ScrollView>
-<Grid >
-  <Grid.RowDefinitions>
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-  </Grid.RowDefinitions>
-  <Grid.ColumnDefinitions>
-    <ColumnDefinition Width="*" />
-    <ColumnDefinition Width="*" />   
-  </Grid.ColumnDefinitions>
-     <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
-            <Label x:Name="NetworkLabel"
+    <StackLayout>
+        <ScrollView>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
+                    <Label x:Name="NetworkLabel"
                    Text="Network: TestNet"
                    FontSize="Large"/>
-            </StackLayout>
-         <Button x:Name="ASCContractAccount" Grid.Row="1" Grid.Column="0"
+                </StackLayout>
+                <Button x:Name="ASCContractAccount" Grid.Row="1" Grid.Column="0"
                 Text="ASC1 Contract Account" Clicked="ASCContractAccount_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-         <Button x:Name="ASCContractAccountInfo" Grid.Row="1" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>
+                <Button x:Name="ASCContractAccountInfo" Grid.Row="1" Grid.Column="1"
                 Text="Get ASC1 Contract Account Info" Clicked="ASCContractAccountInfo_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-        <Button x:Name="ASCAccountDelegation" Grid.Row="2" Grid.Column="0"
+                    </Button.FontSize>
+                </Button>
+                <Button x:Name="ASCAccountDelegation" Grid.Row="2" Grid.Column="0"
                 Text="ASC1 Account Delegation" Clicked="ASCAccountDelegation_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-            <Button x:Name="ASCAccountDelegationInfo" Grid.Row="2" Grid.Column="1"
+                    </Button.FontSize>
+                </Button>
+                <Button x:Name="ASCAccountDelegationInfo" Grid.Row="2" Grid.Column="1"
                 Text="Get ASC1 Account Delegation Info" Clicked="ASCAccountDelegationInfo_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
+                    <Button.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-        </Button.FontSize>
-        </Button>
-                <Label FontSize="Large" x:Name="myLabel" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    </Button.FontSize>
+                </Button>
+                <!--<Label FontSize="Large" x:Name="myLabel" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                    Text="" HorizontalOptions="StartAndExpand" >
-                <Label.FontSize>
-                    <OnPlatform x:TypeArguments="x:Double"
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-                </Label.FontSize>
-            </Label>
-            <Label FontSize="Large" x:Name="myLabel2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                    </Label.FontSize>
+                </Label>
+                <Label FontSize="Large" x:Name="myLabel2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                    Text="" HorizontalOptions="StartAndExpand">
-                <Label.FontSize>
-                    <OnPlatform x:TypeArguments="x:Double"
+                    <Label.FontSize>
+                        <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
-                </Label.FontSize>
-            </Label>
-             <Entry x:Name="Entry3" FontSize="Large" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                    </Label.FontSize>
+                </Label>
+                <Entry x:Name="Entry3" FontSize="Large" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
 
-            </Entry>
-            <Entry x:Name="Entry4" FontSize="Large" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                </Entry>
+                <Entry x:Name="Entry4" FontSize="Large" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
 
-            </Entry>
-    </Grid>
-    </ScrollView>
+                </Entry>-->
+                <WebView x:Name="myWebView" HeightRequest="500" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+
+                </WebView>
+            </Grid>
+        </ScrollView>
     </StackLayout>
 
     <ContentPage.Content>
-  
-    <StackLayout>
+
+        <StackLayout>
 
 
-   </StackLayout>
-  </ContentPage.Content>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

@@ -65,7 +65,7 @@
                 <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Image x:Name="CreateAsset"
                            Aspect="AspectFill"
-                Source="{local:ImageResource algorandapp.Assets.createasset.png}" >
+                Source="{local:ImageResource algorandapp.Assets.createasset.jpg}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
                     NumberOfTapsRequired="1"

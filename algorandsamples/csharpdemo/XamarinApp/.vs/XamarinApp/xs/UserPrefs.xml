@@ -1,25 +1,30 @@
 ﻿<Properties StartupConfiguration="{3D8488E0-5101-4301-82D6-304AE6FB9D56}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/Accounts.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/ASC.xaml.cs">
     <Files>
       <File FileName="app/algorandapp/helper.cs" Line="1" Column="1" />
-      <File FileName="app/algorandapp/Accounts.xaml" Line="213" Column="14" />
-      <File FileName="app/algorandapp/ASA.xaml" Line="190" Column="27" />
-      <File FileName="app/algorandapp/ASA.xaml.cs" Line="380" Column="1" />
-      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="1" Column="1" />
+      <File FileName="app/algorandapp/Accounts.xaml" Line="188" Column="1" />
+      <File FileName="app/algorandapp/ASA.xaml" Line="188" Column="1" />
+      <File FileName="app/algorandapp/ASA.xaml.cs" Line="316" Column="47" />
+      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="721" Column="6" />
+      <File FileName="app/algorandapp/AtomicTransfers.xaml" Line="59" Column="17" />
+      <File FileName="app/algorandapp/AtomicTransfers.xaml.cs" Line="119" Column="11" />
+      <File FileName="app/algorandapp/ASC.xaml" Line="68" Column="1" />
+      <File FileName="app/algorandapp/ASC.xaml.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="XamarinApp" expanded="True">
             <Node name="algorandapp" expanded="True">
-              <Node name="Accounts.xaml" expanded="True">
-                <Node name="Accounts.xaml.cs" selected="True" />
-              </Node>
+              <Node name="Accounts.xaml" expanded="True" />
               <Node name="ASA.xaml" expanded="True" />
+              <Node name="ASC.xaml" expanded="True">
+                <Node name="ASC.xaml.cs" selected="True" />
+              </Node>
+              <Node name="AtomicTransfers.xaml" expanded="True" />
               <Node name="MainPage.xaml" expanded="True" />
               <Node name="NodeAndNetwork.xaml" expanded="True" />
             </Node>
-            <Node name="algorandapp.Android" expanded="True" />
             <Node name="algorandapp.iOS" expanded="True">
               <Node name="References" expanded="True" />
               <Node name="Packages" expanded="True" />
@@ -30,7 +35,7 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.algorandapp.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.F30699BD-9586-4B9E-80AD-4894E7D029E9" />
+  <MonoDevelop.Ide.ItemProperties.algorandapp.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.64B149B5-0826-43C2-A089-6D77D6E1EF25" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
