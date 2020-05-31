@@ -741,6 +741,7 @@ namespace algorandapp
         {
             await SecureStorage.SetAsync(helper.StorageAssetIDName, "");
             await SecureStorage.SetAsync(helper.StorageLastASAButton, "init");
+
             myAsset.Text = "";
             buttonstate("init");
             var htmlSource = new HtmlWebViewSource();

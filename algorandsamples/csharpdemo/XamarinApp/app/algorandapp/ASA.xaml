@@ -7,17 +7,13 @@
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="20, 40, 0, 0" />
-                <On Platform="Android" Value="20, 0, 0, 0" />
-                <On Platform="UWP" Value="20, 0, 0, 0" />
+                <On Platform="iOS" Value="20, 40, 20, 0" />
+                <On Platform="Android" Value="20, 0, 20, 0" />
+                <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:ImageConverter x:Key="ImageConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+
 
     <StackLayout>
         <StackLayout  >
@@ -65,7 +61,7 @@
                 <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Image x:Name="CreateAsset"
                            Aspect="AspectFill"
-                Source="{local:ImageResource algorandapp.Assets.createasset.jpg}" >
+                Source="{local:ImageResource algorandapp.Assets.createasset.png}" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer
                     NumberOfTapsRequired="1"

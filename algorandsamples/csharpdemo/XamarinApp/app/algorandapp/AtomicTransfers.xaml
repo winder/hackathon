@@ -2,13 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Atomic Transfers"
+             xmlns:local="clr-namespace:algorandapp"
              x:Class="algorandapp.AtomicTransfers">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="0, 100, 0, 0" />
-                <On Platform="Android" Value="0, 0, 0, 0" />
-                <On Platform="UWP" Value="0, 0, 0, 0" />
+                <On Platform="iOS" Value="20, 100, 20, 0" />
+                <On Platform="Android" Value="20, 0, 20, 0" />
+                <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
@@ -18,14 +19,25 @@
 
 
     <StackLayout>
+        <StackLayout>
+            <StackLayout HorizontalOptions="Center" >
+                <Label x:Name="NetworkLabel"
+                   Text="Network: TestNet"
+                   FontSize="Large"/>
+            </StackLayout>
+            <Button x:Name="ResetAtomicTransfers" 
+                 Text="Reset Atomic Transfers" Clicked="Reset_Clicked">
+                <Button.FontSize>
+                    <OnPlatform x:TypeArguments="x:Double"
+                      iOS="20"
+                      Android="12" />
+                </Button.FontSize>
+
+            </Button>
+        </StackLayout>
         <ScrollView>
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -33,20 +45,33 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
-                    <Label x:Name="NetworkLabel"
-                   Text="Network: TestNet"
-                   FontSize="Large"/>
+
+                <StackLayout x:Name="StackAtomicTransfers" Grid.Row="0" Grid.Column="0">
+                    <Image x:Name="AtomicTransfer"  Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.homeatomictransfers.jpg}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="AtomicTransfer_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="Account 1 to both A2 and A3">
+                    </Label>
+
                 </StackLayout>
-                <Button x:Name="AtomicTransfer" Grid.Row="1" Grid.Column="0"
+
+                <!--<Button x:Name="AtomicTransfer" Grid.Row="1" Grid.Column="0"
                  Text="A1 to both A2 and A3" Clicked="AtomicTransfer_Clicked">
                     <Button.FontSize>
                         <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
                     </Button.FontSize>
-                </Button>
-                <Button x:Name="AtomicTransferInfo" Grid.Row="1" Grid.Column="1"
+                </Button>-->
+                <Button x:Name="AtomicTransferInfo" IsEnabled="False" Grid.Row="0" Grid.Column="1"
                  Text="Get Atomic Transfer Info" Clicked="AtomicTransferInfo_Clicked">
                     <Button.FontSize>
                         <OnPlatform x:TypeArguments="x:Double"
@@ -56,7 +81,7 @@
 
                 </Button>
 
-                <WebView x:Name="myWebView" HeightRequest="500" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <WebView x:Name="myWebView" HeightRequest="500" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
                 </WebView>
             </Grid>

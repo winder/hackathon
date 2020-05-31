@@ -120,34 +120,45 @@ namespace algorandapp
             await this.Navigation.PushAsync(new ASC());
         }
 
-        void Reset_Clicked(System.Object sender, System.EventArgs e)
+        async void Reset_Clicked(System.Object sender, System.EventArgs e)
         {
-            //public string StorageAccountName1 = "Account 1";
-            //public string StorageAccountName2 = "Account 2";
-            //public string StorageAccountName3 = "Account 3";
-            //public string StorageALGOD_API_TOKEN_BETANET = "ALGOD_API_TOKEN_BETANET";
-            //public string StorageALGOD_API_ADDR_BETANET = "ALGOD_API_ADDR_BETANET";
-            //public string StorageALGOD_API_TOKEN_TESTNET = "ALGOD_API_TOKEN_TESTNET";
-            //public string StorageALGOD_API_ADDR_TESTNET = "ALGOD_API_ADDR_TESTNET";
-            //public string StorageNetwork = "Network";
-            //public string StorageMultisig = "Multisig";
-            //public string StorageTransaction = "Transaction";
-            //public string StorageMultisigTransaction = "MultisigTransaction";
-            //public string StorageAssetIDName = "AssetID";
-            //public string StorageTestNet = "TestNet";
-            //public string StorageBetaNet = "BetaNet";
+            string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
+     
+            // purestake hackathon
+            string ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
 
-            //public string StoragePurestake = "Purestake";
-            //public string StorageHackathon = "Hackathon";
-            //public string StoragemyNode = "myNode";
-            //public string StorageSavedBetaNetwork = "SavedBetaNetwork";
-            //public string StorageSavedTestNetwork = "SavedTestNetwork";
-            //public string StorageTestNetToken = "TestNetToken";
-            //public string StorageTestNetAddress = "TestNetAddress";
-            //public string StorageBetaNetToken = "BetaNetToken";
-            //public string StorageBetaNetAddress = "BetaNetAddress";
-            //public string StorageNodeType = "NodeType";
-            //public string StorageLastASAButton = "LastASAButton";
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_TOKEN_TESTNET, ALGOD_API_TOKEN_TESTNET);
+            await SecureStorage.SetAsync(helper.StorageALGOD_API_ADDR_TESTNET, ALGOD_API_ADDR_TESTNET);
+
+            await SecureStorage.SetAsync(helper.StorageNetwork, helper.StorageTestNet);
+    
+            await SecureStorage.SetAsync(helper.StorageNodeType, helper.StoragePurestake);
+
+            await SecureStorage.SetAsync(helper.StorageAssetIDName, "");
+            await SecureStorage.SetAsync(helper.StorageLastASAButton, "");
+
+            await SecureStorage.SetAsync(helper.StorageAccountName1, "");
+            await SecureStorage.SetAsync(helper.StorageAccountName2, "");
+            await SecureStorage.SetAsync(helper.StorageAccountName3, "");
+            await SecureStorage.SetAsync(helper.StorageMultisig, "");
+            await SecureStorage.SetAsync(helper.StorageTransaction, "");
+            await SecureStorage.SetAsync(helper.StorageAtomicTransaction, "");
+            await SecureStorage.SetAsync(helper.StorageMultisigTransaction, "");
+            await SecureStorage.SetAsync(helper.StorageLastHomeButton, "");
+            await SecureStorage.SetAsync(helper.StorageSavedBetaNetwork, "");
+            await SecureStorage.SetAsync(helper.StorageSavedTestNetwork, "");
+            await SecureStorage.SetAsync(helper.StorageTestNetToken, "");
+            await SecureStorage.SetAsync(helper.StorageTestNetAddress, "");
+            await SecureStorage.SetAsync(helper.StorageBetaNetToken, "");
+            await SecureStorage.SetAsync(helper.StorageBetaNetAddress, "");
+            ASA.Opacity = .4;
+            StackASA.IsEnabled = false;
+            AtomicTransfers.Opacity = .4;
+            StackAtomicTransfers.IsEnabled = false;
+            ASC1.Opacity = .4;
+            StackASC1.IsEnabled = false;
+
+
 
 
         }

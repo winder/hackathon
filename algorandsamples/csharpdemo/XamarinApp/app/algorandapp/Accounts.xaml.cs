@@ -153,7 +153,8 @@ namespace algorandapp
                 if (string.IsNullOrEmpty(transaction))
                 {
                     Transaction.IsEnabled = true;
-                    Transaction.Text = "Transaction from " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
+
+                    Transaction.Text = "Xfer " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
                     GetTransaction.IsVisible = false;
                 }
                 else
@@ -264,6 +265,7 @@ namespace algorandapp
 
             var myAccountAddress = myAccountInfo[0].ToString();
             var myMnemonic = myAccountInfo[1].ToString();
+
             var htmlSource = new HtmlWebViewSource();
             htmlSource.Html = @"<html><body><h3>" + accountname + " Address = " + myAccountAddress.ToString() +
                 "<h3>" + accountname + " Mnemonic = " + myMnemonic.ToString() + "</h3>" +
@@ -309,7 +311,7 @@ namespace algorandapp
             {
                 try
                 {
-
+                    
                     await SecureStorage.SetAsync(helper.StorageAccountName1, "");
                     await SecureStorage.SetAsync(helper.StorageAccountName2, "");
                     await SecureStorage.SetAsync(helper.StorageAccountName3, "");
@@ -595,11 +597,14 @@ namespace algorandapp
             if (!(mytx == null || mytx ==""))
 
             {
+                Algorand.Algod.Client.Model.Account accountinfo =
+                await algodApiInstance.AccountInformationAsync(account2.Address.ToString());
 
-            htmlSource = new HtmlWebViewSource();
+                Debug.WriteLine("Account 2 info: " + accountinfo);
+                htmlSource = new HtmlWebViewSource();
+
             htmlSource.Html = @"<html><body><h3> Transaction ID = " + mytx.ToString() + " </h3>" +
-                "<h3>" + wait + "</h3>" +
-
+                "<h3>" + "Account 2 info = " + accountinfo.ToJson() + "</h3>" +
                 "</body></html>";
 
             myWebView.Source = htmlSource;
@@ -608,10 +613,12 @@ namespace algorandapp
 
         public async void GetTransaction_Clicked(System.Object sender, System.EventArgs e)
         {
-            await DisplayAccount(helper.StorageAccountName2);
+
+
+            //  await DisplayAccount(helper.StorageAccountName2);
             var txid = await SecureStorage.GetAsync(helper.StorageTransaction);
             var htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = @"<html><body><h3> Transaction ID = " + txid.ToString() + " </h3>" +
+            htmlSource.Html = @"<html><body><h3> Transaction ID = " + txid.ToString() + " </h3>" + 
                 "</body></html>";
 
             myWebView.Source = htmlSource;
@@ -621,13 +628,15 @@ namespace algorandapp
 
         public async void GetMultiSigTx_Clicked(System.Object sender, System.EventArgs e)
         {
-            await DisplayAccount(helper.StorageAccountName3);
+         //   await DisplayAccount(helper.StorageAccountName3);
             var txid = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
 
-            ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
+
             var htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = @"<html><body><h3> Multisig Transaction ID = " + txid.ToString() + " </h3>" +
-                "<h3>" + "Multisig balance = " + balance.ToString() + "</h3>" + "</body></html>";
+            htmlSource.Html = @"<html><body><h3> Multisig Transaction ID = " +
+                txid.ToString() + " </h3>"  +
+
+                "</body></html>";
 
             myWebView.Source = htmlSource;
 
@@ -695,12 +704,12 @@ namespace algorandapp
             await SecureStorage.SetAsync(helper.StorageMultisigTransaction, id.TxId.ToString());
             MultisigTransaction.Text = "Transaction successfully sent";
             GetMultiSigTx.IsVisible = true;
-            ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
-            var htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = @"<html><body><h3> Multisig balance = " + balance.ToString() + " </h3>" +
-                  "</body></html>";
+            //ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
+            //var htmlSource = new HtmlWebViewSource();
+            //htmlSource.Html = @"<html><body><h3> Multisig balance = " + balance.ToString() + " </h3>" +
+            //      "</body></html>";
 
-            myWebView.Source = htmlSource;
+            //myWebView.Source = htmlSource;
 
  
 
@@ -709,18 +718,19 @@ namespace algorandapp
             buttonstate();
 
             await DisplayAccount(helper.StorageAccountName3);
-            var mytx = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
-            if (!(mytx == null || mytx == ""))
+            //var mytx = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
 
-            {
-                htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h3> Transaction ID = " + mytx.ToString() + " </h3>" +
-                      "</body></html>";
+            //if (!(mytx == null || mytx == ""))
 
-                myWebView.Source = htmlSource;
+            //{
+            //    htmlSource = new HtmlWebViewSource();
+            //    htmlSource.Html = @"<html><body><h3> Transaction ID = " + mytx.ToString() + " </h3>" +
+            //          "</body></html>";
+
+            //    myWebView.Source = htmlSource;
      
 
-            }
+            //}
 
         }
 
@@ -752,11 +762,13 @@ namespace algorandapp
                             var mnemonic = await SecureStorage.GetAsync(accountname);
                             Account myaccount = new Account(mnemonic);
                             myaddress = myaccount.Address.ToString();
-                        }
+                            await Clipboard.SetTextAsync(myaddress);
+                         }
                         else
                         {
                             // get multisig addr
                             myaddress = await SecureStorage.GetAsync(accountname);
+                            await Clipboard.SetTextAsync(myaddress);
                         }
 
                         OpenDispenser(helper, network, myaddress);

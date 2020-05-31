@@ -42,6 +42,7 @@ namespace algorandapp
         public string StorageNetwork = "Network";
         public string StorageMultisig = "Multisig";
         public string StorageTransaction = "Transaction";
+        public string StorageAtomicTransaction = "AtomicTransaction";
         public string StorageMultisigTransaction = "MultisigTransaction";
         public string StorageAssetIDName = "AssetID";
         public string StorageTestNet = "TestNet";

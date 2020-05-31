@@ -129,7 +129,7 @@
             </Button>
 
             <Button x:Name="Transaction" Grid.Row="5" Grid.Column="0" IsEnabled="False"
-                    Text="Transaction from Account 1 to 2" Clicked="Transaction_Clicked">
+                    Text="Transaction from Acct1 to Acct2" Clicked="Transaction_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
@@ -161,7 +161,7 @@
                 </Button.FontSize>
             </Button>
             <Button x:Name="GetMultiSig" Grid.Row="6" Grid.Column="2" IsVisible="False"
-                    Text="Get Multisig Address" Clicked="GetMultiSig_Clicked">
+                    Text="Get Multisig Balance" Clicked="GetMultiSig_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"

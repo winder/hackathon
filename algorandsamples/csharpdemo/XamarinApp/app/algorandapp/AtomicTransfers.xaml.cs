@@ -45,17 +45,26 @@ namespace algorandapp
             buttonstate();
         }
 
-        public void buttonstate()
+        public async void buttonstate()
         {
             NetworkLabel.Text = "Network: " + network + " " + nodetype;
-
+            var myAT = await SecureStorage.GetAsync(helper.StorageAtomicTransaction);
+            if (string.IsNullOrEmpty(myAT))
+            {
+                AtomicTransferInfo.IsEnabled = false;
+            }
+            else
+            {
+                AtomicTransferInfo.IsEnabled = true;
+            }
 
 
         }
         async void AtomicTransfer_Clicked(System.Object sender, System.EventArgs e)
         {
             //var transParams = algodApiInstance.TransactionParams();
-
+            AtomicTransfer.Opacity = .2;
+            StackAtomicTransfers.IsEnabled = false;
             TransactionParams transParams = null;
             AtomicTransfer.IsEnabled = false;
 
@@ -93,7 +102,7 @@ namespace algorandapp
 
                 act = algodApiInstance.AccountInformation(account1.Address.ToString());
         
-                await SecureStorage.SetAsync(helper.StorageTransaction, wait.ToString());
+                await SecureStorage.SetAsync(helper.StorageAtomicTransaction, wait.ToString());
 
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + before + " </h3>" +
@@ -108,15 +117,16 @@ namespace algorandapp
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
                 AtomicTransfer.IsEnabled = true;
             }
-           
-
-
+            AtomicTransfer.Opacity = 1;
+            StackAtomicTransfers.IsEnabled = true;
+            AtomicTransferInfo.IsEnabled = true;
+            buttonstate();
         }
 
         async void AtomicTransferInfo_Clicked(System.Object sender, System.EventArgs e)
         {
             var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-            var mytx = await SecureStorage.GetAsync(helper.StorageTransaction);
+            var mytx = await SecureStorage.GetAsync(helper.StorageAtomicTransaction);
 
           
 
@@ -126,6 +136,13 @@ namespace algorandapp
 
             myWebView.Source = htmlSource;
 
+
+        }
+
+        async void Reset_Clicked(System.Object sender, System.EventArgs e)
+        {
+            await SecureStorage.SetAsync(helper.StorageAtomicTransaction, "");
+            AtomicTransferInfo.IsEnabled = false;
 
         }
     }

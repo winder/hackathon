@@ -9,17 +9,17 @@
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="0, 100, 0, 0" />
-                <On Platform="Android" Value="0, 0, 0, 0" />
-                <On Platform="UWP" Value="0, 0, 0, 0" />
+                <On Platform="iOS" Value="20, 100, 20, 0" />
+                <On Platform="Android" Value="20, 0, 20, 0" />
+                <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
-    <ContentPage.Resources>
+    <!--<ContentPage.Resources>
         <ResourceDictionary>
             <local:ImageConverter x:Key="ImageConverter"/>
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </ContentPage.Resources>-->
 
     <StackLayout>
         <StackLayout>
@@ -35,7 +35,7 @@
                    Text="Network: TestNet"
                    FontSize="Large" HorizontalOptions="Center"/>
             <Button x:Name="ResetAsset" 
-                 Text="Reset Defaults" Clicked="Reset_Clicked">
+                 Text="Reset to Defaults" Clicked="Reset_Clicked">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
                       iOS="20"

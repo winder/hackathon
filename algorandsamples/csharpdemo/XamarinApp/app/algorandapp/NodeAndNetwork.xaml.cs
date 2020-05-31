@@ -66,7 +66,7 @@ namespace algorandapp
             if (EntryTestNetServer.Text != null)
                 sizeofaddress = EntryTestNetServer.Text.Length;
 
-            checkifentered();
+            checkifTestNetentered();
         }
 
         private void checkifentered()
@@ -80,7 +80,17 @@ namespace algorandapp
                 SaveBetaNet.IsEnabled = false;
             }
         }
-
+        private void checkifTestNetentered()
+        {
+            if ((sizeoftoken > 0) && (sizeofaddress > 0))
+            {
+                SaveTestNet.IsEnabled = true;
+            }
+            else
+            {
+                SaveTestNet.IsEnabled = false;
+            }
+        }
         private void EntryBetaNetToken_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (EntryBetaNetToken.Text!=null) 
@@ -99,7 +109,7 @@ namespace algorandapp
                 sizeofaddress = EntryTestNetServer.Text.Length;
 
 
-            checkifentered();
+            checkifTestNetentered();
         }
 
         private void EntryBetaNetServer_TextChanged(object sender, TextChangedEventArgs e)
@@ -132,12 +142,23 @@ namespace algorandapp
                 EntryTestNetServer.Text = await SecureStorage.GetAsync(helper.StorageTestNetAddress);
 
             }
+            else
+            {
+                EntryTestNetToken.Text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                EntryTestNetServer.Text = "http://[your ip address]:4001";
+
+            }
 
 
             if (savedbeta == "true")
             {
                 EntryBetaNetToken.Text = await SecureStorage.GetAsync(helper.StorageBetaNetToken);
                 EntryBetaNetServer.Text = await SecureStorage.GetAsync(helper.StorageBetaNetAddress);
+            }
+            else
+            {
+                EntryBetaNetToken.Text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                EntryBetaNetServer.Text = "http://[your ip address]:4001";
             }
 
 

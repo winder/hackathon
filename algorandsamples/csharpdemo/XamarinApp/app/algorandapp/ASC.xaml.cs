@@ -53,6 +53,8 @@ namespace algorandapp
         }
         async void ASCContractAccount_Clicked(System.Object sender, System.EventArgs e)
         {
+            StackASCContractAccount.IsEnabled = false;
+            ASCContractAccount.Opacity = .2;
             ASCContractAccount.IsEnabled = false;
             Algorand.Algod.Client.Model.TransactionParams transParams = null;
             //  Algorand.Algod.Client.Model.TransactionParams transParams = algodApiInstance.TransactionParams();
@@ -119,37 +121,42 @@ namespace algorandapp
             
                     var htmlSource = new HtmlWebViewSource();
                     htmlSource.Html = @"<html><body>" +
-                        "<h3>" + "Exception when calling algod#rawTransaction: " + err.Message + "</h3>" +
+                        "<h3>" + "Expected error: Exception when calling algod#rawTransaction: " + err.Message + "</h3>" +
                         "</body></html>";
 
                     myWebView.Source = htmlSource;
                     ASCContractAccount.IsEnabled = true;
 
                 }
+
             }
+            StackASCContractAccount.IsEnabled = true;
+            ASCContractAccount.Opacity = 1;
 
         }
-        async void ASCContractAccountInfo_Clicked(System.Object sender, System.EventArgs e)
-        {
+        //async void ASCContractAccountInfo_Clicked(System.Object sender, System.EventArgs e)
+        //{
 
-            var act = algodApiInstance.AccountInformation(account1.Address.ToString());
+        //    var act = algodApiInstance.AccountInformation(account1.Address.ToString());
 
-         //   myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
-            var wait = await SecureStorage.GetAsync(helper.StorageTransaction);
-        //    Entry3.Text = wait;
+        // //   myLabel2.Text = "Account 1 balance after: " + act.Amount.ToString();
+        //    var wait = await SecureStorage.GetAsync(helper.StorageTransaction);
+        ////    Entry3.Text = wait;
 
-            var htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = @"<html><body><h3>" + wait + "</h3>" +
-                "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
-                "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
-                "</body></html>";
+        //    var htmlSource = new HtmlWebViewSource();
+        //    htmlSource.Html = @"<html><body><h3>" + wait + "</h3>" +
+        //        "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
+        //        "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
+        //        "</body></html>";
 
-            myWebView.Source = htmlSource;
-        }
+        //    myWebView.Source = htmlSource;
+        //}
 
 
         async void ASCAccountDelegation_Clicked(System.Object sender, System.EventArgs e)
         {
+            ASCAccountDelegation.Opacity = .2;
+            StackASCAccountDelegation.IsEnabled = false;
             ASCAccountDelegation.IsEnabled = false;
             Algorand.Algod.Client.Model.TransactionParams transParams = null;
             //  Algorand.Algod.Client.Model.TransactionParams transParams = algodApiInstance.TransactionParams();
@@ -210,32 +217,39 @@ namespace algorandapp
 
                     Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h3> Exception when calling algod#rawTransaction: " + err.Message + "</h3>" + "</body></html>";
+                htmlSource.Html = @"<html><body><h3> Expected error: Exception when calling algod#rawTransaction: " + err.Message + "</h3>" + "</body></html>";
 
                 myWebView.Source = htmlSource;
                 ASCAccountDelegation.IsEnabled = true;
 
             }
-            
 
 
-
-        }
-
-
-
-        void ASCAccountDelegationInfo_Clicked(System.Object sender, System.EventArgs e)
-        {
-            var act = algodApiInstance.AccountInformation(account1.Address.ToString());
-      //      myLabel2.Text = "Account 1 balance after tx: " + act.Amount.ToString();
-            var htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = @"<html><body>" +
-                "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
-                "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
-                "</body></html>";
-
-            myWebView.Source = htmlSource;
+            ASCAccountDelegation.Opacity = 1;
+            StackASCAccountDelegation.IsEnabled = true;
 
         }
+
+
+
+      //  void ASCAccountDelegationInfo_Clicked(System.Object sender, System.EventArgs e)
+      //  {
+      //      var act = algodApiInstance.AccountInformation(account1.Address.ToString());
+      ////      myLabel2.Text = "Account 1 balance after tx: " + act.Amount.ToString();
+      //      var htmlSource = new HtmlWebViewSource();
+      //      htmlSource.Html = @"<html><body>" +
+      //          "<h3>" + "Account 1 balance after: " + act.Amount.ToString() + "</h3>" +
+      //          "<h3>" + "Account info: " + act.ToJson() + "</h3>" +
+      //          "</body></html>";
+
+      //      myWebView.Source = htmlSource;
+
+      //  }
+        //async void Reset_Clicked(System.Object sender, System.EventArgs e)
+        //{
+        //    await SecureStorage.SetAsync(helper.StorageAtomicTransaction, "");
+        //    AtomicTransferInfo.IsEnabled = false;
+
+        //}
     }
 }

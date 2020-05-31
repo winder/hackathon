@@ -1,25 +1,31 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="algorandapp.ASC">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:algorandapp"
+             x:Class="algorandapp.ASC">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="0, 100, 0, 0" />
-                <On Platform="Android" Value="0, 0, 0, 0" />
-                <On Platform="UWP" Value="0, 0, 0, 0" />
+                <On Platform="iOS" Value="20, 100, 20, 0" />
+                <On Platform="Android" Value="20, 0, 20, 0" />
+                <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
 
 
     <StackLayout>
+        <StackLayout>
+            <StackLayout HorizontalOptions="Center" >
+                <Label x:Name="NetworkLabel"
+                   Text="Network: TestNet"
+                   FontSize="Large"/>
+            </StackLayout>
+
+        </StackLayout>
         <ScrollView>
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -28,43 +34,74 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackLayout HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
-                    <Label x:Name="NetworkLabel"
-                   Text="Network: TestNet"
-                   FontSize="Large"/>
+
+                <StackLayout x:Name="StackASCContractAccount" Grid.Row="0" Grid.Column="0">
+                    <Image x:Name="ASCContractAccount"  Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.contractaccount.png}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="ASCContractAccount_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="ASC1 Contract Account">
+                    </Label>
+
                 </StackLayout>
-                <Button x:Name="ASCContractAccount" Grid.Row="1" Grid.Column="0"
+                <!--<Button x:Name="ASCContractAccount" Grid.Row="1" Grid.Column="0"
                 Text="ASC1 Contract Account" Clicked="ASCContractAccount_Clicked">
                     <Button.FontSize>
                         <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
                     </Button.FontSize>
-                </Button>
-                <Button x:Name="ASCContractAccountInfo" Grid.Row="1" Grid.Column="1"
+                </Button>-->
+
+                <!--<Button x:Name="ASCContractAccountInfo" Grid.Row="0" Grid.Column="1"
                 Text="Get ASC1 Contract Account Info" Clicked="ASCContractAccountInfo_Clicked">
                     <Button.FontSize>
                         <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
                     </Button.FontSize>
-                </Button>
-                <Button x:Name="ASCAccountDelegation" Grid.Row="2" Grid.Column="0"
+                </Button>-->
+
+                <StackLayout x:Name="StackASCAccountDelegation" Grid.Row="0" Grid.Column="1">
+                    <Image x:Name="ASCAccountDelegation"  Aspect="AspectFill"
+                Source="{local:ImageResource algorandapp.Assets.accountdelegation.png}" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                    NumberOfTapsRequired="1"
+                    Tapped="ASCAccountDelegation_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label 
+                    VerticalOptions="Center" FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    TextColor="Blue" Text="ASC1 Account Delegation">
+                    </Label>
+
+                </StackLayout>
+
+                <!--<Button x:Name="ASCAccountDelegation" Grid.Row="2" Grid.Column="0"
                 Text="ASC1 Account Delegation" Clicked="ASCAccountDelegation_Clicked">
                     <Button.FontSize>
                         <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
                     </Button.FontSize>
-                </Button>
-                <Button x:Name="ASCAccountDelegationInfo" Grid.Row="2" Grid.Column="1"
+                </Button>-->
+                <!--<Button x:Name="ASCAccountDelegationInfo" Grid.Row="1" Grid.Column="1"
                 Text="Get ASC1 Account Delegation Info" Clicked="ASCAccountDelegationInfo_Clicked">
                     <Button.FontSize>
                         <OnPlatform x:TypeArguments="x:Double"
                       iOS="30"
                       Android="16" />
                     </Button.FontSize>
-                </Button>
+                </Button>-->
                 <!--<Label FontSize="Large" x:Name="myLabel" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                    Text="" HorizontalOptions="StartAndExpand" >
                     <Label.FontSize>
@@ -87,18 +124,12 @@
                 <Entry x:Name="Entry4" FontSize="Large" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
 
                 </Entry>-->
-                <WebView x:Name="myWebView" HeightRequest="500" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+                <WebView x:Name="myWebView" HeightRequest="500" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
                 </WebView>
             </Grid>
         </ScrollView>
     </StackLayout>
 
-    <ContentPage.Content>
 
-        <StackLayout>
-
-
-        </StackLayout>
-    </ContentPage.Content>
 </ContentPage>

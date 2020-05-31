@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -20,11 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\changemanager.jpg" />
-    <None Remove="Assets\createasset.jpg" />
-    <None Remove="Assets\destroy.jpg" />
-    <None Remove="Assets\freeze.jpg" />
     <None Remove="Assets\opt-in.jpg" />
-    <None Remove="Assets\revoke.jpg" />
     <None Remove="Assets\transfer-asset.jpg" />
     <None Remove="Assets\changemanager50.png" />
     <None Remove="Assets\changemanager.png" />
@@ -39,14 +35,10 @@
     <None Remove="Assets\HomeASClayer1.jpg" />
     <None Remove="Assets\HomeAtomicTransfers.jpg" />
     <None Remove="Assets\HomeNodeNetworkSettings.jpg" />
+    <None Remove="Assets\accountdelegation.png" />
+    <None Remove="Assets\contractaccount.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\createasset.jpg" />
-    <EmbeddedResource Include="Assets\destroy.jpg" />
-    <EmbeddedResource Include="Assets\freeze.jpg" />
-    <EmbeddedResource Include="Assets\optin.jpg" />
-    <EmbeddedResource Include="Assets\revoke.jpg" />
-    <EmbeddedResource Include="Assets\transferasset.jpg" />
     <EmbeddedResource Include="Assets\changemanager.png" />
     <EmbeddedResource Include="Assets\createasset.png" />
     <EmbeddedResource Include="Assets\destroy.png" />
@@ -59,5 +51,7 @@
     <EmbeddedResource Include="Assets\homeasclayer1.jpg" />
     <EmbeddedResource Include="Assets\homeatomictransfers.jpg" />
     <EmbeddedResource Include="Assets\homenodenetworksettings.jpg" />
+    <EmbeddedResource Include="Assets\contractaccount.png" />
+    <EmbeddedResource Include="Assets\accountdelegation.png" />
   </ItemGroup>
 </Project>
