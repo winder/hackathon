@@ -21,10 +21,12 @@
       "idiom": "iphone"
     },
     {
+      "filename": "Splash Screen for iOS 1080x1920-2.png",
       "scale": "1x",
       "idiom": "iphone"
     },
     {
+      "filename": "Splash Screen for iOS-2160x3840-2.png",
       "scale": "2x",
       "idiom": "iphone"
     },
@@ -41,10 +43,12 @@
       "idiom": "ipad"
     },
     {
+      "filename": "Splash Screen for iOS 1080x1920-1.png",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
+      "filename": "Splash Screen for iOS-2160x3840-1.png",
       "scale": "2x",
       "idiom": "ipad"
     },
@@ -525,5 +529,8 @@
   "info": {
     "version": 1,
     "author": "xcode"
+  },
+  "properties": {
+    "template-rendering-intent": "original"
   }
 }

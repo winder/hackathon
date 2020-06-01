@@ -46,6 +46,16 @@ namespace algorandapp
             network = await helper.GetNetwork();
 
             buttonstate();
+            if (Device.Idiom == TargetIdiom.Phone)
+            {
+                StackPhone.IsVisible = true;
+                StackTablet.IsVisible = false;
+            }
+            else
+            {
+                StackPhone.IsVisible = false;
+                StackTablet.IsVisible = true;
+            }
 
 
         }
@@ -68,6 +78,10 @@ namespace algorandapp
             Transaction.IsVisible = true;
             MultisigTransaction.IsVisible = true;
 
+            CreateMultiSigp.IsVisible = true;
+            Transactionp.IsVisible = true;
+            MultisigTransactionp.IsVisible = true;
+
             // test for null (first time) and "" (after first time)
             if (string.IsNullOrEmpty(account1))
             {
@@ -75,6 +89,9 @@ namespace algorandapp
                 GenerateAccount1.IsEnabled = true;
                 GetAccount1Info.IsVisible = false;
                 GenerateAccount1.Text = "Generate " + helper.StorageAccountName1;
+                GenerateAccount1p.IsEnabled = true;
+                GetAccount1Infop.IsVisible = false;
+                GenerateAccount1p.Text = "Generate " + helper.StorageAccountName1;
 
             }
             else
@@ -82,6 +99,9 @@ namespace algorandapp
                 GenerateAccount1.Text = helper.StorageAccountName1 + " created";
                 GenerateAccount1.IsEnabled = false;
                 GetAccount1Info.IsVisible = true;
+                GenerateAccount1p.Text = helper.StorageAccountName1 + " created";
+                GenerateAccount1p.IsEnabled = false;
+                GetAccount1Infop.IsVisible = true;
                 // DisableNetworkToggles(network);
             }
             if (string.IsNullOrEmpty(account2))
@@ -90,6 +110,9 @@ namespace algorandapp
                 GenerateAccount2.IsEnabled = true;
                 GetAccount2Info.IsVisible = false;
                 GenerateAccount2.Text = "Generate " + helper.StorageAccountName2;
+                GenerateAccount2p.IsEnabled = true;
+                GetAccount2Infop.IsVisible = false;
+                GenerateAccount2p.Text = "Generate " + helper.StorageAccountName2;
 
             }
             else
@@ -97,6 +120,10 @@ namespace algorandapp
                 GenerateAccount2.Text = helper.StorageAccountName2 + " created";
                 GenerateAccount2.IsEnabled = false;
                 GetAccount2Info.IsVisible = true;
+                GenerateAccount2p.Text = helper.StorageAccountName2 + " created";
+                GenerateAccount2p.IsEnabled = false;
+                GetAccount2Infop.IsVisible = true;
+
                 // DisableNetworkToggles(network);
             }
             if (string.IsNullOrEmpty(account3))
@@ -105,6 +132,9 @@ namespace algorandapp
                 GenerateAccount3.IsEnabled = true;
                 GetAccount3Info.IsVisible = false;
                 GenerateAccount3.Text = "Generate " + helper.StorageAccountName3;
+                GenerateAccount3p.IsEnabled = true;
+                GetAccount3Infop.IsVisible = false;
+                GenerateAccount3p.Text = "Generate " + helper.StorageAccountName3;
             }
             else
             {
@@ -112,6 +142,9 @@ namespace algorandapp
                 GenerateAccount3.Text = helper.StorageAccountName3 + " created";
                 GenerateAccount3.IsEnabled = false;
                 GetAccount3Info.IsVisible = true;
+                GenerateAccount3p.Text = helper.StorageAccountName3 + " created";
+                GenerateAccount3p.IsEnabled = false;
+                GetAccount3Infop.IsVisible = true;
                 // DisableNetworkToggles(network);
             }
 
@@ -129,6 +162,9 @@ namespace algorandapp
                     CreateMultiSig.IsEnabled = true;
                     CreateMultiSig.Text = "Create Multisig Address";
                     GetMultiSig.IsVisible = false;
+                    CreateMultiSigp.IsEnabled = true;
+                    CreateMultiSigp.Text = "Create Multisig Address";
+                    GetMultiSigp.IsVisible = false;
                     // disbale multisig transaction
                 }
                 else
@@ -137,6 +173,9 @@ namespace algorandapp
                     CreateMultiSig.IsEnabled = false;
                     CreateMultiSig.Text = "Multisig created ";
                     GetMultiSig.IsVisible = true;
+                    CreateMultiSigp.IsEnabled = false;
+                    CreateMultiSigp.Text = "Multisig created ";
+                    GetMultiSigp.IsVisible = true;
                     // todo store off version threshold and number of account
                     var htmlSource = new HtmlWebViewSource();
                     htmlSource.Html = @"<html><body><h3>" + "Multisig created - version = 1, threshold = 2, number of accounts = 3 </h3>" +
@@ -145,8 +184,8 @@ namespace algorandapp
                         "</body></html>";
 
                     myWebView.Source = htmlSource;
+                    myWebViewp.Source = htmlSource;
 
-                    
                     // enable send multisig transaction
                 }
 
@@ -156,12 +195,22 @@ namespace algorandapp
 
                     Transaction.Text = "Xfer " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
                     GetTransaction.IsVisible = false;
+
+                    Transactionp.IsEnabled = true;
+
+                    Transactionp.Text = "Xfer " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
+                    GetTransactionp.IsVisible = false;
+
                 }
                 else
                 {
                     Transaction.IsEnabled = true;
                     Transaction.Text = "Send " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2 + "?";
                     GetTransaction.IsVisible = true;
+                    Transactionp.IsEnabled = true;
+                    Transactionp.Text = "Send " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2 + "?";
+                    GetTransactionp.IsVisible = true;
+
                 }
                 if (!(string.IsNullOrEmpty(msig)))
 
@@ -172,12 +221,20 @@ namespace algorandapp
                         MultisigTransaction.IsEnabled = true;
                         MultisigTransaction.Text = "Send Multisig Tx to " + helper.StorageAccountName3;
                         GetMultiSigTx.IsVisible = false;
+                        MultisigTransactionp.IsEnabled = true;
+                        MultisigTransactionp.Text = "Send Multisig Tx to " + helper.StorageAccountName3;
+                        GetMultiSigTxp.IsVisible = false;
+
                     }
                     else
                     {
                         MultisigTransaction.IsEnabled = true;
                         MultisigTransaction.Text = "Send Multisig Tx to " + helper.StorageAccountName3 + "?";
                         GetMultiSigTx.IsVisible = true;
+
+                        MultisigTransactionp.IsEnabled = true;
+                        MultisigTransactionp.Text = "Send Multisig Tx to " + helper.StorageAccountName3 + "?";
+                        GetMultiSigTxp.IsVisible = true;
                     }
                 }
 
@@ -185,15 +242,28 @@ namespace algorandapp
 
           
             if (!String.IsNullOrEmpty(account1))
+            {
                 FundsNeeded1.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
+                FundsNeeded1p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
+            }
             if (!String.IsNullOrEmpty(account2)) 
             {
                 FundsNeeded2.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
+                FundsNeeded2p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
+
             }
             if (!String.IsNullOrEmpty(account3))
+            {
                 FundsNeeded3.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
+                FundsNeeded3p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
+
+            }
             if (!String.IsNullOrEmpty(msig))
+            {
                 FundsNeededMS.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
+                FundsNeededMSp.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
+
+            }
         }
 
         private async Task<bool> ToggleFundButton(string network, string accountname)
@@ -223,6 +293,11 @@ namespace algorandapp
             GenerateAccount1.Text = helper.StorageAccountName1 + " created";
             GenerateAccount1.IsEnabled = false;
             GetAccount1Info.IsVisible = true;
+
+            GenerateAccount1p.Text = helper.StorageAccountName1 + " created";
+            GenerateAccount1p.IsEnabled = false;
+            GetAccount1Infop.IsVisible = true;
+
             var network = await SecureStorage.GetAsync(helper.StorageNetwork);
           //  DisableNetworkToggles(network);
             // test to make sure account has funds before doing state?
@@ -238,6 +313,11 @@ namespace algorandapp
             GenerateAccount2.Text = helper.StorageAccountName2 + " created";
             GenerateAccount2.IsEnabled = false;
             GetAccount2Info.IsVisible = true;
+
+            GenerateAccount2p.Text = helper.StorageAccountName2 + " created";
+            GenerateAccount2p.IsEnabled = false;
+            GetAccount2Infop.IsVisible = true;
+
             var network = await SecureStorage.GetAsync(helper.StorageNetwork);
           //  DisableNetworkToggles(network);
             buttonstate();
@@ -250,6 +330,11 @@ namespace algorandapp
             GenerateAccount3.Text = helper.StorageAccountName3 + " created";
             GenerateAccount3.IsEnabled = false;
             GetAccount3Info.IsVisible = true;
+
+            GenerateAccount3p.Text = helper.StorageAccountName3 + " created";
+            GenerateAccount3p.IsEnabled = false;
+            GetAccount3Infop.IsVisible = true;
+
             var network = await SecureStorage.GetAsync(helper.StorageNetwork);
           //  DisableNetworkToggles(network);
             buttonstate();
@@ -273,7 +358,7 @@ namespace algorandapp
                 "</body></html>";
 
             myWebView.Source = htmlSource;
-
+            myWebViewp.Source = htmlSource;
             try
             {
                 await SecureStorage.SetAsync(accountname, myMnemonic);
@@ -345,6 +430,39 @@ namespace algorandapp
                     CreateMultiSig.Text = "Create Multisig Address";
                     Transaction.Text = "Transaction from " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
                     MultisigTransaction.Text = "Send Multisig Transaction to " + helper.StorageAccountName3;
+
+                    //phone
+
+                    GenerateAccount1p.IsEnabled = true;
+                    GenerateAccount2p.IsEnabled = true;
+                    GenerateAccount3p.IsEnabled = true;
+
+                    MultisigTransactionp.IsVisible = false;
+                    GetMultiSigTxp.IsVisible = false;
+                    CreateMultiSigp.IsVisible = false;
+                    GetMultiSigp.IsVisible = false;
+                    Transactionp.IsVisible = false;
+                    GetTransactionp.IsVisible = false;
+                    GetAccount1Infop.IsVisible = false;
+                    GetAccount2Infop.IsVisible = false;
+                    GetAccount3Infop.IsVisible = false;
+
+
+                    CreateMultiSigp.IsEnabled = false;
+                    Transactionp.IsEnabled = false;
+                    MultisigTransactionp.IsEnabled = false;
+
+                    GenerateAccount1p.Text = "Generate " + helper.StorageAccountName1;
+                    GenerateAccount2p.Text = "Generate " + helper.StorageAccountName2;
+                    GenerateAccount3p.Text = "Generate " + helper.StorageAccountName3;
+                    CreateMultiSigp.Text = "Create Multisig Address";
+                    Transactionp.Text = "Transaction from " + helper.StorageAccountName1 + " to " + helper.StorageAccountName2;
+                    MultisigTransactionp.Text = "Send Multisig Transaction to " + helper.StorageAccountName3;
+
+
+
+
+
                     // note: multisig sends from acct 1 and 2 if they both sign,
                     // the account receiving funds (acct 3) does not have to be in the multisig,
                     // it could be any account
@@ -352,7 +470,7 @@ namespace algorandapp
                     htmlSource.Html = @"<html><body></body></html>";
 
                     myWebView.Source = htmlSource;
-
+                    myWebViewp.Source = htmlSource;
                     network = await SecureStorage.GetAsync(helper.StorageNetwork);
                     var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
 
@@ -377,7 +495,7 @@ namespace algorandapp
         {
             await DisplayAccount(helper.StorageAccountName1);
             FundsNeeded1.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
-
+            FundsNeeded1p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
         }
 
 
@@ -410,6 +528,7 @@ namespace algorandapp
                 "</body></html>";
 
             myWebView.Source = htmlSource;
+            myWebViewp.Source = htmlSource;
         }
 
         // this method fails if the block does not have transactions, it should not be required to have transactions
@@ -429,7 +548,7 @@ namespace algorandapp
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
-
+                myWebViewp.Source = htmlSource;
             }
             catch (Exception err)
             {
@@ -439,6 +558,7 @@ namespace algorandapp
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
+                myWebViewp.Source = htmlSource;
             }
 
 
@@ -454,12 +574,14 @@ namespace algorandapp
 
             await DisplayAccount(helper.StorageAccountName2);
             FundsNeeded2.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
+            FundsNeeded2p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
         }
 
         public async void GetAccount3Info_Clicked(System.Object sender, System.EventArgs e)
         {    
             await DisplayAccount(helper.StorageAccountName3);
             FundsNeeded3.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
+            FundsNeeded3p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
         }
         public async void CreateMultiSig_Clicked(System.Object sender, System.EventArgs e)
         {
@@ -491,6 +613,16 @@ namespace algorandapp
             CreateMultiSig.Text = "Multisig created";
             CreateMultiSig.IsEnabled = false;
             GetMultiSig.IsVisible = true;
+
+            myWebViewp.Source = htmlSource;
+
+
+
+            CreateMultiSigp.Text = "Multisig created";
+            CreateMultiSigp.IsEnabled = false;
+            GetMultiSigp.IsVisible = true;
+
+
             await SecureStorage.SetAsync(helper.StorageMultisig, msig.ToString());
             buttonstate();
           
@@ -512,6 +644,11 @@ namespace algorandapp
 
 
             FundsNeededMS.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
+            myWebViewp.Source = htmlSource;
+
+
+            FundsNeededMSp.IsVisible = await ToggleFundButton(network, helper.StorageMultisig);
+
         }
 
         public async void Transaction_Clicked(System.Object sender, System.EventArgs e)
@@ -569,7 +706,7 @@ namespace algorandapp
                         "</body></html>";
 
                     myWebView.Source = htmlSource;
-
+                    myWebViewp.Source = htmlSource;
 
                 }
                 htmlSource = new HtmlWebViewSource();
@@ -577,8 +714,8 @@ namespace algorandapp
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
-
-              //  Entry4.Text = "Transaction ID = " + err.Message;
+                myWebViewp.Source = htmlSource;
+                //  Entry4.Text = "Transaction ID = " + err.Message;
             }
 
             if (!(String.IsNullOrEmpty(id.TxId)))
@@ -586,6 +723,7 @@ namespace algorandapp
             await SecureStorage.SetAsync(helper.StorageTransaction, id.TxId.ToString());
             GetTransaction.IsVisible = true;
             Transaction.Text = "Transaction successfully sent";
+            Transactionp.Text = "Transaction successfully sent";
             }
     
            
@@ -607,7 +745,8 @@ namespace algorandapp
                 "<h3>" + "Account 2 info = " + accountinfo.ToJson() + "</h3>" +
                 "</body></html>";
 
-            myWebView.Source = htmlSource;
+                myWebView.Source = htmlSource;
+                myWebViewp.Source = htmlSource;
             }
         }
 
@@ -622,6 +761,8 @@ namespace algorandapp
                 "</body></html>";
 
             myWebView.Source = htmlSource;
+            myWebViewp.Source = htmlSource;
+
 
 
         }
@@ -640,6 +781,8 @@ namespace algorandapp
 
             myWebView.Source = htmlSource;
 
+
+            myWebViewp.Source = htmlSource;
         }
 
         public async void MultisigTransaction_Clicked(System.Object sender, System.EventArgs e)
@@ -704,6 +847,10 @@ namespace algorandapp
             await SecureStorage.SetAsync(helper.StorageMultisigTransaction, id.TxId.ToString());
             MultisigTransaction.Text = "Transaction successfully sent";
             GetMultiSigTx.IsVisible = true;
+
+            MultisigTransactionp.Text = "Transaction successfully sent";
+            GetMultiSigTxp.IsVisible = true;
+
             //ulong? balance = await helper.GetAccountBalance(helper.StorageMultisig);
             //var htmlSource = new HtmlWebViewSource();
             //htmlSource.Html = @"<html><body><h3> Multisig balance = " + balance.ToString() + " </h3>" +
@@ -711,7 +858,7 @@ namespace algorandapp
 
             //myWebView.Source = htmlSource;
 
- 
+
 
 
 
@@ -740,6 +887,7 @@ namespace algorandapp
             await PromptToAddFunds(network, helper.StorageAccountName1);
             buttonstate();
             FundsNeeded1.IsVisible = false;
+            FundsNeeded1p.IsVisible = false;
         }
 
         private async Task PromptToAddFunds(string network, string accountname)
@@ -783,6 +931,7 @@ namespace algorandapp
             await PromptToAddFunds(network, helper.StorageAccountName2);
             buttonstate();
             FundsNeeded2.IsVisible = false;
+            FundsNeeded2p.IsVisible = false;
         }
 
         async void FundsNeeded3_click(System.Object sender, System.EventArgs e)
@@ -790,14 +939,17 @@ namespace algorandapp
             await PromptToAddFunds(network, helper.StorageAccountName3);
             buttonstate();
             FundsNeeded3.IsVisible = false;
+            FundsNeeded3p.IsVisible = false;
         }
 
         async void FundsNeededMS_click(System.Object sender, System.EventArgs e)
         {
             await PromptToAddFunds(network, helper.StorageMultisig);
             FundsNeededMS.IsVisible = false;
+            FundsNeededMSp.IsVisible = false;
             buttonstate();
             FundsNeededMS.IsVisible = false;
+            FundsNeededMSp.IsVisible = false;
         }
     }
 }

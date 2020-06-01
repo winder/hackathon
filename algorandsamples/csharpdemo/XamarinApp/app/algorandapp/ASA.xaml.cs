@@ -574,7 +574,8 @@ namespace algorandapp
                 Console.WriteLine("Transaction ID: " + id);
                 Console.WriteLine(Utils.WaitTransactionToComplete(algodApiInstance, id.TxId));
                 mytx = id.TxId;
-                RevokeAsset.Opacity = 1;
+                RevokeAsset.Opacity = .4;
+                RevokeAsset.IsEnabled = false;
                 // We can now list the account information for acct3 
                 // and see that it now has 0 of the new asset
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
@@ -595,7 +596,8 @@ namespace algorandapp
             {
                 //e.printStackTrace();
                 Console.WriteLine(err.Message);
-                RevokeAsset.Opacity = 1;
+                RevokeAsset.Opacity = .4;
+                RevokeAsset.IsEnabled = false;
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
