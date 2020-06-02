@@ -15,11 +15,6 @@
             </OnPlatform.Platforms>
         </OnPlatform>
     </ContentPage.Padding>
-    <!--<ContentPage.Resources>
-        <ResourceDictionary>
-            <local:ImageConverter x:Key="ImageConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>-->
 
     <StackLayout>
         <StackLayout>
@@ -149,24 +144,6 @@
                     </Label>
 
                 </StackLayout  >
-
-                <!--<Button x:Name="ASC1" Grid.Row="4" Grid.Column="0"
-                Text="Algorand Smart Contract Layer 1" Clicked="ASC1_Clicked">
-                    <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                    </Button.FontSize>
-                </Button>-->
-
-                <!--<Button x:Name="Settings" Grid.Row="6" Grid.Column="0"
-                Text="Settings" Clicked="Settings_Clicked">
-                      <Button.FontSize>
-          <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-        </Button.FontSize>
-        </Button>-->
 
             </Grid>
 

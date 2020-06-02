@@ -92,7 +92,6 @@ namespace algorandapp
             await this.Navigation.PushAsync(new NodeAndNetwork());
         }
 
-
         public async void GenerateAccount_click(System.Object sender, System.EventArgs e)
         {
             await this.Navigation.PushAsync(new Accounts());
@@ -107,13 +106,6 @@ namespace algorandapp
             await this.Navigation.PushAsync(new AtomicTransfers());
         }
 
-
-
-
-        public async void Settings_Clicked(System.Object sender, System.EventArgs e)
-        {
-            await this.Navigation.PushAsync(new Settings());
-        }
 
         async void ASC1_Clicked(System.Object sender, System.EventArgs e)
         {

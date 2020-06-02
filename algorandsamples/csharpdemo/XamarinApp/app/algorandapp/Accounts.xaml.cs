@@ -27,21 +27,19 @@ namespace algorandapp
         public static helper helper = new helper();
 
 
-        public AlgodApi algodApiInstance ;
+        public AlgodApi algodApiInstance;
 
         public string network = "";
 
         public Accounts()
         {
- 
-        InitializeComponent();
-        Appearing += Accounts_Appearing;
-       // helper = new helper();
+            InitializeComponent();
+            Appearing += Accounts_Appearing;
         }
 
         private async void Accounts_Appearing(object sender, EventArgs e)
         {
-   
+
             algodApiInstance = await helper.CreateApiInstance();
             network = await helper.GetNetwork();
 
@@ -60,7 +58,7 @@ namespace algorandapp
 
         }
 
-        public async void buttonstate ()
+        public async void buttonstate()
         {
 
             var account1 = await SecureStorage.GetAsync(helper.StorageAccountName1);
@@ -71,7 +69,7 @@ namespace algorandapp
             var transaction = await SecureStorage.GetAsync(helper.StorageTransaction);
             var multisigtransaction = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
             var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
-            
+
             NetworkLabel.Text = "Network: " + network + " " + nodetype;
 
             CreateMultiSig.IsVisible = true;
@@ -240,13 +238,13 @@ namespace algorandapp
 
             }
 
-          
+
             if (!String.IsNullOrEmpty(account1))
             {
                 FundsNeeded1.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
                 FundsNeeded1p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName1);
             }
-            if (!String.IsNullOrEmpty(account2)) 
+            if (!String.IsNullOrEmpty(account2))
             {
                 FundsNeeded2.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
                 FundsNeeded2p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName2);
@@ -271,7 +269,7 @@ namespace algorandapp
             ulong? amount = await helper.GetAccountBalance(accountname);
             var account = await SecureStorage.GetAsync(helper.StorageAccountName1);
             if (!(String.IsNullOrEmpty(account)))
-            { 
+            {
                 if (amount < helper.MIN_ACCOUNT_BALANCE)
                 {
                     // dispense if more funds needed
@@ -287,8 +285,8 @@ namespace algorandapp
 
 
         public async void GenerateAccount1_click(System.Object sender, System.EventArgs e)
-        {      
-          
+        {
+
             createaccounts(helper.StorageAccountName1);
             GenerateAccount1.Text = helper.StorageAccountName1 + " created";
             GenerateAccount1.IsEnabled = false;
@@ -299,16 +297,16 @@ namespace algorandapp
             GetAccount1Infop.IsVisible = true;
 
             var network = await SecureStorage.GetAsync(helper.StorageNetwork);
-          //  DisableNetworkToggles(network);
+            //  DisableNetworkToggles(network);
             // test to make sure account has funds before doing state?
 
-            buttonstate();           
+            buttonstate();
 
         }
         public async void GenerateAccount2_Clicked(System.Object sender, System.EventArgs e)
 
         {
-             
+
             createaccounts(helper.StorageAccountName2);
             GenerateAccount2.Text = helper.StorageAccountName2 + " created";
             GenerateAccount2.IsEnabled = false;
@@ -319,13 +317,13 @@ namespace algorandapp
             GetAccount2Infop.IsVisible = true;
 
             var network = await SecureStorage.GetAsync(helper.StorageNetwork);
-          //  DisableNetworkToggles(network);
+            //  DisableNetworkToggles(network);
             buttonstate();
         }
 
         public async void GenerateAccount3_Clicked(System.Object sender, System.EventArgs e)
         {
-    
+
             createaccounts(helper.StorageAccountName3);
             GenerateAccount3.Text = helper.StorageAccountName3 + " created";
             GenerateAccount3.IsEnabled = false;
@@ -336,7 +334,7 @@ namespace algorandapp
             GetAccount3Infop.IsVisible = true;
 
             var network = await SecureStorage.GetAsync(helper.StorageNetwork);
-          //  DisableNetworkToggles(network);
+            //  DisableNetworkToggles(network);
             buttonstate();
 
         }
@@ -344,8 +342,8 @@ namespace algorandapp
 
         public async void createaccounts(string accountname)
         {
-           
-           
+
+
             string[] myAccountInfo = await helper.CreateAccount(accountname);
 
             var myAccountAddress = myAccountInfo[0].ToString();
@@ -369,7 +367,7 @@ namespace algorandapp
                 // Possible that device doesn't support secure storage on device.
             }
 
-           // OpenDispenser(helper, network, myAccountAddress);
+            // OpenDispenser(helper, network, myAccountAddress);
         }
 
         private static void OpenDispenser(helper helper, string network, string myAccountAddress)
@@ -396,7 +394,7 @@ namespace algorandapp
             {
                 try
                 {
-                    
+
                     await SecureStorage.SetAsync(helper.StorageAccountName1, "");
                     await SecureStorage.SetAsync(helper.StorageAccountName2, "");
                     await SecureStorage.SetAsync(helper.StorageAccountName3, "");
@@ -476,7 +474,7 @@ namespace algorandapp
 
                     NetworkLabel.Text = "Network: " + network + " " + nodetype;
 
-                
+
                     buttonstate();
 
                 }
@@ -538,32 +536,27 @@ namespace algorandapp
         {
             var status = await algodApiInstance.GetStatusAsync();
             long lastround = (long)status.LastRound;
-            Block block; 
-            try {
-              block = await algodApiInstance.GetBlockAsync(lastround);
+            Block block;
+            try
+            {
+                block = await algodApiInstance.GetBlockAsync(lastround);
 
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Last Round = " + lastround.ToString() + "</h3>" +
                     "<h3>" + "Block Info = " + block.ToJson() + "</h3>" +
                     "</body></html>";
-
                 myWebView.Source = htmlSource;
                 myWebViewp.Source = htmlSource;
             }
             catch (Exception err)
             {
-
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message.ToString() + "</h3>" + 
+                htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message.ToString() + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
                 myWebViewp.Source = htmlSource;
             }
-
-
-
-
         }
 
 
@@ -578,7 +571,7 @@ namespace algorandapp
         }
 
         public async void GetAccount3Info_Clicked(System.Object sender, System.EventArgs e)
-        {    
+        {
             await DisplayAccount(helper.StorageAccountName3);
             FundsNeeded3.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
             FundsNeeded3p.IsVisible = await ToggleFundButton(network, helper.StorageAccountName3);
@@ -590,7 +583,7 @@ namespace algorandapp
             Account account1 = accounts[0];
             Account account2 = accounts[1];
             Account account3 = accounts[2];
-  
+
 
             List<Ed25519PublicKeyParameters> publickeys = new List<Ed25519PublicKeyParameters>();
 
@@ -603,7 +596,7 @@ namespace algorandapp
 
             var htmlSource = new HtmlWebViewSource();
             htmlSource.Html = @"<html><body><h3>" + "Multisig Address " + msig.ToString() + "</h3>" +
-                "<h3>" + "Multisig balance = " + balance.ToString() + "</h3>" + 
+                "<h3>" + "Multisig balance = " + balance.ToString() + "</h3>" +
                 "</body></html>";
 
             myWebView.Source = htmlSource;
@@ -625,8 +618,8 @@ namespace algorandapp
 
             await SecureStorage.SetAsync(helper.StorageMultisig, msig.ToString());
             buttonstate();
-          
-        //     OpenDispenser(helper, network, msig.ToString());
+
+            //     OpenDispenser(helper, network, msig.ToString());
 
 
         }
@@ -653,17 +646,14 @@ namespace algorandapp
 
         public async void Transaction_Clicked(System.Object sender, System.EventArgs e)
         {
-          
             // restore accounts
             var accounts = await helper.RestoreAccounts();
             Account account1 = accounts[0];
             Account account2 = accounts[1];
             Account account3 = accounts[2];
             HtmlWebViewSource htmlSource;
-
             // transfer from Account 1 to 2
             TransactionParams transParams = null;
-
             try
             {
                 transParams = algodApiInstance.TransactionParams();
@@ -673,10 +663,8 @@ namespace algorandapp
                 throw new Exception("Could not get params", err);
             }
             var amount = Utils.AlgosToMicroalgos(1);
-            var tx = Utils.GetPaymentTransaction(account1.Address, account2.Address, amount, "pay message", transParams);
-            //Transaction tx = new Transaction(src.Address, new Address(DEST_ADDR), amount, firstRound, lastRound, genesisID, genesisHash);
+            var tx = Utils.GetPaymentTransaction(account1.Address, account2.Address, amount, "pay message", transParams);           
             var signedTx = account1.SignTransaction(tx);
-
             Console.WriteLine("Signed transaction with txid: " + signedTx.transactionID);
             TransactionID id = null;
             string wait = "";
@@ -687,22 +675,20 @@ namespace algorandapp
                 Console.WriteLine("Successfully sent tx with id: " + id.TxId);
                 wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
                 Console.WriteLine(wait);
-
-
             }
             catch (ApiException err)
             {
                 // This should give us an informative error message.
                 //   await SecureStorage.SetAsync("Transaction", err.Message);
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
-                
+
                 if (err.Message.Contains("overspend"))
                 {
                     var network = await SecureStorage.GetAsync(helper.StorageNetwork);
                     htmlSource = new HtmlWebViewSource();
                     htmlSource.Html = @"<html><body><h3>" + network + " Account has insuficent funds. " + "</h3>" +
                         "<h3>" + network + " add funds and try again. " + "</h3>" +
-                        "<p>Account = " + account1.Address.ToString() +"</p>" +
+                        "<p>Account = " + account1.Address.ToString() + "</p>" +
                         "</body></html>";
 
                     myWebView.Source = htmlSource;
@@ -719,20 +705,20 @@ namespace algorandapp
             }
 
             if (!(String.IsNullOrEmpty(id.TxId)))
-                { 
-            await SecureStorage.SetAsync(helper.StorageTransaction, id.TxId.ToString());
-            GetTransaction.IsVisible = true;
-            Transaction.Text = "Transaction successfully sent";
-            Transactionp.Text = "Transaction successfully sent";
+            {
+                await SecureStorage.SetAsync(helper.StorageTransaction, id.TxId.ToString());
+                GetTransaction.IsVisible = true;
+                Transaction.Text = "Transaction successfully sent";
+                Transactionp.Text = "Transaction successfully sent";
             }
-    
-           
+
+
             buttonstate();
 
             await DisplayAccount(helper.StorageAccountName2);
 
             var mytx = await SecureStorage.GetAsync(helper.StorageTransaction);
-            if (!(mytx == null || mytx ==""))
+            if (!(mytx == null || mytx == ""))
 
             {
                 Algorand.Algod.Client.Model.Account accountinfo =
@@ -741,9 +727,9 @@ namespace algorandapp
                 Debug.WriteLine("Account 2 info: " + accountinfo);
                 htmlSource = new HtmlWebViewSource();
 
-            htmlSource.Html = @"<html><body><h3> Transaction ID = " + mytx.ToString() + " </h3>" +
-                "<h3>" + "Account 2 info = " + accountinfo.ToJson() + "</h3>" +
-                "</body></html>";
+                htmlSource.Html = @"<html><body><h3> Transaction ID = " + mytx.ToString() + " </h3>" +
+                    "<h3>" + "Account 2 info = " + accountinfo.ToJson() + "</h3>" +
+                    "</body></html>";
 
                 myWebView.Source = htmlSource;
                 myWebViewp.Source = htmlSource;
@@ -757,7 +743,7 @@ namespace algorandapp
             //  await DisplayAccount(helper.StorageAccountName2);
             var txid = await SecureStorage.GetAsync(helper.StorageTransaction);
             var htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = @"<html><body><h3> Transaction ID = " + txid.ToString() + " </h3>" + 
+            htmlSource.Html = @"<html><body><h3> Transaction ID = " + txid.ToString() + " </h3>" +
                 "</body></html>";
 
             myWebView.Source = htmlSource;
@@ -769,13 +755,13 @@ namespace algorandapp
 
         public async void GetMultiSigTx_Clicked(System.Object sender, System.EventArgs e)
         {
-         //   await DisplayAccount(helper.StorageAccountName3);
+            //   await DisplayAccount(helper.StorageAccountName3);
             var txid = await SecureStorage.GetAsync(helper.StorageMultisigTransaction);
 
 
             var htmlSource = new HtmlWebViewSource();
             htmlSource.Html = @"<html><body><h3> Multisig Transaction ID = " +
-                txid.ToString() + " </h3>"  +
+                txid.ToString() + " </h3>" +
 
                 "</body></html>";
 
@@ -841,7 +827,7 @@ namespace algorandapp
             }
             catch (ApiException err)
             {
- 
+
                 Console.WriteLine("Exception when calling algod#rawTransaction: " + err.Message);
             }
             await SecureStorage.SetAsync(helper.StorageMultisigTransaction, id.TxId.ToString());
@@ -875,7 +861,7 @@ namespace algorandapp
             //          "</body></html>";
 
             //    myWebView.Source = htmlSource;
-     
+
 
             //}
 
@@ -883,7 +869,7 @@ namespace algorandapp
 
         async void FundsNeeded1_click(System.Object sender, System.EventArgs e)
         {
-    
+
             await PromptToAddFunds(network, helper.StorageAccountName1);
             buttonstate();
             FundsNeeded1.IsVisible = false;
@@ -911,7 +897,7 @@ namespace algorandapp
                             Account myaccount = new Account(mnemonic);
                             myaddress = myaccount.Address.ToString();
                             await Clipboard.SetTextAsync(myaddress);
-                         }
+                        }
                         else
                         {
                             // get multisig addr

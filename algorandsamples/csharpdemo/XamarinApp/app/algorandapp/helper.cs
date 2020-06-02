@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Algorand.Algod.Client.Api;
 
-// Purestake mine
-//public const string ALGOD_API_TOKEN_BETANET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
-//public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
-//public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
-//public const string ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
 
-// Purestake Hackathon
+// Purestake 
 //public const string ALGOD_API_TOKEN_BETANET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
 //public const string ALGOD_API_ADDR_BETANET = "https://betanet-algorand.api.purestake.io/ps1";
 //public const string ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
@@ -85,9 +80,6 @@ namespace algorandapp
         public async Task<string[]> CreateAccount(string accountname)
         {
             string[] accountinfo = new string[2];
-
-
-
             Account myAccount = new Account();
             var myMnemonic = myAccount.ToMnemonic();
             Console.WriteLine(accountname.ToString() + " Address = " + myAccount.Address.ToString());
@@ -95,7 +87,6 @@ namespace algorandapp
 
             accountinfo[0] = myAccount.Address.ToString();
             accountinfo[1] = myMnemonic.ToString();
-
             return accountinfo;
         }
 
@@ -130,10 +121,8 @@ namespace algorandapp
 
         public async Task<ulong?> GetAccountBalance(string accountname)
         {
-
             Account account = null;
             string myaddress = "";
-
             string network = await SecureStorage.GetAsync(StorageNetwork);
             if (!(accountname == StorageMultisig))
             {
@@ -143,19 +132,13 @@ namespace algorandapp
                     account = new Account(mnemonic);
                     myaddress = account.Address.ToString();
                 }
-
             }
             else
             {
                 // multisig address
                 myaddress = await SecureStorage.GetAsync(accountname);
             }
-
-
-
-
             algodApiInstance = await CreateApiInstance();
-
             if (algodApiInstance != null)
             {
                 if (!(String.IsNullOrEmpty(myaddress)))
@@ -167,18 +150,13 @@ namespace algorandapp
                         return accountinfo.Amount;
                     }
                 }
-
             }
             return (ulong?)0;
-
-
         }
 
         public async Task<AlgodApi> CreateApiInstance()
         {
             // creatapi instance
-
-
             string ALGOD_API_TOKEN_BETANET = await SecureStorage.GetAsync(StorageALGOD_API_TOKEN_BETANET);
             string ALGOD_API_TOKEN_TESTNET = await SecureStorage.GetAsync(StorageALGOD_API_TOKEN_TESTNET);
             string ALGOD_API_ADDR_TESTNET = await SecureStorage.GetAsync(StorageALGOD_API_ADDR_TESTNET);
@@ -188,16 +166,11 @@ namespace algorandapp
             {
                 //first time - default to TestNet/Purestake
                 ALGOD_API_ADDR_TESTNET = "https://testnet-algorand.api.purestake.io/ps1";
-                // mine
-                ALGOD_API_TOKEN_TESTNET = "WpYvadV1w53mSODr6Xrq77tw0ODcgHAx9iJBn5tb";
-                // hackathon
-                // ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
-
+                ALGOD_API_TOKEN_TESTNET = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab";
                 await SecureStorage.SetAsync(StorageALGOD_API_TOKEN_TESTNET, ALGOD_API_TOKEN_TESTNET);
                 await SecureStorage.SetAsync(StorageALGOD_API_ADDR_TESTNET, ALGOD_API_ADDR_TESTNET);
 
                 algodApiInstance = new AlgodApi(ALGOD_API_ADDR_TESTNET, ALGOD_API_TOKEN_TESTNET);
-
                 await SecureStorage.SetAsync("Network", StorageTestNet);
             }
             else
@@ -214,7 +187,6 @@ namespace algorandapp
                 }
             }
             return algodApiInstance;
-
         }
 
         public async Task<string> GetNetwork()

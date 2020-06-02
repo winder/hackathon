@@ -258,13 +258,8 @@ namespace algorandapp
 
         private async void CreateAsset_click(System.Object sender, System.EventArgs e)
         {
-            Status.Text = "Submitting to blockchain... please wait...";
             CreateAsset.Opacity = .2;
             HtmlWebViewSource htmlSource = new HtmlWebViewSource();
-            htmlSource.Html = @"<html><body><h3>" + "Submitting to blockchain... please wait...</h3>" +
-                "</body></html>";
-            myWebView.Source = htmlSource;
-
 
             var transParams = algodApiInstance.TransactionParams();
 
@@ -272,7 +267,7 @@ namespace algorandapp
             // and will be re-used throughout the example. 
 
             // Create the Asset
-            // Total number of this asset available for circulation
+            // Total number of this asset available for circulation = 10000
 
             var ap = new AssetParams(creator: account1.Address.ToString(), assetname: "latikum22",
                 unitname: "LAT", defaultfrozen: false, total: 10000,
@@ -284,7 +279,7 @@ namespace algorandapp
 
             // Specified address can change reserve, freeze, clawback, and manager
             // you can leave as default, by default the sender will be manager/reserve/freeze/clawback
-            // the following code only set the freeze to account1
+
             var tx = Utils.GetCreateAssetTransaction(ap, transParams, "asset tx message");
 
             // Sign the Transaction by sender
@@ -308,7 +303,6 @@ namespace algorandapp
                 CreateAsset.Opacity = 1;
                 var act = algodApiInstance.AssetInformation((long?)assetID).ToJson();
 
-               // htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "AssetID = " + assetID.ToString() + "</h3>" +
                     "<h3>" + "Asset Info = " + act.ToString() + "</h3>" +
                     "</body></html>";
@@ -319,22 +313,13 @@ namespace algorandapp
             {
                 Console.WriteLine(err.StackTrace);
                 CreateAsset.Opacity = 1;
-              //  htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Error = " + err.Message + "</h3>" +
                     "</body></html>";
                 myWebView.Source = htmlSource;
                 return;
             }
-
-
             Console.WriteLine("AssetID = " + assetID);
             // now the asset already created
-
-
-
-
-
-
         }
 
 
@@ -403,19 +388,10 @@ namespace algorandapp
 
         async void OptIn_Clicked(System.Object sender, System.EventArgs e)
         {
-            //await myProgressBar.ProgressTo(1.0, 10000, Easing.Linear);
             OptIn.Opacity = .2;
-            //myProgressBar.Progress = 0;
-            //Task.Run(() =>
-            //{
-            //    for (int i = 0; i < 10000; i++)
-            //    {
-            //        Thread.Sleep(5);
-            //        myProgressBar.Progress = Convert.ToDouble("00." + i.ToString());
-            //    }
-            //});
 
             // Opt in to Receiving the Asset
+
             // Opting in to transact with the new asset
             // All accounts that want recieve the new asset
             // Have to opt in. To do this they send an asset transfer
@@ -471,9 +447,6 @@ namespace algorandapp
                 myWebView.Source = htmlSource;
                 return;
             }
-
-
-
         }
 
 
@@ -513,7 +486,6 @@ namespace algorandapp
    
                 var act = algodApiInstance.AccountInformation(account3.Address.ToString());
                 Console.WriteLine(act.GetHolding(assetID).ToString());
-                //  myLabel.Text = act.GetHolding(assetID).ToString();
                 await SecureStorage.SetAsync(helper.StorageLastASAButton, "freeze");
                 buttonstate("freeze");
                 var asset = algodApiInstance.AssetInformation((long?)assetID).ToJson();
@@ -676,8 +648,6 @@ namespace algorandapp
 
 
         }
-
-
 
         async void TransferAsset_Clicked(System.Object sender, System.EventArgs e)
         {
