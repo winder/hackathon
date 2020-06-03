@@ -388,7 +388,7 @@ namespace algorandapp
 
         public async void ClearAccounts_Clicked(System.Object sender, System.EventArgs e)
         {
-            string action = await DisplayActionSheet("ActionSheet: Are you sure you want to remove all accounts from this device?", "Cancel", null, "Yes", "No");
+            string action = await DisplayActionSheet("Are you sure you want to remove all accounts from this device?", "Cancel", null, "Yes", "No");
             Debug.WriteLine("Action: " + action);
             if (action == "Yes")
             {
@@ -401,7 +401,9 @@ namespace algorandapp
                     await SecureStorage.SetAsync(helper.StorageMultisig, "");
                     await SecureStorage.SetAsync(helper.StorageTransaction, "");
                     await SecureStorage.SetAsync(helper.StorageMultisigTransaction, "");
-                    await SecureStorage.SetAsync(helper.StorageNetwork, "TestNet");
+                
+                    // keep storage network
+                    // await SecureStorage.SetAsync(helper.StorageNetwork, "TestNet");
 
                     GenerateAccount1.IsEnabled = true;
                     GenerateAccount2.IsEnabled = true;
@@ -529,9 +531,6 @@ namespace algorandapp
             myWebViewp.Source = htmlSource;
         }
 
-        // this method fails if the block does not have transactions, it should not be required to have transactions
-        // https://github.com/RileyGe/dotnet-algorand-sdk/issues/3
-
         public async void GetBlock_Clicked(System.Object sender, System.EventArgs e)
         {
             var status = await algodApiInstance.GetStatusAsync();
@@ -647,6 +646,7 @@ namespace algorandapp
         public async void Transaction_Clicked(System.Object sender, System.EventArgs e)
         {
             // restore accounts
+
             var accounts = await helper.RestoreAccounts();
             Account account1 = accounts[0];
             Account account2 = accounts[1];
@@ -708,8 +708,6 @@ namespace algorandapp
             {
                 await SecureStorage.SetAsync(helper.StorageTransaction, id.TxId.ToString());
                 GetTransaction.IsVisible = true;
-                Transaction.Text = "Transaction successfully sent";
-                Transactionp.Text = "Transaction successfully sent";
             }
 
 
@@ -734,6 +732,7 @@ namespace algorandapp
                 myWebView.Source = htmlSource;
                 myWebViewp.Source = htmlSource;
             }
+
         }
 
         public async void GetTransaction_Clicked(System.Object sender, System.EventArgs e)
@@ -886,7 +885,7 @@ namespace algorandapp
                     // diplay Account1 on network is belown min balance.
                     // would you like to dispense fund to it?
 
-                    string action = await DisplayActionSheet("ActionSheet: " + accountname + "on " + network + " is below min balance would you like to dispense funds to it?", "Cancel", null, "Yes", "No");
+                    string action = await DisplayActionSheet(accountname + " on " + network + " is below min balance would you like to dispense funds to it?", "Cancel", null, "Yes", "No");
                     Debug.WriteLine("Action: " + action);
                     string myaddress = "";
                     if (action == "Yes")

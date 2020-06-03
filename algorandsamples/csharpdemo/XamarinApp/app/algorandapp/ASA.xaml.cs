@@ -362,6 +362,7 @@ namespace algorandapp
 
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                    "<h3>" + "Asset ID = " + assetID.ToString() + "</h3>" +
                     "<h3>" + "Asset Info = " + act.ToString() + "</h3>" +
                     "</body></html>";
 
@@ -393,13 +394,14 @@ namespace algorandapp
             // Opt in to Receiving the Asset
 
             // Opting in to transact with the new asset
-            // All accounts that want recieve the new asset
+            // All accounts that want receive the new asset
             // Have to opt in. To do this they send an asset transfer
-            // of the new asset to themseleves with an ammount of 0
+            // of the new asset to themselves with an amount of 0
             // In this example we are setting up the 3rd recovered account to 
             // receive the new asset        
-            // First we update standard Transaction parameters
+            // First, we update standard Transaction parameters
             // To account for changes in the state of the blockchain
+
             var transParams = algodApiInstance.TransactionParams();
             var tx = Utils.GetActivateAssetTransaction(account3.Address, assetID, transParams, "opt in transaction");
 
@@ -432,6 +434,7 @@ namespace algorandapp
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
                     "<h3>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h3>" +
+                    "<h3>" + "Asset ID = " + assetID.ToString() + "</h3>" +
                     "</body></html>";
 
                 myWebView.Source = htmlSource;
@@ -454,15 +457,16 @@ namespace algorandapp
         async void FreezeAsset_Clicked(System.Object sender, System.EventArgs e)
         {
             FreezeAsset.Opacity = .2;
-            // Freeze the Asset:
+            // Freeze the asset
             // The asset was created and configured to allow freezing an account
             // If the freeze address is blank, it will no longer be possible to do this.
             // In this example we will now freeze account3 from transacting with the 
             // The newly created asset. 
-            // Thre freeze transaction is sent from the freeze acount
+            // The freeze transaction is sent from the freeze account
             // Which in this example is account2 
             // First we update standard Transaction parameters
             // To account for changes in the state of the blockchain
+
             var transParams = algodApiInstance.TransactionParams();
             // Next we set asset xfer specific parameters
             // The sender should be freeze account acct2
@@ -493,6 +497,7 @@ namespace algorandapp
 
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                       "<h3>" + "Asset ID = " + assetID.ToString() + "</h3>" +
                     "<h3>" + "Account 3 Asset Freeze = " + account.GetHolding(assetID).Frozen.ToString()  + "</h3>" +
                     "</body></html>";
 
@@ -526,8 +531,8 @@ namespace algorandapp
             // then this would not be possible.
             // We will now clawback the 10 assets in account3. Account2
             // is the clawbackaccount and must sign the transaction
-            // The sender will be be the clawback adress.
-            // the recipient will also be be the creator acct1 in this case  
+            // The sender will be the clawback adress.
+            // the recipient will also be the creator acct1 in this case  
             // First we update standard Transaction parameters
             // To account for changes in the state of the blockchain
             var transParams = algodApiInstance.TransactionParams();
@@ -559,6 +564,7 @@ namespace algorandapp
 
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                       "<h3>" + "Asset ID = " + assetID.ToString() + "</h3>" +
                     "<h3>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h3>" +
                     "</body></html>";
 
@@ -653,11 +659,12 @@ namespace algorandapp
         {
             TransferAsset.Opacity = .2;
             // Transfer the Asset:
-            // Now that account3 can recieve the new asset 
-            // we can tranfer assets in from the creator
+            // Now that account3 can receive the new asset 
+            // we can transfer assets in from the creator
             // to account3
             // First we update standard Transaction parameters
             // To account for changes in the state of the blockchain
+
             var transParams = algodApiInstance.TransactionParams();
             // Next we set asset xfer specific parameters
             // We set the assetCloseTo to null so we do not close the asset out
@@ -689,6 +696,7 @@ namespace algorandapp
 
                 var htmlSource = new HtmlWebViewSource();
                 htmlSource.Html = @"<html><body><h3>" + "Transaction ID = " + mytx + "</h3>" +
+                       "<h3>" + "Asset ID = " + assetID.ToString() + "</h3>" +
                     "<h3>" + "Account 3 Asset Amount = " + account.GetHolding(assetID).Amount.ToString() + "</h3>" +
                     "</body></html>";
 

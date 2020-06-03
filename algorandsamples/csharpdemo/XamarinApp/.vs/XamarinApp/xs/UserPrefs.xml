@@ -1,60 +1,35 @@
-﻿<Properties StartupConfiguration="{CAD279A1-993F-456F-A200-7113A44E9E13}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp.Android/SplashActivity.cs">
+﻿<Properties StartupConfiguration="{3D8488E0-5101-4301-82D6-304AE6FB9D56}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp.iOS/Resources/LaunchScreen.storyboard">
     <Files>
-      <File FileName="app/algorandapp/MainPage.xaml" Line="119" Column="51" />
-      <File FileName="app/algorandapp/helper.cs" Line="202" Column="1" />
-      <File FileName="app/algorandapp/ASC.xaml" />
-      <File FileName="app/algorandapp/ASC.xaml.cs" />
-      <File FileName="app/algorandapp/ASA.xaml" />
-      <File FileName="app/algorandapp/ASA.xaml.cs" />
-      <File FileName="app/algorandapp/NodeAndNetwork.xaml.cs" />
-      <File FileName="app/algorandapp/Accounts.xaml.cs" />
-      <File FileName="app/algorandapp/Accounts.xaml" />
-      <File FileName="app/algorandapp/NodeAndNetwork.xaml" />
-      <File FileName="app/algorandapp.iOS/Main.cs" />
-      <File FileName="app/algorandapp/AtomicTransfers.xaml" />
+      <File FileName="app/algorandapp/ASA.xaml.cs" Line="365" Column="53" />
+      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="532" Column="10" />
+      <File FileName="app/algorandapp/MainPage.xaml.cs" Line="92" Column="1" />
+      <File FileName="app/algorandapp.iOS/Entitlements.plist" />
+      <File FileName="app/algorandapp.iOS/Main.cs" Line="17" Column="1" />
+      <File FileName="app/algorandapp/helper.cs" Line="146" Column="1" />
       <File FileName="app/algorandapp.iOS/Resources/LaunchScreen.storyboard" />
-      <File FileName="app/algorandapp.Android/Resources/drawable/splash_screen.xml" Line="12" Column="14" />
-      <File FileName="app/algorandapp.Android/Resources/values/colors.xml" Line="7" Column="5" />
-      <File FileName="app/algorandapp.Android/Resources/values/styles.xml" Line="33" Column="11" />
-      <File FileName="app/algorandapp.Android/MainActivity.cs" Line="1" Column="1" />
-      <File FileName="app/algorandapp.Android/SplashActivity.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="XamarinApp" expanded="True">
+          <Node name="XamarinApp" expanded="True" selected="True">
             <Node name="algorandapp" expanded="True">
-              <Node name="Assets" expanded="True" />
-            </Node>
-            <Node name="algorandapp.Android" expanded="True">
-              <Node name="Resources" expanded="True">
-                <Node name="drawable" expanded="True" />
-                <Node name="mipmap-hdpi" expanded="True" />
-                <Node name="mipmap-mdpi" expanded="True" />
-                <Node name="mipmap-xhdpi" expanded="True" />
-                <Node name="mipmap-xxhdpi" expanded="True" />
-                <Node name="mipmap-xxxhdpi" expanded="True" />
-                <Node name="values" expanded="True" />
-              </Node>
-              <Node name="SplashActivity.cs" selected="True" />
+              <Node name="Accounts.xaml" expanded="True" />
             </Node>
             <Node name="algorandapp.iOS" expanded="True">
-              <Node name="References" expanded="True" />
               <Node name="Resources" expanded="True" />
             </Node>
+            <Node name="algorandapp.UWP" expanded="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.algorandapp.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.64B149B5-0826-43C2-A089-6D77D6E1EF25" />
+  <MonoDevelop.Ide.ItemProperties.algorandapp.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.10d3bbe97695eab831e629223c59f7c199581ed0" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/helper.cs" relfile="app/algorandapp/helper.cs" line="187" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.algorandapp.Android AndroidDesignerPreferredTheme="Theme.AppCompat.Light.NoActionBar" PreferredExecutionTarget="Android.nexus_10_pie_9_0_-_api_28" />
