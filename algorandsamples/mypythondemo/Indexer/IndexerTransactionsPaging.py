@@ -1,5 +1,5 @@
 import json
-# requires version 1.3 or higher of the Python SDK
+# requires Python SDK version 1.3 or higher
 from algosdk.v2client import indexer
 
 data = {
@@ -7,7 +7,7 @@ data = {
     "indexer_address": "http://localhost:8980"
 }
 
-# instanciate indexer client
+# instantiate indexer client
 myindexer = indexer.IndexerClient(**data)
 
 # this sample will loop thru all transactions in the search result
@@ -32,7 +32,9 @@ while (numtx > 0):
         nexttoken = response['next-token']
         # concatinate response
         responseall = responseall + json.dumps(response)
-        
+
+#json.load method converts JSON string to Python Object
+parsed = json.loads(responseall)
 # Pretty Printing JSON string 
-print(json.dumps(responseall, indent=4, sort_keys=True))
+print(json.dumps(parsed, indent=2, sort_keys=True))
 
