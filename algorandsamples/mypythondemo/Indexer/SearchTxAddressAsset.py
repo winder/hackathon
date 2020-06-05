@@ -14,9 +14,9 @@ myindexer = indexer.IndexerClient(**data)
 
 # min/max rounds
 data = {
-    "address": "XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4",
-    "min_round": "7048877"
+    "address": "SWOUICD7Y5PQBWWEYC4XZAQZI7FJRZLD5O3CP4GU2Y7FP3QFKA7RHN2WJU",
+    "asset_id": "2044572",
+    "min_amount": 50
     }
 response = myindexer.search_transactions_by_address(**data)
-print("round: 7048877 = " +
-      json.dumps(response, indent=2, sort_keys=True))
+print(json.dumps(response, indent=2, sort_keys=True))
