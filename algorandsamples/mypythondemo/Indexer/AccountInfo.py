@@ -9,11 +9,9 @@ data = {
 
 # instantiate indexer client
 myindexer = indexer.IndexerClient(**data)
-
 data = {
     "address": "7WENHRCKEAZHD37QMB5T7I2KWU7IZGMCC3EVAO7TQADV7V5APXOKUBILCI"
 }
 response = myindexer.account_info(**data)
-
 print(json.dumps(response, indent=2, sort_keys=True))
 

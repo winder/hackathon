@@ -9,11 +9,10 @@ data = {
 
 # instantiate indexer client
 myindexer = indexer.IndexerClient(**data)
-# gets accounts for AssetID, returns 100 max, use next_page to loop for more
+# gets accounts for AssetID
 data = {
     "asset_id": 312769
 }
 response = myindexer.accounts(**data)
-
 print(json.dumps(response, indent=2, sort_keys=True))
 

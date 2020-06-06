@@ -9,10 +9,7 @@ data = {
 
 # instantiate indexer client
 myindexer = indexer.IndexerClient(**data)
-# gets tranactins for an account after a timestamp
 
-
-# min/max rounds
 data = {
     "address": "XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4",
     "txid": "QZS3B2XBBS47S6X5CZGKKC2FC7HRP5VJ4UNS7LPGHP24DUECHAAA"

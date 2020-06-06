@@ -9,7 +9,7 @@ data = {
 
 # instantiate indexer client
 myindexer = indexer.IndexerClient(**data)
-# gets accounts with a min balance of 100 that have a particular AssetID
+# gets accounts with a min balance of 200 for AssetID
 data = {
     "asset_id": "2044572",
     "min_balance": 200

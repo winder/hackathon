@@ -14,7 +14,6 @@ data = {
     "limit": 2,
 }
 response = myindexer.search_transactions(**data)
-
 # Pretty Printing JSON string 
 print(json.dumps(response, indent=2, sort_keys=True))
 

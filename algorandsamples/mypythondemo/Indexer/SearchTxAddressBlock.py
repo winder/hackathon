@@ -9,10 +9,7 @@ data = {
 
 # instantiate indexer client
 myindexer = indexer.IndexerClient(**data)
-# gets tranactins for an account after a timestamp
-
-
-# min/max rounds
+# block
 data = {
     "address": "XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4",
     "block": "7048877"

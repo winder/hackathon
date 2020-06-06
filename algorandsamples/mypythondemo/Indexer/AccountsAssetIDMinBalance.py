@@ -15,6 +15,5 @@ data = {
     "asset_id": 312769
 }
 response = myindexer.accounts(**data)
-
 print(json.dumps(response, indent=2, sort_keys=True))
 
