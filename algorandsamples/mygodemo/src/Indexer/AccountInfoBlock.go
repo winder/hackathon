@@ -13,7 +13,8 @@ const indexerAddress = "http://localhost:8980"
 const indexerToken = ""
 
 // query parameters
-var blockNum uint64 = 1024
+var round uint64 = 6127822
+var account = "7WENHRCKEAZHD37QMB5T7I2KWU7IZGMCC3EVAO7TQADV7V5APXOKUBILCI"
 
 func main() {
 
@@ -24,10 +25,9 @@ func main() {
 	}
 
 	// Lookup block
-	result, err := indexerClient.LookupBlock(blockNum).Do(context.Background())
+	_, result, err := indexerClient.LookupAccountByID(account).Round(round).Do(context.Background())
 
 	// Print the results
-	fmt.Printf("\n----------------- Results -------------------\n")
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 

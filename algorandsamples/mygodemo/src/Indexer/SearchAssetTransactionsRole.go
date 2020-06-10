@@ -15,10 +15,11 @@ const indexerToken = ""
 
 // query parameters
 var assetID uint64 = 2044572
-var accountRole = "receiver"
-var accountAddress types.Address = "UF7ATOM6PBLWMQMPUQ5QLA5DZ5E35PXQ2IENWGZQLEJJAAPAPGEGC3ZYNI"
+var role = "receiver"
 
 func main() {
+
+	address, _ := types.DecodeAddress("UF7ATOM6PBLWMQMPUQ5QLA5DZ5E35PXQ2IENWGZQLEJJAAPAPGEGC3ZYNI")
 
 	// Create an indexer client
 	indexerClient, err := indexer.MakeClient(indexerAddress, indexerToken)
@@ -27,10 +28,9 @@ func main() {
 	}
 
 	// Lookup asset
-	result, err := indexerClient.SearchForTransactions().AssetID(assetID).AddressRole(accountRole).Address(accountAddress).Do(context.Background())
+	result, err := indexerClient.SearchForTransactions().AssetID(assetID).AddressRole(role).Address(address).Do(context.Background())
 
-	// Print the results
-	fmt.Printf("\n----------------- Results -------------------\n")
+	// Search asset trnsaction by role
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }

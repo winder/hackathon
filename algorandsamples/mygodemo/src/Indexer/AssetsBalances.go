@@ -25,7 +25,6 @@ func main() {
 	result, err := indexerClient.LookupAssetBalances(assetId).Do(context.Background())
 
 	// Print the results
-	fmt.Printf("\n----------------- Results -------------------\n")
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }

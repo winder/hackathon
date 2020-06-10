@@ -26,8 +26,7 @@ func main() {
 	// Lookup asset
 	_, result, err := indexerClient.SearchForAssets().Name(assetName).Do(context.Background())
 
-	// Print the results
-	fmt.Printf("\n----------------- Results -------------------\n")
+	// Search asset by name
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }

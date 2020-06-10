@@ -14,11 +14,12 @@ const indexerAddress = "http://localhost:8980"
 const indexerToken = ""
 
 // query parameters
-var address = types.Address(`SWOUICD7Y5PQBWWEYC4XZAQZI7FJRZLD5O3CP4GU2Y7FP3QFKA7RHN2WJU`)
 var assetID uint64 = 2044572
 var minAmount uint64 = 50
 
 func main() {
+
+	address, _ := types.DecodeAddress("SWOUICD7Y5PQBWWEYC4XZAQZI7FJRZLD5O3CP4GU2Y7FP3QFKA7RHN2WJU")
 
 	// Create an indexer client
 	indexerClient, err := indexer.MakeClient(indexerAddress, indexerToken)
@@ -26,7 +27,7 @@ func main() {
 		return
 	}
 
-	// Lookup asset
+	// Query
 	result, err := indexerClient.SearchForTransactions().Address(address).AssetID(assetID).CurrencyGreaterThan(minAmount).Do(context.Background())
 
 	// Print the results

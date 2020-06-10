@@ -23,11 +23,10 @@ func main() {
 		return
 	}
 
-	// Lookup asset
+	// Query
 	_, result, err := indexerClient.LookupAssetByID(assetID).Do(context.Background())
 
 	// Print the results
-	fmt.Printf("\n----------------- Results -------------------\n")
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }

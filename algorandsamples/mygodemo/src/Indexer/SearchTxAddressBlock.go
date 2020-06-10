@@ -14,10 +14,10 @@ const indexerAddress = "http://localhost:8980"
 const indexerToken = ""
 
 // query parameters
-var address types.Address = XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4
 var round uint64 = 7048877
 
 func main() {
+	address, _ := types.DecodeAddress("XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4")
 
 	// Create an indexer client
 	indexerClient, err := indexer.MakeClient(indexerAddress, indexerToken)

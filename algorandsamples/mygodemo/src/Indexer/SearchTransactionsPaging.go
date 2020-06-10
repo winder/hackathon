@@ -28,8 +28,7 @@ func main() {
 	// Lookup asset
 	result, err := indexerClient.SearchForTransactions().Limit(numTx).Do(context.Background())
 
-	// Print the results
-	fmt.Printf("\n----------------- Results -------------------\n")
+	// Query
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }

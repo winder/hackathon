@@ -26,11 +26,10 @@ func main() {
 		return
 	}
 
-	// Lookup asset
+	// Query
 	result, err := indexerClient.SearchForTransactions().NotePrefix([]byte(data)).Do(context.Background())
 
 	// Print the results
-	fmt.Printf("\n----------------- Results -------------------\n")
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }
