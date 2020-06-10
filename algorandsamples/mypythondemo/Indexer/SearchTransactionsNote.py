@@ -10,8 +10,9 @@ data = {
 myindexer = indexer.IndexerClient(**data)
 import base64
 encodednote = base64.b64encode('showing prefix'.encode())
+decodednote = base64.b64decode(encodednote)
 data = {
-    "note_prefix": base64.b64decode(encodednote)
+    "note_prefix": decodednote
 }
 response = myindexer.search_transactions(**data)
 print("note_prefix = " +

@@ -17,6 +17,7 @@ numtx = 1
 responseall = ""
 # loop until there are no more tranactions in the response
 # for the limit (max is 1000  per request)
+# "min_amount": 100000000000000,
 while (numtx > 0):
     data = {
         "min_amount": 100000000000000,
