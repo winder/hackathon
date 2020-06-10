@@ -13,7 +13,7 @@ const indexerAddress = "http://localhost:8980"
 const indexerToken = ""
 
 // query parameters
-var assetId uint64 = 321769
+var assetId uint64 = 312769
 var minBalance uint64 = 100
 
 func main() {

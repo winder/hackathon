@@ -15,7 +15,7 @@ const indexerToken = ""
 // query parameters
 var nextToken = ""
 var numTx uint64 = 1
-var resonseAll = ""
+var responseAll = ""
 
 func main() {
 
@@ -25,10 +25,22 @@ func main() {
 		return
 	}
 
-	// Lookup asset
-	result, err := indexerClient.SearchForTransactions().Limit(numTx).Do(context.Background())
+	// Loop until there are no more transactions in the reponse
+	// for the limit (max is 1000  per request)
+	// "min_amount": 100000000000000
+	for numTx > 0 {
+		// Lookup asset
+		result, err := indexerClient.SearchForTransactions().Limit(numTx).Do(context.Background())
+		transactions := result.Transactions
+		numTx = len(transactions)
+		if numTx > 0 {
+			nextToken = transactions["next-token"]
+			responseAll = responseAll + transactions
+		}
 
-	// Query
+	}
+
+	// Print results
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }
