@@ -13,7 +13,7 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
 
 (async () => {
     let acct = "7WENHRCKEAZHD37QMB5T7I2KWU7IZGMCC3EVAO7TQADV7V5APXOKUBILCI";
-    let round = 6127857;
+    let round = 50;
     let accountInfo = await indexerClient.lookupAccountByID(acct)
         .round(round).do();
     console.log("Information for Account at block: " + JSON.stringify(accountInfo, undefined, 2));

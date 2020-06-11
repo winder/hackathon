@@ -13,7 +13,6 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
 
 let nexttoken = "";
 let numtx = 1;
-
 // loop until there are no more transactions in the response
 // for the limit(max limit is 1000  per request)    
 (async () => {

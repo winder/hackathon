@@ -21,8 +21,7 @@ public class SearchTransactionsPaging {
         SearchTransactionsPaging ex = new SearchTransactionsPaging();
         IndexerClient indexerClientInstance = (IndexerClient) ex.connectToNetwork();
         String nexttoken = "";
-        Integer numtx = 1;
-               
+        Integer numtx = 1;               
         // loop until there are no more transactions in the response
         // for the limit (max limit is 1000 per request)
         while (numtx > 0) {
