@@ -1,4 +1,5 @@
-//AccountsAssetIDMinBalance.java
+// AccountsAssetIDMinBalance.java
+// requires java-algorand-sdk 1.4.0 or higher (see pom.xml)
 package com.algorand.javatest.indexer;
 
 import com.algorand.algosdk.v2.client.common.IndexerClient;
@@ -19,7 +20,7 @@ public class AccountsAssetIDMinBalance {
         IndexerClient indexerClientInstance = (IndexerClient)ex.connectToNetwork();
         Long asset_id = Long.valueOf(312769);
         Long currencyGreaterThan = Long.valueOf(100);
-        // searhes for asset greater than currencyGreaterThan
+        // searches for asset greater than currencyGreaterThan
         String response = indexerClientInstance.searchForAccounts()
                 .assetId(asset_id)
                 .currencyGreaterThan(currencyGreaterThan).execute().toString();

@@ -1,4 +1,8 @@
-//SearchTxAddresstxntype.js
+// SearchTxAddresstxntype.js
+// requires algosdk@1.6.1 or higher 
+// verify installed version
+// npm list algosdk
+
 const algosdk = require('algosdk');
 const indexer_token = "";
 const indexer_server = "http://localhost";
@@ -14,8 +18,7 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
         .address(address)
         .txType(txn_type).do();
     console.log("txn_type: acfg = " + JSON.stringify(response, undefined, 2));
-    }
-   
+    }  
 )().catch(e => {
     console.log(e);
     console.trace();

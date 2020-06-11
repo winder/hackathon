@@ -1,4 +1,8 @@
-//SearchTransactionsLimit.js
+// SearchTransactionsLimit.js
+// requires algosdk@1.6.1 or higher 
+// verify installed version
+// npm list algosdk
+
 const algosdk = require('algosdk');
 const indexer_token = "";
 const indexer_server = "http://localhost";
@@ -9,7 +13,7 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
 
 (async () => {
     let currencyGreater = 10;
-    let limit = 2;
+    let limit = 5;
     let transactionInfo = await indexerClient.searchForTransactions()
         .currencyGreaterThan(currencyGreater)
         .limit(limit).do();

@@ -1,4 +1,8 @@
-//SearchAssets.js
+// SearchAssets.js
+// requires algosdk@1.6.1 or higher 
+// verify installed version
+// npm list algosdk
+
 const algosdk = require('algosdk');
 const indexer_token = "";
 const indexer_server = "http://localhost";

@@ -1,4 +1,7 @@
-//SearchTxAddressTxId.js
+// SearchTxAddressTxId.js
+// requires algosdk@1.6.1 or higher 
+// verify installed version
+// npm list algosdk
 const algosdk = require('algosdk');
 const indexer_token = "";
 const indexer_server = "http://localhost";
@@ -14,8 +17,7 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
         .address(address)
         .txid(txid).do();
     console.log("txid: QZS3B2XBBS47S6X5CZGKKC2FC7HRP5VJ4UNS7LPGHP24DUECHAAA = " + JSON.stringify(response, undefined, 2));
-    }
-   
+    }  
 )().catch(e => {
     console.log(e);
     console.trace();

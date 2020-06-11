@@ -1,14 +1,12 @@
-//SearchTxAddressBlock.java
+// SearchTxAddressBlock.java
+// requires java-algorand-sdk 1.4.0 or higher (see pom.xml)
 package com.algorand.javatest.indexer;
 
 import com.algorand.algosdk.v2.client.common.IndexerClient;
 import com.algorand.algosdk.v2.client.common.Client;
-
 import org.json.JSONObject;
 import com.algorand.algosdk.crypto.Address;
-
 	
-
 public class SearchTxAddressBlock {
     public Client indexerInstance = null;
     // utility function to connect to a node
@@ -22,11 +20,8 @@ public class SearchTxAddressBlock {
     public static void main(String args[]) throws Exception {
         SearchTxAddressBlock ex = new SearchTxAddressBlock();
         IndexerClient indexerClientInstance = (IndexerClient) ex.connectToNetwork();
-
         Address account = new Address("XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4");
-        Long block = Long.valueOf(7048877);   
-          
-
+        Long block = Long.valueOf(7048877);             
         String response = indexerClientInstance.searchForTransactions().address(account)
                     .round(block).execute().toString();
         JSONObject jsonObj = new JSONObject(response.toString());

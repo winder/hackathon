@@ -1,4 +1,8 @@
-//SearchTxAddressTime.js
+// SearchTxAddressTime.js
+// requires algosdk@1.6.1 or higher 
+// verify installed version
+// npm list algosdk
+
 const algosdk = require('algosdk');
 const indexer_token = "";
 const indexer_server = "http://localhost";
@@ -14,8 +18,7 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
         .address(address)
         .afterTime(start_time).do();
     console.log("start_time: 06/03/2020 11:00:00 = " + JSON.stringify(response, undefined, 2));
-    }
-   
+    }   
 )().catch(e => {
     console.log(e);
     console.trace();

@@ -1,12 +1,8 @@
-//SearchTransactionsNote.java
+// SearchTransactionsNote.java
+// requires java-algorand-sdk 1.4.0 or higher (see pom.xml)
 package com.algorand.javatest.indexer;
-
 import com.algorand.algosdk.v2.client.common.IndexerClient;
 import com.algorand.algosdk.v2.client.common.Client;
-
-import java.lang.ref.Cleaner;
-
-import com.algorand.algosdk.crypto.Address;
 import org.json.JSONObject;
 import com.algorand.algosdk.util.Encoder;
 

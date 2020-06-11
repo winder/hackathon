@@ -1,13 +1,11 @@
-//SearchTransactionsPaging.java
+// SearchTransactionsPaging.java
+// requires java-algorand-sdk 1.4.0 or higher (see pom.xml)
 package com.algorand.javatest.indexer;
 
 import com.algorand.algosdk.v2.client.common.IndexerClient;
 import com.algorand.algosdk.v2.client.common.Client;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-	
 
 public class SearchTransactionsPaging {
     public Client indexerInstance = null;
@@ -24,14 +22,12 @@ public class SearchTransactionsPaging {
         IndexerClient indexerClientInstance = (IndexerClient) ex.connectToNetwork();
         String nexttoken = "";
         Integer numtx = 1;
-        String responseall = new String();
-        
-        //loop until there are no more tranactions in the response
-        //for the limit (max is 1000  per request)
-        //"min_amount": 100000000000000,
+               
+        // loop until there are no more transactions in the response
+        // for the limit (max limit is 1000 per request)
         while (numtx > 0) {
             Long min_amount = Long.valueOf(100000000000000L);
-            Long limit = Long.valueOf(10);
+            Long limit = Long.valueOf(2);
             String next_page = nexttoken;
             String response = indexerClientInstance.searchForTransactions().next(next_page)
                     .currencyGreaterThan(min_amount).limit(limit).execute().toString();
@@ -42,19 +38,10 @@ public class SearchTransactionsPaging {
             if (numtx > 0) {
 
                 nexttoken = jsonObj.get("next-token").toString();
-
-                responseall = responseall.toString() + response.toString();
-
+                JSONObject jsonObjAll = new JSONObject(response.toString());
+                System.out.println("Transaction Info: " + jsonObjAll.toString(2)); // pretty print json
             }
         }
 
-        // { replace ] with , }
-        //    responseall = "{" + responseall + "}";
-        JSONObject jsonObjAll = new JSONObject(responseall.toString());
-
-        //     JSONArray jsonArrayAll = (JSONArray) jsonObjAll.get("transactions");
-        // String response = indexerClientInstance.searchForTransactions().next(next_page).currencyGreaterThan(min_amount).limit(limit).execute().toString();
-        //  JSONObject jsonObj = new JSONObject(responseall.toString());
-        System.out.println("Transaction Info: " + jsonObjAll.toString(2)); // pretty print json
     }
  }
