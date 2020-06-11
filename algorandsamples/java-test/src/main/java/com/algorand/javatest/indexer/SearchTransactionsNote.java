@@ -1,9 +1,16 @@
+//SearchTransactionsNote.java
 package com.algorand.javatest.indexer;
+
 import com.algorand.algosdk.v2.client.common.IndexerClient;
 import com.algorand.algosdk.v2.client.common.Client;
-import org.json.JSONObject;
 
-public class BlockInfo {
+import java.lang.ref.Cleaner;
+
+import com.algorand.algosdk.crypto.Address;
+import org.json.JSONObject;
+import com.algorand.algosdk.util.Encoder;
+
+public class SearchTransactionsNote {
     public Client indexerInstance = null;
     // utility function to connect to a node
     private Client connectToNetwork(){
@@ -13,11 +20,13 @@ public class BlockInfo {
         return indexerClient;
     }
     public static void main(String args[]) throws Exception {
-        BlockInfo ex = new BlockInfo();
+        SearchTransactionsNote ex = new SearchTransactionsNote();
         IndexerClient indexerClientInstance = (IndexerClient)ex.connectToNetwork();
-        Long block = Long.valueOf(50);
-        String response = indexerClientInstance.lookupBlock(block).execute().toString();
+        byte[] encodednote = Encoder.decodeFromBase64("c2hvd2luZyBwcmVmaXg="); // "showing prefix"
+        String response = indexerClientInstance
+                .searchForTransactions()
+                .notePrefix(encodednote).execute().toString();
         JSONObject jsonObj = new JSONObject(response.toString());
-        System.out.println("Block Info: " + jsonObj.toString(2)); // pretty print json
+        System.out.println("Transaction Info: " + jsonObj.toString(2)); // pretty print json
     }
  }

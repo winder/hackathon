@@ -1,9 +1,12 @@
+//AssetsBalances.java
 package com.algorand.javatest.indexer;
+
 import com.algorand.algosdk.v2.client.common.IndexerClient;
 import com.algorand.algosdk.v2.client.common.Client;
+
 import org.json.JSONObject;
 
-public class BlockInfo {
+public class AssetsBalances {
     public Client indexerInstance = null;
     // utility function to connect to a node
     private Client connectToNetwork(){
@@ -13,11 +16,12 @@ public class BlockInfo {
         return indexerClient;
     }
     public static void main(String args[]) throws Exception {
-        BlockInfo ex = new BlockInfo();
+        AssetsBalances ex = new AssetsBalances();
         IndexerClient indexerClientInstance = (IndexerClient)ex.connectToNetwork();
-        Long block = Long.valueOf(50);
-        String response = indexerClientInstance.lookupBlock(block).execute().toString();
+        Long asset_id = Long.valueOf(2044572);
+        // searhes for asset greater than currencyGreaterThan
+        String response = indexerClientInstance.lookupAssetBalances(asset_id).execute().toString();
         JSONObject jsonObj = new JSONObject(response.toString());
-        System.out.println("Block Info: " + jsonObj.toString(2)); // pretty print json
+        System.out.println("Asset Info: " + jsonObj.toString(2)); // pretty print json
     }
  }

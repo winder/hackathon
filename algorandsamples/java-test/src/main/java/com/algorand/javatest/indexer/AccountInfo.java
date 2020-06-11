@@ -1,9 +1,12 @@
+//AccountInfo.java
 package com.algorand.javatest.indexer;
+
 import com.algorand.algosdk.v2.client.common.IndexerClient;
 import com.algorand.algosdk.v2.client.common.Client;
+import com.algorand.algosdk.crypto.Address;
 import org.json.JSONObject;
 
-public class BlockInfo {
+public class AccountInfo {
     public Client indexerInstance = null;
     // utility function to connect to a node
     private Client connectToNetwork(){
@@ -13,11 +16,11 @@ public class BlockInfo {
         return indexerClient;
     }
     public static void main(String args[]) throws Exception {
-        BlockInfo ex = new BlockInfo();
+        AccountInfo ex = new AccountInfo();
         IndexerClient indexerClientInstance = (IndexerClient)ex.connectToNetwork();
-        Long block = Long.valueOf(50);
-        String response = indexerClientInstance.lookupBlock(block).execute().toString();
+        Address account = new Address("7WENHRCKEAZHD37QMB5T7I2KWU7IZGMCC3EVAO7TQADV7V5APXOKUBILCI");
+         String response = indexerClientInstance.lookupAccountByID(account).execute().toString();
         JSONObject jsonObj = new JSONObject(response.toString());
-        System.out.println("Block Info: " + jsonObj.toString(2)); // pretty print json
+        System.out.println("Account Info: " + jsonObj.toString(2)); // pretty print json
     }
  }
