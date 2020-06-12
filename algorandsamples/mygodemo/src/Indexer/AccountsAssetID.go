@@ -13,7 +13,7 @@ const indexerAddress = "http://localhost:8980"
 const indexerToken = ""
 
 // query parameters
-var assetId uint64 = 321769
+var assetID uint64 = 312769
 
 func main() {
 
@@ -24,7 +24,7 @@ func main() {
 	}
 
 	// Lookup asset
-	_, result, err := indexerClient.LookupAssetByID(assetId).Do(context.Background())
+	_, result, err := indexerClient.LookupAssetByID(assetID).Do(context.Background())
 
 	// Print the results
 	JSON, err := json.MarshalIndent(result, "", "\t")
