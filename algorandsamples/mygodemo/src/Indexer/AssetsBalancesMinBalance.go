@@ -11,8 +11,9 @@ import (
 // indexer host
 const indexerAddress = "http://localhost:8980"
 
-// query parameters
 var indexerToken = ""
+
+// query parameters
 var assetId uint64 = 2044572
 var minBalance uint64 = 200
 

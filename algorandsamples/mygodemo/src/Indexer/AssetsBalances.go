@@ -11,6 +11,8 @@ import (
 // indexer host
 const indexerAddress = "http://localhost:8980"
 const indexerToken = ""
+
+// query parameters
 const assetId = 2044572
 
 func main() {

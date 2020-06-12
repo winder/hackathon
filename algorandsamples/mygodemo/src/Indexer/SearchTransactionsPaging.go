@@ -14,8 +14,10 @@ const indexerToken = ""
 
 // query parameters
 var nextToken = ""
-var numTx uint64 = 1
-var responseAll = ""
+var numTx = 1
+var numPages = 1
+var minAmount uint64 = 100000000000000
+var limit uint64 = 2
 
 func main() {
 
@@ -25,22 +27,29 @@ func main() {
 		return
 	}
 
-	// Loop until there are no more transactions in the reponse
-	// for the limit (max is 1000  per request)
-	// "min_amount": 100000000000000
 	for numTx > 0 {
-		// Lookup asset
-		result, err := indexerClient.SearchForTransactions().Limit(numTx).Do(context.Background())
-		transactions := result.Transactions
-		numTx = len(transactions)
-		if numTx > 0 {
-			nextToken = transactions["next-token"]
-			responseAll = responseAll + transactions
+		// Query
+		result, err := indexerClient.SearchForTransactions().CurrencyGreaterThan(minAmount).Limit(limit).NextToken(nextToken).Do(context.Background())
+		if err != nil {
+			return
 		}
 
-	}
+		transactions := result.Transactions
+		numTx = len(transactions)
+		nextToken = result.NextToken
 
-	// Print results
-	JSON, err := json.MarshalIndent(result, "", "\t")
-	fmt.Printf(string(JSON) + "\n")
+		if numTx > 0 {
+			// Print results
+			JSON, err := json.MarshalIndent(transactions, "", "\t")
+			if err != nil {
+				return
+			}
+			fmt.Printf(string(JSON) + "\n")
+
+			fmt.Println("End of page : ", numPages)
+			fmt.Println("Transaction printed : ", len(transactions))
+			fmt.Println("Next Token : ", nextToken)
+			numPages++
+		}
+	}
 }
