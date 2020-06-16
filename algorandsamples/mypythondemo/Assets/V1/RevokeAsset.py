@@ -1,4 +1,4 @@
-# Asset ID: 329044
+# Asset ID: 9767218
 import json
 from algosdk import account, algod, mnemonic, transaction
 
@@ -8,9 +8,13 @@ from algosdk import account, algod, mnemonic, transaction
 # mnemonic2 = "PASTE your phrase for account 2"
 # mnemonic3 = "PASTE your phrase for account 3"
 
-mnemonic1 = "portion never forward pill lunch organ biology weird catch curve isolate plug innocent skin grunt bounce clown mercy hole eagle soul chunk type absorb trim"
-mnemonic2 = "place blouse sad pigeon wing warrior wild script problem team blouse camp soldier breeze twist mother vanish public glass code arrow execute convince ability there"
-mnemonic3 = "image travel claw climb bottom spot path roast century also task cherry address curious save item clean theme amateur loyal apart hybrid steak about blanket"
+# mnemonic1 = "portion never forward pill lunch organ biology weird catch curve isolate plug innocent skin grunt bounce clown mercy hole eagle soul chunk type absorb trim"
+# mnemonic2 = "place blouse sad pigeon wing warrior wild script problem team blouse camp soldier breeze twist mother vanish public glass code arrow execute convince ability there"
+# mnemonic3 = "image travel claw climb bottom spot path roast century also task cherry address curious save item clean theme amateur loyal apart hybrid steak about blanket"
+
+mnemonic1 = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten"
+mnemonic2 = "beauty nurse season autumn curve slice cry strategy frozen spy panic hobby strong goose employ review love fee pride enlist friend enroll clip ability runway"
+mnemonic3 = "picnic bright know ticket purity pluck stumble destroy ugly tuna luggage quote frame loan wealth edge carpet drift cinnamon resemble shrimp grain dynamic absorb edge"
 
 # For ease of reference, add account public and private keys to
 # an accounts dict.
@@ -72,42 +76,50 @@ print("Account 3 address: {}".format(accounts[3]['pk']))
 
 
 # copy in your assetID
-asset_id = 329044
+asset_id = 9767218
 
-# Destroy Asset
-# With all assets back in the creator's account,
-# the manager (Account 1) destroys the asset.
-
+# Revoke asset
+# The clawback address (Account 2) revokes 10 latinum from Account 3 and places it back with Account 1.
 data = {
-    "sender": accounts[1]['pk'],
+    "sender": accounts[2]['pk'],
     "fee": min_fee,
     "first": first,
     "last": last,
     "gh": gh,
+    "receiver": accounts[1]["pk"],
+    "amt": 10,
     "index": asset_id,
-    "strict_empty_address_check": False,
+    "revocation_target": accounts[3]['pk'],
     "flat_fee": True
 }
-
-# Construct Asset Creation transaction
-txn = transaction.AssetConfigTxn(**data)
-
-# Sign with secret key of manager
-stxn = txn.sign(accounts[1]['sk'])
-
-# Send the transaction to the network and retrieve the txid.
+# Must be signed by the account that is the clawback address
+txn = transaction.AssetTransferTxn(**data)
+stxn = txn.sign(accounts[2]['sk'])
 txid = algod_client.send_transaction(stxn)
 print(txid)
-
 # Wait for the transaction to be confirmed
 wait_for_tx_confirmation(txid)
+# The balance of account 3 should now be 0.
+account_info = algod_client.account_info(accounts[3]['pk'])
+print("Account 3")
+print(json.dumps(account_info['assets'][str(asset_id)], indent=4))
+# The balance of account 1 should increase by 10 to 1000.
+print("Account 1")
+account_info = algod_client.account_info(accounts[1]['pk'])
+print(json.dumps(account_info['assets'][str(asset_id)], indent=4))
 
-# This should raise an exception since the asset was deleted.
-try:
-    asset_info = algod_client.asset_info(asset_id)
-except Exception as e:
-    print(e)
+# terminal output should be similar to..
 
-# terminal output should look similar to this
-# HSH2T3E6Z4BMV5DZE47IWDNVMUF7DSHPLQPCQTC6X4NHTQCTWRHQ
-# failed to retrieve asset creator from the ledger
+# 3BAJ6EO6V5EVQRUO6BDGBUXKQVWTQ7AFXRRSDQHWE7Q6QANDFVOQ
+# Account 3
+# {
+#     "creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+#     "amount": 0,
+#     "frozen": true
+# }
+# Account 1
+# {
+#     "creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+#     "amount": 1000,
+#     "frozen": false
+# }

@@ -30,8 +30,9 @@ var getChangingParms = async function (algodclient) {
     let params = await algodclient.getTransactionParams();
     cp.firstRound = params.lastRound;
     cp.lastRound = cp.firstRound + parseInt(1000);
-    let sfee = await algodclient.suggestedFee();
-    cp.fee = sfee.fee;
+  //  let sfee = await algodclient.suggestedFee();
+  //  cp.fee = sfee.fee;
+    cp.fee = params.fee;
     cp.genID = params.genesisID;
     cp.genHash = params.genesishashb64;
 }
@@ -59,17 +60,20 @@ const waitForConfirmation = async function (algodclient, txId) {
 // var account2_mnemonic = "PASTE your phrase for account 2";
 // var account3_mnemonic = "PASTE your phrase for account 3"
 
-var account1_mnemonic = "portion never forward pill lunch organ biology" +
-    " weird catch curve isolate plug innocent skin grunt" +
-    " bounce clown mercy hole eagle soul chunk type absorb trim";
-var account2_mnemonic = "place blouse sad pigeon wing warrior wild script" +
-    " problem team blouse camp soldier breeze twist mother" +
-    " vanish public glass code arrow execute convince ability" +
-    " there";
-var account3_mnemonic = "image travel claw climb bottom spot path roast" +
-    " century also task cherry address curious save item" +
-    " clean theme amateur loyal apart hybrid steak about blanket"
+// var account1_mnemonic = "portion never forward pill lunch organ biology" +
+//     " weird catch curve isolate plug innocent skin grunt" +
+//     " bounce clown mercy hole eagle soul chunk type absorb trim";
+// var account2_mnemonic = "place blouse sad pigeon wing warrior wild script" +
+//     " problem team blouse camp soldier breeze twist mother" +
+//     " vanish public glass code arrow execute convince ability" +
+//     " there";
+// var account3_mnemonic = "image travel claw climb bottom spot path roast" +
+//     " century also task cherry address curious save item" +
+//     " clean theme amateur loyal apart hybrid steak about blanket"
 
+var account1_mnemonic = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten";
+var account2_mnemonic = "beauty nurse season autumn curve slice cry strategy frozen spy panic hobby strong goose employ review love fee pride enlist friend enroll clip ability runway";
+var account3_mnemonic = "picnic bright know ticket purity pluck stumble destroy ugly tuna luggage quote frame loan wealth edge carpet drift cinnamon resemble shrimp grain dynamic absorb edge";
 
 var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
 var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
@@ -139,7 +143,7 @@ let algodclient = new algosdk.Algod(token, server, port);
         clawback, unitName, assetName, assetURL, assetMetadataHash);
 
     let rawSignedTxn = txn.signTxn(recoveredAccount1.sk)
-    let tx = (await algodclient.sendRawTransaction(rawSignedTxn));
+    let tx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
     console.log("Transaction : " + tx.txId);
     let assetID = null;
     // wait for transaction to be confirmed
@@ -386,7 +390,7 @@ let algodclient = new algosdk.Algod(token, server, port);
     // The transaction must be signed by the manager which 
     // is currently set to account1
     rawSignedTxn = dtxn.signTxn(recoveredAccount1.sk)
-    let dtx = (await algodclient.sendRawTransaction(rawSignedTxn));
+    let dtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
     console.log("Transaction : " + dtx.txId);
     // wait for transaction to be confirmed
     await waitForConfirmation(algodclient, dtx.txId);

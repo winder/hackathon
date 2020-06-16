@@ -1,4 +1,4 @@
-# Asset ID: 329044
+# Asset ID: 9767218
 import json
 from algosdk import account, algod, mnemonic, transaction
 
@@ -8,9 +8,15 @@ from algosdk import account, algod, mnemonic, transaction
 # mnemonic2 = "PASTE your phrase for account 2"
 # mnemonic3 = "PASTE your phrase for account 3"
 
-mnemonic1 = "portion never forward pill lunch organ biology weird catch curve isolate plug innocent skin grunt bounce clown mercy hole eagle soul chunk type absorb trim"
-mnemonic2 = "place blouse sad pigeon wing warrior wild script problem team blouse camp soldier breeze twist mother vanish public glass code arrow execute convince ability there"
-mnemonic3 = "image travel claw climb bottom spot path roast century also task cherry address curious save item clean theme amateur loyal apart hybrid steak about blanket"
+# mnemonic1 = "portion never forward pill lunch organ biology weird catch curve isolate plug innocent skin grunt bounce clown mercy hole eagle soul chunk type absorb trim"
+# mnemonic2 = "place blouse sad pigeon wing warrior wild script problem team blouse camp soldier breeze twist mother vanish public glass code arrow execute convince ability there"
+# mnemonic3 = "image travel claw climb bottom spot path roast century also task cherry address curious save item clean theme amateur loyal apart hybrid steak about blanket"
+
+mnemonic1 = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten"
+mnemonic2 = "beauty nurse season autumn curve slice cry strategy frozen spy panic hobby strong goose employ review love fee pride enlist friend enroll clip ability runway"
+mnemonic3 = "picnic bright know ticket purity pluck stumble destroy ugly tuna luggage quote frame loan wealth edge carpet drift cinnamon resemble shrimp grain dynamic absorb edge"
+
+
 
 # For ease of reference, add account public and private keys to
 # an accounts dict.
@@ -45,7 +51,6 @@ min_fee = params.get("minFee")
 
 # Utility function to wait for a transaction to be confirmed by network
 
-
 def wait_for_tx_confirmation(txid):
    last_round = algod_client.status().get('lastRound')
    while True:
@@ -59,7 +64,6 @@ def wait_for_tx_confirmation(txid):
            last_round += 1
            algod_client.status_after_block(last_round)
 
-
 print("Account 1 address: {}".format(accounts[1]['pk']))
 print("Account 2 address: {}".format(accounts[2]['pk']))
 print("Account 3 address: {}".format(accounts[3]['pk']))
@@ -70,11 +74,14 @@ print("Account 3 address: {}".format(accounts[3]['pk']))
 # Account 1 account: AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU
 # Account 1 account: 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU
 
+# Update manager address.
 
-# copy in your assetID
-asset_id = 329044
-# Freeze asset
-# The freeze address (Account 2) freezes Account 3's latinum holdings.
+# The current manager(Account 2) issues an asset configuration transaction that assigns Account 1 as the new manager.
+# Keep reserve, freeze, and clawback address same as before, i.e. account 2
+
+# paste in your asset_id
+asset_id = 9767218
+
 data = {
     "sender": accounts[2]['pk'],
     "fee": min_fee,
@@ -82,25 +89,37 @@ data = {
     "last": last,
     "gh": gh,
     "index": asset_id,
-    "target": accounts[3]["pk"],
-    "new_freeze_state": True
+    "manager": accounts[1]['pk'],
+    "reserve": accounts[2]['pk'],
+    "freeze": accounts[2]['pk'],
+    "clawback": accounts[2]['pk'],
+    "flat_fee": True
 }
-
-txn = transaction.AssetFreezeTxn(**data)
+txn = transaction.AssetConfigTxn(**data)
+# sign by the current manager
 stxn = txn.sign(accounts[2]['sk'])
 txid = algod_client.send_transaction(stxn)
-print(txid)
+print("Transaction ID: ",txid)
 # Wait for the transaction to be confirmed
 wait_for_tx_confirmation(txid)
-# The balance should now be 10.
-account_info = algod_client.account_info(accounts[3]['pk'])
-print(json.dumps(account_info['assets'][str(asset_id)], indent=4))
 
+# Check asset info to view change in management.
+asset_info = algod_client.asset_info(asset_id)
+print(json.dumps(asset_info, indent=4))
 
-# terminal output should look similar to this wih a frozen value of true...
-# ZRSYHNYRMF3A2HCHWN4RKDFLMCOF6TASFGSKQSJZP4XZN3KZGOJA
+# terminal output should be similar to...
+# CPZZG7ZTMYKXUYDFHLPGKL4E6FF5BONF5ZZCD5U6PAJPNUMSSGTQ
 # {
 #     "creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
-#     "amount": 10,
-#     "frozen": true
+#     "total": 1000,
+#     "decimals": 0,
+#     "defaultfrozen": false,
+#     "unitname": "LATINUM",
+#     "assetname": "latinum",
+#     "url": "https://path/to/my/asset/details",
+#     "managerkey": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+#     "reserveaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+#     "freezeaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+#     "clawbackaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU"
 # }
+

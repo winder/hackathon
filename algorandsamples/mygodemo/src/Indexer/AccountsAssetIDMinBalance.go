@@ -13,7 +13,8 @@ const indexerAddress = "http://localhost:8980"
 const indexerToken = ""
 
 // query parameters
-var assetId uint64 = 312769
+var assetID uint64 = 312769
+// 321769
 var minBalance uint64 = 100
 
 func main() {
@@ -25,7 +26,7 @@ func main() {
 	}
 
 	// Lookup accounts with minimum balance of asset
-	result, err := indexerClient.LookupAssetBalances(assetId).CurrencyGreaterThan(minBalance).Do(context.Background())
+	result, err := indexerClient.LookupAssetBalances(assetID).CurrencyGreaterThan(minBalance).Do(context.Background())
 
 	// Print the results
 	JSON, err := json.MarshalIndent(result, "", "\t")
