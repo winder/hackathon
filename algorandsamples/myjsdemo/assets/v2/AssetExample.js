@@ -17,25 +17,6 @@ const token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 const server = "http://localhost";
 const port = 4001;
 
-// Structure for changing blockchain params
-var cp = {
-    fee: 0,
-    firstRound: 0,
-    lastRound: 0,
-    genID: "",
-    genHash: ""
-}
-// Utility function to update params from blockchain
-// var getChangingParms = async function (algodclient) {
-//     let params = await algodclient.getTransactionParams().do();
-//     cp.firstRound = params.firstRound;
-//     cp.lastRound = params.lastRound;
-//  //   cp.lastRound = cp.firstRound + parseInt(1000);
-//  //   let sfee = await algodclient.suggestedFee().do();
-//     cp.fee = params.fee;
-//     cp.genID = params.genesisID;
-//     cp.genHash = params.genesisHash;
-// }
 
 // Function used to wait for a tx confirmation
 const waitForConfirmation = async function (algodclient, txId) {
@@ -43,7 +24,7 @@ const waitForConfirmation = async function (algodclient, txId) {
     let lastround = response["last-round"];
     while (true) {
         const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
-        if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"]  > 0) {
+        if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
             //Got the completed Transaction
             console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
             break;
@@ -52,6 +33,7 @@ const waitForConfirmation = async function (algodclient, txId) {
         await algodclient.statusAfterBlock(lastround).do();
     }
 };
+
 
 // Function used to print created asset for account and assetid
 const printCreatedAsset = async function (algodclient, account, assetid) {
@@ -97,17 +79,6 @@ const printAssetHolding = async function (algodclient, account, assetid) {
 // var account2_mnemonic = "PASTE your phrase for account 2";
 // var account3_mnemonic = "PASTE your phrase for account 3"
 
-// var account1_mnemonic = "portion never forward pill lunch organ biology" +
-//     " weird catch curve isolate plug innocent skin grunt" +
-//     " bounce clown mercy hole eagle soul chunk type absorb trim";
-// var account2_mnemonic = "place blouse sad pigeon wing warrior wild script" +
-//     " problem team blouse camp soldier breeze twist mother" +
-//     " vanish public glass code arrow execute convince ability" +
-//     " there";
-// var account3_mnemonic = "image travel claw climb bottom spot path roast" +
-//     " century also task cherry address curious save item" +
-//     " clean theme amateur loyal apart hybrid steak about blanket"
-
 
 var account1_mnemonic = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten";
 var account2_mnemonic = "beauty nurse season autumn curve slice cry strategy frozen spy panic hobby strong goose employ review love fee pride enlist friend enroll clip ability runway";
@@ -126,10 +97,9 @@ console.log(recoveredAccount3.addr);
 
 // Debug Console should look similar to this
 
-// THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM  
-// AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU   
-// 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU   
-
+// ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ
+// AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4
+// IWR4CLLCN2TIVX2QPVVKVR5ER5OZGMWAV5QB2UIPYMPKBPLJZX4C37C4AA
 
 (async () => {
     // Asset Creation:
@@ -141,11 +111,10 @@ console.log(recoveredAccount3.addr);
     // We will account for changing transaction parameters
     // before every transaction in this example
     let params = await algodclient.getTransactionParams().do();
-    console.log(params);
     //comment out the next two lines to use suggested fee
     params.fee = 1000;
     params.flatFee = true;
-
+    console.log(params);
     let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
 
     // Asset creation specific parameters
@@ -199,19 +168,39 @@ console.log(recoveredAccount3.addr);
     
     await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
     await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
-    //your terminal output should ber similar to this
-    // Transaction: RXSAJUYVPDWUF4XNGA2VYQX3NUVT5YJEZZ5SJXIIASZK5M55LVVQ
-    // Transaction RXSAJUYVPDWUF4XNGA2VYQX3NUVT5YJEZZ5SJXIIASZK5M55LVVQ confirmed in round 4272786
-    // AssetID = 149657
+    // your terminal output should ber similar to this
 
-   
+    // Transaction: BQMRGV6VZLXXPI4OEEJB6OGFRVJQEKWFJULNPMGVF25H7WE6EUQA
+    // Transaction BQMRGV6VZLXXPI4OEEJB6OGFRVJQEKWFJULNPMGVF25H7WE6EUQA confirmed in round 3961853
+    // AssetID = 2653785
+    // parms = {
+    //     "clawback": "AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4",
+    //     "creator": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "decimals": 0,
+    //     "default-frozen": false,
+    //     "freeze": "AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4",
+    //     "manager": "AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4",
+    //     "metadata-hash": "MTZlZmFhMzkyNGE2ZmQ5ZDNhNDgyNDc5OWE0YWM2NWQ=",
+    //     "name": "latinum",
+    //     "reserve": "AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4",
+    //     "total": 1000,
+    //     "unit-name": "LATINUM",
+    //     "url": "http://someurl"
+    // }
+    // AssetExample.js: 69
+    // assetholdinginfo = {
+    //     "amount": 1000,
+    //     "asset-id": 2653785,
+    //     "creator": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "is-frozen": false
+    // }
+    
     // Change Asset Configuration:
     // Change the manager using an asset configuration transaction
 
     // First update changing transaction parameters
     // We will account for changing transaction parameters
     // before every transaction in this example
-  //  await getChangingParms(algodclient);
     
     params = await algodclient.getTransactionParams().do();
     //comment out the next two lines to use suggested fee
@@ -239,29 +228,26 @@ console.log(recoveredAccount3.addr);
  
     // The manager should now be the same as the creator
     await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
-  //  printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
   
 
+    // Transaction: BXDODE2RUC77WVJL6HOQBACVAS6QPXOBSE55ZZTLJUTNLBXZNENA
+    // Transaction BXDODE2RUC77WVJL6HOQBACVAS6QPXOBSE55ZZTLJUTNLBXZNENA confirmed in round 3961855
+    // AssetID = 2653785
+    // parms = {
+    //     "clawback": "AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4",
+    //     "creator": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "decimals": 0,
+    //     "default-frozen": false,
+    //     "freeze": "AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4",
+    //     "manager": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "metadata-hash": "MTZlZmFhMzkyNGE2ZmQ5ZDNhNDgyNDc5OWE0YWM2NWQ=",
+    //     "name": "latinum",
+    //     "reserve": "AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4",
+    //     "total": 1000,
+    //     "unit-name": "LATINUM",
+    //     "url": "http://someurl"
+    // }
 
-
-
-    // Asset info should look similar to this in the Terminal Output:
-    // Transaction: QGXMMYIKRV3TE3NWCL6FVNJQ3DCODML3GBC3BR4TSB3D6S3YQVCQ
-    // Transaction QGXMMYIKRV3TE3NWCL6FVNJQ3DCODML3GBC3BR4TSB3D6S3YQVCQ confirmed in round 4273376
-    // {
-    //     creator: 'THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM',
-    //     total: 1000,
-    //     decimals: 0,
-    //     defaultfrozen: false,
-    //     unitname: 'LATINUM',
-    //     assetname: 'latinum',
-    //     url: 'http://someurl',
-    //     metadatahash: 'MTZlZmFhMzkyNGE2ZmQ5ZDNhNDgyNDc5OWE0YWM2NWQ=',
-    //     managerkey: 'THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM',
-    //     reserveaddr: 'AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU',
-    //     freezeaddr: 'AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU',
-    //     clawbackaddr: 'AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU'
-    // }    
 
     // Opting in to an Asset:
     // Opting in to transact with the new asset
@@ -284,7 +270,6 @@ console.log(recoveredAccount3.addr);
     // First update changing transaction parameters
     // We will account for changing transaction parameters
     // before every transaction in this example
-  //  await getChangingParms(algodclient);
     params = await algodclient.getTransactionParams().do();
     //comment out the next two lines to use suggested fee
     params.fee = 1000;
@@ -304,16 +289,22 @@ console.log(recoveredAccount3.addr);
     console.log("Account 3 = " + recoveredAccount3.addr);
     await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
 
-
-    // your console/terminal out put should look as follows
-    //   Transaction YT2U2WWBUWB4P54M24OUCMIIN3VDZ64LIDCBMED6AGQIQZKT6PTQ confirmed in round 4273745
-    //   Account Information for: { "creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM", "amount": 0, "frozen": false }
-
+    // Transaction: U7D44D6JJJZLNN2X7BACDMACHPPSUWROTCOYAJZEBMPHPSKWY36Q
+    // Transaction U7D44D6JJJZLNN2X7BACDMACHPPSUWROTCOYAJZEBMPHPSKWY36Q confirmed in round 3961857
+    // Account 3 = IWR4CLLCN2TIVX2QPVVKVR5ER5OZGMWAV5QB2UIPYMPKBPLJZX4C37C4AA
+    // assetholdinginfo = {
+    //     "amount": 0,
+    //     "asset-id": 2653785,
+    //     "creator": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "is-frozen": false
+    // }
 
     // Transfer New Asset:
     // Now that account3 can recieve the new tokens 
     // we can tranfer tokens in from the creator
     // to account3
+
+
     sender = recoveredAccount1.addr;
     recipient = recoveredAccount3.addr;
     revocationTarget = undefined;
@@ -344,6 +335,16 @@ console.log(recoveredAccount3.addr);
     await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
 
     // your console/terminal out put should look similar to this:
+    // Transaction: BMQQXKLOYE5663UZOIMLBVFRXE73XH2UXPBPPGJR7XOMM5E3UO7A
+    // Transaction BMQQXKLOYE5663UZOIMLBVFRXE73XH2UXPBPPGJR7XOMM5E3UO7A confirmed in round 3961861
+    // Account 3 = IWR4CLLCN2TIVX2QPVVKVR5ER5OZGMWAV5QB2UIPYMPKBPLJZX4C37C4AA
+    // AssetExample.js: 343
+    // assetholdinginfo = {
+    //     "amount": 10,
+    //     "asset-id": 2653785,
+    //     "creator": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "is-frozen": false
+    // }
     //    Transaction: LM2QOJP6FKLX2XIKCDLTM37IEE2IGQ5IMVOEYOCFHKOAUMU5G6ZQ
     //    Transaction LM2QOJP6FKLX2XIKCDLTM37IEE2IGQ5IMVOEYOCFHKOAUMU5G6ZQ confirmed in round 4273946
     //    Account Information for: { "creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM", "amount": 10, "frozen": false }
@@ -387,9 +388,17 @@ console.log(recoveredAccount3.addr);
 
 
     //you should see console/terminal output similar to this witht he frozen vales set to true
-    //    Transaction: CZ7VYA7UFGRVJ4EHQOLKCPRESDJC4ULHUTWM3QCAPZR3K4KVT2IQ
-    //    Transaction CZ7VYA7UFGRVJ4EHQOLKCPRESDJC4ULHUTWM3QCAPZR3K4KVT2IQ confirmed in round 4274065
-    //    Account Information for: { "creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM", "amount": 10, "frozen": true }
+
+    // Transaction: VI33O4TAM2JZ4AMNJFYBDH4NATHPGBVAFTALLUKRI2WZ772EKA4A
+    // Transaction VI33O4TAM2JZ4AMNJFYBDH4NATHPGBVAFTALLUKRI2WZ772EKA4A confirmed in round 3961865
+    // Account 3 = IWR4CLLCN2TIVX2QPVVKVR5ER5OZGMWAV5QB2UIPYMPKBPLJZX4C37C4AA
+    // AssetExample.js: 385
+    // assetholdinginfo = {
+    //     "amount": 10,
+    //     "asset-id": 2653785,
+    //     "creator": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "is-frozen": true
+    // }
 
 
     // Revoke an Asset:
@@ -418,12 +427,12 @@ console.log(recoveredAccount3.addr);
     // signing and sending "txn" will send "amount" assets from "revocationTarget" to "recipient",
     // if and only if sender == clawback manager for this asset
     
-    //todo ERROR
+
     let rtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
        amount, note, assetID, params);
     // Must be signed by the account that is the clawback address    
     rawSignedTxn = rtxn.signTxn(recoveredAccount2.sk)
-    let rtx = (await algodclient.sendRawTransaction(rawSignedTxn)).do();
+    let rtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
     console.log("Transaction : " + rtx.txId);
     // wait for transaction to be confirmed
     await waitForConfirmation(algodclient, rtx.txId);
@@ -435,10 +444,17 @@ console.log(recoveredAccount3.addr);
 
 
     //you should see console/terminal output similar to below for account 3
-    //Transaction MW2ZKQ2GXMVVJSF23AXFUSKQTF43EANJHXJJAXRQ7BSBKDUWZMTA confirmed in round 4274200
-    //Asset ID: 149774
-    //Account Information for: { "creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM", "amount": 0, "frozen": true }
-
+    // Transaction: I6U5NCHZ6DLHLBXECPSSRLAN3JYYUXOZLN4HCE4BPLRG7G7LGRMA
+    // Transaction I6U5NCHZ6DLHLBXECPSSRLAN3JYYUXOZLN4HCE4BPLRG7G7LGRMA confirmed in round 3961873
+    // Account 3 = IWR4CLLCN2TIVX2QPVVKVR5ER5OZGMWAV5QB2UIPYMPKBPLJZX4C37C4AA
+    // AssetExample.js: 433
+    // assetholdinginfo = {
+    //     "amount": 0,
+    //     "asset-id": 2653785,
+    //     "creator": "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ",
+    //     "is-frozen": true
+    // }
+ 
 
     // Destroy and Asset:
     // All of the created assets should now be back in the creators
@@ -457,7 +473,7 @@ console.log(recoveredAccount3.addr);
     // The address for the from field must be the manager account
     // Which is currently the creator addr1
     addr = recoveredAccount1.addr;
-
+    note = undefined;
     // if all assets are held by the asset creator,
     // the asset creator can sign and issue "txn" to remove the asset from the ledger. 
     let dtxn = algosdk.makeAssetDestroyTxnWithSuggestedParams(addr, note, assetID, params);
@@ -471,19 +487,34 @@ console.log(recoveredAccount3.addr);
 
     // The account3 and account1 should no longer contain the asset as it has been destroyed
     console.log("Asset ID: " + assetID);
-
-
     console.log("Account 1 = " + recoveredAccount1.addr);
     await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
     await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
-
     console.log("Account 3 = " + recoveredAccount3.addr);
     await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);  
-    // your console/terminal output should look similar to this:   
-    // Transaction: FGMK2Q5Y2AXSOVSFO3XB6GBWQBUODF7A6QOU5BPHSIJIRA3UJHHQ
-    // Transaction FGMK2Q5Y2AXSOVSFO3XB6GBWQBUODF7A6QOU5BPHSIJIRA3UJHHQ confirmed in round 4274286
-    // Asset ID: 149783
-    // Account Information for: { "creator": "", "amount": 0, "frozen": true }
+
+    
+    // Notice that although the asset was destroyed, the asset id and associated 
+    // metadata still exists in account holdings for Account 3. 
+    // When you destroy an asset, the global parameters associated with that asset
+    // (manager addresses, name, etc.) are deleted from the creator's balance record (Account 1).
+    // However, holdings are not deleted automatically -- users still need to close out of the deleted asset.
+    // This is necessary for technical reasons because we currently can't have a single transaction touch potentially 
+    // thousands of accounts (all the holdings that would need to be deleted).
+
+    // your console/terminal output should look similar to this: 
+    // Transaction: KMSVPDQMVGIASU2ZLKRBSWOQVXR3EOJ4Z4WKS5GTB7MKE4D57L6Q
+    // Transaction KMSVPDQMVGIASU2ZLKRBSWOQVXR3EOJ4Z4WKS5GTB7MKE4D57L6Q confirmed in round 3961877
+    // Asset ID: 2653785
+    // Account 1 = ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ
+    // Account 3 = IWR4CLLCN2TIVX2QPVVKVR5ER5OZGMWAV5QB2UIPYMPKBPLJZX4C37C4AA
+    // AssetExample.js: 480
+    // assetholdinginfo = {
+    //     "amount": 0,
+    //     "asset-id": 2653785,
+    //     "creator": "",
+    //     "is-frozen": true
+    // }
 
 })().catch(e => {
     console.log(e);
