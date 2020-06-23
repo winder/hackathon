@@ -401,7 +401,7 @@ func main() {
 	// } 
 
 	// TRANSFER ASSET
-	// Transfer an Asset
+	
 	// Send  10 latinum from Account 1 to Account 3
 	// assetID := uint64(332920)
 	// Get network-related transaction parameters and assign

@@ -183,7 +183,6 @@ func main() {
 
 
 	// DESTROY ASSET
-	// Destroy the asset
 	// Make sure all funds are back in the creator's account. Then use the
 	// Manager account (Account 1) to destroy the asset.
 

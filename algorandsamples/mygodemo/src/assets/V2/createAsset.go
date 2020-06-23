@@ -178,29 +178,7 @@ func main() {
 	// 	"2": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
 	// 	"3": "3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU"
 	// }
-	// Transaction YNRBKLFS2TDQDGENVWJ2SCK4EX5EG7HJ6NGJFOFGCLSTCMMXHDJA confirmed in round 4072064
-	// Asset ID: 2654024
-	// {
-	// 	"index": 2654024,
-	// 	"params": {
-	// 		"clawback": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
-	// 		"decimals": 0,
-	// 		"freeze": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"manager": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"metadata-hash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
-	// 		"name": "latinum",
-	// 		"reserve": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"total": 1000,
-	// 		"unit-name": "latinum",
-	// 		"url": "https://path/to/my/asset/details"
-	// 	}
-	// }
-	// {
-	// 	"amount": 1000,
-	// 	"asset-id": 2654024,
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
-	// }
+
 
 	// CREATE ASSET
 
@@ -268,5 +246,29 @@ func main() {
 	fmt.Printf("Asset ID: %d\n", assetID)
 	printCreatedAsset(assetID, pks[1], algodClient)
 	printAssetHolding(assetID, pks[1], algodClient)
-
+	
+	// Your output should look similar to this...
+	// Transaction YNRBKLFS2TDQDGENVWJ2SCK4EX5EG7HJ6NGJFOFGCLSTCMMXHDJA confirmed in round 4072064
+	// Asset ID: 2654024
+	// {
+	// 	"index": 2654024,
+	// 	"params": {
+	// 		"clawback": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+	// 		"decimals": 0,
+	// 		"freeze": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"manager": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"metadata-hash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
+	// 		"name": "latinum",
+	// 		"reserve": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"total": 1000,
+	// 		"unit-name": "latinum",
+	// 		"url": "https://path/to/my/asset/details"
+	// 	}
+	// }
+	// {
+	// 	"amount": 1000,
+	// 	"asset-id": 2654024,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
+	// }
 }
