@@ -138,7 +138,7 @@ public class AssetExample {
         System.out.println("Account2: " + acct2.getAddress());
         System.out.println("Account3: " + acct3.getAddress());
 
-        // CREAT ASSET
+        // CREATE ASSET
         // get changing network parameters for each transaction
         TransactionParametersResponse params = client.TransactionParams().execute().body();
         params.fee = (long) 1000;

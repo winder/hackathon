@@ -146,15 +146,13 @@ public class ChangeManager {
         TransactionParametersResponse params = client.TransactionParams().execute().body();
         params.fee = (long) 1000;
         // configuration changes must be done by
-        // the manager account - changing manager of the asset
-   
+        // the manager account - changing manager of the asset   
         Address reserve = acct2.getAddress();
         Address freeze = acct2.getAddress();
         Address clawback = acct2.getAddress();
         Transaction tx = Transaction.AssetConfigureTransactionBuilder().sender(acct2.getAddress()).assetIndex(assetID)
                 .manager(acct1.getAddress()).reserve(reserve).freeze(freeze).clawback(clawback).suggestedParams(params)
                 .build();
-
         // the transaction must be signed by the current manager account
         SignedTransaction signedTx = acct2.signTransaction(tx);
         // send the transaction to the network
@@ -165,7 +163,6 @@ public class ChangeManager {
             // the manager should now be the same as the creator
             System.out.println("AssetID = " + assetID);
             printCreatedAsset(acct1, assetID);
-
         } catch (Exception e) {
             e.printStackTrace();
             return;
