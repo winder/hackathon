@@ -8,26 +8,19 @@ import (
 
 	"github.com/algorand/go-algorand-sdk/client/v2/algod"
 	"github.com/algorand/go-algorand-sdk/crypto"
-	"github.com/algorand/go-algorand-sdk/future/transaction"
 	"github.com/algorand/go-algorand-sdk/mnemonic"
 	"github.com/algorand/go-algorand-sdk/types"
 )
+import transaction "github.com/algorand/go-algorand-sdk/future"
 
-// 332920
+
 // UPDATE THESE VALUES
-
 // const algodAddress = "Your ADDRESS"
 // const algodToken = "Your TOKEN"
-
-// hackathon
-// const algodAddress = "http://hackathon.algodev.network:9100"
-// const algodToken = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1"
 
 // sandbox
 const algodAddress = "http://localhost:4001"
 const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-var txHeaders = append([]*algod.Header{}, &algod.Header{"Content-Type", "application/json"})
 
 // Accounts to be used through examples
 func loadAccounts() (map[int][]byte, map[int]string) {
@@ -65,31 +58,31 @@ func loadAccounts() (map[int][]byte, map[int]string) {
 	return sks, pks
 }
 
-// Function that waits for a given txId to be confirmed by the network
-func waitForConfirmation(algodClient algod.Client, txID string) {
-	nodeStatus, err := algodClient.Status()
+func waitForConfirmation(txID string, client *algod.Client) {
+	status, err := client.Status().Do(context.Background())
 	if err != nil {
 		fmt.Printf("error getting algod status: %s\n", err)
 		return
 	}
-	lastRound := nodeStatus.LastRound
+	lastRound := status.LastRound
 	for {
-		pt, err := algodClient.PendingTransactionInformation(txID)
+		pt, _, err := client.PendingTransactionInformation(txID).Do(context.Background())
 		if err != nil {
-			fmt.Printf("waiting for confirmation... (pool error, if any): %s\n", err)
-			continue
+			fmt.Printf("error getting pending transaction: %s\n", err)
+			return
 		}
 		if pt.ConfirmedRound > 0 {
-			fmt.Printf("Transaction "+pt.TxID+" confirmed in round %d\n", pt.ConfirmedRound)
+			fmt.Printf("Transaction "+txID+" confirmed in round %d\n", pt.ConfirmedRound)
 			break
 		}
+		fmt.Printf("waiting for confirmation\n")
 		lastRound++
-		algodClient.StatusAfterBlock(lastRound)
+		status, err = client.StatusAfterBlock(lastRound).Do(context.Background())
 	}
 }
 
-// PrettyPrint prints Go structs
-func PrettyPrint(data interface{}) {
+// prettyPrint prints Go structs
+func prettyPrint(data interface{}) {
 	var p []byte
 	//    var err := error
 	p, err := json.MarshalIndent(data, "", "\t")
@@ -100,15 +93,44 @@ func PrettyPrint(data interface{}) {
 	fmt.Printf("%s \n", p)
 }
 
+// printAssetHolding utility to print asset holding for account
+func printAssetHolding(assetID uint64, account string, client *algod.Client) {
+
+	act, err := client.AccountInformation(account).Do(context.Background())
+	if err != nil {
+		fmt.Printf("failed to get account information: %s\n", err)
+		return
+	}
+	for _, assetholding := range act.Assets {
+		if assetID == assetholding.AssetId {
+			prettyPrint(assetholding)
+			break
+		}
+	}
+}
+
+// printCreatedAsset utility to print created assert for account
+func printCreatedAsset(assetID uint64, account string, client *algod.Client) {
+
+	act, err := client.AccountInformation(account).Do(context.Background())
+	if err != nil {
+		fmt.Printf("failed to get account information: %s\n", err)
+		return
+	}
+	for _, asset := range act.CreatedAssets {
+		if assetID == asset.Index {
+			prettyPrint(asset)
+			break
+		}
+	}
+}
+
 // Main function to demonstrate ASA examples
 func main() {
-	// Get pre-defined set of keys for example
-	sks, pks := loadAccounts()
 
 	// Initialize an algodClient
 	algodClient, err := algod.MakeClient(algodAddress, algodToken)
 	if err != nil {
-		fmt.Printf("Issue with creating algod client: %s\n", err)
 		return
 	}
 
@@ -122,15 +144,13 @@ func main() {
 	txParams.FlatFee = true
 	txParams.Fee = 1000
 
-	// txParams, err := algodClient.SuggestedParams()
-	// if err != nil {
-	// 	fmt.Printf("error getting suggested tx params: %s\n", err)
-	// 	return
-	// }
+	// Get pre-defined set of keys for example
+	sks, pks := loadAccounts()
+
 	// Print asset info for newly created asset.
-	PrettyPrint(txParams)
-	PrettyPrint(sks)
-	PrettyPrint(pks)
+	prettyPrint(txParams)
+	prettyPrint(sks)
+	prettyPrint(pks)
 	// note: you would not normally show secret keys for security reasons,
 	// they are shown here for tutorial clarity
 
@@ -140,11 +160,13 @@ func main() {
 	// Loaded Key 2: AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU
 	// Loaded Key 3: 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU
 	// {
-	// 	"fee": 1,
-	// 	"genesisID": "testnet-v1.0",
-	// 	"genesishashb64": "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=",
-	// 	"lastRound": 4268229,
-	// 	"consensusVersion": "https://github.com/algorandfoundation/specs/tree/4a9db6a25595c6fd097cf9cc137cc83027787eaa"
+	// 	"Fee": 1000,
+	// 	"GenesisID": "betanet-v1.0",
+	// 	"GenesisHash": "mFgazF+2uRS1tMiL9dsj01hJGySEmPN28B/TjjvpVW0=",
+	// 	"FirstRoundValid": 4072061,
+	// 	"LastRoundValid": 4073061,
+	// 	"ConsensusVersion": "https://github.com/algorandfoundation/specs/tree/e5f565421d720c6f75cdd186f7098495caf9101f",
+	// 	"FlatFee": true
 	// }
 	// {
 	// 	"1": "QkWlt0yawnHOIvkgkQ3tbEo6KudsGmDRYtlQ1OeieN2Z4HMPhyEk58kpxgu+MspyO/PcN+Xj7ZHhUKz3JN1VHg==",
@@ -157,24 +179,11 @@ func main() {
 	// 	"3": "3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU"
 	// }
 
-	// Create an Asset
-	// uncomment these imports at the top
-	// 	-	b64 "encoding/base64"
-	//  - 	"github.com/algorand/go-algorand-sdk/transaction"
-	// 	-	"github.com/algorand/go-algorand-sdk/crypto"
-	fee := txParams.Fee
-	firstRound := uint64(txParams.FirstRoundValid)
-	lastRound := uint64(txParams.LastRoundValid)
-	firstRoundOld := txParams.FirstRoundValid
-	lastRoundOld := txParams.LastRoundValid
-	fmt.Printf(string(firstRoundOld))
-	fmt.Printf(string(lastRoundOld))
-	// genHash := b64.StdEncoding.EncodeToString(txParams.GenesisHash)
-	genHash := txParams.GenesisHash
-	genID := txParams.GenesisID
 
-	// Create an asset
-	// Set parameters for asset creation transaction
+	// CREATE ASSET
+
+	// Construct the transaction
+	// Set parameters for asset creation 
 	creator := pks[1]
 	assetName := "latinum"
 	unitName := "latinum"
@@ -188,15 +197,18 @@ func main() {
 	freeze := pks[2]
 	clawback := pks[2]
 	note := []byte(nil)
-	txn, err := transaction.MakeAssetCreateTxn(creator, fee, firstRound, lastRound, note,
-		genID, genHash, totalIssuance, decimals, defaultFrozen, manager, reserve, freeze, clawback,
+	txn, err := transaction.MakeAssetCreateTxn(creator,
+		note,
+		txParams, totalIssuance, decimals,
+		defaultFrozen, manager, reserve, freeze, clawback,
 		unitName, assetName, assetURL, assetMetadataHash)
+
 	if err != nil {
 		fmt.Printf("Failed to make asset: %s\n", err)
 		return
 	}
 	fmt.Printf("Asset created AssetName: %s\n", txn.AssetConfigTxnFields.AssetParams.AssetName)
-
+	// sign the transaction
 	txid, stx, err := crypto.SignTransaction(sks[1], txn)
 	if err != nil {
 		fmt.Printf("Failed to sign transaction: %s\n", err)
@@ -204,62 +216,83 @@ func main() {
 	}
 	fmt.Printf("Transaction ID: %s\n", txid)
 	// Broadcast the transaction to the network
-	sendResponse, err := algodClient.SendRawTransaction(stx)
+	sendResponse, err := algodClient.SendRawTransaction(stx).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-
+	fmt.Printf("Submitted transaction %s\n", sendResponse)
 	// Wait for transaction to be confirmed
-	waitForConfirmation(algodClient, sendResponse.TxID)
-
+	waitForConfirmation(txid, algodClient)
+	//    response := algodClient.PendingTransactionInformation(txid)
+	//    prettyPrint(response)
 	// Retrieve asset ID by grabbing the max asset ID
 	// from the creator account's holdings.
-	act, err := algodClient.AccountInformation(pks[1], txHeaders...)
+	act, err := algodClient.AccountInformation(pks[1]).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to get account information: %s\n", err)
 		return
 	}
+
 	assetID := uint64(0)
-	for i, _ := range act.AssetParams {
-		if i > assetID {
-			assetID = i
+	//	find newest (highest) asset for this account
+	for _, asset := range act.CreatedAssets {
+		if asset.Index > assetID {
+			assetID = asset.Index
 		}
 	}
-	fmt.Printf("Asset ID from AssetParams: %d\n", assetID)
 
-	// Retrieve asset info.
-	assetInfo, err := algodClient.AssetInformation(assetID, txHeaders...)
-
-	// Print asset info for newly created asset.
-	PrettyPrint(assetInfo)
-	// terminal output should look similar to this
-
-	// terminal output should look similar to this
+	// print created asset and asset holding info for this asset
+	fmt.Printf("Asset ID: %d\n", assetID)
+	printCreatedAsset(assetID, pks[1], algodClient)
+	printAssetHolding(assetID, pks[1], algodClient)
+	// Your output should look similar to this...
+	
 	// Asset created AssetName: latinum
-	// Transaction ID: 4P4ACUIZTWYGFPSRZ6BPD4P64XZCYN2ZOHO33N4V7TYE2KWWDA4Q
-	// Transaction 4P4ACUIZTWYGFPSRZ6BPD4P64XZCYN2ZOHO33N4V7TYE2KWWDA4Q confirmed in round 4308303
-	// Asset ID from AssetParams: 151771
+	// Transaction ID: BEBUEATOOWSYDKN7W56Y2DHRED2Q45Z3M6ENGU4OWWMETC6CFW7Q
+	// Submitted transaction BEBUEATOOWSYDKN7W56Y2DHRED2Q45Z3M6ENGU4OWWMETC6CFW7Q
+	// waiting for confirmation
+	// Transaction BEBUEATOOWSYDKN7W56Y2DHRED2Q45Z3M6ENGU4OWWMETC6CFW7Q confirmed in round 4086072
+	// Asset ID: 2654040
 	// {
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
-	// 	"total": 1000,
-	// 	"decimals": 0,
-	// 	"defaultfrozen": false,
-	// 	"unitname": "latinum",
-	// 	"assetname": "latinum",
-	// 	"url": "https://path/to/my/asset/details",
-	// 	"metadatahash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
-	// 	"managerkey": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 	"reserveaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 	"freezeaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 	"clawbackaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU"
-	// }
+	// 	"index": 2654040,
+	// 	"params": {
+	// 		"clawback": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+	// 		"decimals": 0,
+	// 		"freeze": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"manager": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"metadata-hash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
+	// 		"name": "latinum",
+	// 		"reserve": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"total": 1000,
+	// 		"unit-name": "latinum",
+	// 		"url": "https://path/to/my/asset/details"
+	// 	}
+	// } 
+	// {
+	// 	"amount": 1000,
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
+	// } 
 
+    // CHANGE MANAGER
 	// Change Asset Manager from Account 2 to Account 1
+	// assetID := uint64(332920)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
+	if err != nil {
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
+		return
+	}
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
+
 	manager = pks[1]
 	oldmanager := pks[2]
 	strictEmptyAddressChecking := true
-	txn, err = transaction.MakeAssetConfigTxn(oldmanager, fee, firstRound, lastRound, note, genID, genHash, assetID, manager, reserve, freeze, clawback, strictEmptyAddressChecking)
+	txn, err = transaction.MakeAssetConfigTxn(oldmanager, note, txParams, assetID, manager, reserve, freeze, clawback, strictEmptyAddressChecking)
 	if err != nil {
 		fmt.Printf("Failed to send txn: %s\n", err)
 		return
@@ -272,43 +305,60 @@ func main() {
 	}
 	fmt.Printf("Transaction ID: %s\n", txid)
 	// Broadcast the transaction to the network
-	sendResponse, err = algodClient.SendRawTransaction(stx)
+	sendResponse, err = algodClient.SendRawTransaction(stx).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Transaction ID raw: %s\n", sendResponse.TxID)
+	fmt.Printf("Transaction ID raw: %s\n", txid)
 
 	// Wait for transaction to be confirmed
-	waitForConfirmation(algodClient, sendResponse.TxID)
-	// Retrieve asset info.
-	assetInfo, err = algodClient.AssetInformation(assetID, txHeaders...)
-	// Print asset info showing updated manager address.
-	PrettyPrint(assetInfo)
+	waitForConfirmation(txid,algodClient )
+	// print created assetinfo for this asset
+	fmt.Printf("Asset ID: %d\n", assetID)
+	printCreatedAsset(assetID, pks[1], algodClient)
+
 
 	// Your terminal output should appear similar to this...
 
-	// 	Transaction HC6XR26GVMUZW26HBFHWU45Z4TI3XK4E7WR6IJ3BABPXVTLXI3UA confirmed in round 4309244
-
+	// Transaction ID: 2XR5UANBPZ74MA5FCK2TB7KGOEEX3C3PFQEBBFYQ4UOBONR764VA
+	// Transaction ID raw: 2XR5UANBPZ74MA5FCK2TB7KGOEEX3C3PFQEBBFYQ4UOBONR764VA
+	// waiting for confirmation
+	// Transaction 2XR5UANBPZ74MA5FCK2TB7KGOEEX3C3PFQEBBFYQ4UOBONR764VA confirmed in round 4086076
+	// Asset ID: 2654040
 	// {
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
-	// 	"total": 1000,
-	// 	"decimals": 0,
-	// 	"defaultfrozen": false,
-	// 	"unitname": "latinum",
-	// 	"assetname": "latinum",
-	// 	"url": "https://path/to/my/asset/details",
-	// 	"metadatahash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
-	// 	"managerkey": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
-	// 	"reserveaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 	"freezeaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 	"clawbackaddr": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU"
-	// }
+	// 	"index": 2654040,
+	// 	"params": {
+	// 		"clawback": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+	// 		"decimals": 0,
+	// 		"freeze": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"manager": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+	// 		"metadata-hash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
+	// 		"name": "latinum",
+	// 		"reserve": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"total": 1000,
+	// 		"unit-name": "latinum",
+	// 		"url": "https://path/to/my/asset/details"
+	// 	}
+	// } 
 
-	// Opt-in
+	// OPT-IN
+
 	// Account 3 opts in to receive latinum
 	// Use previously set transaction parameters and update sending address to account 3
-	txn, err = transaction.MakeAssetAcceptanceTxn(pks[3], fee, firstRound, lastRound, note, genID, genHash, assetID)
+	// assetID := uint64(332920)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
+	if err != nil {
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
+		return
+	}
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
+
+	txn, err = transaction.MakeAssetAcceptanceTxn(pks[3], note, txParams, assetID)
 	if err != nil {
 		fmt.Printf("Failed to send transaction MakeAssetAcceptanceTxn: %s\n", err)
 		return
@@ -321,41 +371,55 @@ func main() {
 
 	fmt.Printf("Transaction ID: %s\n", txid)
 	// Broadcast the transaction to the network
-	sendResponse, err = algodClient.SendRawTransaction(stx)
+	sendResponse, err = algodClient.SendRawTransaction(stx).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Transaction ID raw: %s\n", sendResponse.TxID)
+	fmt.Printf("Transaction ID raw: %s\n", txid)
 
 	// Wait for transaction to be confirmed
-	waitForConfirmation(algodClient, sendResponse.TxID)
+	waitForConfirmation(txid, algodClient)
 
-	act, err = algodClient.AccountInformation(pks[3], txHeaders...)
-	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
-		return
-	}
-	PrettyPrint(act.Assets[assetID])
+	// print created assetholding for this asset and Account 3, showing 0 balance
+	fmt.Printf("Asset ID: %d\n", assetID)
+	fmt.Printf("Account 3: %s\n", pks[3])
+	printAssetHolding(assetID, pks[3], algodClient)
 
 	// your terminal output should be similar to this...
 
-	// 	Transaction CYF2K2KLIQB7XE4KZY4ZET3KGRULPNNQWWMMK77WLPAOUN5M5VFA confirmed in round 4309336
+	// Transaction ID: JYVJEB25YMAVNSAFDTZECWMJTKZHSFJGICGGXF64TH5RTXDICIUA
+	// Transaction ID raw: JYVJEB25YMAVNSAFDTZECWMJTKZHSFJGICGGXF64TH5RTXDICIUA
+	// waiting for confirmation
+	// Transaction JYVJEB25YMAVNSAFDTZECWMJTKZHSFJGICGGXF64TH5RTXDICIUA confirmed in round 4086079
+	// Asset ID: 2654040
+	// Account 3: 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU
 	// {
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
 	// 	"amount": 0,
-	// 	"frozen": false
-	// }
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
+	// } 
 
+	// TRANSFER ASSET
 	// Transfer an Asset
 	// Send  10 latinum from Account 1 to Account 3
+	// assetID := uint64(332920)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
+	if err != nil {
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
+		return
+	}
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
 
 	sender := pks[1]
 	recipient := pks[3]
 	amount := uint64(10)
 	closeRemainderTo := ""
-	txn, err = transaction.MakeAssetTransferTxn(sender, recipient, closeRemainderTo, amount, fee, firstRound, lastRound, note,
-		genID, genHash, assetID)
+	txn, err = transaction.MakeAssetTransferTxn(sender, recipient, amount, note, txParams, closeRemainderTo, 
+		assetID)
 	if err != nil {
 		fmt.Printf("Failed to send transaction MakeAssetTransfer Txn: %s\n", err)
 		return
@@ -367,36 +431,57 @@ func main() {
 	}
 	fmt.Printf("Transaction ID: %s\n", txid)
 	// Broadcast the transaction to the network
-	sendResponse, err = algodClient.SendRawTransaction(stx)
+	sendResponse, err = algodClient.SendRawTransaction(stx).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Transaction ID raw: %s\n", sendResponse.TxID)
+	fmt.Printf("Transaction ID raw: %s\n", txid)
 
 	// Wait for transaction to be confirmed
-	waitForConfirmation(algodClient, sendResponse.TxID)
+	waitForConfirmation(txid,algodClient)
 
-	act, err = algodClient.AccountInformation(pks[3], txHeaders...)
+	// print created assetholding for this asset and Account 3 and Account 1
+	// You should see amount of 10 in Account 3, and 990 in Account 1
+	fmt.Printf("Asset ID: %d\n", assetID)
+	fmt.Printf("Account 3: %s\n", pks[3])
+	printAssetHolding(assetID, pks[3], algodClient)
+	fmt.Printf("Account 1: %s\n", pks[1])
+	printAssetHolding(assetID, pks[1], algodClient)
+	// Your terminal output should look similar to this
+	// Transaction ID: 7GPXSVF6YYHHHIGHDCGGR2AS2XXLMDXTUR6GUTSZU4GMIOK2V7TQ
+	// Transaction ID raw: 7GPXSVF6YYHHHIGHDCGGR2AS2XXLMDXTUR6GUTSZU4GMIOK2V7TQ
+	// waiting for confirmation
+	// Transaction 7GPXSVF6YYHHHIGHDCGGR2AS2XXLMDXTUR6GUTSZU4GMIOK2V7TQ confirmed in round 4086081
+	// Asset ID: 2654040
+	// Account 3: 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU
+	// {
+	// 	"amount": 10,
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
+	// } 
+	// Account 1: THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM
+	// {
+	// 	"amount": 990,
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
+	// } 
+
+	// FREEZE ASSET
+	// The freeze address (Account 2) Freeze's asset for Account 3.
+	// assetID := uint64(332920)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
 	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
 		return
 	}
-	PrettyPrint(act.Assets[assetID])
-
-	// Your terminal output should look similar to this
-	// Transaction QAHANEYNUGYLKBDRM2BMLG63Y6PET2JNZGLJGH4Y2ROYTLEWZWGQ confirmed in round 4309416
-	// {
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
-	// 	"amount": 10,
-	// 	"frozen": false
-	// }
-
-	// Freeze an Asset
-	// The freeze address (Account 2) Freeze's asset for Account 3.
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
 	newFreezeSetting := true
 	target := pks[3]
-	txn, err = transaction.MakeAssetFreezeTxn(freeze, fee, firstRound, lastRound, note, genID, genHash, assetID, target, newFreezeSetting)
+	txn, err = transaction.MakeAssetFreezeTxn(freeze, note, txParams, assetID, target, newFreezeSetting)
 	if err != nil {
 		fmt.Printf("Failed to send txn: %s\n", err)
 		return
@@ -408,38 +493,53 @@ func main() {
 	}
 	fmt.Printf("Transaction ID: %s\n", txid)
 	// Broadcast the transaction to the network
-	sendResponse, err = algodClient.SendRawTransaction(stx)
+	sendResponse, err = algodClient.SendRawTransaction(stx).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Transaction ID raw: %s\n", sendResponse.TxID)
+	fmt.Printf("Transaction ID raw: %s\n", txid)
 	// Wait for transaction to be confirmed
-	waitForConfirmation(algodClient, sendResponse.TxID)
+	waitForConfirmation(txid,algodClient)
+    // You should now see is-frozen value of true
+	fmt.Printf("Asset ID: %d\n", assetID)
+	fmt.Printf("Account 3: %s\n", pks[3])
+	printAssetHolding(assetID, pks[3], algodClient)
 
-	act, err = algodClient.AccountInformation(pks[3], txHeaders...)
-	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
-		return
-	}
-	PrettyPrint(act.Assets[assetID])
+	
 
 	// Your terminal output should look similar to this:
 
-	// Transaction RFFNJOQ3QSVJNTOXW2YYBD2RKJGCWCB6DY2JJZ4RSN5PJBFAKIPA confirmed in round 4309523
+	// Transaction ID: FHFLUVKQ5Q4S2RRLOA6EJ6NVQDZEVU6TDKNOVJK5ZNKCDYUZFNXQ
+	// Transaction ID raw: FHFLUVKQ5Q4S2RRLOA6EJ6NVQDZEVU6TDKNOVJK5ZNKCDYUZFNXQ
+	// waiting for confirmation
+	// Transaction FHFLUVKQ5Q4S2RRLOA6EJ6NVQDZEVU6TDKNOVJK5ZNKCDYUZFNXQ confirmed in round 4086084
+	// Asset ID: 2654040
+	// Account 3: 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU
 	// {
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
 	// 	"amount": 10,
-	// 	"frozen": true
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+	// 	"is-frozen": true
 	// }
-
+	
+	// REVOKE ASSET
 	// Revoke an Asset
 	// The clawback address (Account 2) revokes 10 latinum from Account 3 (target)
 	// and places it back with Account 1 (creator).
-
+	// assetID := uint64(332920)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
+	if err != nil {
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
+		return
+	}
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
 	target = pks[3]
-	txn, err = transaction.MakeAssetRevocationTxn(clawback, target, creator, amount, fee, firstRound, lastRound, note,
-		genID, genHash, assetID)
+	txn, err = transaction.MakeAssetRevocationTxn(clawback, target, amount, creator, note,
+		txParams, assetID)
 	if err != nil {
 		fmt.Printf("Failed to send txn: %s\n", err)
 		return
@@ -451,49 +551,59 @@ func main() {
 	}
 	fmt.Printf("Transaction ID: %s\n", txid)
 	// Broadcast the transaction to the network
-	sendResponse, err = algodClient.SendRawTransaction(stx)
+	sendResponse, err = algodClient.SendRawTransaction(stx).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Transaction ID raw: %s\n", sendResponse.TxID)
+	fmt.Printf("Transaction ID raw: %s\n", txid)
 	// Wait for transaction to be confirmed
-	waitForConfirmation(algodClient, sendResponse.TxID)
-
-	act, err = algodClient.AccountInformation(pks[3], txHeaders...)
-	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
-		return
-	}
-	fmt.Printf("target")
-	PrettyPrint(act.Assets[assetID])
-
-	act, err = algodClient.AccountInformation(pks[1], txHeaders...)
-	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
-		return
-	}
+	waitForConfirmation( txid, algodClient)
+	// print created assetholding for this asset and Account 3 and Account 1
+	// You should see amount of 0 in Account 3, and 1000 in Account 1
+	fmt.Printf("Asset ID: %d\n", assetID)
 	fmt.Printf("recipient")
-	PrettyPrint(act.Assets[assetID])
+	fmt.Printf("Account 3: %s\n", pks[3])
+	printAssetHolding(assetID, pks[3], algodClient)
+	fmt.Printf("target")
+	fmt.Printf("Account 1: %s\n", pks[1])
+	printAssetHolding(assetID, pks[1], algodClient)
 
 	// Your terminal output should look similar to this...
 
-	// Transaction PJFMUJPOSPQG6ZAKHZ4RW3WZT7BIU7B2QRR6OZA3TG7OSDK7U5ZA confirmed in round 4309690
-	// target{
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+	// Transaction XH32YUIX2VTEH3QPJECVNVXHVHU2LBQVGIHMPPSRE4XGLFNUG63Q confirmed in round 4086090
+	// Asset ID: 2654040
+	// recipientAccount 3: 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU
+	// {
 	// 	"amount": 0,
-	// 	"frozen": true
-	// }
-	// recipient{
+	// 	"asset-id": 2654040,
 	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
+	// 	"is-frozen": true
+	// } 
+	// targetAccount 1: THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM
+	// {
 	// 	"amount": 1000,
-	// 	"frozen": false
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
 	// }
 
+	// DESTROY ASSET
 	// Destroy the asset
 	// Make sure all funds are back in the creator's account. Then use the
 	// Manager account (Account 1) to destroy the asset.
-	txn, err = transaction.MakeAssetDestroyTxn(manager, fee, firstRound, lastRound, note, genID, genHash, assetID)
+
+	// assetID := uint64(332920)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
+	if err != nil {
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
+		return
+	}
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
+
+	txn, err = transaction.MakeAssetDestroyTxn(manager, note, txParams, assetID)
 	if err != nil {
 		fmt.Printf("Failed to send txn: %s\n", err)
 		return
@@ -505,24 +615,29 @@ func main() {
 	}
 	fmt.Printf("Transaction ID: %s\n", txid)
 	// Broadcast the transaction to the network
-	sendResponse, err = algodClient.SendRawTransaction(stx)
+	sendResponse, err = algodClient.SendRawTransaction(stx).Do(context.Background())
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Transaction ID raw: %s\n", sendResponse.TxID)
+	fmt.Printf("Transaction ID raw: %s\n", txid)
 	// Wait for transaction to be confirmed
-	waitForConfirmation(algodClient, sendResponse.TxID)
-	// Retrieve asset info. This should now throw an error.
-	assetInfo, err = algodClient.AssetInformation(assetID, txHeaders...)
-	if err != nil {
-		fmt.Printf("%s\n", err)
-	}
+	waitForConfirmation(txid,algodClient)
+	fmt.Printf("Asset ID: %d\n", assetID)	
+	fmt.Printf("Account 3 must do a transaction for an amount of 0, \n" )
+    fmt.Printf("with a closeRemainderTo to the creator account, to clear it from its accountholdings. \n")
+    fmt.Printf("For Account 1, nothing should print after this as the asset is destroyed on the creator account \n")
+
+	// print created asset and asset holding info for this asset (should not print anything)
+
+	printCreatedAsset(assetID, pks[1], algodClient)
+	printAssetHolding(assetID, pks[1], algodClient)
 
 	// Your terminal output should look similar to this...
 
-	// Transaction ID: WBJTR4TWEVVWMNTUHXUY6CHXKRK3NVF76WQ74VF5HT2GFA75OI4A
-	// Transaction ID raw: WBJTR4TWEVVWMNTUHXUY6CHXKRK3NVF76WQ74VF5HT2GFA75OI4A
-	// Transaction WBJTR4TWEVVWMNTUHXUY6CHXKRK3NVF76WQ74VF5HT2GFA75OI4A confirmed in round 4309776
-	// HTTP 404 Not Found: failed to retrieve asset creator from the ledger
+	// Transaction PI4U7DJZYDKEZS2PKTNGB6DFNVCCEYN5FNLZBBWNONTWMA7RH6AA confirmed in round 4086093
+	// Asset ID: 2654040
+	// Account 3 must do a transaction for an amount of 0, 
+	// with a closeRemainderTo to the creator account, to clear it from its accountholdings.
+	// For Account 1, nothing should print after this as the asset is destroyed on the creator account
 }

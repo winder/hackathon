@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"crypto/ed25519"
-//	"encoding/base64"
 	json "encoding/json"
 	"fmt"
 
@@ -11,8 +10,11 @@ import (
 	"github.com/algorand/go-algorand-sdk/crypto"
 	"github.com/algorand/go-algorand-sdk/mnemonic"
 	"github.com/algorand/go-algorand-sdk/types"
+
+	transaction "github.com/algorand/go-algorand-sdk/future"
 )
-import transaction "github.com/algorand/go-algorand-sdk/future"
+
+// 	assetID := uint64(2654050)
 
 // UPDATE THESE VALUES
 // const algodAddress = "Your ADDRESS"
@@ -178,16 +180,72 @@ func main() {
 	// 	"2": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
 	// 	"3": "3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU"
 	// }
-	// Transaction YNRBKLFS2TDQDGENVWJ2SCK4EX5EG7HJ6NGJFOFGCLSTCMMXHDJA confirmed in round 4072064
-	// Asset ID: 2654024
+
+
+
+	// CHANGE MANAGER
+	// Change Asset Manager from Account 2 to Account 1
+	assetID := uint64(2654050)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
+	if err != nil {
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
+		return
+	}
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
+
+	manager := pks[1]
+	oldmanager := pks[2]
+	reserve := pks[2]
+	freeze := pks[2]
+	clawback := pks[2]
+	note := []byte(nil)
+
+	strictEmptyAddressChecking := true
+	txn, err := transaction.MakeAssetConfigTxn(oldmanager, note, txParams, assetID, manager, reserve, freeze, clawback, strictEmptyAddressChecking)
+	if err != nil {
+		fmt.Printf("Failed to send txn: %s\n", err)
+		return
+	}
+
+	txid, stx, err := crypto.SignTransaction(sks[2], txn)
+	if err != nil {
+		fmt.Printf("Failed to sign transaction: %s\n", err)
+		return
+	}
+	fmt.Printf("Transaction ID: %s\n", txid)
+	// Broadcast the transaction to the network
+	sendResponse, err := algodClient.SendRawTransaction(stx).Do(context.Background())
+	fmt.Printf("Submitted transaction %s\n", sendResponse)
+	if err != nil {
+		fmt.Printf("failed to send transaction: %s\n", err)
+		return
+	}
+	fmt.Printf("Transaction ID raw: %s\n", txid)
+
+	// Wait for transaction to be confirmed
+	waitForConfirmation(txid, algodClient)
+	// print created assetinfo for this asset
+	fmt.Printf("Asset ID: %d\n", assetID)
+	printCreatedAsset(assetID, pks[1], algodClient)
+
+	// Your terminal output should appear similar to this...
+
+	// Transaction ID: 2XR5UANBPZ74MA5FCK2TB7KGOEEX3C3PFQEBBFYQ4UOBONR764VA
+	// Transaction ID raw: 2XR5UANBPZ74MA5FCK2TB7KGOEEX3C3PFQEBBFYQ4UOBONR764VA
+	// waiting for confirmation
+	// Transaction 2XR5UANBPZ74MA5FCK2TB7KGOEEX3C3PFQEBBFYQ4UOBONR764VA confirmed in round 4086076
+	// Asset ID: 2654040
 	// {
-	// 	"index": 2654024,
+	// 	"index": 2654040,
 	// 	"params": {
 	// 		"clawback": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
 	// 		"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
 	// 		"decimals": 0,
 	// 		"freeze": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"manager": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
+	// 		"manager": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
 	// 		"metadata-hash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
 	// 		"name": "latinum",
 	// 		"reserve": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
@@ -196,77 +254,5 @@ func main() {
 	// 		"url": "https://path/to/my/asset/details"
 	// 	}
 	// }
-	// {
-	// 	"amount": 1000,
-	// 	"asset-id": 2654024,
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
-	// }
-
-	// CREATE ASSET
-
-	// Construct the transaction
-	// Set parameters for asset creation 
-	creator := pks[1]
-	assetName := "latinum"
-	unitName := "latinum"
-	assetURL := "https://path/to/my/asset/details"
-	assetMetadataHash := "thisIsSomeLength32HashCommitment"
-	defaultFrozen := false
-	decimals := uint32(0)
-	totalIssuance := uint64(1000)
-	manager := pks[2]
-	reserve := pks[2]
-	freeze := pks[2]
-	clawback := pks[2]
-	note := []byte(nil)
-	txn, err := transaction.MakeAssetCreateTxn(creator,
-		note,
-		txParams, totalIssuance, decimals,
-		defaultFrozen, manager, reserve, freeze, clawback,
-		unitName, assetName, assetURL, assetMetadataHash)
-
-	if err != nil {
-		fmt.Printf("Failed to make asset: %s\n", err)
-		return
-	}
-	fmt.Printf("Asset created AssetName: %s\n", txn.AssetConfigTxnFields.AssetParams.AssetName)
-	// sign the transaction
-	txid, stx, err := crypto.SignTransaction(sks[1], txn)
-	if err != nil {
-		fmt.Printf("Failed to sign transaction: %s\n", err)
-		return
-	}
-	fmt.Printf("Transaction ID: %s\n", txid)
-	// Broadcast the transaction to the network
-	sendResponse, err := algodClient.SendRawTransaction(stx).Do(context.Background())
-	if err != nil {
-		fmt.Printf("failed to send transaction: %s\n", err)
-		return
-	}
-	fmt.Printf("Submitted transaction %s\n", sendResponse)
-	// Wait for transaction to be confirmed
-	waitForConfirmation(txid, algodClient)
-	//    response := algodClient.PendingTransactionInformation(txid)
-	//    prettyPrint(response)
-	// Retrieve asset ID by grabbing the max asset ID
-	// from the creator account's holdings.
-	act, err := algodClient.AccountInformation(pks[1]).Do(context.Background())
-	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
-		return
-	}
-
-	assetID := uint64(0)
-	//	find newest (highest) asset for this account
-	for _, asset := range act.CreatedAssets {
-		if asset.Index > assetID {
-			assetID = asset.Index
-		}
-	}
-
-	// print created asset and asset holding info for this asset
-	fmt.Printf("Asset ID: %d\n", assetID)
-	printCreatedAsset(assetID, pks[1], algodClient)
-	printAssetHolding(assetID, pks[1], algodClient)
 
 }

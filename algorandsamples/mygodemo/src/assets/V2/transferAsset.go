@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"crypto/ed25519"
-//	"encoding/base64"
 	json "encoding/json"
 	"fmt"
 
@@ -13,6 +12,7 @@ import (
 	"github.com/algorand/go-algorand-sdk/types"
 )
 import transaction "github.com/algorand/go-algorand-sdk/future"
+
 
 // UPDATE THESE VALUES
 // const algodAddress = "Your ADDRESS"
@@ -178,59 +178,33 @@ func main() {
 	// 	"2": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
 	// 	"3": "3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU"
 	// }
-	// Transaction YNRBKLFS2TDQDGENVWJ2SCK4EX5EG7HJ6NGJFOFGCLSTCMMXHDJA confirmed in round 4072064
-	// Asset ID: 2654024
-	// {
-	// 	"index": 2654024,
-	// 	"params": {
-	// 		"clawback": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM",
-	// 		"decimals": 0,
-	// 		"freeze": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"manager": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"metadata-hash": "dGhpc0lzU29tZUxlbmd0aDMySGFzaENvbW1pdG1lbnQ=",
-	// 		"name": "latinum",
-	// 		"reserve": "AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU",
-	// 		"total": 1000,
-	// 		"unit-name": "latinum",
-	// 		"url": "https://path/to/my/asset/details"
-	// 	}
-	// }
-	// {
-	// 	"amount": 1000,
-	// 	"asset-id": 2654024,
-	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
-	// }
 
-	// CREATE ASSET
 
-	// Construct the transaction
-	// Set parameters for asset creation 
-	creator := pks[1]
-	assetName := "latinum"
-	unitName := "latinum"
-	assetURL := "https://path/to/my/asset/details"
-	assetMetadataHash := "thisIsSomeLength32HashCommitment"
-	defaultFrozen := false
-	decimals := uint32(0)
-	totalIssuance := uint64(1000)
-	manager := pks[2]
-	reserve := pks[2]
-	freeze := pks[2]
-	clawback := pks[2]
-	note := []byte(nil)
-	txn, err := transaction.MakeAssetCreateTxn(creator,
-		note,
-		txParams, totalIssuance, decimals,
-		defaultFrozen, manager, reserve, freeze, clawback,
-		unitName, assetName, assetURL, assetMetadataHash)
-
+	// TRANSFER ASSET
+	// Transfer an Asset
+	// Send  10 latinum from Account 1 to Account 3
+	assetID := uint64(2654050)
+	// Get network-related transaction parameters and assign
+	txParams, err = algodClient.SuggestedParams().Do(context.Background())
 	if err != nil {
-		fmt.Printf("Failed to make asset: %s\n", err)
+		fmt.Printf("Error getting suggested tx params: %s\n", err)
 		return
 	}
-	fmt.Printf("Asset created AssetName: %s\n", txn.AssetConfigTxnFields.AssetParams.AssetName)
-	// sign the transaction
+	// comment out the next two (2) lines to use suggested fees
+	txParams.FlatFee = true
+	txParams.Fee = 1000
+    note := []byte(nil)
+	sender := pks[1]
+	recipient := pks[3]
+	amount := uint64(10)
+	closeRemainderTo := ""
+
+	txn, err := transaction.MakeAssetTransferTxn(sender, recipient, amount, note, txParams, closeRemainderTo, 
+		assetID)
+	if err != nil {
+		fmt.Printf("Failed to send transaction MakeAssetTransfer Txn: %s\n", err)
+		return
+	}
 	txid, stx, err := crypto.SignTransaction(sks[1], txn)
 	if err != nil {
 		fmt.Printf("Failed to sign transaction: %s\n", err)
@@ -243,30 +217,35 @@ func main() {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Submitted transaction %s\n", sendResponse)
+    fmt.Printf("Submitted transaction %s\n", sendResponse)
+	fmt.Printf("Transaction ID raw: %s\n", txid)
+
 	// Wait for transaction to be confirmed
-	waitForConfirmation(txid, algodClient)
-	//    response := algodClient.PendingTransactionInformation(txid)
-	//    prettyPrint(response)
-	// Retrieve asset ID by grabbing the max asset ID
-	// from the creator account's holdings.
-	act, err := algodClient.AccountInformation(pks[1]).Do(context.Background())
-	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
-		return
-	}
+	waitForConfirmation(txid,algodClient)
 
-	assetID := uint64(0)
-	//	find newest (highest) asset for this account
-	for _, asset := range act.CreatedAssets {
-		if asset.Index > assetID {
-			assetID = asset.Index
-		}
-	}
-
-	// print created asset and asset holding info for this asset
+	// print created assetholding for this asset and Account 3 and Account 1
+	// You should see amount of 10 in Account 3, and 990 in Account 1
 	fmt.Printf("Asset ID: %d\n", assetID)
-	printCreatedAsset(assetID, pks[1], algodClient)
+	fmt.Printf("Account 3: %s\n", pks[3])
+	printAssetHolding(assetID, pks[3], algodClient)
+	fmt.Printf("Account 1: %s\n", pks[1])
 	printAssetHolding(assetID, pks[1], algodClient)
-
+	// Your terminal output should look similar to this
+	// Transaction ID: 7GPXSVF6YYHHHIGHDCGGR2AS2XXLMDXTUR6GUTSZU4GMIOK2V7TQ
+	// Transaction ID raw: 7GPXSVF6YYHHHIGHDCGGR2AS2XXLMDXTUR6GUTSZU4GMIOK2V7TQ
+	// waiting for confirmation
+	// Transaction 7GPXSVF6YYHHHIGHDCGGR2AS2XXLMDXTUR6GUTSZU4GMIOK2V7TQ confirmed in round 4086081
+	// Asset ID: 2654040
+	// Account 3: 3ZQ3SHCYIKSGK7MTZ7PE7S6EDOFWLKDQ6RYYVMT7OHNQ4UJ774LE52AQCU
+	// {
+	// 	"amount": 10,
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
+	// } 
+	// Account 1: THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM
+	// {
+	// 	"amount": 990,
+	// 	"asset-id": 2654040,
+	// 	"creator": "THQHGD4HEESOPSJJYYF34MWKOI57HXBX4XR63EPBKCWPOJG5KUPDJ7QJCM"
+	// } 
 }

@@ -1,7 +1,7 @@
 import json
-from algosdk import account, mnemonic, transaction, future
-from algosdk.v2client import algod
-
+from algosdk import account, mnemonic,transaction, future
+from algosdk.v2client import algod 
+ 
 # Shown for demonstration purposes. NEVER reveal secret mnemonics in practice.
 # Change these values with your mnemonics
 # mnemonic1 = "PASTE your phrase for account 1"
