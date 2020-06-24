@@ -1,4 +1,4 @@
-package com.algorand.javatest;
+package com.algorand.javatest.smart_contracts.v1;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import com.algorand.algosdk.transaction.SignedTransaction;
 import com.algorand.algosdk.transaction.Transaction;
 import com.algorand.algosdk.util.Encoder;
 
-public class TutorialSubmitTealContract 
+public class ContractAccount 
 {
     public static void main(final String args[]) throws Exception {
         // Initialize an algod client
