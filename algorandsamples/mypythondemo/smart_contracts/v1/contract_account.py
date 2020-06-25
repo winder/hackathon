@@ -4,11 +4,9 @@ try:
 
     # create logic sig
     # program = b"hex-encoded-program"
-    # int 0 fail - leave in
-    # hex example b"\x01\x20\x00\x00\x22"
-    # int 1
-    # hex example b"\x01\x20\x01\x00\x22"
-    program = b"\x01\x20\x01\x01\x22"
+    # b"\x01\x20\x01\x00\x22 is `int 0`
+    # see more info here: https://developer.algorand.org/docs/features/asc1/sdks/#accessing-teal-program-from-sdks
+    program = b"\x01\x20\x01\x00\x22"
     lsig = transaction.LogicSig(program)
     sender = lsig.address()
 
@@ -37,7 +35,7 @@ try:
         sender, fee, last_round, last_round+100, gh, receiver, amount, closeremainderto)
     # Create the LogicSigTransaction with contract account LogicSig
     lstx = transaction.LogicSigTransaction(txn, lsig)
-
+    print("This transaction is expected to fail as it is int 0 , alwasy false")
     # send raw LogicSigTransaction to network
     txid = acl.send_transaction(lstx)
     print("Transaction ID: " + txid)
