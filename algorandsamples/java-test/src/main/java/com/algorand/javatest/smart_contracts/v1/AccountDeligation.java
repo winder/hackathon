@@ -18,6 +18,8 @@ import com.algorand.algosdk.transaction.Transaction;
 import com.algorand.algosdk.util.Encoder;
 
 public class AccountDeligation {
+    // Utility function to update changing block parameters
+
     public static void main(final String args[]) throws Exception {
         // Initialize an algod client
         // hackathon
@@ -83,7 +85,8 @@ public class AccountDeligation {
         BigInteger amount = BigInteger.valueOf(1000000);
         BigInteger lastRound = firstRound.add(BigInteger.valueOf(1000)); 
         Transaction tx = new Transaction(src.getAddress(), new Address(DEST_ADDR), BigInteger.valueOf(1000), amount, firstRound, lastRound, genId, genesisHash);
-
+        
+        
         try {
             // create the LogicSigTransaction with contract account LogicSig
             SignedTransaction stx = Account.signLogicsigTransaction(lsig, tx);

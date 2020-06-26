@@ -97,7 +97,8 @@ public class AssetExample {
             cp.genHash = new Digest(params.getGenesishashb64());
 
         } catch (ApiException e) {
-            throw (e);
+            System.err.println("Exception when calling algod#transactionParams");
+            e.printStackTrace();
         }
         return (cp);
     }
