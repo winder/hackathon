@@ -93,6 +93,15 @@ public class ContractAccount
 
             // send raw LogicSigTransaction to network
             byte[] encodedTxBytes = Encoder.encodeToMsgPack(stx);
+            try {
+                String FILEPATH = "./simple.stxn";
+                File file = new File(FILEPATH);
+                OutputStream os = new FileOutputStream(file);
+                os.write(encodedTxBytes);
+                os.close();
+            } catch (Exception e) {
+                System.out.println("Exception: " + e);
+            }
             // int 0 is the teal program, which returns false, 
             // so rawTransaction will fail below      
             TransactionID id = algodApiInstance.rawTransaction(encodedTxBytes);
