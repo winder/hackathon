@@ -22,6 +22,6 @@
     "vuepress": "^1.0.4"
   },
   "dependencies": {
-    "algosdk": "^1.6.1"
+    "algosdk": "^1.6.2"
   }
 }
