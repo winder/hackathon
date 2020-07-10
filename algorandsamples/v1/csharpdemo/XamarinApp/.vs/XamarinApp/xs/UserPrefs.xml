@@ -1,0 +1,44 @@
+﻿<Properties StartupConfiguration="{3D8488E0-5101-4301-82D6-304AE6FB9D56}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/helper.cs">
+    <Files>
+      <File FileName="app/algorandapp/ASA.xaml.cs" Line="524" Column="18" />
+      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="379" Column="31" />
+      <File FileName="app/algorandapp/MainPage.xaml.cs" />
+      <File FileName="app/algorandapp.iOS/Entitlements.plist" />
+      <File FileName="app/algorandapp.iOS/Main.cs" />
+      <File FileName="app/algorandapp/helper.cs" Line="67" Column="69" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="XamarinApp" expanded="True">
+            <Node name="algorandapp" expanded="True">
+              <Node name="Accounts.xaml" expanded="True" />
+              <Node name="ASA.xaml" expanded="True" />
+              <Node name="helper.cs" selected="True" />
+            </Node>
+            <Node name="algorandapp.iOS" expanded="True">
+              <Node name="Resources" expanded="True" />
+            </Node>
+            <Node name="algorandapp.UWP" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>url + "?account=" + account</Value>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.algorandapp.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.91945C01-7723-468F-B40F-E464E756A1B8" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/helper.cs" relfile="app/algorandapp/helper.cs" line="67" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.algorandapp.Android AndroidDesignerPreferredTheme="Theme.AppCompat.Light.NoActionBar" PreferredExecutionTarget="Android.nexus_10_pie_9_0_-_api_28" />
+</Properties>

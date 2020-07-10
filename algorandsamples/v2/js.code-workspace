@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "myjsdemo"
+		},
+	],
+	"settings": {},
+	"launch": {
+		"configurations": [
+		
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch AccountInfo",
+			"program": "${workspaceFolder}/indexer/AccountInfo.js",
+			"skipFiles": [
+				"<node_internals>/**"
+			]
+		}
+		]
+	}
+}

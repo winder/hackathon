@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "mygodemo"
+		}
+	],
+	"settings": {
+		"debug.console.fontSize": 20,
+		"debug.console.fontFamily": "default",
+		"window.autoDetectColorScheme": true
+	},
+	"go.alternateTools": {}
+}
