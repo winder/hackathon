@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="app/algorandapp/helper.cs">
     <Files>
       <File FileName="app/algorandapp/ASA.xaml.cs" Line="524" Column="18" />
-      <File FileName="app/algorandapp/Accounts.xaml.cs" Line="379" Column="31" />
+      <File FileName="app/algorandapp/Accounts.xaml.cs" />
       <File FileName="app/algorandapp/MainPage.xaml.cs" />
       <File FileName="app/algorandapp.iOS/Entitlements.plist" />
       <File FileName="app/algorandapp.iOS/Main.cs" />
@@ -11,22 +11,16 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="XamarinApp" expanded="True">
+          <Node name="XamarinApp" expanded="True" selected="True">
             <Node name="algorandapp" expanded="True">
               <Node name="Accounts.xaml" expanded="True" />
               <Node name="ASA.xaml" expanded="True" />
-              <Node name="helper.cs" selected="True" />
             </Node>
             <Node name="algorandapp.iOS" expanded="True">
               <Node name="Resources" expanded="True" />
             </Node>
             <Node name="algorandapp.UWP" expanded="True" />
           </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State>
-          <Value>url + "?account=" + account</Value>
         </State>
       </Pad>
     </Pads>
@@ -36,7 +30,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/csharpdemo/XamarinApp/app/algorandapp/helper.cs" relfile="app/algorandapp/helper.cs" line="67" column="1" />
+      <Breakpoint file="/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp/helper.cs" relfile="app/algorandapp/helper.cs" line="67" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
