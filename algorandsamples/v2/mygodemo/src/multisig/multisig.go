@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"crypto/ed25519"
 	"fmt"
 	json "encoding/json"
 	// "io/ioutil"
-	"github.com/algorand/go-algorand-sdk/client/algod"
+
+	"github.com/algorand/go-algorand-sdk/client/v2/algod"
 	"github.com/algorand/go-algorand-sdk/crypto"
 	"github.com/algorand/go-algorand-sdk/mnemonic"
 	"github.com/algorand/go-algorand-sdk/transaction"
@@ -53,27 +55,27 @@ func loadAccounts() (map[int][]byte, map[int]string) {
 }
 
 // Function that waits for a given txId to be confirmed by the network
-// Function that waits for a given txId to be confirmed by the network
-func waitForConfirmation(algodClient algod.Client, txID string) {
-	nodeStatus, err := algodClient.Status()
-	if err != nil {
-		fmt.Printf("error getting algod status: %s\n", err)
-		return
-	}
-	lastRound := nodeStatus.LastRound
-	for {
-		pt, err := algodClient.PendingTransactionInformation(txID)
-		if err != nil {
-			fmt.Printf("waiting for confirmation... (pool error, if any): %s\n", err)
-			continue
-		}
-		if pt.ConfirmedRound > 0 {
-			fmt.Printf("Transaction "+pt.TxID+" confirmed in round %d\n", pt.ConfirmedRound)
-			break
-		}
-		lastRound++
-		algodClient.StatusAfterBlock(lastRound)
-	}
+func waitForConfirmation(txID string, client *algod.Client) {
+    status, err := client.Status().Do(context.Background())
+    if err != nil {
+        fmt.Printf("error getting algod status: %s\n", err)
+        return
+    }
+    lastRound := status.LastRound
+    for {
+        pt, _, err := client.PendingTransactionInformation(txID).Do(context.Background())
+        if err != nil {
+            fmt.Printf("error getting pending transaction: %s\n", err)
+            return
+        }
+        if pt.ConfirmedRound > 0 {
+            fmt.Printf("Transaction "+txID+" confirmed in round %d\n", pt.ConfirmedRound)
+            break
+        }
+        fmt.Printf("waiting for confirmation\n")
+        lastRound++
+        status, err = client.StatusAfterBlock(lastRound).Do(context.Background())
+    }
 }
 
 // PrettyPrint prints Go structs
@@ -96,13 +98,13 @@ func main() {
 		return
 	}
 	// Get network-related transaction parameters and assign
-	txParams, err := algodClient.SuggestedParams()
+	txParams, err := algodClient.SuggestedParams().Do(context.Background())
 	if err != nil {
 		fmt.Printf("error getting suggested tx params: %s\n", err)
 		return
 	}
 	// comment out the next two (2) lines to use suggested fees
-	txParams.MinTxnFee = 1000
+	txParams.FlatFee = true
 	txParams.Fee = 1000
 	// Get pre-defined set of keys for example
 	sks, pks := loadAccounts()
@@ -137,17 +139,16 @@ func main() {
 
     toAddr := addr3.String()
     var amount uint64 = 10000
-
     note := []byte("Hello World")
     genID := txParams.GenesisID
     genHash := txParams.GenesisHash
-    firstValidRound := txParams.LastRound
-	lastValidRound := firstValidRound + 1000
-	
+    firstValidRound := uint64(txParams.FirstRoundValid)
+    lastValidRound := uint64(txParams.LastRoundValid)
+	var minFee uint64 = 1000
 	txn, err := transaction.MakePaymentTxn(
 		fromAddr.String(),
 		toAddr,
-		txParams.MinTxnFee,     // fee per byte
+		minFee,     // fee per byte
 		amount,  // amount
 		firstValidRound, // first valid round
 		lastValidRound, // last valid round
@@ -183,13 +184,13 @@ func main() {
 
 	// Broadcast the transaction to the network
 	// txHeaders := append([]*algod.Header{}, &algod.Header{"Content-Type", "application/x-binary"})
-	sendResponse, err := algodClient.SendRawTransaction(twoOfThreeTxBytes)
-	waitForConfirmation(algodClient, sendResponse.TxID)
+	sendResponse, err := algodClient.SendRawTransaction(twoOfThreeTxBytes).Do(context.Background())
+	waitForConfirmation(txid, algodClient)
 	if err != nil {
 		fmt.Printf("failed to send transaction: %s\n", err)
 		return
 	}
-	fmt.Printf("Transaction ID: %s\n", sendResponse.TxID)
+	fmt.Printf("Transaction ID: %s\n", sendResponse)
 	
 
 }
