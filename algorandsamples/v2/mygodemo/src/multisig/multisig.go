@@ -6,13 +6,16 @@ import (
 	"fmt"
 	json "encoding/json"
 	// "io/ioutil"
-
 	"github.com/algorand/go-algorand-sdk/client/v2/algod"
 	"github.com/algorand/go-algorand-sdk/crypto"
 	"github.com/algorand/go-algorand-sdk/mnemonic"
 	"github.com/algorand/go-algorand-sdk/transaction"
 	"github.com/algorand/go-algorand-sdk/types"
 )
+
+// UPDATE THESE VALUES
+// const algodAddress = "Your ADDRESS"
+// const algodToken = "Your TOKEN"
 
 // sandbox
 const algodAddress = "http://localhost:4001"
@@ -24,9 +27,9 @@ func loadAccounts() (map[int][]byte, map[int]string) {
 	// Change these values to use the accounts created previously.
 
 	// Paste in mnemonic phrases for all three accounts
-	// mnemonic1 := "PASTE your phrase for account 1"
-	// mnemonic2 := "PASTE your phrase for account 2"
-	// mnemonic3 := "PASTE your phrase for account 3"
+	// mnemonic1 := "PASTE phrase for account 1"
+	// mnemonic2 := "PASTE phrase for account 2"
+	// mnemonic3 := "PASTE phrase for account 3"
 
 	mnemonic1 := "predict mandate aware dizzy limit match hazard fantasy victory auto fortune hello public dragon ostrich happy blue spray parrot island odor actress only ability hurry"
 	mnemonic2 := "moon grid random garlic effort faculty fence gym write skin they joke govern home huge there claw skin way bid fit bean damp able only"
@@ -112,13 +115,7 @@ func main() {
 
 	addr1, _ := types.DecodeAddress(pks[1])
 	addr2, _ := types.DecodeAddress(pks[2])
-	addr3, _ := types.DecodeAddress(pks[3])	
-	// addr1 := crypto.GenerateAccount()
-	// addr2 := crypto.GenerateAccount()
-	//addr1, _ := types.DecodeAddress("DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA")
-	//addr2, _ := types.DecodeAddress("BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM")
-	// addr3, _ := types.DecodeAddress("47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU")
-	
+	addr3, _ := types.DecodeAddress(pks[3])		
 	
 	ma, err := crypto.MultisigAccountWithParams(1, 2, []types.Address{
 		addr1,
@@ -130,7 +127,6 @@ func main() {
 		panic("invalid multisig parameters")
 	}
 
-	
 	fromAddr, _ := ma.Address()
 	// Print multisig account
     fmt.Printf("Here is your multisig address : %s \n", fromAddr.String())
@@ -177,13 +173,12 @@ func main() {
     fmt.Printf("Made 2-out-of-3 multisig transaction with TxID %s: %x\n", txid, twoOfThreeTxBytes)
 
 
-	//We can also merge raw, partially-signed multisig transactions:
+	// We can also merge raw, partially-signed multisig transactions:
 
-// otherTxBytes := ... // generate another raw multisig transaction somehow
-// txid, mergedTxBytes, err := crypto.MergeMultisigTransactions(twoOfThreeTxBytes, otherTxBytes)
+	// otherTxBytes := ... // generate another raw multisig transaction somehow
+	// txid, mergedTxBytes, err := crypto.MergeMultisigTransactions(twoOfThreeTxBytes, otherTxBytes)
 
 	// Broadcast the transaction to the network
-	// txHeaders := append([]*algod.Header{}, &algod.Header{"Content-Type", "application/x-binary"})
 	sendResponse, err := algodClient.SendRawTransaction(twoOfThreeTxBytes).Do(context.Background())
 	waitForConfirmation(txid, algodClient)
 	if err != nil {
@@ -191,7 +186,5 @@ func main() {
 		return
 	}
 	fmt.Printf("Transaction ID: %s\n", sendResponse)
-	
-
 }
 

@@ -53,7 +53,6 @@ func loadAccounts() (map[int][]byte, map[int]string) {
 }
 
 // Function that waits for a given txId to be confirmed by the network
-// Function that waits for a given txId to be confirmed by the network
 func waitForConfirmation(algodClient algod.Client, txID string) {
 	nodeStatus, err := algodClient.Status()
 	if err != nil {
@@ -110,13 +109,7 @@ func main() {
 
 	addr1, _ := types.DecodeAddress(pks[1])
 	addr2, _ := types.DecodeAddress(pks[2])
-	addr3, _ := types.DecodeAddress(pks[3])	
-	// addr1 := crypto.GenerateAccount()
-	// addr2 := crypto.GenerateAccount()
-	//addr1, _ := types.DecodeAddress("DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA")
-	//addr2, _ := types.DecodeAddress("BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM")
-	// addr3, _ := types.DecodeAddress("47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU")
-	
+	addr3, _ := types.DecodeAddress(pks[3])		
 	
 	ma, err := crypto.MultisigAccountWithParams(1, 2, []types.Address{
 		addr1,
@@ -176,13 +169,12 @@ func main() {
     fmt.Printf("Made 2-out-of-3 multisig transaction with TxID %s: %x\n", txid, twoOfThreeTxBytes)
 
 
-	//We can also merge raw, partially-signed multisig transactions:
+	// We can also merge raw, partially-signed multisig transactions:
 
-// otherTxBytes := ... // generate another raw multisig transaction somehow
-// txid, mergedTxBytes, err := crypto.MergeMultisigTransactions(twoOfThreeTxBytes, otherTxBytes)
+	// otherTxBytes := ... // generate another raw multisig transaction somehow
+	// txid, mergedTxBytes, err := crypto.MergeMultisigTransactions(twoOfThreeTxBytes, otherTxBytes)
 
 	// Broadcast the transaction to the network
-	// txHeaders := append([]*algod.Header{}, &algod.Header{"Content-Type", "application/x-binary"})
 	sendResponse, err := algodClient.SendRawTransaction(twoOfThreeTxBytes)
 	waitForConfirmation(algodClient, sendResponse.TxID)
 	if err != nil {

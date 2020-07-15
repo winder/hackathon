@@ -9,7 +9,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch js Program",
             "skipFiles": [
                 "<node_internals>/**"
             ],

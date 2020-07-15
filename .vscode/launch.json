@@ -22,8 +22,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/TutorialAssetExample.js",
+            "name": "Launch js Program",
+            "program": "${file}",
             "skipFiles": [
                 "<node_internals>/**"
             ]
