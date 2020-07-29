@@ -1,8 +1,8 @@
 const algosdk = require('algosdk');
 
-// const token = "algod-token"<PLACEHOLDER>;
-// const server = "algod-address"<PLACEHOLDER>;
-// const port = algod - port<PLACEHOLDER>;
+// const token = "<algod-token>";
+// const server = "<algod-address>";
+// const port = <algod-port>;
 
 const token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost";
@@ -34,6 +34,7 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     var fs = require('fs'),
         path = require('path'),
         filePath = path.join(__dirname, 'sample.teal');
+    //  filePath = path.join(__dirname, '<filename>');    
     let data = fs.readFileSync(filePath);
     //  algodclient.compile(data.toString())
     let results = await algodclient.compile(data).do();

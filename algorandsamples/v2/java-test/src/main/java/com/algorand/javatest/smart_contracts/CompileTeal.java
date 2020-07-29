@@ -13,9 +13,9 @@ public class CompileTeal {
     private AlgodClient connectToNetwork() {
 
         // Initialize an algod client
-        // final Integer ALGOD_PORT = algod-port<PLACEHOLDER>;
-        // final String ALGOD_API_ADDR = "algod-address<PLACEHOLDER>";
-        // final String ALGOD_API_TOKEN = "algod-token<PLACEHOLDER>";
+        // final Integer ALGOD_PORT = <algod-port>;
+        // final String ALGOD_API_ADDR = "<algod-address>";
+        // final String ALGOD_API_TOKEN = "<algod-token>";
         final Integer ALGOD_PORT = 4001;
         final String ALGOD_API_ADDR = "localhost";
         final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -31,6 +31,8 @@ public class CompileTeal {
  
         // read file - int 0
         byte[] data = Files.readAllBytes(Paths.get("./sample.teal"));
+        // byte[] data = Files.readAllBytes(Paths.get("<./filename>"));
+ 
         // compile
         CompileResponse response = client.TealCompile().source(data).execute().body();
         // print results

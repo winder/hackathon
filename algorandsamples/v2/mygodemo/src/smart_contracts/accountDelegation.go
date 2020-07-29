@@ -46,8 +46,8 @@ func main() {
     // sandbox
     const algodAddress = "http://localhost:4001"
     const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    // const algodToken = "algod-token"<PLACEHOLDER>
-    // const algodAddress = "algod-address"<PLACEHOLDER>
+    // const algodToken = "<algod-token>"
+    // const algodAddress = "<algod-address>"
     // Create an algod client
     algodClient, err := algod.MakeClient(algodAddress, algodToken)
     if err != nil {
@@ -55,7 +55,7 @@ func main() {
         return
     }	
     // Get private key for sender address
-    // PASSPHRASE := "25-word-mnemonic<PLACEHOLDER>"
+    // PASSPHRASE := "<25-word-mnemonic>"
     PASSPHRASE := "buzz genre work meat fame favorite rookie stay tennis demand panic busy hedgehog snow morning acquire ball grain grape member blur armor foil ability seminar"		
     sk, err := mnemonic.ToPrivateKey(PASSPHRASE)	
     pk := sk.Public()
@@ -74,7 +74,7 @@ func main() {
     // btoi
     // int 123
     // == 
-    // file, err := os.Open("<PLACEHOLDER>")
+    // file, err := os.Open("<filename>")
     file, err := os.Open("./samplearg.teal")
     if err != nil {
         log.Fatal(err)
@@ -98,7 +98,7 @@ func main() {
 
     // string parameter
     // args := make([][]byte, 1)
-    // args[0] = []byte("my string")
+    // args[0] = []byte("<my string>")
     // lsig, err := crypto.MakeLogicSig(program, args, sk, ma)
     
     // integer args parameter
@@ -107,9 +107,6 @@ func main() {
     binary.BigEndian.PutUint64(buf[:], 123)
     args[0] = buf[:]
     lsig, err := crypto.MakeLogicSig(program, args, sk, ma)
-
-    addr := crypto.LogicSigAddress(lsig).String()
-    fmt.Printf("Escrow Address: %s\n" , addr )
     
     // Construct the transaction
     txParams, err := algodClient.SuggestedParams().Do(context.Background())
@@ -122,10 +119,10 @@ func main() {
     txParams.Fee = 1000
 
     // Make transaction
-    // const receiver = "transaction-receiver"<PLACEHOLDER>
+    // const receiver = "<receiver-address>"
     const receiver = "QUDVUXBX4Q3Y2H5K2AG3QWEOMY374WO62YNJFFGUTMOJ7FB74CMBKY6LPQ"	
-    // const fee = fee<PLACEHOLDER>
-    // const amount = amount<PLACEHOLDER>
+    // const fee = <fee>
+    // const amount = <amount>
     const fee = 1000
     const amount = 1000000
     note := []byte("Hello World")

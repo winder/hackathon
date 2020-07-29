@@ -37,14 +37,14 @@ try:
     algod_token = "6b3a2ae3896f23be0a1f0cdd083b6d6d046fbeb594a3ce31f2963b717f74ad43"
     algod_address = "http://127.0.0.1:54746"
 
-    # algod_token = "algod-token" < PLACEHOLDER >
-    # algod_address = "algod-address" < PLACEHOLDER >
-    # receiver = "receiver-address" < PLACEHOLDER >
+    # algod_token = "<algod-token>" 
+    # algod_address = "<algod-address>" 
+    # receiver = "<receiver-address>" 
     receiver = "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ"
     algod_client = algod.AlgodClient(algod_token, algod_address)
    
     myprogram = "samplearg.teal"
-    # myprogram = "< PLACEHOLDER >"
+    # myprogram = "<filename>"
     # Read TEAL program
     data = load_resource(myprogram)
     source = data.decode('utf-8')
@@ -79,7 +79,7 @@ try:
     print(len(program) * 8)
 
     # string parameter
-    # arg_str = "my string"
+    # arg_str = "<my string>"
     # arg1 = arg_str.encode()
     # lsig = transaction.LogicSig(program, args=[arg1])
 
@@ -89,7 +89,6 @@ try:
     # if not, omit args param
     arg1 = (123).to_bytes(8, 'big')
     lsig = LogicSig(program, args=[arg1])
-    print("lsig Address: " + lsig.address())
     sender = lsig.address()
 
     # Get suggested parameters

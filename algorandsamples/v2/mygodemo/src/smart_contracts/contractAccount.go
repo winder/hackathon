@@ -41,8 +41,8 @@ func waitForConfirmation(txID string, client *algod.Client) {
 }
 func main() {
 
-	// const algodToken = "algod-token<PLACEHOLDER>"
-	// const algodAddress = "algod-address<PLACEHOLDER>"
+	// const algodToken = "<algod-token>"
+	// const algodAddress = "<algod-address>"
 
 	// sandbox
 	const algodAddress = "http://localhost:4001"
@@ -64,7 +64,7 @@ func main() {
     // int 123
     // == 
 	file, err := os.Open("./samplearg.teal")
-	// file, err := os.Open("<PLACEHOLDER>")
+	// file, err := os.Open("<filename>")
     if err != nil {
         log.Fatal(err)
     }
@@ -86,7 +86,7 @@ func main() {
 
     // string parameter
     // args := make([][]byte, 1)
-    // args[0] = []byte("my string")
+    // args[0] = []byte("<my string>")
     // lsig, err := crypto.MakeLogicSig(program, args, sk, ma)
     
     // integer args parameter
@@ -97,7 +97,7 @@ func main() {
     lsig, err := crypto.MakeLogicSig(program, args, sk, ma)
 
     addr := crypto.LogicSigAddress(lsig).String()
-	fmt.Printf("Escrow Address: %s\n" , addr )
+
 
 	// Get suggested params for the transaction
 	txParams, err := algodClient.SuggestedParams().Do(context.Background())
@@ -110,9 +110,9 @@ func main() {
 	txParams.Fee = 1000
 
 	// Make transaction
-	// const receiver = "transaction-receiver"<PLACEHOLDER>
-	// const fee = fee<PLACEHOLDER>
-	// const amount = amount<PLACEHOLDER>
+	// const receiver = "<receiver-address>"
+	// const fee = <fee>
+	// const amount = <amount>
 	const receiver = "QUDVUXBX4Q3Y2H5K2AG3QWEOMY374WO62YNJFFGUTMOJ7FB74CMBKY6LPQ"
 	const fee = 1000
 	const amount = 100000

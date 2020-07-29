@@ -1,7 +1,7 @@
 const algosdk = require('algosdk');
-// const token = "algod-token"<PLACEHOLDER>;
-// const server = "algod-address"<PLACEHOLDER>;
-// const port = algod - port<PLACEHOLDER>;
+// const token = "<algod-token>";
+// const server = "<algod-address>";
+// const port = <algod-port>;
 // sandbox
 const token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost";
@@ -9,7 +9,7 @@ const port = 4001;
 // Import the filesystem module 
 const fs = require('fs'); 
 // import your private key mnemonic
-// let PASSPHRASE = "25-word-mnemonic<PLACEHOLDER>";
+// let PASSPHRASE = "<25-word-mnemonic>";
 let PASSPHRASE = "awake used crawl list cruel harvest useful flag essay speed glad salmon camp sudden ride symptom test kind version together project inquiry diet abandon budget";
 
 var myAccount = algosdk.mnemonicToSecretKey(PASSPHRASE);
@@ -52,18 +52,18 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     var fs = require('fs'),
         path = require('path'),
         filePath = path.join(__dirname, 'samplearg.teal');
-    // filePath = path.join(__dirname, '< PLACEHOLDER >');
+    // filePath = path.join(__dirname, <'fileName'>);
     let data = fs.readFileSync(filePath);
     let results = await algodclient.compile(data).do();
     console.log("Hash = " + results.hash);
     console.log("Result = " + results.result);
-    // let program = new Uint8Array(Buffer.from("base64-encoded-program" < PLACEHOLDER >, "base64"));
+    // let program = new Uint8Array(Buffer.from(<"base64-encoded-program">, "base64"));
     let program = new Uint8Array(Buffer.from(results.result, "base64"));
     // Use this if no args
     // let lsig = algosdk.makeLogicSig(program);
 
     // String parameter
-    // let args = ["my string"];
+    // let args = ["<my string>"];
     // let lsig = algosdk.makeLogicSig(program, args);
     // Integer parameter
     let args = [[123]];
@@ -75,7 +75,7 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     // Setup a transaction
     let sender = myAccount.addr;
     let receiver = "SOEI4UA72A7ZL5P25GNISSVWW724YABSGZ7GHW5ERV4QKK2XSXLXGXPG5Y";
-    // let receiver = "< PLACEHOLDER >";
+    // let receiver = "<receiver-address>"";
     let amount = 10000;
     let closeToRemaninder = undefined;
     let note = undefined;

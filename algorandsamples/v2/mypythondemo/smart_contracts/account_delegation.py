@@ -35,14 +35,14 @@ try:
     # algod_address = "http://localhost:4001"
     algod_token = "6b3a2ae3896f23be0a1f0cdd083b6d6d046fbeb594a3ce31f2963b717f74ad43"
     algod_address = "http://127.0.0.1:54746"
-    # algod_token = "algod-token" < PLACEHOLDER >
-    # algod_address = "algod-address" < PLACEHOLDER >
-    # receiver = "receiver-address" < PLACEHOLDER >
+    # algod_token = "<algod-token>"
+    # algod_address = "<algod-address:port>" 
+    # receiver = "<receiver-address>" 
     receiver = "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ" 
     algod_client = algod.AlgodClient(algod_token, algod_address)
 
     myprogram = "samplearg.teal"
-    # myprogram = "< PLACEHOLDER >"
+    # myprogram = "<filename>"
     # Read TEAL program
     data = load_resource(myprogram)
     source = data.decode('utf-8')
@@ -75,22 +75,27 @@ try:
     program = base64.decodebytes(t)
     print(program)
     print(len(program) * 8)
-
+    # Create arg to pass   
+    # string parameter
+    # arg_str = "<my string>"
+    # arg1 = arg_str.encode()
+    # lsig = transaction.LogicSig(program, args=[arg1])
+   
     # integer parameter
     # arg1 = (123).to_bytes(8, 'big')
     # lsig = transaction.LogicSig(program, args=[arg1])
     # see more info here: https://developer.algorand.org/docs/features/asc1/sdks/#accessing-teal-program-from-sdks
     
-    # Create arg to pass if TEAL program requires an arg,
-    # if not, omit args param
-    # string parameter
+
+    # if TEAL program requires an arg,
+    # if not, omit args param on LogicSig
+    # lsig = LogicSig(program)
     arg1 = (123).to_bytes(8, 'big')
     lsig = LogicSig(program, args=[arg1])
-    sender = lsig.address()
 
     # Recover the account that is wanting to delegate signature
     passphrase = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten"
-    # passphrase = "25-word-mnemonic<PLACEHOLDER>"
+    # passphrase = "<25-word-mnemonic>"
     sk = mnemonic.to_private_key(passphrase)
     addr = account.address_from_private_key(sk)
     print("Address of Sender/Delegator: " + addr)

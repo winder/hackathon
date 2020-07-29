@@ -22,8 +22,8 @@ import (
 
 func main() {
 
-	// const algodToken = "algod-token<PLACEHOLDER>"
-	// const algodAddress = "algod-address<PLACEHOLDER>"
+	// const algodToken = "<algod-token>"
+	// const algodAddress = "<algod-address>"
 
 	// sandbox
 	const algodAddress = "http://localhost:4001"
@@ -36,6 +36,7 @@ func main() {
 		return
 	}
 	// int 0 in sample.teal
+	// file, err := os.Open("<filename>")	
 	file, err := os.Open("./sample.teal")
     if err != nil {
         log.Fatal(err)

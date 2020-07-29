@@ -1,8 +1,8 @@
 const algosdk = require('algosdk');
 
-// const token = "algod-token"<PLACEHOLDER>;
-// const server = "algod-address"<PLACEHOLDER>;
-// const port = algod - port<PLACEHOLDER>;
+// const token = "<algod-token>";
+// const server = "<algod-address>";
+// const port = <algod-port>;
 
 const token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost";
@@ -49,6 +49,7 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     var fs = require('fs'),
         path = require('path'),
         filePath = path.join(__dirname, 'samplearg.teal');
+        // filePath = path.join(__dirname, '<filename>');
     let data = fs.readFileSync(filePath);
     let results = await algodclient.compile(data).do();
     console.log("Hash = " + results.hash);
@@ -59,7 +60,7 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     // let lsig = algosdk.makeLogicSig(program);
 
     // String parameter
-    // let args = ["my string"];
+    // let args = ["<my string>"];
     // let lsig = algosdk.makeLogicSig(program, args);
     // Integer parameter
     let args = [[123]];
@@ -68,7 +69,7 @@ let algodclient = new algosdk.Algodv2(token, server, port);
 
     // create a transaction
     let sender = lsig.address();
-    // let receiver = "< PLACEHOLDER >";
+    // let receiver = "<receiver-address>";
     let receiver = "SOEI4UA72A7ZL5P25GNISSVWW724YABSGZ7GHW5ERV4QKK2XSXLXGXPG5Y";
     let amount = 10000;
     let closeToRemaninder = undefined;

@@ -18,14 +18,16 @@ try:
     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" 
     algod_address = "http://localhost:4001"
 
-    # algod_token = "algod-token" < PLACEHOLDER >
-    # algod_address = "algod-address" < PLACEHOLDER >
+    # algod_token = "<algod-token>"
+    # algod_address = "<algod-address>"
     algod_client = algod.AlgodClient(algod_token, algod_address)
 
     # int 0 - sample.teal
     # This code is meant for learning purposes only
     # It should not be used in production
     myprogram = "sample.teal"
+    # myprogram = "<filename>"
+
     # read TEAL program
     data = load_resource(myprogram)
     source = data.decode('utf-8')

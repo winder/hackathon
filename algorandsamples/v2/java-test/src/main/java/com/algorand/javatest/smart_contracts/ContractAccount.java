@@ -35,9 +35,9 @@ public class ContractAccount {
         final String ALGOD_API_ADDR = "localhost";
         final Integer ALGOD_PORT = 4001;
         final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        // final String ALGOD_API_ADDR = "< PLACEHOLDER >";
-        // final Integer ALGOD_PORT = <PLACEHOLDER >;
-        // final String ALGOD_API_TOKEN = "<PLACEHOLDER >";
+        // final String ALGOD_API_ADDR = "<algod-address>";
+        // final Integer ALGOD_PORT = <algod-port>;
+        // final String ALGOD_API_TOKEN = "<algod-token>";
 
         AlgodClient client = new AlgodClient(ALGOD_API_ADDR, ALGOD_PORT, ALGOD_API_TOKEN);
         return client;
@@ -72,7 +72,7 @@ public class ContractAccount {
         if (client == null)
             this.client = connectToNetwork();
         // Set the receiver
-        // final String RECEIVER = "< receiver PLACEHOLDER >";
+        // final String RECEIVER = "<receiver-address>";
         final String RECEIVER = "QUDVUXBX4Q3Y2H5K2AG3QWEOMY374WO62YNJFFGUTMOJ7FB74CMBKY6LPQ";
         // Read program from file samplearg.teal
         // This code is meant for learning purposes only
@@ -81,7 +81,8 @@ public class ContractAccount {
         // btoi
         // int 123
         // ==
-        byte[] source = Files.readAllBytes(Paths.get("./samplearg.teal"));
+        byte[] source = Files.readAllBytes(Paths.get("./samplearg.teal"));   
+        //byte[] source = Files.readAllBytes(Paths.get("./<filename">));
         // compile
         CompileResponse response = client.TealCompile().source(source).execute().body();
         // print results
@@ -94,7 +95,7 @@ public class ContractAccount {
 
         // string parameter
         // ArrayList<byte[]> teal_args = new ArrayList<byte[]>();
-        // String orig = "my string";
+        // String orig = "<my string>";
         // teal_args.add(orig.getBytes());
         // LogicsigSignature lsig = new LogicsigSignature(program, teal_args);
 
@@ -104,8 +105,7 @@ public class ContractAccount {
         teal_args.add(arg1);
         LogicsigSignature lsig = new LogicsigSignature(program, teal_args);
         // For no args use null as second param
-        // LogicsigSignature lsig = new LogicsigSignature(program, null);
-        System.out.println("lsig address: " + lsig.toAddress());        
+        // LogicsigSignature lsig = new LogicsigSignature(program, null);     
         TransactionParametersResponse params = client.TransactionParams().execute().body();
         // create a transaction
         String note = "Hello World";

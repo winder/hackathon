@@ -37,9 +37,9 @@ public class AccountDelegation {
         final Integer ALGOD_PORT = 4001;
         final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
-        // final String ALGOD_API_ADDR = "< PLACEHOLDER >";
-        // final Integer ALGOD_PORT = < PLACEHOLDER >;
-        // final String ALGOD_API_TOKEN = "< PLACEHOLDER >";
+        // final String ALGOD_API_ADDR = "<algod-address>";
+        // final Integer ALGOD_PORT = <algod-port>;
+        // final String ALGOD_API_TOKEN = "<algod-token>";
 
         AlgodClient client = new AlgodClient(ALGOD_API_ADDR, ALGOD_PORT, ALGOD_API_TOKEN);
         return client;
@@ -81,7 +81,7 @@ public class AccountDelegation {
         Account src = new Account(SRC_ACCOUNT);
         // Set the receiver
         final String RECEIVER = "QUDVUXBX4Q3Y2H5K2AG3QWEOMY374WO62YNJFFGUTMOJ7FB74CMBKY6LPQ";
-        // final String RECEIVER = "<PLACEHOLDER>";
+        // final String RECEIVER = "<receiver-address>";
 
         // Read program from file samplearg.teal
         // This code is meant for learning purposes only
@@ -91,7 +91,7 @@ public class AccountDelegation {
         // int 123
         // ==
         byte[] source = Files.readAllBytes(Paths.get("./samplearg.teal"));
-        // byte[] source = Files.readAllBytes(Paths.get("<PLACEHOLDER>"));
+        // byte[] source = Files.readAllBytes(Paths.get("<filename>"));
 
         // compile
         CompileResponse response = client.TealCompile().source(source).execute().body();
@@ -114,9 +114,9 @@ public class AccountDelegation {
         byte[] arg1 = { 123 };
         teal_args.add(arg1);
         LogicsigSignature lsig = new LogicsigSignature(program, teal_args);
-        //    For no args use null as second param
+        //    For no args, use null as second param
         //    LogicsigSignature lsig = new LogicsigSignature(program, null);
-        System.out.println("lsig address: " + lsig.toAddress());
+
         // sign the logic signature with an account sk
         src.signLogicsig(lsig);
         TransactionParametersResponse params = client.TransactionParams().execute().body();
