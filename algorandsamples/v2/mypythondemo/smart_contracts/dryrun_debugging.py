@@ -24,14 +24,22 @@ def wait_for_confirmation(client, txid):
     return txinfo
 
 # Read a file
-
-
 def load_resource(res):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     path = os.path.join(dir_path, res)
     with open(path, "rb") as fin:
         data = fin.read()
     return data
+
+# dryrun source if provided, else dryrun compiled
+def dryrun_debug(lstx, mysource):
+    sources = []
+    if (mysource != None):
+        # source
+        sources = [DryrunSource(field_name="lsig", source=mysource, txn_index=0)]
+    drr = DryrunRequest(txns=[lstx], sources=sources)
+    dryrun_response = algod_client.dryrun(drr)
+    return dryrun_response
 
 
 try:
@@ -123,104 +131,188 @@ try:
         addr, params, receiver, amount, closeremainderto)
     # Create the LogicSigTransaction with contract account LogicSig
     lstx = transaction.LogicSigTransaction(txn, lsig)
-    # add dry run code here
-    sources = []
-    # source
-    # tx = transaction.SignedTransaction(txn, sk)
-    # sources = [DryrunSource(field_name="lsig", source=data, txn_index=0)]
-    # drr = DryrunRequest(txns=[tx], sources=sources)
-    # complied
-    drr = DryrunRequest(txns=[lstx], sources=sources)
- 
-    dryrunresponse = algod_client.dryrun(drr)
-    print(json.dumps(dryrunresponse, indent=2))
-    # transaction.write_to_file([lstx], "simple.stxn")
+    # transaction.write_to_file([lstx], "./simple.stxn")
+
+    # compile
+    dryrun_response_compiled = dryrun_debug(lstx, None)
+    print ("COMPILED Dryrun results...")
+    print(json.dumps(dryrun_response_compiled, indent=2))
+   
+    # source   
+    dryrun_respone_source = dryrun_debug(lstx, source)
+    print("SOURCE Dryrun results...")
+    print(json.dumps(dryrun_respone_source, indent=2))
+   
     # Send raw LogicSigTransaction to network
+
     txid = algod_client.send_transaction(lstx)
     print("Transaction ID: " + txid)
     wait_for_confirmation(algod_client, txid)
 except Exception as e:
     print(e)
 
-    # output should look similar to this
-    # {
-    #     "error": "",
-    #     "protocol-version": "https://github.com/algorandfoundation/specs/tree/e5f565421d720c6f75cdd186f7098495caf9101f",
-    #     "txns": [
-    #         {
-    #             "disassembly": [
-    #                 "// version 1",
-    #                 "intcblock 123",
-    #                 "arg_0",
-    #                 "btoi",
-    #                 "intc_0",
-    #                 "==",
-    #                 ""
-    #             ],
-    #             "logic-sig-messages": [
-    #                 "PASS"
-    #             ],
-    #             "logic-sig-trace": [
-    #                 {
-    #                     "line": 1,
-    #                     "pc": 1,
-    #                     "stack": []
-    #                 },
-    #                 {
-    #                     "line": 2,
-    #                     "pc": 4,
-    #                     "stack": []
-    #                 },
-    #                 {
-    #                     "line": 3,
-    #                     "pc": 5,
-    #                     "stack": [
-    #                         {
-    #                             "bytes": "AAAAAAAAAHs=",
-    #                             "type": 1,
-    #                             "uint": 0
-    #                         }
-    #                     ]
-    #                 },
-    #                 {
-    #                     "line": 4,
-    #                     "pc": 6,
-    #                     "stack": [
-    #                         {
-    #                             "bytes": "",
-    #                             "type": 2,
-    #                             "uint": 123
-    #                         }
-    #                     ]
-    #                 },
-    #                 {
-    #                     "line": 5,
-    #                     "pc": 7,
-    #                     "stack": [
-    #                         {
-    #                             "bytes": "",
-    #                             "type": 2,
-    #                             "uint": 123
-    #                         },
-    #                         {
-    #                             "bytes": "",
-    #                             "type": 2,
-    #                             "uint": 123
-    #                         }
-    #                     ]
-    #                 },
-    #                 {
-    #                     "line": 6,
-    #                     "pc": 8,
-    #                     "stack": [
-    #                         {
-    #                             "bytes": "",
-    #                             "type": 2,
-    #                             "uint": 1
-    #                         }
-    #                     ]
-    #                 }
-    #             ]
-    #         }
-    #     ]
-    # }
+# output should look similar to this
+# COMPILED Dryrun results...
+# {
+#     "error": "",
+#     "protocol-version": "https://github.com/algorandfoundation/specs/tree/e5f565421d720c6f75cdd186f7098495caf9101f",
+#     "txns": [
+#         {
+#             "disassembly": [
+#                 "// version 1",
+#                 "intcblock 123",
+#                 "arg_0",
+#                 "btoi",
+#                 "intc_0",
+#                 "==",
+#                 ""
+#             ],
+#             "logic-sig-messages": [
+#                 "PASS"
+#             ],
+#             "logic-sig-trace": [
+#                 {
+#                     "line": 1,
+#                     "pc": 1,
+#                     "stack": []
+#                 },
+#                 {
+#                     "line": 2,
+#                     "pc": 4,
+#                     "stack": []
+#                 },
+#                 {
+#                     "line": 3,
+#                     "pc": 5,
+#                     "stack": [
+#                         {
+#                             "bytes": "AAAAAAAAAHs=",
+#                             "type": 1,
+#                             "uint": 0
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "line": 4,
+#                     "pc": 6,
+#                     "stack": [
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 123
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "line": 5,
+#                     "pc": 7,
+#                     "stack": [
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 123
+#                         },
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 123
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "line": 6,
+#                     "pc": 8,
+#                     "stack": [
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 1
+#                         }
+#                     ]
+#                 }
+#             ]
+#         }
+#     ]
+# }
+# SOURCE Dryrun results...
+# {
+#     "error": "",
+#     "protocol-version": "https://github.com/algorandfoundation/specs/tree/e5f565421d720c6f75cdd186f7098495caf9101f",
+#     "txns": [
+#         {
+#             "disassembly": [
+#                 "// version 1",
+#                 "intcblock 123",
+#                 "arg_0",
+#                 "btoi",
+#                 "intc_0",
+#                 "==",
+#                 ""
+#             ],
+#             "logic-sig-messages": [
+#                 "PASS"
+#             ],
+#             "logic-sig-trace": [
+#                 {
+#                     "line": 1,
+#                     "pc": 1,
+#                     "stack": []
+#                 },
+#                 {
+#                     "line": 2,
+#                     "pc": 4,
+#                     "stack": []
+#                 },
+#                 {
+#                     "line": 3,
+#                     "pc": 5,
+#                     "stack": [
+#                         {
+#                             "bytes": "AAAAAAAAAHs=",
+#                             "type": 1,
+#                             "uint": 0
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "line": 4,
+#                     "pc": 6,
+#                     "stack": [
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 123
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "line": 5,
+#                     "pc": 7,
+#                     "stack": [
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 123
+#                         },
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 123
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "line": 6,
+#                     "pc": 8,
+#                     "stack": [
+#                         {
+#                             "bytes": "",
+#                             "type": 2,
+#                             "uint": 1
+#                         }
+#                     ]
+#                 }
+#             ]
+#         }
+#     ]
+# }

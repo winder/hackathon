@@ -42,7 +42,7 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     console.log("Result = " + results.result);
     
 })().catch(e => {
-    console.log(e.body.message);
+    console.log(e.message);
     console.log(e);
 });
 // output would be similar to this... 

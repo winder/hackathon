@@ -90,6 +90,6 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     await waitForConfirmation(algodclient, tx.txId);
 
 })().catch(e => {
-    console.log(e.body.message);
+    console.log(e.message);
     console.log(e);
 });
