@@ -49,7 +49,7 @@ threshold = 2  # how many signatures are necessary
 msig = Multisig(version, threshold, [account_1, account_2])
 print("Multisig Address: ", msig.address())
 print("Please go to: https://bank.testnet.algorand.network/ to fund multisig account.", msig.address())
-input("Please go to: https://bank.testnet.algorand.network/ to fund multisig account." + '\n' + "Press Enter to continue...")
+# input("Please go to: https://bank.testnet.algorand.network/ to fund multisig account." + '\n' + "Press Enter to continue...")
 
 # Specify your node address and token. This must be updated.
 # algod_address = ""  # ADD ADDRESS
@@ -89,7 +89,7 @@ mtx.sign(private_key_1)
 mtx.sign(private_key_2)
 
 # print encoded transaction
-print(encoding.msgpack_encode(mtx))
+# print(encoding.msgpack_encode(mtx))
 
 # send the transaction
 transaction_id = algod_client.send_raw_transaction(
