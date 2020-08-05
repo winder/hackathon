@@ -190,7 +190,7 @@ public class DryrunDebugging {
     }
 
     private Response<DryrunResponse> getDryrunResponse(SignedTransaction stxn, byte[] source)
-            throws Exception, JsonProcessingException {
+            throws Exception {
         List<DryrunSource> sources = new ArrayList<DryrunSource>();
         List<SignedTransaction> stxns = new ArrayList<SignedTransaction>();
         //compiled 
@@ -211,7 +211,6 @@ public class DryrunDebugging {
         dr.txns = stxns;
         dr.sources = sources;
         dryrunResponse = client.TealDryrun().request(dr).execute();
-        //    JSONObject jsonObj = new JSONObject(dryrunResponse.toString());
         return dryrunResponse;
     }
 
