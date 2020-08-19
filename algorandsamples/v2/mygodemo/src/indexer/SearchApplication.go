@@ -20,7 +20,7 @@ func main() {
 		return
 	}
 
-	// Lookup account
+	// Search applications
 	result, err := indexerClient.SearchForApplications().Do(context.Background())
 
 	// Print the results

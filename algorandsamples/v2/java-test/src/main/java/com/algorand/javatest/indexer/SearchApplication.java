@@ -20,13 +20,13 @@ public class SearchApplication {
         SearchApplication ex = new SearchApplication();
         IndexerClient indexerClientInstance = (IndexerClient)ex.connectToNetwork();
 
-         String response = indexerClientInstance.searchForApplications().execute().toString();
+        String response = indexerClientInstance.searchForApplications().execute().toString();
         JSONObject jsonObj = new JSONObject(response.toString());
         System.out.println("Response Info: " + jsonObj.toString(2)); // pretty print json
     }
  }
 
- // response information should look similar to this...
+// response information should look similar to this...
 //  Response Info:
 //  {
 //   "next-token": "142",

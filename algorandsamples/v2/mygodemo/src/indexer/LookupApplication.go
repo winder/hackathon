@@ -19,7 +19,7 @@ func main() {
 		return
 	}
     var applicationID uint64  = 22
-	// Lookup account
+	// Lookup application
 	result, err := indexerClient.LookupApplicationByID(applicationID).Do(context.Background())
 
 	// Print the results
