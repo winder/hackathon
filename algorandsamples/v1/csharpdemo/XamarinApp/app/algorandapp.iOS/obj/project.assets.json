@@ -28,7 +28,7 @@
           "lib/xamarinios/BouncyCastle.Crypto.dll": {}
         }
       },
-      "Jurassic/3.0.0": {
+      "Jurassic/3.1.0": {
         "type": "package",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
@@ -153,7 +153,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.6.0.800": {
+      "Xamarin.Forms/4.8.0.1269": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -229,8 +229,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -279,12 +279,12 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Algorand": "0.1.2.6",
-          "Jurassic": "3.0.0",
+          "Jurassic": "3.1.0",
           "KodeAid.Base32": "1.0.2",
           "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.6.0.800"
+          "Xamarin.Forms": "4.8.0.1269"
         },
         "compile": {
           "bin/placeholder/algorandapp.dll": {}
@@ -321,7 +321,7 @@
           "lib/xamarinios/BouncyCastle.Crypto.dll": {}
         }
       },
-      "Jurassic/3.0.0": {
+      "Jurassic/3.1.0": {
         "type": "package",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
@@ -446,7 +446,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.6.0.800": {
+      "Xamarin.Forms/4.8.0.1269": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -522,8 +522,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -572,12 +572,12 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Algorand": "0.1.2.6",
-          "Jurassic": "3.0.0",
+          "Jurassic": "3.1.0",
           "KodeAid.Base32": "1.0.2",
           "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.6.0.800"
+          "Xamarin.Forms": "4.8.0.1269"
         },
         "compile": {
           "bin/placeholder/algorandapp.dll": {}
@@ -614,7 +614,7 @@
           "lib/xamarinios/BouncyCastle.Crypto.dll": {}
         }
       },
-      "Jurassic/3.0.0": {
+      "Jurassic/3.1.0": {
         "type": "package",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
@@ -739,7 +739,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.6.0.800": {
+      "Xamarin.Forms/4.8.0.1269": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -815,8 +815,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -865,12 +865,12 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Algorand": "0.1.2.6",
-          "Jurassic": "3.0.0",
+          "Jurassic": "3.1.0",
           "KodeAid.Base32": "1.0.2",
           "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.6.0.800"
+          "Xamarin.Forms": "4.8.0.1269"
         },
         "compile": {
           "bin/placeholder/algorandapp.dll": {}
@@ -907,7 +907,7 @@
           "lib/xamarinios/BouncyCastle.Crypto.dll": {}
         }
       },
-      "Jurassic/3.0.0": {
+      "Jurassic/3.1.0": {
         "type": "package",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
@@ -1032,7 +1032,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.6.0.800": {
+      "Xamarin.Forms/4.8.0.1269": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -1108,8 +1108,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -1158,12 +1158,12 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Algorand": "0.1.2.6",
-          "Jurassic": "3.0.0",
+          "Jurassic": "3.1.0",
           "KodeAid.Base32": "1.0.2",
           "Newtonsoft.Json": "12.0.3",
           "Ripple.Chaos.NaCl": "0.1.0",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.6.0.800"
+          "Xamarin.Forms": "4.8.0.1269"
         },
         "compile": {
           "bin/placeholder/algorandapp.dll": {}
@@ -1213,22 +1213,23 @@
         "lib/xamarinios/BouncyCastle.Crypto.xml"
       ]
     },
-    "Jurassic/3.0.0": {
-      "sha512": "n+GPG4Yl3MtxEDzbSJK0JzObL26i50fswcbG/mviQaTVl962IOF3+kIZHscVOlQ3b8jPisxpMat9bMWWZFOxPQ==",
+    "Jurassic/3.1.0": {
+      "sha512": "y68Td+w2pKs8XI1pSkzfs4u/k9Wo8ngYMLuuvsoExfAplzDY4NvztTh7ctdPVV5hTzNBisCbk8cBdFoaMxKX5g==",
       "type": "package",
-      "path": "jurassic/3.0.0",
+      "path": "jurassic/3.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
-        "jurassic.3.0.0.nupkg.sha512",
+        "jurassic.3.1.0.nupkg.sha512",
         "jurassic.nuspec",
         "lib/net45/Jurassic.dll",
         "lib/net45/Jurassic.pdb",
         "lib/net45/Jurassic.xml",
         "lib/netstandard2.0/Jurassic.dll",
         "lib/netstandard2.0/Jurassic.pdb",
-        "lib/netstandard2.0/Jurassic.xml"
+        "lib/netstandard2.0/Jurassic.xml",
+        "nuget-logo.png"
       ]
     },
     "KodeAid.Base32/1.0.2": {
@@ -1625,13 +1626,14 @@
         "xamarin.essentials.nuspec"
       ]
     },
-    "Xamarin.Forms/4.6.0.800": {
-      "sha512": "9BkqdiqdaigD+QlHqmHHMm32NNo7mnuIG+fOgIbSbzzqT1MKN+KPVgem8OUkKOnFP4u6piq9D99xrVafKSztIg==",
+    "Xamarin.Forms/4.8.0.1269": {
+      "sha512": "3UFTlfJvF9l8HB+gWVmYUEVRSPU+c3H0G/h09RVG8/P5i/QRiDBg/YHEGfPR3HNuWlJ9S9TgZjrFruTUS1ZYiQ==",
       "type": "package",
-      "path": "xamarin.forms/4.6.0.800",
+      "path": "xamarin.forms/4.8.0.1269",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Assets/xamarin_128x128.png",
         "build/MonoAndroid10/proguard.cfg",
         "build/XCODE10/Xamarin.Forms.Platform.iOS.dll",
         "build/XCODE10/Xamarin.Forms.Platform.iOS.pdb",
@@ -1711,8 +1713,8 @@
         "lib/MonoAndroid10.0/ja/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid10.0/ko/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid10.0/ko/Xamarin.Forms.Xaml.xml",
-        "lib/MonoAndroid10.0/pt-br/Xamarin.Forms.Core.xml",
-        "lib/MonoAndroid10.0/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/MonoAndroid10.0/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/MonoAndroid10.0/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid10.0/ru/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid10.0/ru/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid10.0/zh-Hans/Xamarin.Forms.Core.xml",
@@ -1744,8 +1746,8 @@
         "lib/MonoAndroid90/ja/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid90/ko/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid90/ko/Xamarin.Forms.Xaml.xml",
-        "lib/MonoAndroid90/pt-br/Xamarin.Forms.Core.xml",
-        "lib/MonoAndroid90/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/MonoAndroid90/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/MonoAndroid90/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid90/ru/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid90/ru/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid90/zh-Hans/Xamarin.Forms.Core.xml",
@@ -1799,9 +1801,9 @@
         "lib/Xamarin.iOS10/nb/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/nl/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll",
-        "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Core.xml",
-        "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll",
-        "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll",
+        "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/ro/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/ru/Xamarin.Forms.Core.xml",
@@ -1850,8 +1852,8 @@
         "lib/netstandard2.0/ja/Xamarin.Forms.Xaml.xml",
         "lib/netstandard2.0/ko/Xamarin.Forms.Core.xml",
         "lib/netstandard2.0/ko/Xamarin.Forms.Xaml.xml",
-        "lib/netstandard2.0/pt-br/Xamarin.Forms.Core.xml",
-        "lib/netstandard2.0/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/netstandard2.0/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/netstandard2.0/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/netstandard2.0/ru/Xamarin.Forms.Core.xml",
         "lib/netstandard2.0/ru/Xamarin.Forms.Xaml.xml",
         "lib/netstandard2.0/zh-Hans/Xamarin.Forms.Core.xml",
@@ -1934,7 +1936,7 @@
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.dll",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.pdb",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.4.6.0.800.nupkg.sha512",
+        "xamarin.forms.4.8.0.1269.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
@@ -1949,7 +1951,7 @@
       "Algorand >= 0.1.2.6",
       "Newtonsoft.Json >= 12.0.3",
       "Xamarin.Essentials >= 1.5.3.2",
-      "Xamarin.Forms >= 4.6.0.800",
+      "Xamarin.Forms >= 4.8.0.1269",
       "algorandapp >= 1.0.0"
     ]
   },
@@ -2002,7 +2004,7 @@
           },
           "Xamarin.Forms": {
             "target": "Package",
-            "version": "[4.6.0.800, )"
+            "version": "[4.8.0.1269, )"
           }
         }
       }

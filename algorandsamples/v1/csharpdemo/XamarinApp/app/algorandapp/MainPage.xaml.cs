@@ -38,6 +38,8 @@ namespace algorandapp
         {
             network = await helper.GetNetwork();
             var nodetype = await SecureStorage.GetAsync(helper.StorageNodeType);
+            if (network == null)
+                network = "TestNet";
             NetworkLabel.Text = "Network: " + network + " " + nodetype;
             var lastHomebutton = await SecureStorage.GetAsync(helper.StorageLastHomeButton);
             if (string.IsNullOrEmpty(lastHomebutton))

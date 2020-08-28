@@ -17,12 +17,14 @@ android.support.v7.widget.RecyclerView;/Users/algorand/Documents/GitHub/rfustino
 android.support.v7.widget.Toolbar;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/layout/rootlayout.xml
 android.support.v7.widget.Toolbar;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/layout/shellcontent.xml
 android.support.v7.widget.Toolbar;obj/Debug/res/layout/toolbar.xml
+attr;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/values/attrs.xml
 background;obj/Debug/res/mipmap-anydpi-v26/icon.xml
 background;obj/Debug/res/mipmap-anydpi-v26/icon_round.xml
 bitmap;obj/Debug/res/drawable/splash_screen.xml
 cache-path;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/39/jl/res/xml/xamarin_essentials_fileprovider_file_paths.xml
 color;obj/Debug/res/drawable/splash_screen.xml
 color;obj/Debug/res/values/colors.xml
+declare-styleable;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/values/attrs.xml
 external-cache-path;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/39/jl/res/xml/xamarin_essentials_fileprovider_file_paths.xml
 external-path;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/39/jl/res/xml/xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj/Debug/res/mipmap-anydpi-v26/icon.xml
@@ -34,6 +36,8 @@ item;obj/Debug/res/values/styles.xml
 layer-list;obj/Debug/res/drawable/splash_screen.xml
 LinearLayout;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/layout/bottomtablayout.xml
 paths;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/39/jl/res/xml/xamarin_essentials_fileprovider_file_paths.xml
+resources;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/values/attrs.xml
+resources;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/values/strings.xml
 resources;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/values/styles.xml
 resources;obj/Debug/res/values/colors.xml
 resources;obj/Debug/res/values/styles.xml
@@ -41,6 +45,7 @@ set;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/cshar
 set;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/anim/enterfromright.xml
 set;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/anim/exittoleft.xml
 set;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/anim/exittoright.xml
+string;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/values/strings.xml
 style;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/values/styles.xml
 style;obj/Debug/res/values/styles.xml
 translate;/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/obj/Debug/lp/40/jl/res/anim/enterfromleft.xml

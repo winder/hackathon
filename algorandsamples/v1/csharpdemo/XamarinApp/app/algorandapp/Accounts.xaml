@@ -6,7 +6,7 @@
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="20, 100, 20, 0" />
+                <On Platform="iOS" Value="20, 20, 20, 0" />
                 <On Platform="Android" Value="20, 0, 20, 0" />
                 <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
@@ -16,12 +16,13 @@
         <StackLayout  HorizontalOptions="StartAndExpand">
             <Label x:Name="NetworkLabel"
                    Text="Network: TestNet Purestake"
+                   TextColor="Black"
                    FontSize="Large"/>
 
             <Button x:Name="ClearAccounts"
-                    WidthRequest="300"
-                    
+                    WidthRequest="300"                   
                     Text="Clear Device Accounts"
+                    TextColor="Blue"
                     Clicked="ClearAccounts_Clicked" IsVisible="True">
                 <Button.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"

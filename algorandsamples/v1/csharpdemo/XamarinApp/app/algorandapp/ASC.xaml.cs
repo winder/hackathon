@@ -66,7 +66,10 @@ namespace algorandapp
                 throw new Exception("Could not get params", err);
             }
             // format and send logic sig
-            byte[] program = { 0x01, 0x20, 0x01, 0x00, 0x22 }; // int 0, returns false, so rawTransaction will fail below
+            // int 1, returns true
+            byte[] program = { 0x01, 0x20, 0x01, 0x01, 0x22 };
+            // int 0, returns false, so rawTransaction will fail below
+            // byte[] program = { 0x01, 0x20, 0x01, 0x00, 0x22 };
             LogicsigSignature lsig = new LogicsigSignature(program, null);
             Console.WriteLine("Escrow address: " + lsig.ToAddress().ToString());
             Algorand.Transaction tx = Utils.GetLogicSignatureTransaction(lsig, account1.Address, transParams, "logic sig message");
@@ -87,6 +90,11 @@ namespace algorandapp
                     Console.WriteLine("Successfully sent tx logic sig tx id: " + id);
                     var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
                     Console.WriteLine(wait);
+                    var htmlSource = new HtmlWebViewSource();
+                    htmlSource.Html = @"<html><body>" +
+    "<h3>" + "Successfully sent tx logic sig tx: " + wait + "</h3>" +
+    "</body></html>";
+                    myWebView.Source = htmlSource;
                     ASCContractAccount.IsEnabled = true;
                 }
                 catch (ApiException err)
@@ -121,8 +129,10 @@ namespace algorandapp
                 throw new Exception("Could not get params", err);
             }
             // format and send logic sig
-            byte[] program = { 0x01, 0x20, 0x01, 0x00, 0x22 };
+            // int 1, returns true
+            byte[] program = { 0x01, 0x20, 0x01, 0x01, 0x22 };
             // int 0, returns false, so rawTransaction will fail below
+            // byte[] program = { 0x01, 0x20, 0x01, 0x00, 0x22 };
 
             LogicsigSignature lsig = new LogicsigSignature(program, null);
 
@@ -142,6 +152,11 @@ namespace algorandapp
                 Console.WriteLine("Successfully sent tx logic sig tx id: " + id);
                 var wait = Utils.WaitTransactionToComplete(algodApiInstance, id.TxId);
                 Console.WriteLine(wait);
+                var htmlSource = new HtmlWebViewSource();
+                htmlSource.Html = @"<html><body>" +
+"<h3>" + "Successfully sent tx logic sig tx: " + wait + "</h3>" +
+"</body></html>";
+                myWebView.Source = htmlSource;
                 ASCAccountDelegation.IsEnabled = true;
             }
             catch (ApiException err)

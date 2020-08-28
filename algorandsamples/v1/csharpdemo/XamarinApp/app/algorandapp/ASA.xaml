@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:algorandapp"
-             Title="Welcome to Algorand Standard Assets!"
+             Title="ASA"
              x:Class="algorandapp.ASA">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="20, 40, 20, 0" />
+                <On Platform="iOS" Value="20, 20, 20, 0" />
                 <On Platform="Android" Value="20, 0, 20, 0" />
                 <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
@@ -17,7 +17,7 @@
 
     <StackLayout>
         <StackLayout  >
-            <Label FontSize="Large" x:Name="myAsset"
+            <Label FontSize="Large" TextColor="Black" x:Name="myAsset"
               HorizontalOptions="Center" >
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
@@ -27,9 +27,11 @@
             </Label>
             <Label x:Name="NetworkLabel"
                    Text="Network: TestNet"
+                   TextColor="Black"
                    FontSize="Large" HorizontalOptions="Center"/>
             <Label x:Name="Status"
                    Text=""
+                   TextColor="Black"
                    FontSize="Large" HorizontalOptions="Center"/>
             <Button x:Name="ResetAsset" 
                  Text="Reset Assets" Clicked="Reset_Clicked">

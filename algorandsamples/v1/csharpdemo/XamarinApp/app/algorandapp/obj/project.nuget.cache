@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "mU7LPpKUOmV8gA43f/3Do1vnGXg9JziV/7lwVDNwnUSK0NNGjQe7l8FDiRNga8KTLaxP1D/UCtW+Aw5LKee89A==",
+  "dgSpecHash": "ntwJO+xxydx4jYza3qJJcnrH1OwUB+qemby26oSsicoM5v/E7MJNQSb79UaSJseWI98c63ffSzm79H8ltkDEQQ==",
   "success": true,
   "projectFilePath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp/algorandapp.csproj",
   "expectedPackageFiles": [
     "/Users/algorand/.nuget/packages/algorand/0.1.2.6/algorand.0.1.2.6.nupkg.sha512",
     "/Users/algorand/.nuget/packages/bouncycastle.netcore/1.8.5/bouncycastle.netcore.1.8.5.nupkg.sha512",
-    "/Users/algorand/.nuget/packages/jurassic/3.0.0/jurassic.3.0.0.nupkg.sha512",
+    "/Users/algorand/.nuget/packages/jurassic/3.1.0/jurassic.3.1.0.nupkg.sha512",
     "/Users/algorand/.nuget/packages/kodeaid.base32/1.0.2/kodeaid.base32.1.0.2.nupkg.sha512",
     "/Users/algorand/.nuget/packages/kodeaid.common/1.2.44/kodeaid.common.1.2.44.nupkg.sha512",
     "/Users/algorand/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
@@ -31,7 +31,7 @@
     "/Users/algorand/.nuget/packages/system.text.encoding/4.3.0/system.text.encoding.4.3.0.nupkg.sha512",
     "/Users/algorand/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",
     "/Users/algorand/.nuget/packages/xamarin.essentials/1.5.3.2/xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "/Users/algorand/.nuget/packages/xamarin.forms/4.6.0.800/xamarin.forms.4.6.0.800.nupkg.sha512"
+    "/Users/algorand/.nuget/packages/xamarin.forms/4.8.0.1269/xamarin.forms.4.8.0.1269.nupkg.sha512"
   ],
   "logs": []
 }

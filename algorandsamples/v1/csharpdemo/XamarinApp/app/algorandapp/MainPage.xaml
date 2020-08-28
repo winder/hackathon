@@ -4,12 +4,12 @@
              xmlns:local="clr-namespace:algorandapp"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Title="Algorand Sample App Using .NET SDK/Xamarin"
+             Title="Algorand Sample .NET SDK/Xamarin"
              mc:Ignorable="d" x:Class="algorandapp.MainPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="20, 100, 20, 0" />
+                <On Platform="iOS" Value="20, 20, 20, 0" />
                 <On Platform="Android" Value="20, 0, 20, 0" />
                 <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
@@ -19,7 +19,9 @@
     <StackLayout>
         <StackLayout>
             <Label FontSize="Large" x:Name="myLabel"
-              Text="Welcome to Algorand C# SDK" HorizontalOptions="Center" >
+              Text="Welcome to Algorand C# SDK"
+                   TextColor="Black"
+                   HorizontalOptions="Center" >
                 <Label.FontSize>
                     <OnPlatform x:TypeArguments="x:Double"
                       iOS="20"
@@ -28,7 +30,9 @@
             </Label>
             <Label x:Name="NetworkLabel"
                    Text="Network: TestNet"
-                   FontSize="Large" HorizontalOptions="Center"/>
+                   FontSize="Medium"
+                   TextColor="Black"
+                   HorizontalOptions="Center"/>
             <Button x:Name="ResetAsset" 
                  Text="Reset to Defaults" Clicked="Reset_Clicked">
                 <Button.FontSize>
@@ -106,7 +110,6 @@
                     HorizontalTextAlignment="Center"
                     TextColor="Blue" Text="Algorand Standard Assets">
                     </Label>
-
                 </StackLayout>
 
 

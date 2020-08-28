@@ -56,6 +56,46 @@ namespace algorandapp
             EntryTestNetServer.TextChanged += EntryTestNetServer_TextChanged;
             EntryBetaNetToken.TextChanged += EntryBetaNetToken_TextChanged;
             EntryTestNetToken.TextChanged += EntryTestNetToken_TextChanged;
+            // temp fix for radio button bug not displaying Text on radio button
+            if (Device.RuntimePlatform == Device.Android )
+            {
+                TestNetPurestakeLabel.Text = "Purestake TestNet";
+                TestNetHackathonLabel.Text = "Hackathon TestNet";
+                TestNetLabel.Text = "Enter your TestNet node";
+                PurestakeTestNet.Text = "";
+                HackathonTestNet.Text = "";
+                myTestNet.Text = "";
+
+                BetaNetPurestakeLabel.Text = "Purestake BetaNet";
+                BetaNetHackathonLabel.Text = "Hackathon BetaNet";
+                BetaNetLabel.Text = "Enter your BetaNet node";
+                PurestakeBetaNet.Text = "";
+                HackathonBetaNet.Text = "";
+                myBetaNet.Text = "";
+
+            }
+            else
+            {
+                TestNetPurestakeLabel.Text = "";
+                TestNetHackathonLabel.Text = "";
+                TestNetLabel.Text = "";
+                PurestakeTestNet.Text = "Purestake TestNet";
+                HackathonTestNet.Text = "Hackathon TestNet";
+                myTestNet.Text = "Enter your TestNet node";
+
+                BetaNetPurestakeLabel.Text = "";
+                BetaNetHackathonLabel.Text = "";
+                BetaNetLabel.Text = "";
+                PurestakeBetaNet.Text = "Purestake BetaNet";
+                HackathonBetaNet.Text = "Hackathon BetaNet";
+                myBetaNet.Text = "Enter your BetaNet node";
+            }
+
+            //HackathonTestNet.TextColor = Color.Blue;
+            //myTestNet.TextColor = Color.Blue;
+            //ios
+            //    PurestakeLabel.IsVisible = false;
+
         }
 
         private void EntryTestNetToken_TextChanged(object sender, TextChangedEventArgs e)

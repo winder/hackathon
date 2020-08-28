@@ -2,11 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:algorandapp"
-             x:Class="algorandapp.ASC">
+             x:Class="algorandapp.ASC"
+             Title="ASC1">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <OnPlatform.Platforms>
-                <On Platform="iOS" Value="20, 100, 20, 0" />
+                <On Platform="iOS" Value="20, 20, 20, 0" />
                 <On Platform="Android" Value="20, 0, 20, 0" />
                 <On Platform="UWP" Value="20, 0, 20, 0" />
             </OnPlatform.Platforms>
@@ -19,7 +20,8 @@
             <StackLayout HorizontalOptions="Center" >
                 <Label x:Name="NetworkLabel"
                    Text="Network: TestNet"
-                   FontSize="Large"/>
+                       TextColor="Black"
+                   FontSize="Medium"/>
             </StackLayout>
 
         </StackLayout>
@@ -51,23 +53,6 @@
                     </Label>
 
                 </StackLayout>
-                <!--<Button x:Name="ASCContractAccount" Grid.Row="1" Grid.Column="0"
-                Text="ASC1 Contract Account" Clicked="ASCContractAccount_Clicked">
-                    <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                    </Button.FontSize>
-                </Button>-->
-
-                <!--<Button x:Name="ASCContractAccountInfo" Grid.Row="0" Grid.Column="1"
-                Text="Get ASC1 Contract Account Info" Clicked="ASCContractAccountInfo_Clicked">
-                    <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                    </Button.FontSize>
-                </Button>-->
 
                 <StackLayout x:Name="StackASCAccountDelegation" Grid.Row="0" Grid.Column="1">
                     <Image x:Name="ASCAccountDelegation"  Aspect="AspectFill"
@@ -86,44 +71,6 @@
 
                 </StackLayout>
 
-                <!--<Button x:Name="ASCAccountDelegation" Grid.Row="2" Grid.Column="0"
-                Text="ASC1 Account Delegation" Clicked="ASCAccountDelegation_Clicked">
-                    <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                    </Button.FontSize>
-                </Button>-->
-                <!--<Button x:Name="ASCAccountDelegationInfo" Grid.Row="1" Grid.Column="1"
-                Text="Get ASC1 Account Delegation Info" Clicked="ASCAccountDelegationInfo_Clicked">
-                    <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                    </Button.FontSize>
-                </Button>-->
-                <!--<Label FontSize="Large" x:Name="myLabel" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                   Text="" HorizontalOptions="StartAndExpand" >
-                    <Label.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                    </Label.FontSize>
-                </Label>
-                <Label FontSize="Large" x:Name="myLabel2" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                   Text="" HorizontalOptions="StartAndExpand">
-                    <Label.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double"
-                      iOS="30"
-                      Android="16" />
-                    </Label.FontSize>
-                </Label>
-                <Entry x:Name="Entry3" FontSize="Large" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
-
-                </Entry>
-                <Entry x:Name="Entry4" FontSize="Large" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
-
-                </Entry>-->
                 <WebView x:Name="myWebView" HeightRequest="500" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
                 </WebView>

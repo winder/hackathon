@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "moKo/BY5Vcw4h2Bc33OgTupJfqAU+pq3is1rCWwBEaZyzHnw68k1VUG87jHGZTDJ12aKez/i8EonO1ev7tbYcQ==",
+  "dgSpecHash": "D2C/AJZudpWLSGGQYqNqQ0mrXehB8gdKQ3b6EOK0jBZHcasq8S4tMBTAFUNEm55bqYJBBOC2XjM+iGZNZCAPmQ==",
   "success": true,
   "projectFilePath": "/Users/algorand/Documents/GitHub/rfustino/hackathon/algorandsamples/v1/csharpdemo/XamarinApp/app/algorandapp.Android/algorandapp.Android.csproj",
   "expectedPackageFiles": [
     "/Users/algorand/.nuget/packages/algorand/0.1.2.6/algorand.0.1.2.6.nupkg.sha512",
     "/Users/algorand/.nuget/packages/bouncycastle.netcore/1.8.5/bouncycastle.netcore.1.8.5.nupkg.sha512",
-    "/Users/algorand/.nuget/packages/jurassic/3.0.0/jurassic.3.0.0.nupkg.sha512",
+    "/Users/algorand/.nuget/packages/jurassic/3.1.0/jurassic.3.1.0.nupkg.sha512",
     "/Users/algorand/.nuget/packages/kodeaid.base32/1.0.2/kodeaid.base32.1.0.2.nupkg.sha512",
     "/Users/algorand/.nuget/packages/kodeaid.common/1.2.44/kodeaid.common.1.2.44.nupkg.sha512",
     "/Users/algorand/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
@@ -55,7 +55,7 @@
     "/Users/algorand/.nuget/packages/xamarin.android.support.versionedparcelable/28.0.0.3/xamarin.android.support.versionedparcelable.28.0.0.3.nupkg.sha512",
     "/Users/algorand/.nuget/packages/xamarin.android.support.viewpager/28.0.0.3/xamarin.android.support.viewpager.28.0.0.3.nupkg.sha512",
     "/Users/algorand/.nuget/packages/xamarin.essentials/1.5.3.2/xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "/Users/algorand/.nuget/packages/xamarin.forms/4.6.0.800/xamarin.forms.4.6.0.800.nupkg.sha512"
+    "/Users/algorand/.nuget/packages/xamarin.forms/4.8.0.1269/xamarin.forms.4.8.0.1269.nupkg.sha512"
   ],
   "logs": []
 }
