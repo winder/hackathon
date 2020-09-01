@@ -80,9 +80,9 @@ const printAssetHolding = async function (algodclient, account, assetid) {
 // var account3_mnemonic = "PASTE your phrase for account 3"
 
 
-var account1_mnemonic = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten";
-var account2_mnemonic = "beauty nurse season autumn curve slice cry strategy frozen spy panic hobby strong goose employ review love fee pride enlist friend enroll clip ability runway";
-var account3_mnemonic = "picnic bright know ticket purity pluck stumble destroy ugly tuna luggage quote frame loan wealth edge carpet drift cinnamon resemble shrimp grain dynamic absorb edge";
+var account1_mnemonic = "patrol target joy dial ethics flip usual fatigue bulb security prosper brand coast arch casino burger inch cricket scissors shoe evolve eternal calm absorb school";
+var account2_mnemonic = "genius inside turtle lock alone blame parent civil depend dinosaur tag fiction fun skill chief use damp daughter expose pioneer today weasel box about silly";
+var account3_mnemonic = "off canyon mystery cable pluck emotion manual legal journey grit lunch include friend social monkey approve lava steel school mango auto cactus huge ability basket";
 
 var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
 var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
@@ -115,7 +115,8 @@ console.log(recoveredAccount3.addr);
     params.fee = 1000;
     params.flatFee = true;
     console.log(params);
-    let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
+    let note = algosdk.encodeObj("showing prefix");
+    // let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
     // Asset creation specific parameters
     // The following parameters are asset specific
     // Throughout the example these will be re-used. 

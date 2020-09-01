@@ -4,15 +4,19 @@
 // npm list algosdk
 
 const algosdk = require('algosdk');
-const indexer_token = "";
-const indexer_server = "http://localhost";
-const indexer_port = 8980;
-
+// const indexer_token = "";
+// const indexer_server = "http://localhost";
+// const indexer_port = 8980;
+const indexer_server = "https://testnet-algorand.api.purestake.io/idx2/";
+const indexer_port = "";
+const indexer_token = {
+    'X-API-key': 'B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab',
+}
 // Instantiate the indexer client wrapper
 let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
     
 (async () => {
-    let address = "XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4";
+    let address = "RBSTLLHK2NJDL3ZH66MKSEX3BE2OWQ43EUM7S7YRVBJ2PRDRCKBSDD3YD4";
     let sig_type = "msig"; 
     let response = await indexerClient.searchForTransactions()
         .address(address)

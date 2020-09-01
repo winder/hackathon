@@ -9,9 +9,9 @@ from algosdk.future.transaction import Multisig, PaymentTxn, MultisigTransaction
 # mnemonic2 = "PASTE phrase for account 2"
 # mnemonic3 = "PASTE phrase for account 3"
 
-mnemonic1 = "predict mandate aware dizzy limit match hazard fantasy victory auto fortune hello public dragon ostrich happy blue spray parrot island odor actress only ability hurry"
-mnemonic2 = "moon grid random garlic effort faculty fence gym write skin they joke govern home huge there claw skin way bid fit bean damp able only"
-mnemonic3 = "mirror zone together remind rural impose balcony position minimum quick manage climb quit draft lion device pluck rug siege robust spirit fine luggage ability actual"
+mnemonic1 = "patrol target joy dial ethics flip usual fatigue bulb security prosper brand coast arch casino burger inch cricket scissors shoe evolve eternal calm absorb school"
+mnemonic2 = "genius inside turtle lock alone blame parent civil depend dinosaur tag fiction fun skill chief use damp daughter expose pioneer today weasel box about silly"
+mnemonic3 = "off canyon mystery cable pluck emotion manual legal journey grit lunch include friend social monkey approve lava steel school mango auto cactus huge ability basket"
 
 # For ease of reference, add account public and private keys to
 # an accounts dict.

@@ -4,20 +4,24 @@
 // npm list algosdk
 
 const algosdk = require('algosdk');
-const indexer_token = "";
-const indexer_server = "http://localhost";
-const indexer_port = 8980;
-
+// const indexer_token = "";
+// const indexer_server = "http://localhost";
+// const indexer_port = 8980;
+const indexer_server = "https://testnet-algorand.api.purestake.io/idx2/";
+const indexer_port = "";
+const indexer_token = {
+    'X-API-key': 'B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab',
+}
 // Instantiate the indexer client wrapper
 let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
    
 (async () => {
-    let address = "XIU7HGGAJ3QOTATPDSIIHPFVKMICXKHMOR2FJKHTVLII4FAOA3CYZQDLG4";
-    let start_time = "2020-06-03T10:00:00-05:00"; 
+    let address = "RBSTLLHK2NJDL3ZH66MKSEX3BE2OWQ43EUM7S7YRVBJ2PRDRCKBSDD3YD4";
+    let start_time = "2020-08-31T02:35:47-05:00"; 
     let response = await indexerClient.searchForTransactions()
         .address(address)
         .afterTime(start_time).do();
-    console.log("start_time: 06/03/2020 11:00:00 = " + JSON.stringify(response, undefined, 2));
+    console.log("start_time: 08/31/2020 02:35:47 = " + JSON.stringify(response, undefined, 2));
     }   
 )().catch(e => {
     console.log(e);
