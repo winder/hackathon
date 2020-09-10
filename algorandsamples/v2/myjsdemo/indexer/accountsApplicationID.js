@@ -4,6 +4,7 @@
 // npm list algosdk
 
 const algosdk = require('algosdk');
+const chalk = require('chalk');
 // const indexer_token = "";
 // const indexer_server = "http://localhost";
 // const indexer_port = 8980;
@@ -30,7 +31,7 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
  //   let applicationID = 12174945;   
     let accountInfo = await indexerClient.searchAccounts()
         .applicationID(applicationID).do();
-    console.log("Information for account info for Application ID: " + JSON.stringify(accountInfo, undefined, 2));
+    console.log(chalk.black("Information for account info for Application ID: " + JSON.stringify(accountInfo, undefined, 2)));
 })().catch(e => {
     console.log(e);
     console.trace();
