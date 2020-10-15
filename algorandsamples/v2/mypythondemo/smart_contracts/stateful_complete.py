@@ -14,6 +14,8 @@ user_mnemonic = "A second distinct 25-word mnemonic goes here"
 algod_address = "http://localhost:4001"
 algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
+
+
 # algod_address = "http://localhost:8080"
 # algod_token = "f73ee5dac477f8ce7f7ac7599b6e77d5bb0c3a43e52712d151922d35a881fc5c"
 creator_mnemonic = "patrol target joy dial ethics flip usual fatigue bulb security prosper brand coast arch casino burger inch cricket scissors shoe evolve eternal calm absorb school"
@@ -33,6 +35,7 @@ global_bytes = 0
 global_schema = transaction.StateSchema(global_ints, global_bytes)
 local_schema = transaction.StateSchema(local_ints, local_bytes)
 
+# REPLACE/Copy Account 1 to below account addr's
 # user declared approval program (initial)
 approval_program_source_initial = b"""#pragma version 2
 // Handle each possible OnCompletion type. We don't have to worry about

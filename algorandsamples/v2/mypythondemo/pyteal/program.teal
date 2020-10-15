@@ -1,0 +1,32 @@
+txn Fee
+int 2000
+<=
+txn TypeEnum
+int 1
+==
+&&
+txn Receiver
+global ZeroAddress
+==
+&&
+txn Amount
+int 0
+==
+&&
+txn CloseRemainderTo
+addr YGO2HOKUZL5OU23Y6MIVWG6WGAGIUMDSQIXJRRHMOF2ERN7DSJRCINBKS4
+==
+arg 0
+sha256
+byte base64 QzYhq9JlYbn2QdOMrhyxVlNtNjeyvyJc/I8d8VAGfGc=
+==
+&&
+txn CloseRemainderTo
+addr 3TNNHYBR7V4NM4DGE36JY6POVYLLJO62EIAKDKKLT33PYULJUBHVJBNUFI
+==
+txn FirstValid
+int 5000000
+>
+&&
+||
+&&

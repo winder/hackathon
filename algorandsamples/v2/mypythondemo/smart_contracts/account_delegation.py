@@ -4,6 +4,7 @@ from algosdk.future.transaction import PaymentTxn, LogicSig
 import os
 import base64
 
+
 def wait_for_confirmation(client, txid):
     """
     Utility function to wait until the transaction is
@@ -21,6 +22,8 @@ def wait_for_confirmation(client, txid):
     return txinfo
 
 # Read a file
+
+
 def load_resource(res):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     path = os.path.join(dir_path, res)
@@ -28,17 +31,18 @@ def load_resource(res):
         data = fin.read()
     return data
 
+
 try:
 
     # Create an algod client
-    # algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    # algod_address = "http://localhost:4001"
-    algod_token = "6b3a2ae3896f23be0a1f0cdd083b6d6d046fbeb594a3ce31f2963b717f74ad43"
-    algod_address = "http://127.0.0.1:54746"
+    algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    algod_address = "http://localhost:4001"
+    # algod_token = "6b3a2ae3896f23be0a1f0cdd083b6d6d046fbeb594a3ce31f2963b717f74ad43"
+    # algod_address = "http://127.0.0.1:54746"
     # algod_token = "<algod-token>"
-    # algod_address = "<algod-address:port>" 
-    # receiver = "<receiver-address>" 
-    receiver = "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ" 
+    # algod_address = "<algod-address:port>"
+    # receiver = "<receiver-address>"
+    receiver = "NQMDAY2QKOZ4ZKJLE6HEO6LTGRJHP3WQVZ5C2M4HKQQLFHV5BU5AW4NVRY"
     algod_client = algod.AlgodClient(algod_token, algod_address)
 
     myprogram = "samplearg.teal"
@@ -71,21 +75,20 @@ try:
     # Create logic sig
     programstr = response['result']
     t = programstr.encode("ascii")
-    # program = b"hex-encoded-program"   
+    # program = b"hex-encoded-program"
     program = base64.decodebytes(t)
     print(program)
     print(len(program) * 8)
-    # Create arg to pass   
+    # Create arg to pass
     # string parameter
     # arg_str = "<my string>"
     # arg1 = arg_str.encode()
     # lsig = transaction.LogicSig(program, args=[arg1])
-   
+
     # integer parameter
     # arg1 = (123).to_bytes(8, 'big')
     # lsig = transaction.LogicSig(program, args=[arg1])
     # see more info here: https://developer.algorand.org/docs/features/asc1/sdks/#accessing-teal-program-from-sdks
-    
 
     # if TEAL program requires an arg,
     # if not, omit args param on LogicSig
@@ -94,7 +97,7 @@ try:
     lsig = LogicSig(program, args=[arg1])
 
     # Recover the account that is wanting to delegate signature
-    passphrase = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten"
+    passphrase = "paddle daring eagle inner mimic glimpse police fiscal label arena script solve knife script fox law bomb mail manual royal animal shove oyster abstract glow"
     # passphrase = "<25-word-mnemonic>"
     sk = mnemonic.to_private_key(passphrase)
     addr = account.address_from_private_key(sk)
@@ -102,7 +105,7 @@ try:
 
     # Sign the logic signature with an account sk
     lsig.sign(sk)
- 
+
     # Get suggested parameters
     params = algod_client.suggested_params()
     # Comment out the next two (2) lines to use suggested fees
@@ -110,15 +113,16 @@ try:
     params.fee = 1000
 
     # Build transaction
-    amount = 10000 
+    amount = 10000
     closeremainderto = None
- 
+
     # Create a transaction
     txn = PaymentTxn(
         addr, params, receiver, amount, closeremainderto)
     # Create the LogicSigTransaction with contract account LogicSig
     lstx = transaction.LogicSigTransaction(txn, lsig)
-    # transaction.write_to_file([lstx], "simple.stxn")
+    txns = [lstx]
+    transaction.write_to_file(txns, "simple.stxn")
     # Send raw LogicSigTransaction to network
     txid = algod_client.send_transaction(lstx)
     print("Transaction ID: " + txid)

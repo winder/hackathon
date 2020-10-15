@@ -40,7 +40,7 @@ try:
     # algod_token = "<algod-token>" 
     # algod_address = "<algod-address>" 
     # receiver = "<receiver-address>" 
-    receiver = "ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ"
+    receiver = "NQMDAY2QKOZ4ZKJLE6HEO6LTGRJHP3WQVZ5C2M4HKQQLFHV5BU5AW4NVRY"
     algod_client = algod.AlgodClient(algod_token, algod_address)
    
     myprogram = "samplearg.teal"

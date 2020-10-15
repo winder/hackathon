@@ -32,9 +32,9 @@ def getting_started_example():
 # Part 2
 # send from account 3 to account 2 and sign from Account 1
 
-    account1_passphrase = "paddle daring eagle inner mimic glimpse police fiscal label arena script solve knife script fox law bomb mail manual royal animal shove oyster abstract glow"
-    account2_passphrase = "cake zebra blue tissue guitar recycle blue into letter usual enforce wide elite interest property spoil argue west nerve join garden people diet ability chuckle"
-    account3_passphrase = "scissors park garment junior dismiss hope quiz chapter gospel slam outdoor family awake annual buyer eight real rib paddle erosion seed vibrant nature able bag"
+    account1_passphrase = "fringe model trophy claw stove perfect address market license abstract master slender choice around field embark sudden carbon exclude abuse square bulb front ability violin"
+    account2_passphrase = "impulse nation creek toy carpet amused dream can small long disorder source mail game category damp spread length cupboard theory either baby squeeze about orbit"
+    account3_passphrase = "fade exit sword someone lock minimum scout keen label dance jaguar select conduct luxury rose idea solid major solid lens globe agent assume abstract alien"
     
     account1 = mnemonic.to_public_key(account1_passphrase)
     account2 = mnemonic.to_public_key(account2_passphrase)    
