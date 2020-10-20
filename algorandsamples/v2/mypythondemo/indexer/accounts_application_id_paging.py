@@ -15,16 +15,12 @@ myindexer = indexer.IndexerClient(
 # myindexer = indexer.IndexerClient(
 #     indexer_token="", indexer_address=myindexer_address, headers=myindexer_header)
 
-
-
 nexttoken = ""
 num_accounts = 1
-
 # loop using next_page to paginate until there are no more accounts
 # in the response
 # (max is 100 default
 # unless limit is used for max 1000 per request on accounts)
-
 while (num_accounts > 0):
     response = myindexer.accounts(
         application_id=70, limit=2,next_page=nexttoken)

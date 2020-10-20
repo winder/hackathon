@@ -3,6 +3,9 @@ from algosdk.v2client import indexer
 
 # instantiate indexer client
 myindexer = indexer.IndexerClient(indexer_token="", indexer_address="http://localhost:59998")
+# myindexer = indexer.IndexerClient(
+#     indexer_token="", indexer_address="http://localhost:8980")
+
 response = myindexer.search_applications()
 
 print("Response Info: " + json.dumps(response, indent=2, sort_keys=True))

@@ -15,9 +15,9 @@ const indexer_token = "";
  
 // Instantiate the indexer client wrapper
 let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
+
 let nexttoken = "";
 let numAccounts = 1;
-
 (async () => {
 
     let applicationID = 70;

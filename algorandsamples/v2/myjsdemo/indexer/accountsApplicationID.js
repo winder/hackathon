@@ -27,8 +27,7 @@ const indexer_token = "";
 let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
 
 (async () => {
-    let applicationID = 70;
- //   let applicationID = 12174945;   
+    let applicationID = 70;  
     let accountInfo = await indexerClient.searchAccounts()
         .applicationID(applicationID).do();
     console.log(chalk.black("Information for account info for Application ID: " + JSON.stringify(accountInfo, undefined, 2)));

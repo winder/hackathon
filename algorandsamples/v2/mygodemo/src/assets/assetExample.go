@@ -224,23 +224,11 @@ func main() {
 	fmt.Printf("Submitted transaction %s\n", sendResponse)
 	// Wait for transaction to be confirmed
 	waitForConfirmation(txid, algodClient)
-	//    response := algodClient.PendingTransactionInformation(txid)
-	//    prettyPrint(response)
-	// Retrieve asset ID by grabbing the max asset ID
-	// from the creator account's holdings.
-	act, err := algodClient.AccountInformation(pks[1]).Do(context.Background())
-	if err != nil {
-		fmt.Printf("failed to get account information: %s\n", err)
-		return
-	}
+	response, stxn, err := algodClient.PendingTransactionInformation(txid).Do(context.Background())
+    fmt.Printf("%s\n", stxn)
+	assetID := response.AssetIndex
 
-	assetID := uint64(0)
-	//	find newest (highest) asset for this account
-	for _, asset := range act.CreatedAssets {
-		if asset.Index > assetID {
-			assetID = asset.Index
-		}
-	}
+
 
 	// print created asset and asset holding info for this asset
 	fmt.Printf("Asset ID: %d\n", assetID)

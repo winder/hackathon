@@ -127,8 +127,6 @@ async function dryrunDebugging(lsig, txn, data) {
         }];
         sources = [new algosdk.modelsv2.DryrunSource("lsig", data.toString("utf8"), 0)];
     }
-
-
     const dr = new algosdk.modelsv2.DryrunRequest({
         txns: txns,
         sources: sources,
@@ -136,7 +134,28 @@ async function dryrunDebugging(lsig, txn, data) {
     dryrunResponse = await algodclient.dryrun(dr).do();
     return dryrunResponse;
 }
+async function dryrunDebuggingdr(lsig, txn, data) {
+    if (data == null) {
+        //compile
+        txns = [{
+            lsig: lsig,
+            txn: txn,
+        }];
+    }
+    else {
+        // source
+        txns = [{
+            txn: txn,
+        }];
+        sources = [new algosdk.modelsv2.DryrunSource("lsig", data.toString("utf8"), 0)];
+    }
+    const dr = new algosdk.modelsv2.DryrunRequest({
+        txns: txns,
+        sources: sources,
+    });
 
+    return dr;
+}
 // output should look like this
 // {
 //     "error": "",

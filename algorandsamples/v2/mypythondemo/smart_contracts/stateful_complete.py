@@ -1,6 +1,6 @@
 import base64
 import datetime
-
+import json
 from algosdk.future import transaction
 from algosdk import account, mnemonic
 from algosdk.v2client import algod
@@ -18,8 +18,8 @@ algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 # algod_address = "http://localhost:8080"
 # algod_token = "f73ee5dac477f8ce7f7ac7599b6e77d5bb0c3a43e52712d151922d35a881fc5c"
-creator_mnemonic = "patrol target joy dial ethics flip usual fatigue bulb security prosper brand coast arch casino burger inch cricket scissors shoe evolve eternal calm absorb school"
-user_mnemonic = "genius inside turtle lock alone blame parent civil depend dinosaur tag fiction fun skill chief use damp daughter expose pioneer today weasel box about silly"
+creator_mnemonic = "price clap dilemma swim genius fame lucky crack torch hunt maid palace ladder unlock symptom rubber scale load acoustic drop oval cabbage review abstract embark"
+user_mnemonic = "unlock garage rack news treat bonus census describe stuff habit harvest imitate cheap lemon cost favorite seven tomato viable same exercise letter dune able add"
 
 
 #algod_address = "http://localhost:4002"
@@ -73,7 +73,7 @@ err
 handle_noop:
 // Handle NoOp
 // Check for creator
-addr NI2EDLP2KZYH6XYLCEZSI5SSO2TFBYY3ZQ5YQENYAGJFGXN4AFHPTR3LXU
+addr 7DCJZKC4JDUKM25W7TDJ5XRTWGUTH6DOG5WARVA47DOCXQOTB4GMLNVW7I
 txn Sender
 ==
 bnz handle_optin
@@ -128,14 +128,14 @@ return
 
 handle_deleteapp:
 // Check for creator
-addr NI2EDLP2KZYH6XYLCEZSI5SSO2TFBYY3ZQ5YQENYAGJFGXN4AFHPTR3LXU
+addr 7DCJZKC4JDUKM25W7TDJ5XRTWGUTH6DOG5WARVA47DOCXQOTB4GMLNVW7I
 txn Sender
 ==
 return
 
 handle_updateapp:
 // Check for creator
-addr NI2EDLP2KZYH6XYLCEZSI5SSO2TFBYY3ZQ5YQENYAGJFGXN4AFHPTR3LXU
+addr 7DCJZKC4JDUKM25W7TDJ5XRTWGUTH6DOG5WARVA47DOCXQOTB4GMLNVW7I
 txn Sender
 ==
 return
@@ -179,7 +179,7 @@ err
 handle_noop:
 // Handle NoOp
 // Check for creator
-addr NI2EDLP2KZYH6XYLCEZSI5SSO2TFBYY3ZQ5YQENYAGJFGXN4AFHPTR3LXU
+addr 7DCJZKC4JDUKM25W7TDJ5XRTWGUTH6DOG5WARVA47DOCXQOTB4GMLNVW7I
 txn Sender
 ==
 bnz handle_optin
@@ -241,14 +241,14 @@ return
 
 handle_deleteapp:
 // Check for creator
-addr NI2EDLP2KZYH6XYLCEZSI5SSO2TFBYY3ZQ5YQENYAGJFGXN4AFHPTR3LXU
+addr 7DCJZKC4JDUKM25W7TDJ5XRTWGUTH6DOG5WARVA47DOCXQOTB4GMLNVW7I
 txn Sender
 ==
 return
 
 handle_updateapp:
 // Check for creator
-addr NI2EDLP2KZYH6XYLCEZSI5SSO2TFBYY3ZQ5YQENYAGJFGXN4AFHPTR3LXU
+addr 7DCJZKC4JDUKM25W7TDJ5XRTWGUTH6DOG5WARVA47DOCXQOTB4GMLNVW7I
 txn Sender
 ==
 return
@@ -346,7 +346,8 @@ def opt_in_app(client, private_key, index) :
 
     # display results
     transaction_response = client.pending_transaction_info(tx_id)
-    print("OptIn to app-id: ",transaction_response['txn']['txn']['apid'])    
+    print("OptIn to app-id: ")    
+    print(json.dumps(transaction_response['txn']['txn']['apid'], indent=2))
 
 # call application
 def call_app(client, private_key, index, app_args) : 
@@ -377,26 +378,26 @@ def call_app(client, private_key, index, app_args) :
     transaction_response = client.pending_transaction_info(tx_id)
     print("Called app-id: ",transaction_response['txn']['txn']['apid'])
     if "global-state-delta" in transaction_response :
-        print("Global State updated :\n",transaction_response['global-state-delta'])
+        print("Global State updated :\n")
+        print(json.dumps(transaction_response['global-state-delta'], indent=2))
     if "local-state-delta" in transaction_response :
-        print("Local State updated :\n",transaction_response['local-state-delta'])
-
+        print("Local State updated :\n")
+        print(json.dumps(transaction_response['local-state-delta'], indent=2))
 # read user local state
 def read_local_state(client, addr, app_id) :   
     results = client.account_info(addr)
     local_state = results['apps-local-state'][0]
     for index in local_state :
         if local_state[index] == app_id :
-            print(f"local_state of account {addr} for app_id {app_id}: ", local_state['key-value'])
-
+            print(f"local_state of account {addr} for app_id {app_id}: ")
 # read app global state
 def read_global_state(client, addr, app_id) :   
     results = client.account_info(addr)
     apps_created = results['created-apps']
     for app in apps_created :
         if app['id'] == app_id :
-            print(f"global_state for app_id {app_id}: ", app['params']['global-state'])
-
+            print(f"global_state for app_id {app_id}: ")
+            print(json.dumps(app['params']['global-state'], indent=2))
 # update existing application
 def update_app(client, private_key, app_id, approval_program, clear_program) : 
     # declare sender
@@ -484,7 +485,8 @@ def close_out_app(client, private_key, index) :
 
     # display results
     transaction_response = client.pending_transaction_info(tx_id)
-    print("Closed out from app-id: ",transaction_response['txn']['txn']['apid'])
+    print("Closed out from app-id: ")
+    print(json.dumps(transaction_response['txn']['txn']['apid'], indent=2))
 
 # clear application
 def clear_app(client, private_key, index) : 
@@ -512,7 +514,8 @@ def clear_app(client, private_key, index) :
 
     # display results
     transaction_response = client.pending_transaction_info(tx_id)
-    print("Cleared app-id: ",transaction_response['txn']['txn']['apid'])    
+    print("Cleared app-id: ")    
+    print(json.dumps(transaction_response['txn']['txn']['apid'], indent=2))
 
 def main() :
     # initialize an algodClient

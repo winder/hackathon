@@ -15,6 +15,10 @@ const indexer_port = "";
 const indexer_token = {
   'X-API-key': 'B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab',
 }
+
+// const indexer_server = "https://indexer-internal-testnet.aws.algodev.network/";
+// const indexer_port = "443";
+// const indexer_token = "YddOUGbAjHLr1uPZtZwHOvMDmXvR1Zvw1f3Roj2P"
 // Instantiate the indexer client wrapper
 // let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
 let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);

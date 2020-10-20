@@ -14,20 +14,6 @@ from algosdk.v2client.models.dryrun_request import DryrunRequest
 
 import json
 
-def load_resource(res):
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    path = os.path.join(dir_path, res)
-    with open(path, "rb") as fin:
-        data = fin.read()
-    return data
-
-def write_resource(res, contents):
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    path = os.path.join(dir_path, res)
-    myjson = json.dumps(contents)
-    with open(path, "w") as fin:
-        fin.write(myjson)
-    return 
 
 def write_drr(res, contents):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -61,16 +47,6 @@ def wait_for_confirmation(client, txid):
         txid, txinfo.get('confirmed-round')))
     return txinfo
 
-# dryrun source if provided, else dryrun compiled
-def dryrun_debug(lstx, mysource):
-    sources = []
-    if (mysource != None):
-        # source
-        sources = [DryrunSource(
-            field_name="lsig", source=mysource, txn_index=0)]
-    drr = DryrunRequest(txns=[lstx], sources=sources)
-    dryrun_response = acl.dryrun(drr)
-    return dryrun_response
 
 # return dry run request (needed for debugging)
 def dryrun_drr(lstx, mysource):
@@ -190,14 +166,7 @@ try:
     # Create the LogicSigTransaction with contract account LogicSig
     lstx = transaction.LogicSigTransaction(txn, lsig)
 
-    # dryrun_response_compiled = dryrun_debug(lstx, None)
-    # print("COMPILED Dryrun results...")
-    # print(json.dumps(dryrun_response_compiled, indent=2))
-    # # write to file
-    # write_resource("dryrundump.json", dryrun_response_compiled)
-
-    # source
-    # dryrun_respone_source = dryrun_debug(lstx, teal_source)
+    # get dryrun request
     mydrr = dryrun_drr(lstx, teal_source)
     # write drr
     drr_file_name = "mydrr.dr"
@@ -217,15 +186,7 @@ try:
     programpath = os.path.join(dir_path, program_file_name)
     stdout, stderr = execute(
         ["tealdbg", "debug", programpath, "--dryrun-req", drrpath])
-
-    # print("SOURCE Dryrun results...")
-    # print(json.dumps(dryrun_respone_source, indent=2))
-    # # write to file
-    # write_resource("dryrundump.json", dryrun_respone_source)  
     txns = [lstx]
-    # write to file for offline use if desired   
-    # transaction.write_to_file(txns, "p_pay.stxn")
-
     # send raw LogicSigTransaction to network
     txid = acl.send_transaction(lstx)    
     print("Transaction ID: " + txid)

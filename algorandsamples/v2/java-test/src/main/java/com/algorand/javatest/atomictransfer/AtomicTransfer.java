@@ -1,4 +1,4 @@
-package com.algorand.javatest.atomictransaction;
+package com.algorand.javatest.atomictransfer;
 
 
 import java.io.ByteArrayOutputStream;
@@ -14,7 +14,7 @@ import com.algorand.algosdk.transaction.Transaction;
 import com.algorand.algosdk.transaction.TxGroup;
 import com.algorand.algosdk.util.Encoder;
 
-public class AtomicTransaction {
+public class AtomicTransfer {
 
     public AlgodClient client = null;
 
@@ -115,7 +115,7 @@ public class AtomicTransaction {
     }
 
     public static void main(String args[]) throws Exception {
-        AtomicTransaction mn = new AtomicTransaction();
+        AtomicTransfer mn = new AtomicTransfer();
         mn.AtomicTransfer();
     }
 }

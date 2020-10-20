@@ -13,8 +13,11 @@ myindexer = indexer.IndexerClient(indexer_token="", indexer_address="http://loca
 
 # response = myindexer.account_info(
 #     address="7WENHRCKEAZHD37QMB5T7I2KWU7IZGMCC3EVAO7TQADV7V5APXOKUBILCI")
+
+# response = myindexer.account_info(
+#     address="ZV2CISJONFBUIUIYFKQJ2UISXPDESCJWH6WO6DKRMXUJB7HDBSABOTYFKU")
 response = myindexer.account_info(
-    address="ZV2CISJONFBUIUIYFKQJ2UISXPDESCJWH6WO6DKRMXUJB7HDBSABOTYFKU")
+    address="ARCC3TMGVD7KXY7GYTE7U5XXUJXFRD2SXLAWRV57XJ6HWHRR37GNGNMPSY")
 # ZV2CISJONFBUIUIYFKQJ2UISXPDESCJWH6WO6DKRMXUJB7HDBSABOTYFKU
 
 # https://betanet-algorand.api.purestake.io/idx2

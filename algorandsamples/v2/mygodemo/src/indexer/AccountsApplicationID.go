@@ -17,18 +17,14 @@ const indexerToken = ""
 var applicationID uint64 = 70
 
 func main() {
-
 	// Create an indexer client
 	indexerClient, err := indexer.MakeClient(indexerAddress, indexerToken)
 	if err != nil {
 		return
 	}
-
 	// Lookup application
 	 result, err := indexerClient.SearchAccounts().ApplicationId(applicationID).Do(context.Background())
-
 	// Print the results
 	JSON, err := json.MarshalIndent(result, "", "\t")
 	fmt.Printf(string(JSON) + "\n")
-
 }

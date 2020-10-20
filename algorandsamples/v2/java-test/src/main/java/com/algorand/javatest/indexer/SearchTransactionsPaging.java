@@ -11,8 +11,11 @@ public class SearchTransactionsPaging {
     public Client indexerInstance = null;
     // utility function to connect to a node
     private Client connectToNetwork(){
+        // final String INDEXER_API_ADDR = "localhost";
+        // final int INDEXER_API_PORT = 8980;
         final String INDEXER_API_ADDR = "localhost";
-        final int INDEXER_API_PORT = 8980;       
+        // final String INDEXER_TOKEN = "";
+        final int INDEXER_API_PORT = 59998;            
         IndexerClient indexerClient = new IndexerClient(INDEXER_API_ADDR, INDEXER_API_PORT); 
         return indexerClient;
     }

@@ -25,7 +25,6 @@ account_2 = mnemonic.to_public_key(mnemonic2)
 private_key_3 = mnemonic.to_private_key(mnemonic3)
 account_3 = mnemonic.to_public_key(mnemonic3)
 
-
 def wait_for_confirmation(client, txid):
     """
     Utility function to wait until the transaction is
@@ -47,6 +46,7 @@ def wait_for_confirmation(client, txid):
 version = 1  # multisig version
 threshold = 2  # how many signatures are necessary
 msig = Multisig(version, threshold, [account_1, account_2])
+
 print("Multisig Address: ", msig.address())
 print("Please go to: https://bank.testnet.algorand.network/ to fund multisig account.", msig.address())
 # input("Please go to: https://bank.testnet.algorand.network/ to fund multisig account." + '\n' + "Press Enter to continue...")
@@ -61,12 +61,6 @@ algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 # Initialize an algod client
 algod_client = algod.AlgodClient(algod_token, algod_address)
-
-# Get network params for transactions.
-params = algod_client.suggested_params()
-# comment out the next two (2) lines to use suggested fees
-params.flat_fee = True
-params.fee = 1000
 
 # get suggested parameters
 params = algod_client.suggested_params()
