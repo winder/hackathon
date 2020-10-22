@@ -23,9 +23,9 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
 
 (async () => {
     let assetIndex = 12215366;
-    // let accountInfo = await indexerClient.searchAccounts()
-    //     .assetID(assetIndex).do();
-    let accountInfo = await indexerClient.searchAccounts().do();
+    let accountInfo = await indexerClient.searchAccounts()
+        .assetID(assetIndex).do();
+    // let accountInfo = await indexerClient.searchAccounts().do();
     console.log("Information for account info for Asset: " + JSON.stringify(accountInfo, undefined, 2));
 })().catch(e => {
     console.log(e);

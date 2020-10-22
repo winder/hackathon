@@ -104,8 +104,6 @@ public class AtomicTransfer {
 
             // send transaction group
             String id = client.RawTransaction().rawtxn(groupTransactionBytes).execute().body().txId;
-     
-
             // wait for confirmation
             waitForConfirmation(id);
             System.out.println("Successfully sent tx with ID: " + id);

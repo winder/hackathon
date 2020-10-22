@@ -99,6 +99,7 @@ def htlc(tmpl_hash_img=hash_img,
         amount_cond).And(recv_cond.Or(esc_cond))
     return htlc_core
 
+
 tmpl_hash_fn = Sha256
 tmpl_hash_img = Bytes("base64", "QzYhq9JlYbn2QdOMrhyxVlNtNjeyvyJc/I8d8VAGfGc=")
 tmpl_timeout = Int(5000000)

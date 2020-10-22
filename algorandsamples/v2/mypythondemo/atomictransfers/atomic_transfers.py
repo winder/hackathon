@@ -120,7 +120,7 @@ def group_transactions():
         sender, receiver, amount))
     print("...created txn_2: ", txn_2.get_txid())
 
-# combine transations
+# combine transactions
     print("Combining transactions...")
 # the SDK does this implicitly within grouping below
 
