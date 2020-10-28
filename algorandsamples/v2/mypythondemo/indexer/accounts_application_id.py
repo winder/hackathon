@@ -10,7 +10,7 @@ from algosdk.v2client import indexer
 # myindexer_header = {'X-Api-key': myindexer_token}
 
 myindexer_token = 'B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab'
-myindexer_address = 'https://betanet-algorand.api.purestake.io/idx2/'
+myindexer_address = 'https://testnet-algorand.api.purestake.io/idx2/'
 myindexer_header = {'X-Api-key': myindexer_token}
 
 # myindexer_token = 'YddOUGbAjHLr1uPZtZwHOvMDmXvR1Zvw1f3Roj2PT1ufenXbNyIxIz0IeznrLbDsF'
@@ -25,7 +25,9 @@ myindexer_header = {'X-Api-key': myindexer_token}
 myindexer = indexer.IndexerClient(
     indexer_token="", indexer_address=myindexer_address, headers=myindexer_header)
 
+# response = myindexer.accounts(
+#     application_id=2672020)
 response = myindexer.accounts(
-    application_id=2672020)
+    application_id=12896864)
 print("Account Info: " + json.dumps(response, indent=2, sort_keys=True))
 

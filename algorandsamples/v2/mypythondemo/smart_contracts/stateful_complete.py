@@ -549,7 +549,8 @@ def main() :
 
     # update application
     approval_program = compile_program(algod_client, approval_program_source_refactored)
-    update_app(algod_client, creator_private_key, app_id, approval_program, clear_program)
+    update_app(algod_client, creator_private_key, 
+    app_id, approval_program, clear_program)
 
     # call application with arguments
     now = datetime.datetime.now().strftime("%H:%M:%S")
