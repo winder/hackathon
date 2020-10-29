@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-
-
 import datetime
 from pyteal import *
 
@@ -12,7 +10,6 @@ from algosdk.future import transaction
 from algosdk.future.transaction import StateSchema, ApplicationCreateTxn
 from algosdk.v2client.models.dryrun_source import DryrunSource
 from algosdk.v2client.models.dryrun_request import DryrunRequest
-
 import json
 
 
@@ -48,15 +45,17 @@ def wait_for_confirmation(client, txid):
         txid, txinfo.get('confirmed-round')))
     return txinfo
 
-
 # return dry run request (needed for debugging)
-def dryrun_drr(lstx, mysource, creator, user):
+
+
+def dryrun_drr(signed_txn, mysource, creator, user):
     sources = []
     if (mysource != None):
         # source
         sources = [DryrunSource(
             field_name="approv", source=mysource, txn_index=0)]
-    drr = DryrunRequest(txns=[lstx], sources=sources, accounts=[creator, user] )
+    drr = DryrunRequest(txns=[signed_txn],
+                        sources=sources, accounts=[creator, user])
     return drr
 
 
@@ -81,12 +80,12 @@ user_private_key = get_private_key_from_mnemonic(user_mnemonic)
 def approval_program_initial():
     get_counter = App.globalGet(Bytes("counter"))
     counter_logic = Seq([
-        # read global state, increment the value, and put the updated value back into global state
+        # read global state, increment the value, 
+        # and put the updated value back into global state
         App.globalPut(Bytes("counter"), get_counter + Int(1)),
         Return(get_counter)
     ])
     return counter_logic
-
 
 def approval_program_refactored():
     get_localcounter = App.localGet(Int(0), Bytes("localcounter"))
@@ -100,13 +99,11 @@ def approval_program_refactored():
         # read from global state and return
         Return(get_localcounter)
     ])
-
     return counter_logic
 
 def clear_state_program():
     return Int(1)
 # create new application
-
 
 # def compile_program(client, source_code):
 #     compile_response = client.compile(source_code.decode('utf-8'))
@@ -120,23 +117,23 @@ def compile_program(acl, approval_program_source):
     approval_program = base64.decodebytes(t)
     return approval_program
 
-def create_app(client, private_key, approval_program, clear_program, global_schema, local_schema):
+def create_app(client, private_key, approval_program_compiled, clear_program, global_schema, local_schema):
     # define sender as creator
     sender = account.address_from_private_key(private_key)
-
     # declare on_complete as NoOp
     on_complete = transaction.OnComplete.NoOpOC.real
 
-# get node suggested parameters
+    # get node suggested parameters
     params = client.suggested_params()
     # comment out the next two (2) lines to use suggested fees
     params.flat_fee = True
     params.fee = 1000
 
-    # create unsigned transaction
-    txn = ApplicationCreateTxn(sender, params, on_complete,
-                                           approval_program, clear_program,
-                                           global_schema, local_schema)
+    # create unsigned transaction - Create App
+    txn = ApplicationCreateTxn(sender, 
+            params, on_complete,
+            approval_program_compiled, clear_program,
+            global_schema, local_schema)
 
     # sign transaction
     signed_txn = txn.sign(private_key)
@@ -247,8 +244,6 @@ def call_app(client, private_key_user, index, app_args, approval_program_source,
         print("Local State updated :\n")
         print(json.dumps(transaction_response['local-state-delta'], indent=2))
 
-
-
 def read_local_state(client, addr, app_id):
     results = client.account_info(addr)
     local_state = results['apps-local-state'][0]
@@ -256,7 +251,6 @@ def read_local_state(client, addr, app_id):
         if local_state[index] == app_id:
             print(f"local_state of account {addr} for app_id {app_id}: ")
 # read app global state
-
 
 def read_global_state(client, addr, app_id):
     results = client.account_info(addr)
@@ -266,7 +260,6 @@ def read_global_state(client, addr, app_id):
             print(f"global_state for app_id {app_id}: ")
             print(json.dumps(app['params']['global-state'], indent=2))
 
-
 def update_app(client, private_key, app_id, approval_program, clear_program):
     # declare sender
     sender = account.address_from_private_key(private_key)
@@ -274,7 +267,7 @@ def update_app(client, private_key, app_id, approval_program, clear_program):
     # define initial value for key "timestamp"
     app_args = [b'initial value']
 
-# get node suggested parameters
+    # get node suggested parameters
     params = client.suggested_params()
     # comment out the next two (2) lines to use suggested fees
     params.flat_fee = True
@@ -401,7 +394,7 @@ def main():
     # create algod clients
     acl = algod.AlgodClient(algod_token, algod_address)
 
-    # compile programs
+    # compile programs approval_program_source
     # and approval_program_source_refactored
     approval_program_source = compileTeal(
         approval_program_initial(), Mode.Application)
@@ -409,7 +402,8 @@ def main():
 
     approval_program_refactored_source = compileTeal(
         approval_program_refactored(), Mode.Application)
-    write_teal('hello_world_updated.teal', approval_program_refactored_source)
+    write_teal('hello_world_updated.teal', 
+    approval_program_refactored_source)
 
     clear_program_source = compileTeal(clear_state_program(), Mode.Application)
     write_teal('hello_world_clear.teal', clear_program_source)

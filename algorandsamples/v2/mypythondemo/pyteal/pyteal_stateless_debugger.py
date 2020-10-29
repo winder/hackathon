@@ -20,16 +20,19 @@ def write_drr(res, contents):
     path = os.path.join(dir_path, res)
     data = encoding.msgpack_encode(contents)
     data = base64.b64decode(data)
-    with open(path, "wb") as fout:fout.write(data)
+    with open(path, "wb") as fout:
+        fout.write(data)
     return
+
 
 def write_teal(res, contents):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    path = os.path.join(dir_path, res)   
+    path = os.path.join(dir_path, res)
     f = open(path, "w")
     f.write(str(contents))
     f.close()
     return
+
 
 def wait_for_confirmation(client, txid):
     """
@@ -60,7 +63,7 @@ def dryrun_drr(lstx, mysource):
 
 # pyteal template Hash Time Lock Contracts (htlc)
 # resoures
-#  
+#
 #  https://developer.algorand.org/tutorials/hash-time-lock-contract-pyteal
 #  https://developer.algorand.org/docs/reference/teal/templates/htlc/
 #  Hash Time Lock Contracts are contract accounts that can disburse funds when the correct hash
@@ -69,6 +72,7 @@ def dryrun_drr(lstx, mysource):
 #     certain period of time, the original owner can reclaim them.
 #  using debugger resources
 #  https://developer.algorand.org/docs/features/asc1/debugging/#using-the-teal-debugger
+
 
 """ HTLC
 """
@@ -79,13 +83,13 @@ max_fee = Int(2000)
 tmpl_rcv = Addr("ZZAF5ARA4MEC5PVDOP64JM5O5MQST63Q2KOY2FLYFLXXD3PFSNJJBYAFZM")
 owner = Addr("GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A")
 
+
 def htlc(tmpl_hash_img=hash_img,
          tmpl_timeout=timeout,
          tmpl_owner=owner,
          tmpl_max_fee=max_fee,
          tmpl_hash_fn=Sha256,
          tmpl_rcv=tmpl_rcv):
-
     fee_cond = Txn.fee() <= tmpl_max_fee
     type_cond = Txn.type_enum() == Int(1)
     amount_cond = Txn.amount() == Int(0)
@@ -94,11 +98,9 @@ def htlc(tmpl_hash_img=hash_img,
         tmpl_hash_fn(Arg(0)) == tmpl_hash_img)
     esc_cond = (Txn.close_remainder_to() == tmpl_owner).And(
         Txn.first_valid() > tmpl_timeout)
-
     htlc_core = fee_cond.And(type_cond).And(r_cond).And(
         amount_cond).And(recv_cond.Or(esc_cond))
     return htlc_core
-
 
 tmpl_hash_fn = Sha256
 tmpl_hash_img = Bytes("base64", "QzYhq9JlYbn2QdOMrhyxVlNtNjeyvyJc/I8d8VAGfGc=")
@@ -107,8 +109,8 @@ tmpl_max_fee = Int(2000)
 tmpl_rcv = Addr("YGO2HOKUZL5OU23Y6MIVWG6WGAGIUMDSQIXJRRHMOF2ERN7DSJRCINBKS4")
 tmpl_owner = Addr("3TNNHYBR7V4NM4DGE36JY6POVYLLJO62EIAKDKKLT33PYULJUBHVJBNUFI")
 
-teal_source = htlc(tmpl_hash_img, tmpl_timeout, tmpl_owner,
-                   tmpl_max_fee, tmpl_hash_fn, tmpl_rcv).teal()
+teal_source = compileTeal(htlc(tmpl_hash_img, tmpl_timeout, tmpl_owner,
+                               tmpl_max_fee, tmpl_hash_fn, tmpl_rcv), Mode.Signature)
 print(teal_source)
 
 program_file_name = "program.teal"
@@ -147,14 +149,14 @@ try:
 
     lsig = LogicSig(program, args)
 
-    # lsig escrow account must me funded. 
+    # lsig escrow account must me funded.
     # BI6CRIUTBD6FRFDRPVIMYPZHLZ2H5K3F5H2MSBHONCN4RYM5I72MQOHEOU
 
     # get suggested parameters
     params = acl.suggested_params()
     params.flat_fee = True
     params.fee = 1000
-    amount = 0   
+    amount = 0
     print(params.last)
     print(params.first)
 
@@ -189,7 +191,7 @@ try:
         ["tealdbg", "debug", programpath, "--dryrun-req", drrpath])
     txns = [lstx]
     # send raw LogicSigTransaction to network
-    txid = acl.send_transaction(lstx)    
+    txid = acl.send_transaction(lstx)
     print("Transaction ID: " + txid)
     wait_for_confirmation(acl, txid)
 except Exception as e:

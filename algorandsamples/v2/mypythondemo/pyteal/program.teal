@@ -1,3 +1,4 @@
+#pragma version 2
 txn Fee
 int 2000
 <=
@@ -18,7 +19,7 @@ addr YGO2HOKUZL5OU23Y6MIVWG6WGAGIUMDSQIXJRRHMOF2ERN7DSJRCINBKS4
 ==
 arg 0
 sha256
-byte base64 QzYhq9JlYbn2QdOMrhyxVlNtNjeyvyJc/I8d8VAGfGc=
+byte base64(QzYhq9JlYbn2QdOMrhyxVlNtNjeyvyJc/I8d8VAGfGc=)
 ==
 &&
 txn CloseRemainderTo
