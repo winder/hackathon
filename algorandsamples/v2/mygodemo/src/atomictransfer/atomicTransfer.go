@@ -33,6 +33,17 @@ const mnemonic3 = "obey plate another blur jungle dynamic noise gift coach belt 
 const algodAddress = "http://localhost:4001"
 const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
+// prettyPrint prints Go structs
+func prettyPrint(data interface{}) {
+	var p []byte
+	//    var err := error
+	p, err := json.MarshalIndent(data, "", "\t")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("%s \n", p)
+}
 // Function that waits for a given txId to be confirmed by the network
 func waitForConfirmation(txID string, client *algod.Client) {
 	status, err := client.Status().Do(context.Background())
@@ -219,12 +230,8 @@ func main() {
 		fmt.Printf("error getting pending transaction: %s\n", err)
 		return
 	}
-
-	txnJSON, err := json.MarshalIndent(confirmedTx.Transaction.Txn, "", "\t")
-	if err != nil {
-		fmt.Printf("Can not marshall txn data: %s\n", err)
-	}
-	fmt.Printf("Transaction information: %s\n", txnJSON)
+	fmt.Printf("Transaction information tx1: \n")
+    prettyPrint(confirmedTx.Transaction.Txn)
 
 	// tx2
 	confirmedTx, _, err = algodClient.PendingTransactionInformation(sTxID2).Do(context.Background())
@@ -232,10 +239,7 @@ func main() {
 		fmt.Printf("error getting pending transaction: %s\n", err)
 		return
 	}
+	fmt.Printf("Transaction information tx2: \n")
+    prettyPrint(confirmedTx.Transaction.Txn)
 
-	txnJSON, err = json.MarshalIndent(confirmedTx.Transaction.Txn, "", "\t")
-	if err != nil {
-		fmt.Printf("Can not marshall txn data: %s\n", err)
-	}
-	fmt.Printf("Transaction information: %s\n", txnJSON)
 }

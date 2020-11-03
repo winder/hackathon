@@ -9,6 +9,8 @@ import com.algorand.algosdk.v2.client.common.AlgodClient;
 import com.algorand.algosdk.v2.client.common.Response;
 import com.algorand.algosdk.v2.client.model.PendingTransactionResponse;
 import com.algorand.algosdk.v2.client.model.TransactionParametersResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class YourFirstTransaction {
     public AlgodClient client = null;
@@ -73,12 +75,7 @@ public class YourFirstTransaction {
         com.algorand.algosdk.account.Account myAccount = new Account(PASSPHRASE);
         System.out.println("My Address: " + myAccount.getAddress());
 
-        String myAddress = myAccount.getAddress().toString();
-
-        com.algorand.algosdk.v2.client.model.Account accountInfo = client.AccountInformation(myAccount.getAddress())
-                .execute().body();
-
-        System.out.println(String.format("Account Balance: %d microAlgos", accountInfo.amount));
+        String myAddress = printBalance(myAccount);
 
         try {
             // Construct the transaction
@@ -102,12 +99,23 @@ public class YourFirstTransaction {
 
             // Read the transaction
             PendingTransactionResponse pTrx = client.PendingTransactionInformation(id).execute().body();
-            System.out.println("Transaction information (with notes): " + pTrx.toString());
+            JSONObject jsonObj = new JSONObject(pTrx.toString());
+            System.out.println("Transaction information (with notes): " + jsonObj.toString(2)); 
             System.out.println("Decoded note: " + new String(pTrx.txn.tx.note));
-
+            myAddress = printBalance(myAccount);
         } catch (Exception e) {
             System.err.println("Exception when calling algod#transactionInformation: " + e.getMessage());
         }
+    }
+
+    private String printBalance(com.algorand.algosdk.account.Account myAccount) throws Exception {
+        String myAddress = myAccount.getAddress().toString();
+
+        com.algorand.algosdk.v2.client.model.Account accountInfo = client.AccountInformation(myAccount.getAddress())
+                .execute().body();
+
+        System.out.println(String.format("Account Balance: %d microAlgos", accountInfo.amount));
+        return myAddress;
     }
 
     public static void main(String args[]) throws Exception {

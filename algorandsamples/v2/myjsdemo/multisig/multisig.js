@@ -96,10 +96,7 @@ const keypress = async() => {
         let txn = algosdk.makePaymentTxnWithSuggestedParams(multsigaddr, receiver, 1000000, undefined, note, params);       
         let txId = txn.txID().toString();
         // Sign with first signature
-        // At the time of writing this, there is a V2 js sdk bug - signMultisigTransaction - 
-        // Error: The transaction sender address and multisig preimage do not match
-        // Workaround use V1
-        // https://github.com/algorand/js-algorand-sdk/issues/188
+
         let rawSignedTxn = algosdk.signMultisigTransaction(txn, mparams, account1.sk).blob;
         //sign with second account
         let twosigs = algosdk.appendSignMultisigTransaction(rawSignedTxn, mparams, account2.sk).blob;
@@ -109,7 +106,7 @@ const keypress = async() => {
         await waitForConfirmation(algodclient, txId);
 
         // Read the transaction from the blockchain
-        let confirmedTxn = await algodClient.pendingTransactionInformation(txId).do();
+        let confirmedTxn = await algodclient.pendingTransactionInformation(txId).do();
         console.log("Transaction information: %o", confirmedTxn.txn.txn);      
         console.log("Decoded note: %s", algosdk.decodeObj(confirmedTxn.txn.txn.note));
 

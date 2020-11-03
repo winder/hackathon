@@ -23,11 +23,11 @@ let indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_p
 (async () => {
     let address = "RBSTLLHK2NJDL3ZH66MKSEX3BE2OWQ43EUM7S7YRVBJ2PRDRCKBSDD3YD4";
     let start_time = "2020-08-31T02:35:47-05:00"; 
-    // let response = await indexerClient.searchForTransactions()
-    //     .address(address)
-    //     .afterTime(start_time).do();
     let response = await indexerClient.searchForTransactions()
-        .address(address).do();
+        .address(address)
+        .afterTime(start_time).do();
+    // let response = await indexerClient.searchForTransactions()
+    //     .address(address).do();
     console.log("start_time: 08/31/2020 02:35:47 = " + JSON.stringify(response, undefined, 2));
     }   
 )().catch(e => {

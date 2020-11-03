@@ -13,21 +13,32 @@ public class LookupApplication {
     public Client indexerInstance = null;
     // utility function to connect to a node
     private Client connectToNetwork(){
-        // final String INDEXER_API_ADDR = "localhost";
+        // final String INDEXER_API_ADDR = "http://localhost";
         // final int INDEXER_API_PORT = 59998;
-        final String INDEXER_API_ADDR = "https://indexer-internal-betanet.aws.algodev.network/";
-        final String INDEXER_TOKEN = "YddOUGbAjHLr1uPZtZwHOvMDmXvR1Zvw1f3Roj2PT1ufenXbNyIxIz0IeznrLbDsF";
-        final int INDEXER_API_PORT = 443;   
+        // final String INDEXER_API_ADDR = "https://indexer-internal-betanet.aws.algodev.network/";
+        // final String INDEXER_TOKEN = "YddOUGbAjHLr1uPZtZwHOvMDmXvR1Zvw1f3Roj2PT1ufenXbNyIxIz0IeznrLbDsF";
+        // final int INDEXER_API_PORT = 443;
+        // final String INDEXER_API_ADDR = "localhost";
+        // final String INDEXER_TOKEN = "";
+        // final int INDEXER_API_PORT = 8980;
+        final String INDEXER_API_ADDR = "https://testnet-algorand.api.purestake.io/idx2";
+        final int INDEXER_API_PORT = 443;
+        final String INDEXER_TOKEN = "";
+
+     //   IndexerClient indexerClient = new IndexerClient(INDEXER_API_ADDR, INDEXER_API_PORT);
         IndexerClient indexerClient = new IndexerClient(INDEXER_API_ADDR, INDEXER_API_PORT, INDEXER_TOKEN); 
         return indexerClient;
     }
+
     public static void main(String args[]) throws Exception {
+        String[] headers = { "X-API-Key" };
+        String[] values = { "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab" };
         LookupApplication ex = new LookupApplication();
         IndexerClient indexerClientInstance = (IndexerClient)ex.connectToNetwork();
-        Long application_id = Long.valueOf(2672020);
-        Response<ApplicationResponse> response = indexerClientInstance.lookupApplicationByID(application_id).execute();
-
-      
+        // Long application_id = Long.valueOf(2672020);
+         Long application_id = Long.valueOf(12397001);   
+        // Response<ApplicationResponse> response = indexerClientInstance.lookupApplicationByID(application_id).execute(); 
+        Response<ApplicationResponse> response = indexerClientInstance.lookupApplicationByID(application_id).execute(headers, values);    
         JSONObject jsonObj = new JSONObject(response.body().toString());
         System.out.println("Response Info: " + jsonObj.toString(2)); // pretty print json
     }

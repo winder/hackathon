@@ -61,14 +61,14 @@ def dryrun_drr(signed_txn, mysource, creator, user):
 
 # declare application state storage (immutable)
 local_ints = 1
-local_bytes = 1
+local_bytes = 0
 global_ints = 1
 global_bytes = 0
 global_schema = StateSchema(global_ints, global_bytes)
 local_schema = StateSchema(local_ints, local_bytes)
 # define private keys
-creator_mnemonic = "remain glue home skirt convince oppose lady avoid depart will duty galaxy maze slight field bind chef glass tired scorpion theory sunny genius about almost"
-user_mnemonic = "foil olive three seven best modify frost tell ostrich human tag beyond term river meat embrace lens debris edit dignity virtual agent damp absent pumpkin"
+creator_mnemonic = "february total renew soccer skull hand scheme city fiscal father float focus orient ivory vault retreat easy leisure raw skirt vanish else sing absorb rally"
+user_mnemonic = "blue gesture slice obey need sun spoon execute fit enrich tray pudding sister depend race sentence disorder spirit sunset harsh payment plug client abandon half"
 
 def get_private_key_from_mnemonic(mn):
     private_key = mnemonic.to_private_key(mn)
@@ -109,8 +109,8 @@ def clear_state_program():
 #     compile_response = client.compile(source_code.decode('utf-8'))
 #     return base64.b64decode(compile_response['result'])
 
-def compile_program(acl, approval_program_source):
-    response = acl.compile(approval_program_source)
+def compile_program(acl, program_source):
+    response = acl.compile(program_source)
     programstr = response['result']
     t = programstr.encode("ascii")
     # program = b"hex-encoded-program"
@@ -244,14 +244,17 @@ def call_app(client, private_key_user, index, app_args, approval_program_source,
         print("Local State updated :\n")
         print(json.dumps(transaction_response['local-state-delta'], indent=2))
 
+
 def read_local_state(client, addr, app_id):
     results = client.account_info(addr)
-    local_state = results['apps-local-state'][0]
-    for index in local_state:
-        if local_state[index] == app_id:
-            print(f"local_state of account {addr} for app_id {app_id}: ")
-# read app global state
+    for local_state in results['apps-local-state']:
+        for index in local_state:
+            if local_state[index] == app_id:
+                print(f"local_state of account {addr} for app_id {app_id}: ")
+                print(json.dumps(local_state['key-value'], indent=2))              
+                break
 
+# read app global state
 def read_global_state(client, addr, app_id):
     results = client.account_info(addr)
     apps_created = results['created-apps']
@@ -259,13 +262,14 @@ def read_global_state(client, addr, app_id):
         if app['id'] == app_id:
             print(f"global_state for app_id {app_id}: ")
             print(json.dumps(app['params']['global-state'], indent=2))
+            break
 
 def update_app(client, private_key, app_id, approval_program, clear_program):
     # declare sender
     sender = account.address_from_private_key(private_key)
 
     # define initial value for key "timestamp"
-    app_args = [b'initial value']
+    # app_args = [b'initial value']
 
     # get node suggested parameters
     params = client.suggested_params()
@@ -297,7 +301,7 @@ def delete_app(client, private_key, index):
     # declare sender
     sender = account.address_from_private_key(private_key)
 
-# get node suggested parameters
+    # get node suggested parameters
     params = client.suggested_params()
     # comment out the next two (2) lines to use suggested fees
     params.flat_fee = True
@@ -422,17 +426,12 @@ def main():
 
         # opt-in to application       
         opt_in_app(acl, user_private_key, app_id)
-    
+        opt_in_app(acl, creator_private_key, app_id)
         # call app from user account updates global storage
 
         call_app(acl, user_private_key, app_id, None,
          approval_program_source, 'hello_world.teal')
     
-        # read local state of application from user account
-
-        read_local_state(acl, account.address_from_private_key(
-            user_private_key), app_id)
-
         # read global state of application
         read_global_state(acl, account.address_from_private_key(
             creator_private_key), app_id)
@@ -450,7 +449,7 @@ def main():
         read_local_state(acl, account.address_from_private_key(
             user_private_key), app_id)
 
-        # close-out from application
+        # close-out from application - removes application from balance record
         close_out_app(acl, user_private_key, app_id)
 
         # opt-in again to application
@@ -459,9 +458,6 @@ def main():
         # call application with arguments
         call_app(acl, user_private_key, app_id,
                  None, approval_program_refactored_source, 'hello_world_updated.teal')
-        # read local state of application from user account
-        read_local_state(acl, account.address_from_private_key(
-            user_private_key), app_id)
 
         # delete application
         # clears global storage only
