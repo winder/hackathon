@@ -1,6 +1,6 @@
 const algosdk = require('algosdk');
-// In order to do this ASA tutorial, we will need to generate 3 accounts
-// once created copy off the values which we will past into the TutorialASA code
+// In order to do an ASA tutorial, we will need to generate 3 accounts
+// once created, copy off the values which we will paste into the tutorial code
 // once created sucessfully, you will need to add funds to all three
 // The Algorand TestNet Dispenser is located here: 
 // https://bank.testnet.algorand.network/
