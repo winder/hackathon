@@ -13,22 +13,27 @@ def wait_for_confirmation(client, transaction_id, timeout):
         transaction_id (str): the transaction to wait for
         timeout (int): maximum number of rounds to wait    
     Returns:
-        dict: pending transaction information, or None if the transaction
+        dict: pending transaction information, or throws an error if the transaction
             is not confirmed or rejected in the next timeout rounds
     """
     start_round = client.status()["next-version-round"]
     current_round = start_round
-    while current_round < start_round + timeout:
-        client.status_after_block(current_round)
+
+    while current_round <= start_round + timeout:
+        client.status_after_block(current_round)      
         try:
             pending_txn = client.pending_transaction_info(transaction_id)
+            # raise Exception('pool error: {}'.format(pending_txn["pool-error"]))
         except Exception:
             return 
         if pending_txn.get("confirmed-round", 0) > 0:
             return pending_txn
         elif pending_txn["pool-error"]:  
-            return pending_txn
+            raise Exception(
+                'pool error: {}'.format(pending_txn["pool-error"]))
         current_round += 1
+    raise Exception(
+        'pending tx not found in timeout rounds, timeout value = : {}'.format(timeout))
 
 def send_note():
     # Use sandbox or your address and token
@@ -49,7 +54,7 @@ def send_note():
     # comment out the next two (2) lines to use suggested fees
     params.flat_fee = True
     params.fee = 1000
-    note = '{"firstName":"John", "LastName":"Doe"}'.encode()
+    note = '{"firstName":"John", "lastName":"Doe"}'.encode()
     receiver = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
 
     unsigned_txn = PaymentTxn(my_address, params, receiver, 1000000, None, note)
@@ -67,17 +72,14 @@ def send_note():
         print(err)
         return
     
-    # read transaction       
-    if confirmed_txn != None:
-        if confirmed_txn.get("confirmed-round", 0) > 0:
-            print("txID: {}".format(txid), " confirmed in round: {}".format(
-                confirmed_txn.get("confirmed-round", 0)))       
-        print("Transaction information: {}".format(
-            json.dumps(confirmed_txn, indent=2)))
-        print("Decoded note: {}".format(base64.b64decode(
-            confirmed_txn["txn"]["txn"]["note"]).decode()))        
-        person_dict = json.loads(base64.b64decode(
-            confirmed_txn["txn"]["txn"]["note"]).decode())
-        print("First Name = {}".format(person_dict['firstName']))
+    print("txID: {}".format(txid), " confirmed in round: {}".format(
+        confirmed_txn.get("confirmed-round", 0)))       
+    print("Transaction information: {}".format(
+        json.dumps(confirmed_txn, indent=2)))
+    print("Decoded note: {}".format(base64.b64decode(
+        confirmed_txn["txn"]["txn"]["note"]).decode()))        
+    person_dict = json.loads(base64.b64decode(
+        confirmed_txn["txn"]["txn"]["note"]).decode())
+    print("First Name = {}".format(person_dict['firstName']))
 
 send_note()
