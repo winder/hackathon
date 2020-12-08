@@ -23,7 +23,6 @@ def wait_for_confirmation(client, transaction_id, timeout):
         client.status_after_block(current_round)      
         try:
             pending_txn = client.pending_transaction_info(transaction_id)
-            # raise Exception('pool error: {}'.format(pending_txn["pool-error"]))
         except Exception:
             return 
         if pending_txn.get("confirmed-round", 0) > 0:
