@@ -34,10 +34,6 @@ const waitForConfirmation = async function (algodclient, txId, timeout) {
                 }
             }
         } 
-        else
-        {
-            throw "Transaction Rejected";    
-            }
         currentround++;
     }
     throw  "Pending tx not found in timeout rounds, timeout value = " + timeout;
