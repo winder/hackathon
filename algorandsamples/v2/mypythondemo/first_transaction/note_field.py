@@ -16,10 +16,10 @@ def wait_for_confirmation(client, transaction_id, timeout):
         dict: pending transaction information, or throws an error if the transaction
             is not confirmed or rejected in the next timeout rounds
     """
-    start_round = client.status()["next-version-round"]
+    start_round = client.status()["last-round"] + 1;
     current_round = start_round
 
-    while current_round <= start_round + timeout:
+    while current_round < start_round + timeout:
         client.status_after_block(current_round)      
         try:
             pending_txn = client.pending_transaction_info(transaction_id)

@@ -14,12 +14,11 @@ const waitForConfirmation = async function (algodclient, txId, timeout) {
         throw "Bad arguments.";
     }
     let status = (await algodclient.status().do());
-    if (status == undefined) throw "Unable to get node status";
-    let startround = status["next-version-round"];   
+    if (status == undefined) throw new Error("Unable to get node status");
+    let startround = status["last-round"] + 1;   
     let currentround = startround;
 
-   // let lastround = response["last-round"];
-    while (currentround <= (startround + timeout)) {
+    while (currentround < (startround + timeout)) {
         await algodClient.statusAfterBlock(currentround).do();
         let pendingInfo = await algodclient.pendingTransactionInformation(txId).do();      
         if (pendingInfo != undefined) {
@@ -30,13 +29,13 @@ const waitForConfirmation = async function (algodclient, txId, timeout) {
             else {
                 if (pendingInfo["pool-error"] != null && pendingInfo["pool-error"].length > 0) {
                     // If there was a pool error, then the transaction has been rejected!
-                    throw "Transaction Rejected" + " pool error" + pendingInfo["pool-error"];
+                    throw new Error("Transaction Rejected" + " pool error" + pendingInfo["pool-error"]);
                 }
             }
         } 
         currentround++;
     }
-    throw  "Pending tx not found in timeout rounds, timeout value = " + timeout;
+    throw new Error("Pending tx not found in timeout rounds, timeout value = " + timeout);
 };
 
 // const token = "<your-api-token>";
