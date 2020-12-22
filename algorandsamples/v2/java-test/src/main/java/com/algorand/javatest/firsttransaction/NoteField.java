@@ -6,7 +6,7 @@ import com.algorand.algosdk.transaction.SignedTransaction;
 import com.algorand.algosdk.transaction.Transaction;
 import com.algorand.algosdk.util.Encoder;
 import com.algorand.algosdk.v2.client.common.AlgodClient;
-import com.algorand.algosdk.v2.client.common.Response;
+import com.algorand.algosdk.v2.client.model.NodeStatusResponse;
 import com.algorand.algosdk.v2.client.model.PendingTransactionResponse;
 import com.algorand.algosdk.v2.client.model.TransactionParametersResponse;
 import org.json.JSONObject;
@@ -39,31 +39,47 @@ public class NoteField {
         final String ALGOD_API_ADDR = "localhost";
         final Integer ALGOD_PORT = 4001;
         final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        AlgodClient client = (AlgodClient) new AlgodClient(ALGOD_API_ADDR, ALGOD_PORT, ALGOD_API_TOKEN);
+        AlgodClient client = new AlgodClient(ALGOD_API_ADDR, ALGOD_PORT, ALGOD_API_TOKEN);
 
         return client;
     }
 
     // utility function to wait on a transaction to be confirmed
-    public void waitForConfirmation(String txID, Integer timeout) throws Exception {
-        if (client == null)
-            this.client = connectToNetwork();
-        Long startRound = client.GetStatus().execute().body().lastRound + 1;
+    public PendingTransactionResponse waitForConfirmation(AlgodClient myclient, String txID, Integer timeout)
+            throws Exception {
+        PendingTransactionResponse pendingInfo = null;
+        if (myclient == null || txID == null || timeout < 0) {
+            throw new IllegalArgumentException("Bad arguments for waitForConfirmation.");
+        }
+        NodeStatusResponse nodeStatusResponse = myclient.GetStatus().execute().body();
+        if (nodeStatusResponse == null) {
+            throw new Exception("Unable to get node status");
+        }
+        Long startRound = nodeStatusResponse.lastRound + 1;
         Long currentRound = startRound;
         while (currentRound < (startRound + timeout)) {
             try {
-                client.WaitForBlock(currentRound).execute();                
+                myclient.WaitForBlock(currentRound).execute();
                 // Check the pending tranactions
-                Response<PendingTransactionResponse> pendingInfo = client.PendingTransactionInformation(txID).execute();
-                if (pendingInfo.body().confirmedRound != null && pendingInfo.body().confirmedRound > 0) {
-                    // Got the completed Transaction
-                             break;
+                pendingInfo = myclient.PendingTransactionInformation(txID).execute().body();
+
+                if (pendingInfo != null) {
+
+                    if (pendingInfo.confirmedRound != null && pendingInfo.confirmedRound > 0) {
+                        // Got the completed Transaction
+                        break;
+                    }
+                    if (pendingInfo.poolError != null && pendingInfo.poolError.length() > 0) {
+                        // If there was a pool error, then the transaction has been rejected!
+                        throw new Exception("There was a pool error, then the transaction has been rejected!");
+                    }
                 }
                 currentRound++;
             } catch (Exception e) {
                 throw (e);
             }
         }
+        return pendingInfo;
     }
 
     public void gettingStartedNoteFieldExample() throws Exception {
@@ -101,13 +117,11 @@ public class NoteField {
             String id = client.RawTransaction().rawtxn(encodedTxBytes).execute().body().txId;
 
             // Wait for transaction confirmation
-            waitForConfirmation(id, 4);
+            PendingTransactionResponse pTrx = waitForConfirmation(client, id, 4);
             System.out.println("Successfully sent tx with ID: " + id);
             // Read the transaction
-            PendingTransactionResponse pTrx = client.PendingTransactionInformation(id).execute().body();
             System.out.println("Transaction " + id + " confirmed in round " + pTrx.confirmedRound);
- 
-     
+
             JSONObject jsonObj = new JSONObject(pTrx.toString());
             System.out.println("Transaction information (with notes): " + jsonObj.toString(2));
             System.out.println("Decoded note: " + new String(pTrx.txn.tx.note));
