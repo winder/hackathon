@@ -97,7 +97,11 @@ public class NoteField {
         try {
             // Construct the transaction
             final String RECEIVER = "L5EUPCF4ROKNZMAE37R5FY2T5DF2M3NVYLPKSGWTUKVJRUGIW4RKVPNPD4";
-            String note = "Hello World";
+            // add some notes to the transaction
+            String note = "showing prefix and more";
+ 
+
+
             TransactionParametersResponse params = client.TransactionParams().execute().body();
             Transaction txn = Transaction.PaymentTransactionBuilder().sender(myAddress).note(note.getBytes())
                     .amount(100000).receiver(new Address(RECEIVER)).suggestedParams(params).build();

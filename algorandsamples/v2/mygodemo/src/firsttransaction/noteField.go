@@ -70,7 +70,6 @@ func main() {
 	}
 
 	passphrase := "price clap dilemma swim genius fame lucky crack torch hunt maid palace ladder unlock symptom rubber scale load acoustic drop oval cabbage review abstract embark"
-
 	privateKey, err := mnemonic.ToPrivateKey(passphrase)
 	if err != nil {
 		fmt.Printf("Issue with mnemonic conversion: %s\n", err)
@@ -105,7 +104,7 @@ func main() {
 	toAddr := "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
 	var amount uint64 = 1000000
 	var minFee uint64 = 1000
-	note := []byte("Hello World")
+	note := []byte("Rusty")
 	genID := txParams.GenesisID
 	genHash := txParams.GenesisHash
 	firstValidRound := uint64(txParams.FirstRoundValid)

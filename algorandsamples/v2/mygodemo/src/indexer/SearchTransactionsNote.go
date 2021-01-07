@@ -9,16 +9,16 @@ import (
 )
 
 // indexer host
-const indexerAddress = "http://localhost:8980"
+const indexerAddress = "http://localhost:8981"
 const indexerToken = ""
 
 // query parameters
 var minAmount uint64 = 10
+
 // var data = "showing prefix"
 // var encodedNote = base64.StdEncoding.EncodeToString([]byte(data))
-var notePrefix = "showing prefix"
-
-
+var notePrefix = "Rus"
+var round uint64 = 11563027
 func main() {
 
 	// Create an indexer client
@@ -28,9 +28,9 @@ func main() {
 	}
 
 	// Query
-	result, err := indexerClient.SearchForTransactions().NotePrefix([]byte(notePrefix)).Do(context.Background())
+	result, err := indexerClient.SearchForTransactions().MinRound(round).NotePrefix([]byte(notePrefix)).Do(context.Background())
 
 	// Print the results
-	JSON, err := json.MarshalIndent(result, "", "\t")
+	JSON, err := json.MarshalIndent(string(result.Transactions[0].Note), "", "\t")
 	fmt.Printf(string(JSON) + "\n")
 }
