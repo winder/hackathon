@@ -6,41 +6,26 @@ import com.algorand.algosdk.transaction.SignedTransaction;
 import com.algorand.algosdk.transaction.Transaction;
 import com.algorand.algosdk.util.Encoder;
 import com.algorand.algosdk.v2.client.common.AlgodClient;
+import com.algorand.algosdk.v2.client.common.Response;
 import com.algorand.algosdk.v2.client.model.NodeStatusResponse;
 import com.algorand.algosdk.v2.client.model.PendingTransactionResponse;
+import com.algorand.algosdk.v2.client.model.PostTransactionsResponse;
 import com.algorand.algosdk.v2.client.model.TransactionParametersResponse;
 import org.json.JSONObject;
 
 public class NoteField {
     public AlgodClient client = null;
-    String[] headers = { "X-API-Key" };
-    String[] values = { "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab" };
+    // String[] headers = { "X-API-Key" };
+    // String[] values = { "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab" };
 
     // utility function to connect to a node
     private AlgodClient connectToNetwork() {
-        // hackathon - demos instance
-        // final String ALGOD_API_ADDR = "http://hackathon.algodev.network";
-        // final Integer ALGOD_PORT = 9100;
-        // final String ALGOD_API_TOKEN =
-        // "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
-
-        // final String ALGOD_API_ADDR =
-        // "https://testnet-algorand.api.purestake.io/ps2";
-        // final String ALGOD_API_ADDR =
-        // "https://testnet-algorand.api.purestake.io/ps2";
-        // final int ALGOD_PORT = 443;
-        // final String ALGOD_API_TOKEN = "";
-        // AlgodClient client = new AlgodClient();
-        // client.setBasePath(ALGOD_API_ADDR);
-        // client.addDefaultHeader("X-API-Key", "YOUR API KEY");
-        // AlgodApi algodApiInstance = new AlgodApi(client);
 
         // Initialize an algod client
         final String ALGOD_API_ADDR = "localhost";
         final Integer ALGOD_PORT = 4001;
         final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         AlgodClient client = new AlgodClient(ALGOD_API_ADDR, ALGOD_PORT, ALGOD_API_TOKEN);
-
         return client;
     }
 
@@ -51,17 +36,28 @@ public class NoteField {
         if (myclient == null || txID == null || timeout < 0) {
             throw new IllegalArgumentException("Bad arguments for waitForConfirmation.");
         }
-        NodeStatusResponse nodeStatusResponse = myclient.GetStatus().execute().body();
-        if (nodeStatusResponse == null) {
-            throw new Exception("Unable to get node status");
+        Response<NodeStatusResponse> resp = myclient.GetStatus().execute();
+        if (!resp.isSuccessful()) {
+            throw new Exception(resp.message());
         }
+        NodeStatusResponse nodeStatusResponse = resp.body();
+
         Long startRound = nodeStatusResponse.lastRound + 1;
         Long currentRound = startRound;
         while (currentRound < (startRound + timeout)) {
             try {
-                myclient.WaitForBlock(currentRound).execute();
-                // Check the pending tranactions
-                pendingInfo = myclient.PendingTransactionInformation(txID).execute().body();
+                //    myclient.WaitForBlock(currentRound).execute();
+                Response<NodeStatusResponse> resp2 = myclient.WaitForBlock(currentRound).execute();
+                if (!resp2.isSuccessful()) {
+                    throw new Exception(resp2.message());
+                }
+                // Check the pending tranactions            
+                // pendingInfo = myclient.PendingTransactionInformation(txID).execute().body();   
+                Response<PendingTransactionResponse> resp3 = myclient.PendingTransactionInformation(txID).execute();
+                if (!resp.isSuccessful()) {
+                    throw new Exception(resp3.message());
+                }
+                pendingInfo = resp3.body();
 
                 if (pendingInfo != null) {
 
@@ -94,52 +90,49 @@ public class NoteField {
 
         String myAddress = printBalance(myAccount);
 
-        try {
-            // Construct the transaction
-            final String RECEIVER = "L5EUPCF4ROKNZMAE37R5FY2T5DF2M3NVYLPKSGWTUKVJRUGIW4RKVPNPD4";
-            // add some notes to the transaction
-            String note = "showing prefix and more";
- 
+        // Construct the transaction
+        final String RECEIVER = "L5EUPCF4ROKNZMAE37R5FY2T5DF2M3NVYLPKSGWTUKVJRUGIW4RKVPNPD4";
+        // add some notes to the transaction
+        String note = "showing prefix and more";
 
+        TransactionParametersResponse params = client.TransactionParams().execute().body();
 
-            TransactionParametersResponse params = client.TransactionParams().execute().body();
-            Transaction txn = Transaction.PaymentTransactionBuilder().sender(myAddress).note(note.getBytes())
-                    .amount(100000).receiver(new Address(RECEIVER)).suggestedParams(params).build();
+        Transaction txn = Transaction.PaymentTransactionBuilder().sender(myAddress).note(note.getBytes()).amount(100000)
+                .receiver(new Address(RECEIVER)).suggestedParams(params).build();
 
-            // Sign the transaction
-            SignedTransaction signedTxn = myAccount.signTransaction(txn);
-            System.out.println("Signed transaction with txid: " + signedTxn.transactionID);
+        // Sign the transaction
+        SignedTransaction signedTxn = myAccount.signTransaction(txn);
+        System.out.println("Signed transaction with txid: " + signedTxn.transactionID);
 
-            // Submit the transaction to the network
-            // purestake
-            byte[] encodedTxBytes = Encoder.encodeToMsgPack(signedTxn);
-            // String[] txHeaders = ArrayUtils.add(headers, "Content-Type");
-            // String[] txValues = ArrayUtils.add(values, "application/x-binary");
-            // String id = client.RawTransaction().rawtxn(encodedTxBytes).execute(txHeaders,
-            // txValues).body().txId;
-
-            String id = client.RawTransaction().rawtxn(encodedTxBytes).execute().body().txId;
-
-            // Wait for transaction confirmation
-            PendingTransactionResponse pTrx = waitForConfirmation(client, id, 4);
-            System.out.println("Successfully sent tx with ID: " + id);
-            // Read the transaction
-            System.out.println("Transaction " + id + " confirmed in round " + pTrx.confirmedRound);
-
-            JSONObject jsonObj = new JSONObject(pTrx.toString());
-            System.out.println("Transaction information (with notes): " + jsonObj.toString(2));
-            System.out.println("Decoded note: " + new String(pTrx.txn.tx.note));
-            myAddress = printBalance(myAccount);
-        } catch (Exception e) {
-            System.err.println("Exception when calling algod#transactionInformation: " + e.getMessage());
+        // Submit the transaction to the network
+        byte[] encodedTxBytes = Encoder.encodeToMsgPack(signedTxn);
+        Response<PostTransactionsResponse> resp = client.RawTransaction().rawtxn(encodedTxBytes).execute();
+        if (!resp.isSuccessful()) {
+            throw new Exception(resp.message());
         }
+        String id = resp.body().txId;
+
+        // Wait for transaction confirmation
+        PendingTransactionResponse pTrx = waitForConfirmation(client, id, 4);
+        System.out.println("Transaction " + id + " confirmed in round " + pTrx.confirmedRound);
+
+        JSONObject jsonObj = new JSONObject(pTrx.toString());
+        System.out.println("Transaction information (with notes): " + jsonObj.toString(2));
+        System.out.println("Decoded note: " + new String(pTrx.txn.tx.note));
+        myAddress = printBalance(myAccount);
+
     }
 
     private String printBalance(com.algorand.algosdk.account.Account myAccount) throws Exception {
         String myAddress = myAccount.getAddress().toString();
 
-        com.algorand.algosdk.v2.client.model.Account accountInfo = client.AccountInformation(myAccount.getAddress())
-                .execute().body();
+        Response<com.algorand.algosdk.v2.client.model.Account> resp = client.AccountInformation(myAccount.getAddress())
+                .execute();
+        if (!resp.isSuccessful()) {
+            throw new Exception(resp.message());
+        }
+        com.algorand.algosdk.v2.client.model.Account accountInfo = resp.body();
+
 
         System.out.println(String.format("Account Balance: %d microAlgos", accountInfo.amount));
         return myAddress;

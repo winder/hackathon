@@ -3,9 +3,7 @@
 package com.algorand.javatest.indexer;
 
 import com.algorand.algosdk.v2.client.common.IndexerClient;
-
 import java.util.Base64;
-
 import com.algorand.algosdk.v2.client.common.Client;
 
 import org.json.JSONArray;
@@ -13,7 +11,6 @@ import org.json.JSONObject;
 
 public class SearchTransactionsNote {
     public Client indexerInstance = null;
-
     // utility function to connect to a node
     private Client connectToNetwork() {
         final String INDEXER_API_ADDR = "localhost";

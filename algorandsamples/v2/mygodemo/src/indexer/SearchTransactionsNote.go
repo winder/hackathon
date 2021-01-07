@@ -17,7 +17,7 @@ var minAmount uint64 = 10
 
 // var data = "showing prefix"
 // var encodedNote = base64.StdEncoding.EncodeToString([]byte(data))
-var notePrefix = "Rus"
+var notePrefix = "Russ"
 var round uint64 = 11563027
 func main() {
 
