@@ -3,14 +3,17 @@
 package com.algorand.javatest.indexer;
 
 import com.algorand.algosdk.v2.client.common.IndexerClient;
+import com.algorand.algosdk.v2.client.common.Response;
+import com.algorand.algosdk.v2.client.model.TransactionsResponse;
+
 import java.util.Base64;
 import com.algorand.algosdk.v2.client.common.Client;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class SearchTransactionsNote {
     public Client indexerInstance = null;
+
     // utility function to connect to a node
     private Client connectToNetwork() {
         final String INDEXER_API_ADDR = "localhost";
@@ -18,12 +21,20 @@ public class SearchTransactionsNote {
         IndexerClient indexerClient = new IndexerClient(INDEXER_API_ADDR, INDEXER_API_PORT);
         return indexerClient;
     }
+
     public static void main(String args[]) throws Exception {
         SearchTransactionsNote ex = new SearchTransactionsNote();
         IndexerClient indexerClientInstance = (IndexerClient) ex.connectToNetwork();
-        byte[] notePrefix = "showing prefix".getBytes();       
+        byte[] notePrefix = "showing prefix".getBytes();
         Long round = Long.valueOf(11551185);
-        String response = indexerClientInstance.searchForTransactions().notePrefix(notePrefix).minRound(round).execute().toString();
+
+        Response<TransactionsResponse> resp = indexerClientInstance.searchForTransactions().notePrefix(notePrefix)
+                .minRound(round).execute();
+        if (!resp.isSuccessful()) {
+            throw new Exception(resp.message());
+        }
+        String response = resp.toString();
+
         JSONObject jsonObj = new JSONObject(response.toString());
         System.out.println("Transaction Info: " + jsonObj.toString(2)); // pretty print json
         JSONArray jsonArray = (JSONArray) jsonObj.get("transactions");

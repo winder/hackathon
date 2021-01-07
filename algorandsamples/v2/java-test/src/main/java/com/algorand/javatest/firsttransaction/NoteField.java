@@ -45,7 +45,7 @@ public class NoteField {
         Long startRound = nodeStatusResponse.lastRound + 1;
         Long currentRound = startRound;
         while (currentRound < (startRound + timeout)) {
-            try {
+
                 //    myclient.WaitForBlock(currentRound).execute();
                 Response<NodeStatusResponse> resp2 = myclient.WaitForBlock(currentRound).execute();
                 if (!resp2.isSuccessful()) {
@@ -71,9 +71,7 @@ public class NoteField {
                     }
                 }
                 currentRound++;
-            } catch (Exception e) {
-                throw (e);
-            }
+ 
         }
         return pendingInfo;
     }
