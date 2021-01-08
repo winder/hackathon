@@ -41,7 +41,7 @@ public class NoteField {
             throw new Exception(resp.message());
         }
         NodeStatusResponse nodeStatusResponse = resp.body();
-        Long startRound = nodeStatusResponse.lastRound + 1;
+        Long startRound = nodeStatusResponse.lastRound;
         Long currentRound = startRound;
         while (currentRound < (startRound + timeout)) { 
                 // Check the pending transactions                 
@@ -85,10 +85,14 @@ public class NoteField {
         // add some notes to the transaction
         String note = "showing prefix and more";
 
-        TransactionParametersResponse params = client.TransactionParams().execute().body();
 
-        Transaction txn = Transaction.PaymentTransactionBuilder().sender(myAddress).note(note.getBytes()).amount(100000)
-                .receiver(new Address(RECEIVER)).suggestedParams(params).build();
+        Transaction txn = Transaction.PaymentTransactionBuilder()
+                .sender(myAddress)
+                .note(note.getBytes())
+                .amount(100000)
+                .receiver(RECEIVER)
+                .lookupParams(client)
+                .build();
 
         // Sign the transaction
         SignedTransaction signedTxn = myAccount.signTransaction(txn);
