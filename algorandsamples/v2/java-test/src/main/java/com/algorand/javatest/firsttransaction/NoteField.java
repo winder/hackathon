@@ -41,39 +41,31 @@ public class NoteField {
             throw new Exception(resp.message());
         }
         NodeStatusResponse nodeStatusResponse = resp.body();
-
         Long startRound = nodeStatusResponse.lastRound + 1;
         Long currentRound = startRound;
-        while (currentRound < (startRound + timeout)) {
-
-                //    myclient.WaitForBlock(currentRound).execute();
-                Response<NodeStatusResponse> resp2 = myclient.WaitForBlock(currentRound).execute();
-                if (!resp2.isSuccessful()) {
-                    throw new Exception(resp2.message());
+        while (currentRound < (startRound + timeout)) { 
+                // Check the pending transactions                 
+                Response<PendingTransactionResponse> resp2 = myclient.PendingTransactionInformation(txID).execute();
+                if (resp2.isSuccessful()) {
+                    pendingInfo = resp2.body();               
+                    if (pendingInfo != null) {
+                        if (pendingInfo.confirmedRound != null && pendingInfo.confirmedRound > 0) {
+                            // Got the completed Transaction
+                            return pendingInfo;                     
+                        }
+                        if (pendingInfo.poolError != null && pendingInfo.poolError.length() > 0) {
+                            // If there was a pool error, then the transaction has been rejected!
+                            throw new Exception("There was a pool error, then the transaction has been rejected!");
+                        }
+                    }
                 }
-                // Check the pending tranactions            
-                // pendingInfo = myclient.PendingTransactionInformation(txID).execute().body();   
-                Response<PendingTransactionResponse> resp3 = myclient.PendingTransactionInformation(txID).execute();
-                if (!resp.isSuccessful()) {
+                currentRound++;            
+                Response<NodeStatusResponse> resp3 = myclient.WaitForBlock(currentRound).execute();
+                if (!resp3.isSuccessful()) {
                     throw new Exception(resp3.message());
-                }
-                pendingInfo = resp3.body();
-
-                if (pendingInfo != null) {
-
-                    if (pendingInfo.confirmedRound != null && pendingInfo.confirmedRound > 0) {
-                        // Got the completed Transaction
-                        break;
-                    }
-                    if (pendingInfo.poolError != null && pendingInfo.poolError.length() > 0) {
-                        // If there was a pool error, then the transaction has been rejected!
-                        throw new Exception("There was a pool error, then the transaction has been rejected!");
-                    }
-                }
-                currentRound++;
- 
+                }       
         }
-        return pendingInfo;
+        throw new Exception("Could not find transaction!");
     }
 
     public void gettingStartedNoteFieldExample() throws Exception {
@@ -112,13 +104,13 @@ public class NoteField {
 
         // Wait for transaction confirmation
         PendingTransactionResponse pTrx = waitForConfirmation(client, id, 4);
-        System.out.println("Transaction " + id + " confirmed in round " + pTrx.confirmedRound);
 
+        System.out.println("Transaction " + id + " confirmed in round " + pTrx.confirmedRound);
+        // Read the transaction
         JSONObject jsonObj = new JSONObject(pTrx.toString());
         System.out.println("Transaction information (with notes): " + jsonObj.toString(2));
         System.out.println("Decoded note: " + new String(pTrx.txn.tx.note));
         myAddress = printBalance(myAccount);
-
     }
 
     private String printBalance(com.algorand.algosdk.account.Account myAccount) throws Exception {
@@ -130,8 +122,6 @@ public class NoteField {
             throw new Exception(resp.message());
         }
         com.algorand.algosdk.v2.client.model.Account accountInfo = resp.body();
-
-
         System.out.println(String.format("Account Balance: %d microAlgos", accountInfo.amount));
         return myAddress;
     }
