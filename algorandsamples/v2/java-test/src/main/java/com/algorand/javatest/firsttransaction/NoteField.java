@@ -15,13 +15,11 @@ import org.json.JSONObject;
 
 public class NoteField {
     public AlgodClient client = null;
-    // String[] headers = { "X-API-Key" };
-    // String[] values = { "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab" };
 
-    // utility function to connect to a node
+    /**
+     * Initialize an algod client
+     */
     private AlgodClient connectToNetwork() {
-
-        // Initialize an algod client
         final String ALGOD_API_ADDR = "localhost";
         final Integer ALGOD_PORT = 4001;
         final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -29,10 +27,11 @@ public class NoteField {
         return client;
     }
 
-    // utility function to wait on a transaction to be confirmed
+    /**
+     * utility function to wait on a transaction to be confirmed
+     */
     public PendingTransactionResponse waitForConfirmation(AlgodClient myclient, String txID, Integer timeout)
             throws Exception {
-        PendingTransactionResponse pendingInfo = null;
         if (myclient == null || txID == null || timeout < 0) {
             throw new IllegalArgumentException("Bad arguments for waitForConfirmation.");
         }
@@ -47,7 +46,7 @@ public class NoteField {
                 // Check the pending transactions                 
                 Response<PendingTransactionResponse> resp2 = myclient.PendingTransactionInformation(txID).execute();
                 if (resp2.isSuccessful()) {
-                    pendingInfo = resp2.body();               
+                    PendingTransactionResponse pendingInfo = resp2.body();               
                     if (pendingInfo != null) {
                         if (pendingInfo.confirmedRound != null && pendingInfo.confirmedRound > 0) {
                             // Got the completed Transaction
@@ -55,7 +54,7 @@ public class NoteField {
                         }
                         if (pendingInfo.poolError != null && pendingInfo.poolError.length() > 0) {
                             // If there was a pool error, then the transaction has been rejected!
-                            throw new Exception("There was a pool error, then the transaction has been rejected!");
+                            throw new Exception("The transaction has been rejected with a pool error: " + pendingInfo.poolError);
                         }
                     }
                 }
@@ -65,33 +64,35 @@ public class NoteField {
                     throw new Exception(resp3.message());
                 }       
         }
-        throw new Exception("Could not find transaction!");
+        throw new Exception("Transaction not confirmed after " + timeout + " rounds!");
     }
 
+    /**
+     * note field example.
+     */
     public void gettingStartedNoteFieldExample() throws Exception {
 
-        if (client == null)
+        if (client == null) {
             this.client = connectToNetwork();
+        }
 
         // Import your private key mnemonic and address
         final String PASSPHRASE = "patrol target joy dial ethics flip usual fatigue bulb security prosper brand coast arch casino burger inch cricket scissors shoe evolve eternal calm absorb school";
         com.algorand.algosdk.account.Account myAccount = new Account(PASSPHRASE);
         System.out.println("My Address: " + myAccount.getAddress());
-
-        String myAddress = printBalance(myAccount);
+        printBalance(myAccount);
 
         // Construct the transaction
         final String RECEIVER = "L5EUPCF4ROKNZMAE37R5FY2T5DF2M3NVYLPKSGWTUKVJRUGIW4RKVPNPD4";
         // add some notes to the transaction
         String note = "showing prefix and more";
 
-
         Transaction txn = Transaction.PaymentTransactionBuilder()
-                .sender(myAddress)
-                .note(note.getBytes())
+                .sender(myAccount.getAddress())
+                .noteUTF8(note)
                 .amount(100000)
                 .receiver(RECEIVER)
-                .lookupParams(client)
+                .lookupParams(client) // query algod for firstValid, fee, etc
                 .build();
 
         // Sign the transaction
@@ -100,7 +101,9 @@ public class NoteField {
 
         // Submit the transaction to the network
         byte[] encodedTxBytes = Encoder.encodeToMsgPack(signedTxn);
-        Response<PostTransactionsResponse> resp = client.RawTransaction().rawtxn(encodedTxBytes).execute();
+        Response<PostTransactionsResponse> resp = client.RawTransaction()
+            .rawtxn(encodedTxBytes)
+            .execute();
         if (!resp.isSuccessful()) {
             throw new Exception(resp.message());
         }
@@ -114,20 +117,20 @@ public class NoteField {
         JSONObject jsonObj = new JSONObject(pTrx.toString());
         System.out.println("Transaction information (with notes): " + jsonObj.toString(2));
         System.out.println("Decoded note: " + new String(pTrx.txn.tx.note));
-        myAddress = printBalance(myAccount);
+        printBalance(myAccount);
     }
 
-    private String printBalance(com.algorand.algosdk.account.Account myAccount) throws Exception {
-        String myAddress = myAccount.getAddress().toString();
-
+    /**
+     * Print  account balance.
+     */
+    private void printBalance(Account myAccount) throws Exception {
         Response<com.algorand.algosdk.v2.client.model.Account> resp = client.AccountInformation(myAccount.getAddress())
                 .execute();
         if (!resp.isSuccessful()) {
             throw new Exception(resp.message());
         }
         com.algorand.algosdk.v2.client.model.Account accountInfo = resp.body();
-        System.out.println(String.format("Account Balance: %d microAlgos", accountInfo.amount));
-        return myAddress;
+        System.out.println("Account Balance: " + accountInfo.amount + "microAlgos");
     }
 
     public static void main(String args[]) throws Exception {
